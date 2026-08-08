@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Office Web Game</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <audio id="bg-music" loop></audio>
+
+  <div class="game-container">
+    
+    <!-- MAIN MENU SCREEN -->
+    <div id="main-menu" class="screen active">
+      <img src="image/IT_MAN-removebg-preview.png" alt="IT Man Character" class="character-sprite" onerror="this.style.display='none'">
+      <div class="ui-overlay">
+        <button class="pixel-btn btn-start" onclick="startGame()">START</button>
+        <button class="pixel-btn btn-practice" onclick="startPractice()">PRACTICE MODE</button>
+      </div>
+    </div>
+
+    <!-- CHALLENGE 1 SCREEN (DIALOGUE) -->
+    <div id="challenge-1" class="screen">
+      <button class="pixel-btn btn-back" onclick="goToMenu()">BACK</button>
+      <img id="challenge-img" src="image/cha1.jpg" alt="Challenge 1" class="challenge-bg" onclick="nextDialogue()" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22960%22 height=%22540%22%3E%3Crect fill=%22%23333%22 width=%22960%22 height=%22540%22/%3E%3Ctext x=%22480%22 y=%22270%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-size=%2230%22 font-family=%22Arial%22%3EClick to continue%3C/text%3E%3C/svg%3E'">
+    </div>
+
+    <!-- CHALLENGE 2 / PRACTICE SCREEN (RJ45 MINIGAME) -->
+    <div id="challenge-2" class="screen">
+      <button class="pixel-btn btn-back" onclick="goToMenu()">BACK</button>
+
+      <div class="rj45-workspace">
+        <div class="header-bar">
+          <span class="title">RJ45 CONNECTOR MASTER</span>
+          <span id="game-status" class="status">STATUS: SELECT SCHEMATIC &amp; DRAG WIRES</span>
+        </div>
+
+        <div class="mini-game-body">
+          <!-- Left: Schematic Selection -->
+          <div class="schematic-card">
+            <h3>SCHEMATIC</h3>
+            <div class="standard-options">
+              <button class="standard-btn" onclick="setTargetStandard('T568A')">T568A</button>
+              <button class="standard-btn" onclick="setTargetStandard('T568B')">T568B</button>
+            </div>
+            <div id="pinout-list" class="pinout-display hidden">
+              <p>Select a standard above to view target sequence.</p>
+            </div>
+          </div>
+
+          <!-- Center: Wire Palette -->
+          <div class="wire-palette">
+            <h4>WIRES</h4>
+            <div class="wires-grid" id="wire-source-container"></div>
+          </div>
+
+          <!-- Right: RJ45 Plug Drop Zones -->
+          <div class="rj45-preview">
+            <h4>RJ45 PLUG</h4>
+            <div class="rj45-connector-wrapper">
+              
+              <svg class="rj45-svg" viewBox="0 0 200 320" xmlns="http://www.w3.org/2000/svg">
+                <rect x="25" y="30" width="150" height="200" rx="8" fill="rgba(255,255,255,0.25)" stroke="#ffffff" stroke-width="4"/>
+                <rect x="40" y="230" width="120" height="70" fill="rgba(240,240,240,0.2)" stroke="#ffffff" stroke-width="3"/>
+                <rect x="75" y="5" width="50" height="25" rx="3" fill="rgba(255,255,255,0.3)" stroke="#ffffff" stroke-width="2"/>
+                
+                <g fill="#f1c40f" stroke="#d4ac0d" stroke-width="1">
+                  <rect x="33" y="40" width="10" height="40" rx="2"/>
+                  <rect x="51" y="40" width="10" height="40" rx="2"/>
+                  <rect x="69" y="40" width="10" height="40" rx="2"/>
+                  <rect x="87" y="40" width="10" height="40" rx="2"/>
+                  <rect x="105" y="40" width="10" height="40" rx="2"/>
+                  <rect x="123" y="40" width="10" height="40" rx="2"/>
+                  <rect x="141" y="40" width="10" height="40" rx="2"/>
+                  <rect x="159" y="40" width="10" height="40" rx="2"/>
+                </g>
+              </svg>
+
+              <div class="connector-slots">
+                <div class="drop-zone" data-pin="1" ondragover="event.preventDefault()" ondrop="dropWire(event)"><span class="pin-num">1</span></div>
+                <div class="drop-zone" data-pin="2" ondragover="event.preventDefault()" ondrop="dropWire(event)"><span class="pin-num">2</span></div>
+                <div class="drop-zone" data-pin="3" ondragover="event.preventDefault()" ondrop="dropWire(event)"><span class="pin-num">3</span></div>
+                <div class="drop-zone" data-pin="4" ondragover="event.preventDefault()" ondrop="dropWire(event)"><span class="pin-num">4</span></div>
+                <div class="drop-zone" data-pin="5" ondragover="event.preventDefault()" ondrop="dropWire(event)"><span class="pin-num">5</span></div>
+                <div class="drop-zone" data-pin="6" ondragover="event.preventDefault()" ondrop="dropWire(event)"><span class="pin-num">6</span></div>
+                <div class="drop-zone" data-pin="7" ondragover="event.preventDefault()" ondrop="dropWire(event)"><span class="pin-num">7</span></div>
+                <div class="drop-zone" data-pin="8" ondragover="event.preventDefault()" ondrop="dropWire(event)"><span class="pin-num">8</span></div>
+              </div>
+
+            </div>
+
+            <div class="actions">
+              <button class="tool-btn" onclick="crimpConnector()">CRIMP</button>
+              <button class="tool-btn reset-btn" onclick="resetWires()">RESET</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CUSTOM MODAL -->
+    <div id="custom-modal" class="modal-overlay">
+      <div class="modal-content">
+        <div class="modal-icon" id="modal-icon">⚠️</div>
+        <h2 id="modal-title">Notification</h2>
+        <p id="modal-message">Your message here</p>
+        <button class="pixel-btn modal-btn" onclick="closeModal()">OK</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

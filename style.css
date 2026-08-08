@@ -1,0 +1,383 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #1a1a1a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: 'Press Start 2P', cursive;
+}
+
+.game-container {
+  position: relative;
+  width: 960px;
+  height: 540px;
+  background: url('image/BACKGROUND GAME.png') no-repeat center center;
+  background-size: cover;
+  border: 4px solid #000;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+.screen {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.screen.active { display: block; }
+
+/* MENU */
+.character-sprite {
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 430px;
+  width: auto;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.ui-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.pixel-btn {
+  position: absolute;
+  font-family: 'Press Start 2P', cursive;
+  background-color: #2bf1c9;
+  color: #0b1c28;
+  border: 4px solid #0b1c28;
+  border-radius: 12px;
+  box-shadow: inset 0 -4px 0 #18a98c, 0 4px 0 #000;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+  text-align: center;
+  z-index: 10;
+}
+
+.pixel-btn:hover { background-color: #55ffdb; }
+.pixel-btn:active { transform: scale(0.95); }
+
+.btn-start {
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 16px 50px;
+  font-size: 1.8rem;
+}
+
+.btn-practice {
+  bottom: 30px;
+  left: 30px;
+  padding: 14px 22px;
+  font-size: 0.85rem;
+}
+
+.btn-back {
+  top: 12px;
+  left: 12px;
+  padding: 6px 12px;
+  font-size: 0.65rem;
+  background-color: #ff5252;
+  color: #fff;
+  box-shadow: inset 0 -4px 0 #b33939, 0 4px 0 #000;
+}
+
+.challenge-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+/* MINIGAME */
+.rj45-workspace {
+  width: 100%;
+  height: 100%;
+  background-color: #0d2840;
+  color: #ecf0f1;
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+}
+
+.header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #051422;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  margin-top: 30px;
+}
+
+.status { color: #f1c40f; }
+
+.mini-game-body {
+  display: flex;
+  flex: 1;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.schematic-card, .wire-palette, .rj45-preview {
+  background: #143552;
+  border-radius: 8px;
+  padding: 10px;
+  border: 2px solid #051422;
+}
+
+.schematic-card { flex: 1.1; }
+.schematic-card h3, .wire-palette h4, .rj45-preview h4 {
+  font-size: 0.65rem;
+  margin-bottom: 8px;
+  font-family: 'Press Start 2P', cursive;
+  text-align: center;
+}
+
+.standard-options {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.standard-btn {
+  flex: 1;
+  padding: 8px 6px;
+  background: #2980b9;
+  color: #fff;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.standard-btn.selected {
+  background: #27ae60;
+  border-color: #ffffff;
+}
+
+.pinout-display {
+  background: #081d2e;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+.pinout-display.hidden { display: none; }
+
+.wire-palette { flex: 1.1; }
+.wires-grid { display: flex; flex-direction: column; gap: 5px; }
+
+.drag-wire {
+  height: 24px;
+  border-radius: 3px;
+  cursor: grab;
+  display: flex;
+  align-items: center;
+  padding-left: 6px;
+  font-family: sans-serif;
+  font-size: 0.6rem;
+  font-weight: bold;
+  color: #000;
+  border: 1px solid #000;
+  user-select: none;
+  text-shadow: 0 0 2px #fff;
+}
+
+.rj45-preview {
+  flex: 1.6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rj45-connector-wrapper {
+  position: relative;
+  width: 220px;
+  height: 270px;
+  display: flex;
+  justify-content: center;
+}
+
+.rj45-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.connector-slots {
+  position: absolute;
+  top: 85px;
+  left: 36px;
+  width: 148px;
+  height: 170px;
+  display: flex;
+  justify-content: space-between;
+  z-index: 2;
+}
+
+.drop-zone {
+  width: 15px;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  border: 1px dashed rgba(255,255,255,0.5);
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.drop-zone .pin-num {
+  position: absolute;
+  bottom: -16px;
+  font-size: 0.55rem;
+  color: #fff;
+}
+
+.drop-zone .drag-wire {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  font-size: 0;
+  border-radius: 1px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.tool-btn {
+  padding: 8px 16px;
+  background: #27ae60;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.6rem;
+}
+
+.reset-btn { background: #e74c3c; }
+
+/* MODAL */
+.modal-overlay {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.75);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-overlay.active { display: flex; }
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-content {
+  background: linear-gradient(145deg, #1a3a5c, #0d2840);
+  border: 4px solid #2bf1c9;
+  border-radius: 16px;
+  padding: 30px 40px;
+  max-width: 420px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+  animation: slideUp 0.4s ease;
+}
+
+.modal-icon { font-size: 4rem; margin-bottom: 10px; }
+.modal-content h2 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.2rem;
+  color: #f1c40f;
+  margin-bottom: 12px;
+}
+.modal-content p {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.75rem;
+  color: #ecf0f1;
+  line-height: 1.8;
+  margin-bottom: 20px;
+  white-space: pre-line;
+}
+
+.modal-btn {
+  position: relative !important;
+  display: inline-block !important;
+  padding: 12px 40px !important;
+  font-size: 0.8rem !important;
+  background: #2bf1c9 !important;
+  color: #0b1c28 !important;
+  border: 4px solid #0b1c28 !important;
+  border-radius: 12px !important;
+  box-shadow: inset 0 -4px 0 #18a98c, 0 4px 0 #000 !important;
+  cursor: pointer !important;
+  font-family: 'Press Start 2P', cursive !important;
+}
+
+.modal-btn:hover { background: #55ffdb !important; }
+
+.modal-error .modal-icon { color: #e74c3c; }
+.modal-error h2 { color: #e74c3c; }
+.modal-error .modal-btn { background: #e74c3c !important; box-shadow: inset 0 -4px 0 #c0392b, 0 4px 0 #000 !important; }
+
+.modal-success .modal-icon { color: #2ecc71; }
+.modal-success h2 { color: #2ecc71; }
+.modal-success .modal-btn { background: #2ecc71 !important; box-shadow: inset 0 -4px 0 #27ae60, 0 4px 0 #000 !important; }
+
+.modal-warning .modal-icon { color: #f39c12; }
+.modal-warning h2 { color: #f39c12; }
+.modal-warning .modal-btn { background: #f39c12 !important; box-shadow: inset 0 -4px 0 #d68910, 0 4px 0 #000 !important; }
+
+.modal-info .modal-icon { color: #3498db; }
+.modal-info h2 { color: #3498db; }
+.modal-info .modal-btn { background: #3498db !important; box-shadow: inset 0 -4px 0 #2980b9, 0 4px 0 #000 !important; }
+
+@media (max-width: 768px) {
+  .game-container {
+    width: 100vw;
+    height: 100vh;
+  }
+  .mini-game-body {
+    flex-direction: column;
+  }
+  .character-sprite {
+    height: 250px;
+  }
+  .btn-start {
+    padding: 12px 30px;
+    font-size: 1.2rem;
+  }
+}
