@@ -1041,7 +1041,8 @@
 </head>
 <body>
 
-  <audio id="bg-music" src="background music.mp3" loop></audio>
+  <!-- BACKGROUND MUSIC - UPDATED PATH -->
+  <audio id="bg-music" src="music/background music.mp3" loop></audio>
 
   <div class="game-container" id="gameContainer">
     
@@ -1502,8 +1503,7 @@
   <script>
     // ============================================
     // CABLE CONNECT - COMPLETE GAME SCRIPT
-    // WRONG = -1 LIFE, STAY ON SAME CHALLENGE
-    // ALL LIVES GONE = GO TO MENU
+    // WITH BACKGROUND MUSIC FROM music/ FOLDER
     // ============================================
 
     // ===== GAME VARIABLES =====
@@ -1572,22 +1572,40 @@
       pingIp: '192.168.1.1'
     };
 
-    // ===== AUDIO SYSTEM =====
+    // ===== AUDIO SYSTEM - UPDATED PATH =====
     const bgMusic = document.getElementById('bg-music');
 
     function playMusic() {
       if (!isAudioPlaying) {
         bgMusic.play().then(() => {
           isAudioPlaying = true;
-          console.log('🎵 Music playing');
+          console.log('🎵 Music playing from music/background music.mp3');
         }).catch(e => {
           console.log('Audio play prevented:', e);
+          // Try alternative path if music folder doesn't work
+          bgMusic.src = 'background music.mp3';
+          bgMusic.play().catch(e2 => {
+            console.log('Alternative path also failed:', e2);
+          });
         });
       }
     }
 
+    // Start music on any user interaction
     document.addEventListener('click', playMusic);
     document.addEventListener('touchstart', playMusic);
+    document.addEventListener('keydown', playMusic);
+
+    // Try to play on load
+    window.addEventListener('load', function() {
+      setTimeout(playMusic, 1000);
+    });
+
+    // Handle music ending - restart
+    bgMusic.addEventListener('ended', function() {
+      bgMusic.currentTime = 0;
+      bgMusic.play().catch(e => console.log('Restart error:', e));
+    });
 
     // ===== SCREEN FUNCTIONS =====
     function showScreen(screenId) {
@@ -1728,7 +1746,7 @@
       });
     }
 
-    // ===== LOSE LIFE FUNCTION - STAY ON SAME CHALLENGE =====
+    // ===== LOSE LIFE FUNCTION =====
     function loseLife() {
       if (isPracticeMode) {
         const status = document.getElementById('ip-status') || 
@@ -1764,7 +1782,6 @@
       
       console.log('💔 Lost a life. Lives left:', lives);
       
-      // ONLY GO TO MENU IF ALL LIVES ARE GONE
       if (lives <= 0) {
         lives = 0;
         updateAllLives();
@@ -1772,15 +1789,13 @@
           showGameOver();
         }, 600);
       }
-      // Otherwise STAY ON THE SAME CHALLENGE - do NOT change screen
     }
 
-    // ===== GAME OVER - GO TO MENU =====
+    // ===== GAME OVER =====
     function showGameOver() {
-      // Show game over modal
       document.getElementById('game-over-modal').classList.add('active');
       isGameOver = true;
-      console.log('💀 Game Over! All lives lost. Going to menu on close.');
+      console.log('💀 Game Over! All lives lost.');
     }
 
     function goToPracticeFromGameOver() {
@@ -1968,7 +1983,7 @@
       });
 
       if (!isCorrect || filledSlots < 8) {
-        loseLife(); // This will subtract a life and STAY on the same screen
+        loseLife();
         
         let errorMsg = '';
         if (emptyPins.length > 0) {
@@ -2075,7 +2090,7 @@
         }, 800);
         console.log('✅ IP CONFIG SUCCESS! Score:', score);
       } else {
-        loseLife(); // This will subtract a life and STAY on the same screen
+        loseLife();
         document.getElementById('ip-status').innerHTML = "❌ INCORRECT: " + errors.join(', ');
         document.getElementById('ip-status').style.color = '#e74c3c';
         showModal(`❌ Wrong values: ${errors.join(', ')}\n💔 -1 Life!`, 'error', '❌ CONFIG FAILED');
@@ -2170,7 +2185,7 @@
         }, 800);
         console.log('✅ WORKGROUP SUCCESS! Score:', score);
       } else {
-        loseLife(); // This will subtract a life and STAY on the same screen
+        loseLife();
         document.getElementById('workgroup-status').innerHTML = "❌ INCORRECT: " + errors.join(', ');
         document.getElementById('workgroup-status').style.color = '#e74c3c';
         showModal(`❌ Wrong values: ${errors.join(', ')}\n💔 -1 Life!`, 'error', '❌ CONFIG FAILED');
@@ -2262,7 +2277,7 @@
         }, 800);
         console.log('✅ ROUTER SUCCESS! Score:', score);
       } else {
-        loseLife(); // This will subtract a life and STAY on the same screen
+        loseLife();
         document.getElementById('router-status').innerHTML = "❌ INCORRECT: " + errors.join(', ');
         document.getElementById('router-status').style.color = '#e74c3c';
         showModal(`❌ Wrong values: ${errors.join(', ')}\n💔 -1 Life!`, 'error', '❌ CONFIG FAILED');
@@ -2448,6 +2463,7 @@
 
     // ===== INIT =====
     console.log('🎮 Cable Connect Game Loaded!');
+    console.log('🎵 Music file: music/background music.mp3');
     console.log('📋 Challenge Order:');
     console.log('  1️⃣ RJ45 Crimping');
     console.log('  2️⃣ IP Configuration');
