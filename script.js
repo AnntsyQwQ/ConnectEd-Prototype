@@ -1,12 +1,31 @@
+// ============================================
+// CABLE CONNECT - RJ45 CRIMPING TRAINER
+// Complete Game Script - ALL BUTTONS WORKING
+// ============================================
+
 // ===== GAME VARIABLES =====
 let dialogueStep = 1;
 let currentTargetStandard = null;
 let isPracticeMode = false;
-let modalTimeout = null;
-let audioUnlocked = false;
-let currentTrack = 1;
-let audioAttempts = 0;
-const maxAudioAttempts = 5;
+let lives = 5;
+let maxLives = 5;
+let score = 0;
+let currentChallenge = 1;
+let totalChallenges = 8;
+let isGameOver = false;
+let isAudioPlaying = false;
+
+// ===== CHALLENGE DEFINITIONS =====
+const challenges = {
+  1: { name: 'RJ45 Crimping - T568B', hint: 'Drag wires to correct pins in T568B order', standard: 'T568B' },
+  2: { name: 'Straight-Through Cable', hint: 'Both ends use T568B standard', standard: 'T568B' },
+  3: { name: 'Crossover Cable', hint: 'One end T568A, other T568B', standard: 'T568A' },
+  4: { name: 'IP Configuration', hint: 'Configure 192.168.1.1 with subnet 255.255.255.0', standard: 'T568B' },
+  5: { name: 'Subnet Masking', hint: 'Calculate subnet mask for /24 network', standard: 'T568B' },
+  6: { name: 'Network Topology', hint: 'Star topology with 8 devices', standard: 'T568B' },
+  7: { name: 'Wi-Fi Setup', hint: 'Configure WPA2 with SSID "OfficeNet"', standard: 'T568B' },
+  8: { name: 'Network Security', hint: 'Enable firewall and MAC filtering', standard: 'T568B' }
+};
 
 // ===== WIRE DEFINITIONS =====
 const standards = {
@@ -25,144 +44,24 @@ const wireDefinitions = [
   { name: 'Brown', bg: '#6d4c41' }
 ];
 
-// ===== AUDIO SYSTEM - FIXED =====
+// ===== AUDIO SYSTEM =====
 const bgMusic = document.getElementById('bg-music');
 
-// List of possible music sources to try
-const musicSources = [
-  'game/1',
-  'game/2', 
-  'game/3',
-  'music/background music.mp3',
-  'background music.mp3',
-  'audio/background.mp3',
-  'background.mp3'
-];
-
-let currentSourceIndex = 0;
-let isMusicPlaying = false;
-
-function tryPlayMusic() {
-  if (isMusicPlaying) return;
-  
-  if (currentSourceIndex >= musicSources.length) {
-    console.log('All music sources failed. Please add a music file.');
-    return;
-  }
-  
-  const source = musicSources[currentSourceIndex];
-  bgMusic.src = source;
-  
-  bgMusic.play()
-    .then(() => {
-      console.log('Music playing from:', source);
-      isMusicPlaying = true;
-      audioUnlocked = true;
-      currentSourceIndex = 0; // Reset for next time
-    })
-    .catch((error) => {
-      console.log('Failed to play from:', source, error.message);
-      currentSourceIndex++;
-      // Try next source
-      setTimeout(tryPlayMusic, 100);
-    });
-}
-
-// Start music on any user interaction
-function startMusicOnInteraction() {
-  if (!isMusicPlaying) {
-    tryPlayMusic();
-  }
-}
-
-// Add event listeners for user interaction
-document.addEventListener('click', startMusicOnInteraction);
-document.addEventListener('touchstart', startMusicOnInteraction);
-document.addEventListener('keydown', startMusicOnInteraction);
-
-// Also try to play on page load (may be blocked by browser)
-window.addEventListener('load', function() {
-  // Try to play after a short delay
-  setTimeout(tryPlayMusic, 1000);
-});
-
-// Handle music ending - try to play next track
-bgMusic.addEventListener('ended', function() {
-  // Try to play next track
-  const currentNum = parseInt(bgMusic.src.split('/').pop()) || 0;
-  if (currentNum > 0) {
-    const nextNum = currentNum + 1;
-    bgMusic.src = `game/${nextNum}`;
-    bgMusic.play()
-      .then(() => {
-        console.log('Playing next track:', nextNum);
-      })
-      .catch(() => {
-        // If next track doesn't exist, try again from start
-        bgMusic.src = 'game/1';
-        bgMusic.play().catch(() => {
-          // If all fails, try alternative sources
-          currentSourceIndex = 0;
-          tryPlayMusic();
-        });
-      });
-  } else {
-    // If not a numbered track, restart
-    bgMusic.currentTime = 0;
-    bgMusic.play().catch(() => {
-      currentSourceIndex = 0;
-      tryPlayMusic();
+function playMusic() {
+  if (!isAudioPlaying) {
+    bgMusic.play().then(() => {
+      isAudioPlaying = true;
+      console.log('Music playing');
+    }).catch(e => {
+      console.log('Audio play prevented:', e);
     });
   }
-});
-
-// Handle audio errors with retry
-bgMusic.addEventListener('error', function() {
-  console.log('Audio error, trying next source');
-  currentSourceIndex++;
-  if (currentSourceIndex < musicSources.length) {
-    tryPlayMusic();
-  } else {
-    currentSourceIndex = 0;
-    // Wait and retry
-    setTimeout(tryPlayMusic, 5000);
-  }
-});
-
-// ===== MODAL =====
-function showModal(message, type = 'warning', title = '') {
-  const modal = document.getElementById('custom-modal');
-  const icon = document.getElementById('modal-icon');
-  const titleEl = document.getElementById('modal-title');
-  const messageEl = document.getElementById('modal-message');
-  
-  const titles = { error: '❌ ERROR', success: '✅ SUCCESS', warning: '⚠️ NOTICE', info: 'ℹ️ INFO' };
-  const icons = { error: '❌', success: '✅', warning: '⚠️', info: 'ℹ️' };
-  
-  icon.textContent = icons[type] || icons.warning;
-  titleEl.textContent = title || titles[type] || titles.warning;
-  messageEl.textContent = message;
-  
-  modal.className = 'modal-overlay';
-  modal.classList.add(`modal-${type}`);
-  modal.classList.add('active');
-  
-  if (modalTimeout) clearTimeout(modalTimeout);
-  if (type === 'success' || type === 'info') {
-    modalTimeout = setTimeout(closeModal, 5000);
-  }
 }
 
-function closeModal() {
-  document.getElementById('custom-modal').classList.remove('active');
-  if (modalTimeout) clearTimeout(modalTimeout);
-}
+document.addEventListener('click', playMusic);
+document.addEventListener('touchstart', playMusic);
 
-document.getElementById('custom-modal').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
-});
-
-// ===== SCREEN NAVIGATION =====
+// ===== SCREEN FUNCTIONS =====
 function showScreen(screenId) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(screenId).classList.add('active');
@@ -173,38 +72,122 @@ function goToMenu() {
   resetGameState();
   document.getElementById('game-status').innerHTML = "STATUS: SELECT SCHEMATIC &amp; DRAG WIRES";
   document.getElementById('pinout-list').classList.add('hidden');
+  lives = maxLives;
+  updateLivesDisplay();
 }
 
-function startGame() {
+function showChallengeSelect() {
+  showScreen('challenge-select');
+}
+
+// ===== STORY FLOW =====
+function startChallenge() {
   isPracticeMode = false;
+  lives = maxLives;
+  score = 0;
+  isGameOver = false;
   dialogueStep = 1;
-  document.getElementById('pinout-list').classList.add('hidden');
-  document.getElementById('challenge-img').src = "image/cha1.jpg";
-  showScreen('challenge-1');
+  updateLivesDisplay();
+  updateScoreDisplay();
+  showScreen('story-1');
+}
+
+function goToStory2() {
+  showScreen('story-2');
+}
+
+function goToGame() {
+  showScreen('challenge-2');
   resetGameState();
+  initWirePalette();
+  document.getElementById('game-status').innerHTML = "STATUS: SELECT SCHEMATIC &amp; DRAG WIRES";
+  document.getElementById('challenge-title').textContent = "RJ45 CONNECTOR MASTER";
 }
 
 function startPractice() {
   isPracticeMode = true;
-  document.getElementById('pinout-list').classList.remove('hidden');
+  lives = maxLives;
+  score = 0;
+  isGameOver = false;
+  updateLivesDisplay();
+  updateScoreDisplay();
   showScreen('challenge-2');
-  document.getElementById('game-status').innerText = "PRACTICE MODE: SELECT SCHEMATIC & STUDY GUIDE";
+  document.getElementById('pinout-list').classList.remove('hidden');
+  document.getElementById('game-status').innerHTML = "PRACTICE MODE: SELECT SCHEMATIC &amp; STUDY GUIDE";
+  document.getElementById('challenge-title').textContent = "PRACTICE MODE";
   resetGameState();
   initWirePalette();
 }
 
-function nextDialogue() {
-  if (dialogueStep === 1) {
-    document.getElementById('challenge-img').src = "image/cha2.PNG";
-    dialogueStep = 2;
-  } else if (dialogueStep === 2) {
-    showScreen('challenge-2');
-    resetGameState();
-    initWirePalette();
-    document.getElementById('game-status').innerText = "STATUS: SELECT SCHEMATIC & DRAG WIRES";
+function startSpecificChallenge(challengeId) {
+  currentChallenge = challengeId;
+  isPracticeMode = false;
+  lives = maxLives;
+  score = 0;
+  isGameOver = false;
+  updateLivesDisplay();
+  updateScoreDisplay();
+  showScreen('challenge-2');
+  document.getElementById('pinout-list').classList.add('hidden');
+  document.getElementById('game-status').innerHTML = "STATUS: " + challenges[challengeId].name;
+  document.getElementById('challenge-title').textContent = challenges[challengeId].name;
+  document.getElementById('challenge-hint').textContent = challenges[challengeId].hint;
+  resetGameState();
+  initWirePalette();
+}
+
+// ===== LIVES & SCORE =====
+function updateLivesDisplay() {
+  const livesIcons = document.getElementById('lives-icons');
+  let hearts = '';
+  for (let i = 0; i < lives; i++) {
+    hearts += '❤️';
+  }
+  for (let i = lives; i < maxLives; i++) {
+    hearts += '🖤';
+  }
+  livesIcons.textContent = hearts;
+}
+
+function updateScoreDisplay() {
+  document.getElementById('score-display').textContent = 'SCORE: ' + score;
+}
+
+function loseLife() {
+  lives--;
+  updateLivesDisplay();
+  if (lives <= 0) {
+    lives = 0;
+    updateLivesDisplay();
+    showGameOver();
   }
 }
 
+// ===== GAME OVER =====
+function showGameOver() {
+  document.getElementById('game-over-modal').classList.add('active');
+  isGameOver = true;
+}
+
+function goToPracticeFromGameOver() {
+  document.getElementById('game-over-modal').classList.remove('active');
+  startPractice();
+}
+
+function resetAndRetry() {
+  document.getElementById('game-over-modal').classList.remove('active');
+  lives = maxLives;
+  score = 0;
+  isGameOver = false;
+  updateLivesDisplay();
+  updateScoreDisplay();
+  resetGameState();
+  initWirePalette();
+  document.getElementById('game-status').innerHTML = "STATUS: SELECT SCHEMATIC &amp; DRAG WIRES";
+  showScreen('challenge-2');
+}
+
+// ===== RESET GAME STATE =====
 function resetGameState() {
   currentTargetStandard = null;
   document.querySelectorAll('.standard-btn').forEach(b => b.classList.remove('selected'));
@@ -214,6 +197,7 @@ function resetGameState() {
   });
 }
 
+// ===== WIRE PALETTE =====
 function initWirePalette() {
   const container = document.getElementById('wire-source-container');
   container.innerHTML = '';
@@ -241,13 +225,22 @@ function initWirePalette() {
   });
 }
 
+// ===== DRAG AND DROP =====
 function dropWire(e) {
   e.preventDefault();
   const zone = e.target.closest('.drop-zone');
   if (!zone) return;
 
+  // Check if game is over
+  if (isGameOver) {
+    showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER');
+    return;
+  }
+
   const existing = zone.querySelector('.drag-wire');
-  if (existing) returnWireToPalette(existing);
+  if (existing) {
+    returnWireToPalette(existing);
+  }
 
   try {
     const wireData = JSON.parse(e.dataTransfer.getData('text/plain'));
@@ -255,6 +248,8 @@ function dropWire(e) {
     const sourceEl = document.querySelector(`.drag-wire[data-name="${wireData.name}"]`);
     if (sourceEl && sourceEl.parentElement && sourceEl.parentElement.id === 'wire-source-container') {
       sourceEl.remove();
+    } else {
+      // If wire not found in palette, create new one
     }
 
     const newWire = document.createElement('div');
@@ -297,11 +292,21 @@ function returnWireToPalette(wireElement) {
   }
 }
 
+// ===== SET TARGET STANDARD =====
 function setTargetStandard(std) {
+  if (isGameOver) {
+    showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER');
+    return;
+  }
+  
   currentTargetStandard = std;
   
   document.querySelectorAll('.standard-btn').forEach(b => b.classList.remove('selected'));
-  document.querySelectorAll('.standard-btn')[std === 'T568A' ? 0 : 1].classList.add('selected');
+  if (std === 'T568A') {
+    document.getElementById('btn-t568a').classList.add('selected');
+  } else {
+    document.getElementById('btn-t568b').classList.add('selected');
+  }
   
   if (isPracticeMode) {
     const list = document.getElementById('pinout-list');
@@ -310,10 +315,16 @@ function setTargetStandard(std) {
     list.classList.remove('hidden');
   }
   
-  document.getElementById('game-status').innerText = `STATUS: TARGET SET TO ${std}`;
+  document.getElementById('game-status').innerHTML = `STATUS: TARGET SET TO ${std}`;
 }
 
+// ===== CRIMP CONNECTOR =====
 function crimpConnector() {
+  if (isGameOver) {
+    showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER');
+    return;
+  }
+  
   if (!currentTargetStandard) {
     showModal('Please select a schematic (T568A or T568B) target first!', 'warning', '⚠️ SCHEMATIC REQUIRED');
     return;
@@ -341,16 +352,46 @@ function crimpConnector() {
   }
 
   if (isCorrect) {
+    score += 100;
+    updateScoreDisplay();
     document.getElementById('game-status').innerHTML = "STATUS: ✅ SUCCESS! WIRED CORRECTLY!";
-    showModal(`🎉 Success! Correctly crimped using the ${currentTargetStandard} standard!\nNetwork connection established!`, 'success', '🎉 CRIMP SUCCESSFUL');
     highlightCorrectWires(true);
+    
+    // Show success screen
+    setTimeout(() => {
+      showSuccessScreen();
+    }, 800);
+    
   } else {
+    loseLife();
     document.getElementById('game-status').innerHTML = "STATUS: ❌ INCORRECT WIRING. TRY AGAIN.";
     showModal('❌ Incorrect wire ordering!\nCheck your pin alignment and try again.', 'error', '❌ CRIMP FAILED');
     highlightCorrectWires(false);
+    
+    if (isGameOver) {
+      // Game over already triggered by loseLife
+    }
   }
 }
 
+// ===== SUCCESS SCREEN =====
+function showSuccessScreen() {
+  document.getElementById('final-score').textContent = score;
+  document.getElementById('final-lives').textContent = lives;
+  showScreen('success-screen');
+}
+
+function nextChallenge() {
+  if (currentChallenge < totalChallenges) {
+    currentChallenge++;
+    startSpecificChallenge(currentChallenge);
+  } else {
+    showModal('🎉 You completed all challenges! Great job!', 'success', '🏆 CHAMPION!');
+    goToMenu();
+  }
+}
+
+// ===== HIGHLIGHT CORRECT WIRES =====
 function highlightCorrectWires(success) {
   const dropZones = document.querySelectorAll('.drop-zone');
   const targetSequence = standards[currentTargetStandard];
@@ -376,7 +417,13 @@ function highlightCorrectWires(success) {
   }, 3000);
 }
 
+// ===== RESET WIRES =====
 function resetWires() {
+  if (isGameOver) {
+    showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER');
+    return;
+  }
+  
   document.querySelectorAll('.drop-zone').forEach(zone => {
     const wire = zone.querySelector('.drag-wire');
     if (wire) wire.remove();
@@ -390,10 +437,128 @@ function resetWires() {
     wire.style.boxShadow = 'none';
   });
   
-  showModal('🔄 All wires have been reset! Ready to try again.', 'info', '🔄 RESET COMPLETE');
+  showModal('🔄 All wires have been reset!', 'info', '🔄 RESET COMPLETE');
 }
 
-// ===== INIT =====
-initWirePalette();
-console.log('Game loaded! Click START to begin.');
-console.log('Background music will start on first click.');
+// ===== MODAL FUNCTIONS =====
+let modalTimeout = null;
+
+function showModal(message, type = 'warning', title = '') {
+  const modal = document.getElementById('custom-modal');
+  const icon = document.getElementById('modal-icon');
+  const titleEl = document.getElementById('modal-title');
+  const messageEl = document.getElementById('modal-message');
+  
+  const titles = { error: '❌ ERROR', success: '✅ SUCCESS', warning: '⚠️ NOTICE', info: 'ℹ️ INFO' };
+  const icons = { error: '❌', success: '✅', warning: '⚠️', info: 'ℹ️' };
+  
+  icon.textContent = icons[type] || icons.warning;
+  titleEl.textContent = title || titles[type] || titles.warning;
+  messageEl.textContent = message;
+  
+  modal.className = 'modal-overlay';
+  modal.classList.add(`modal-${type}`);
+  modal.classList.add('active');
+  
+  if (modalTimeout) clearTimeout(modalTimeout);
+  if (type === 'success' || type === 'info') {
+    modalTimeout = setTimeout(closeModal, 5000);
+  }
+}
+
+function closeModal() {
+  document.getElementById('custom-modal').classList.remove('active');
+  if (modalTimeout) clearTimeout(modalTimeout);
+}
+
+// ===== CONFIRM GO TO MENU =====
+function confirmGoToMenu() {
+  showModal('Are you sure you want to go back to the main menu? Your progress will be lost.', 'warning', '⚠️ CONFIRM');
+  // Override modal OK button to go to menu
+  const modalOk = document.getElementById('modal-ok');
+  modalOk.onclick = function() {
+    closeModal();
+    goToMenu();
+  };
+}
+
+// ===== DOM READY - SETUP ALL EVENT LISTENERS =====
+document.addEventListener('DOMContentLoaded', function() {
+  
+  // Main Menu Buttons
+  document.getElementById('btn-start').addEventListener('click', startChallenge);
+  document.getElementById('btn-practice').addEventListener('click', startPractice);
+  document.getElementById('btn-challenges').addEventListener('click', showChallengeSelect);
+  
+  // Back Buttons
+  document.getElementById('btn-back-select').addEventListener('click', goToMenu);
+  document.getElementById('btn-back-story1').addEventListener('click', goToMenu);
+  document.getElementById('btn-back-story2').addEventListener('click', goToMenu);
+  document.getElementById('btn-back-game').addEventListener('click', confirmGoToMenu);
+  document.getElementById('btn-back-success').addEventListener('click', goToMenu);
+  
+  // Story Next Buttons
+  document.getElementById('btn-next-story1').addEventListener('click', goToStory2);
+  document.getElementById('btn-next-story2').addEventListener('click', goToGame);
+  
+  // Also click on images to advance story
+  document.getElementById('story-image-1').addEventListener('click', goToStory2);
+  document.getElementById('story-image-2').addEventListener('click', goToGame);
+  
+  // Challenge Selection
+  document.querySelectorAll('.challenge-item').forEach(item => {
+    item.addEventListener('click', function() {
+      const challengeId = parseInt(this.dataset.challenge);
+      startSpecificChallenge(challengeId);
+    });
+  });
+  
+  // Standard Buttons
+  document.getElementById('btn-t568a').addEventListener('click', function() {
+    setTargetStandard('T568A');
+  });
+  document.getElementById('btn-t568b').addEventListener('click', function() {
+    setTargetStandard('T568B');
+  });
+  
+  // Game Actions
+  document.getElementById('btn-crimp').addEventListener('click', crimpConnector);
+  document.getElementById('btn-reset').addEventListener('click', resetWires);
+  
+  // Success Screen Buttons
+  document.getElementById('btn-next').addEventListener('click', nextChallenge);
+  document.getElementById('btn-menu').addEventListener('click', goToMenu);
+  
+  // Game Over Buttons
+  document.getElementById('btn-practice-gameover').addEventListener('click', goToPracticeFromGameOver);
+  document.getElementById('btn-retry').addEventListener('click', resetAndRetry);
+  
+  // Modal OK Button
+  document.getElementById('modal-ok').addEventListener('click', closeModal);
+  
+  // Close modal on outside click
+  document.getElementById('custom-modal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+  
+  // Close game over modal on outside click
+  document.getElementById('game-over-modal').addEventListener('click', function(e) {
+    if (e.target === this) {
+      // Don't close on outside click for game over
+    }
+  });
+  
+  // Setup drop zones for drag and drop
+  document.querySelectorAll('.drop-zone').forEach(zone => {
+    zone.addEventListener('dragover', function(e) {
+      e.preventDefault();
+    });
+    zone.addEventListener('drop', dropWire);
+  });
+  
+  // Initialize
+  initWirePalette();
+  updateLivesDisplay();
+  updateScoreDisplay();
+  console.log('🎮 Cable Connect - Game Loaded!');
+});

@@ -3,43 +3,817 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Office Web Game</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <title>Cable Connect - Network Trainer</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #1a1a1a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: 'Press Start 2P', cursive;
+      overflow: hidden;
+    }
+
+    .game-container {
+      position: relative;
+      width: 960px;
+      height: 540px;
+      background: url('image/BACKGROUND GAME.png') no-repeat center center;
+      background-size: cover;
+      border: 4px solid #000;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+
+    .screen {
+      display: none;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .screen.active { display: block; }
+
+    /* ===== MENU SCREEN ===== */
+    #main-menu {
+      background: rgba(13, 40, 64, 0.85);
+    }
+
+    .menu-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      padding: 20px;
+      position: relative;
+    }
+
+    .menu-header {
+      text-align: center;
+      z-index: 5;
+    }
+
+    .game-title {
+      color: #2bf1c9;
+      font-size: 2.2rem;
+      text-shadow: 4px 4px 0 #0b1c28, 0 0 30px rgba(43,241,201,0.3);
+      letter-spacing: 2px;
+    }
+
+    .game-subtitle {
+      color: #f1c40f;
+      font-size: 0.65rem;
+      letter-spacing: 4px;
+      margin-top: 5px;
+    }
+
+    .character-sprite {
+      height: 180px;
+      width: auto;
+      margin: 10px 0;
+      pointer-events: none;
+      z-index: 1;
+      object-fit: contain;
+    }
+
+    .menu-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      z-index: 10;
+      width: 100%;
+      max-width: 320px;
+    }
+
+    .pixel-btn {
+      font-family: 'Press Start 2P', cursive;
+      background-color: #2bf1c9;
+      color: #0b1c28;
+      border: 4px solid #0b1c28;
+      border-radius: 12px;
+      box-shadow: inset 0 -4px 0 #18a98c, 0 4px 0 #000;
+      cursor: pointer;
+      transition: all 0.1s ease;
+      text-align: center;
+      width: 100%;
+      padding: 14px 20px;
+      font-size: 0.8rem;
+    }
+
+    .pixel-btn:hover { 
+      background-color: #55ffdb; 
+      transform: scale(1.02);
+    }
+
+    .pixel-btn:active { 
+      transform: scale(0.95); 
+    }
+
+    .btn-practice {
+      background-color: #f39c12;
+      box-shadow: inset 0 -4px 0 #d68910, 0 4px 0 #000;
+    }
+
+    .btn-practice:hover { background-color: #f1c40f; }
+
+    .btn-challenges {
+      background-color: #3498db;
+      box-shadow: inset 0 -4px 0 #2980b9, 0 4px 0 #000;
+    }
+
+    .btn-challenges:hover { background-color: #5dade2; }
+
+    .btn-back {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      padding: 6px 12px;
+      font-size: 0.55rem;
+      background-color: #ff5252;
+      color: #fff;
+      box-shadow: inset 0 -4px 0 #b33939, 0 4px 0 #000;
+      width: auto;
+      z-index: 20;
+    }
+
+    /* ===== CHALLENGE SELECT ===== */
+    #challenge-select {
+      background: rgba(13, 40, 64, 0.95);
+    }
+
+    .challenge-grid {
+      width: 100%;
+      height: 100%;
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .challenge-grid h2 {
+      color: #fff;
+      text-align: center;
+      margin-top: 50px;
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+    }
+
+    .challenge-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      max-width: 700px;
+      width: 100%;
+    }
+
+    .challenge-item {
+      padding: 15px 10px;
+      background: #143552;
+      border: 2px solid #2bf1c9;
+      border-radius: 8px;
+      color: #ecf0f1;
+      cursor: pointer;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 0.5rem;
+      transition: all 0.2s;
+      text-align: center;
+    }
+
+    .challenge-item:hover {
+      background: #2bf1c9;
+      color: #0b1c28;
+      transform: scale(1.05);
+    }
+
+    /* ===== STORY SCREENS ===== */
+    .story-bg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      cursor: pointer;
+    }
+
+    .story-overlay {
+      position: absolute;
+      bottom: 30px;
+      right: 30px;
+      z-index: 10;
+    }
+
+    .btn-next-story {
+      position: relative !important;
+      width: auto !important;
+      padding: 12px 30px !important;
+      font-size: 0.8rem !important;
+      background-color: #2bf1c9 !important;
+      box-shadow: inset 0 -4px 0 #18a98c, 0 4px 0 #000 !important;
+    }
+
+    .btn-next-story:hover { background-color: #55ffdb !important; }
+
+    /* ===== LIVES DISPLAY ===== */
+    .lives-display {
+      position: absolute;
+      top: 8px;
+      right: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(0,0,0,0.85);
+      padding: 6px 12px;
+      border-radius: 8px;
+      border: 2px solid #2bf1c9;
+      z-index: 15;
+      font-size: 0.45rem;
+    }
+
+    .lives-label { color: #ecf0f1; }
+    .lives-icons { color: #e74c3c; font-size: 0.7rem; min-width: 60px; text-align: center; }
+    .score-display { color: #f1c40f; }
+
+    @keyframes lifeLost {
+      0%, 100% { transform: scale(1); }
+      30% { transform: scale(1.8); color: #ff0000; }
+      60% { transform: scale(0.8); }
+    }
+
+    .life-lost { animation: lifeLost 0.6s ease; }
+
+    /* ===== RJ45 CHALLENGE - FIXED LAYOUT ===== */
+    .rj45-workspace {
+      width: 100%;
+      height: 100%;
+      background-color: #0d2840;
+      color: #ecf0f1;
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      padding-top: 35px;
+    }
+
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #051422;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.4rem;
+      margin-bottom: 6px;
+    }
+
+    .status { color: #f1c40f; }
+
+    .mini-game-body {
+      display: flex;
+      flex: 1;
+      gap: 8px;
+      min-height: 0;
+    }
+
+    .schematic-card, .wire-palette, .rj45-preview {
+      background: #143552;
+      border-radius: 8px;
+      padding: 6px;
+      border: 2px solid #051422;
+      overflow: hidden;
+    }
+
+    .schematic-card { flex: 1; }
+    .wire-palette { flex: 1; }
+    .rj45-preview { flex: 1.6; }
+
+    .schematic-card h3, .wire-palette h4, .rj45-preview h4 {
+      font-size: 0.4rem;
+      margin-bottom: 4px;
+      font-family: 'Press Start 2P', cursive;
+      text-align: center;
+      color: #2bf1c9;
+    }
+
+    .standard-options {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 4px;
+    }
+
+    .standard-btn {
+      flex: 1;
+      padding: 4px 2px;
+      background: #2980b9;
+      color: #fff;
+      border: 2px solid transparent;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.4rem;
+    }
+
+    .standard-btn.selected {
+      background: #27ae60;
+      border-color: #ffffff;
+    }
+
+    .pinout-display {
+      background: #081d2e;
+      padding: 4px;
+      border-radius: 4px;
+      font-size: 0.35rem;
+      line-height: 1.2;
+      max-height: 60px;
+      overflow-y: auto;
+    }
+
+    .pinout-display.hidden { display: none; }
+
+    .challenge-info {
+      margin-top: 4px;
+      padding: 4px;
+      background: rgba(43,241,201,0.1);
+      border-radius: 4px;
+      font-size: 0.35rem;
+      color: #ecf0f1;
+      text-align: center;
+      border: 1px dashed rgba(43,241,201,0.3);
+    }
+
+    .wires-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .drag-wire {
+      height: 18px;
+      border-radius: 3px;
+      cursor: grab;
+      display: flex;
+      align-items: center;
+      padding-left: 4px;
+      font-family: sans-serif;
+      font-size: 0.35rem;
+      font-weight: bold;
+      color: #000;
+      border: 1px solid #333;
+      user-select: none;
+      text-shadow: 0 0 2px #fff;
+    }
+
+    .drag-wire:active { cursor: grabbing; }
+
+    .rj45-connector-wrapper {
+      position: relative;
+      width: 160px;
+      height: 170px;
+      display: flex;
+      justify-content: center;
+      margin: 2px auto;
+    }
+
+    .rj45-svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .connector-slots {
+      position: absolute;
+      top: 48px;
+      left: 24px;
+      width: 112px;
+      height: 110px;
+      display: flex;
+      justify-content: space-between;
+      z-index: 2;
+    }
+
+    .drop-zone {
+      width: 12px;
+      height: 100%;
+      background: rgba(0,0,0,0.4);
+      border: 1px dashed rgba(255,255,255,0.3);
+      border-radius: 2px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .drop-zone .pin-num {
+      position: absolute;
+      bottom: -12px;
+      font-size: 0.3rem;
+      color: #888;
+    }
+
+    .drop-zone .drag-wire {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      font-size: 0;
+      border-radius: 1px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+      justify-content: center;
+    }
+
+    .tool-btn {
+      padding: 4px 12px;
+      background: #27ae60;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 0.35rem;
+    }
+
+    .tool-btn:hover { opacity: 0.8; }
+
+    .reset-btn { background: #e74c3c; }
+
+    /* ===== IP CONFIGURATION CHALLENGE ===== */
+    #ip-challenge {
+      background: #0d2840;
+    }
+
+    .ip-workspace {
+      width: 100%;
+      height: 100%;
+      padding: 10px;
+      padding-top: 35px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ip-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #051422;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.4rem;
+      margin-bottom: 6px;
+    }
+
+    .ip-title { color: #2bf1c9; }
+    .ip-status { color: #f1c40f; }
+
+    .ip-body {
+      display: flex;
+      flex: 1;
+      gap: 10px;
+      min-height: 0;
+    }
+
+    .pc-config {
+      flex: 2;
+      background: #143552;
+      border-radius: 8px;
+      padding: 10px;
+      border: 2px solid #2bf1c9;
+      overflow-y: auto;
+    }
+
+    .pc-title {
+      color: #2bf1c9;
+      font-size: 0.55rem;
+      text-align: center;
+      border-bottom: 2px solid #2bf1c9;
+      padding-bottom: 6px;
+      margin-bottom: 8px;
+    }
+
+    .config-section {
+      margin-bottom: 8px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 4px;
+      padding: 6px;
+    }
+
+    .section-title {
+      color: #f1c40f;
+      font-size: 0.4rem;
+      margin-bottom: 4px;
+    }
+
+    .config-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 2px;
+      font-size: 0.35rem;
+      color: #ecf0f1;
+      flex-wrap: wrap;
+    }
+
+    .config-label { min-width: 80px; color: #aaa; }
+    .config-value { color: #2ecc71; font-family: 'Courier New', monospace; }
+
+    .config-input {
+      background: #081d2e;
+      border: 2px solid #2980b9;
+      border-radius: 4px;
+      padding: 2px 6px;
+      color: #fff;
+      font-family: 'Courier New', monospace;
+      font-size: 0.35rem;
+      width: 120px;
+      outline: none;
+    }
+
+    .config-input:focus { border-color: #2bf1c9; }
+    .config-input.correct { border-color: #2ecc71; background: rgba(46,204,113,0.1); }
+    .config-input.wrong { border-color: #e74c3c; background: rgba(231,76,60,0.1); }
+
+    .ip-instructions {
+      flex: 1;
+      background: #143552;
+      border-radius: 8px;
+      padding: 10px;
+      border: 2px solid #f39c12;
+      overflow-y: auto;
+    }
+
+    .instructions-title {
+      color: #f39c12;
+      font-size: 0.45rem;
+      text-align: center;
+      border-bottom: 2px solid #f39c12;
+      padding-bottom: 6px;
+      margin-bottom: 6px;
+    }
+
+    .instruction-item {
+      font-size: 0.35rem;
+      color: #ecf0f1;
+      padding: 3px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .instruction-item .correct-value { color: #2ecc71; }
+    .instruction-item .highlight { color: #2bf1c9; }
+
+    .ip-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+      justify-content: center;
+    }
+
+    .ip-tool-btn {
+      padding: 4px 14px;
+      background: #27ae60;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 0.35rem;
+    }
+
+    .ip-reset-btn { background: #e74c3c; }
+
+    /* ===== SUCCESS SCREEN ===== */
+    .success-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      background: rgba(13,40,64,0.95);
+      padding: 20px;
+    }
+
+    .success-image {
+      max-height: 200px;
+      max-width: 90%;
+      object-fit: contain;
+      border-radius: 8px;
+      border: 3px solid #2bf1c9;
+    }
+
+    .success-stats {
+      display: flex;
+      gap: 20px;
+      color: #ecf0f1;
+      font-size: 0.5rem;
+      margin: 10px 0;
+      background: rgba(0,0,0,0.5);
+      padding: 6px 16px;
+      border-radius: 8px;
+    }
+
+    .success-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .btn-next-challenge {
+      width: auto !important;
+      padding: 8px 20px !important;
+      font-size: 0.5rem !important;
+      background: #27ae60 !important;
+      box-shadow: inset 0 -4px 0 #1e8449, 0 4px 0 #000 !important;
+    }
+
+    .btn-menu {
+      width: auto !important;
+      padding: 8px 20px !important;
+      font-size: 0.5rem !important;
+      background: #3498db !important;
+      box-shadow: inset 0 -4px 0 #2980b9, 0 4px 0 #000 !important;
+    }
+
+    /* ===== MODAL ===== */
+    .modal-overlay {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.75);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-overlay.active { display: flex; }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-content {
+      background: linear-gradient(145deg, #1a3a5c, #0d2840);
+      border: 4px solid #2bf1c9;
+      border-radius: 16px;
+      padding: 20px 30px;
+      max-width: 380px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+      animation: slideUp 0.4s ease;
+    }
+
+    .modal-icon { font-size: 2.5rem; margin-bottom: 8px; }
+    .modal-content h2 {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 0.8rem;
+      color: #f1c40f;
+      margin-bottom: 8px;
+    }
+    .modal-content p {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 0.5rem;
+      color: #ecf0f1;
+      line-height: 1.6;
+      margin-bottom: 15px;
+      white-space: pre-line;
+    }
+
+    .modal-btn {
+      position: relative !important;
+      display: inline-block !important;
+      padding: 8px 25px !important;
+      font-size: 0.5rem !important;
+      background: #2bf1c9 !important;
+      color: #0b1c28 !important;
+      border: 4px solid #0b1c28 !important;
+      border-radius: 12px !important;
+      box-shadow: inset 0 -4px 0 #18a98c, 0 4px 0 #000 !important;
+      cursor: pointer !important;
+      font-family: 'Press Start 2P', cursive !important;
+    }
+
+    .modal-btn:hover { background: #55ffdb !important; }
+
+    .game-over-content {
+      border-color: #e74c3c !important;
+    }
+
+    .game-over-buttons {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 768px) {
+      .game-container {
+        width: 100vw;
+        height: 100vh;
+      }
+      .mini-game-body { flex-direction: column; }
+      .ip-body { flex-direction: column; }
+      .character-sprite { height: 100px; }
+      .game-title { font-size: 1.2rem; }
+      .challenge-list { grid-template-columns: 1fr; }
+      .rj45-connector-wrapper { width: 130px; height: 140px; }
+      .connector-slots { top: 38px; left: 20px; width: 90px; height: 88px; }
+      .drop-zone { width: 10px; }
+      .config-input { width: 100px; }
+      .success-stats { flex-direction: column; gap: 4px; }
+      .success-actions { flex-direction: column; }
+    }
+  </style>
 </head>
 <body>
 
-  <audio id="bg-music" loop></audio>
+  <audio id="bg-music" src="background music.mp3" loop></audio>
 
-  <div class="game-container">
+  <div class="game-container" id="gameContainer">
     
     <!-- MAIN MENU SCREEN -->
     <div id="main-menu" class="screen active">
-      <img src="image/IT_MAN-removebg-preview.png" alt="IT Man Character" class="character-sprite" onerror="this.style.display='none'">
-      <div class="ui-overlay">
-        <button class="pixel-btn btn-start" onclick="startGame()">START</button>
-        <button class="pixel-btn btn-practice" onclick="startPractice()">PRACTICE MODE</button>
+      <div class="menu-content">
+        <div class="menu-header">
+          <h1 class="game-title">CABLE CONNECT</h1>
+          <p class="game-subtitle">NETWORK CONFIGURATION TRAINER</p>
+        </div>
+        <img src="image/IT_MAN-removebg-preview.png" alt="IT Man Character" class="character-sprite" onerror="this.style.display='none'">
+        <div class="menu-buttons">
+          <button class="pixel-btn menu-btn" onclick="startChallenge()">START CHALLENGE</button>
+          <button class="pixel-btn menu-btn btn-practice" onclick="startPractice()">PRACTICE MODE</button>
+          <button class="pixel-btn menu-btn btn-challenges" onclick="showChallengeSelect()">ALL CHALLENGES</button>
+        </div>
       </div>
     </div>
 
-    <!-- CHALLENGE 1 SCREEN (DIALOGUE) -->
-    <div id="challenge-1" class="screen">
+    <!-- CHALLENGE SELECT SCREEN -->
+    <div id="challenge-select" class="screen">
       <button class="pixel-btn btn-back" onclick="goToMenu()">BACK</button>
-      <img id="challenge-img" src="image/cha1.jpg" alt="Challenge 1" class="challenge-bg" onclick="nextDialogue()" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22960%22 height=%22540%22%3E%3Crect fill=%22%23333%22 width=%22960%22 height=%22540%22/%3E%3Ctext x=%22480%22 y=%22270%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-size=%2230%22 font-family=%22Arial%22%3EClick to continue%3C/text%3E%3C/svg%3E'">
+      <div class="challenge-grid">
+        <h2>SELECT CHALLENGE</h2>
+        <div class="challenge-list">
+          <button class="challenge-item" onclick="startSpecificChallenge(1)">🔌 RJ45 Crimping - T568B</button>
+          <button class="challenge-item" onclick="startSpecificChallenge(2)">🔗 Straight-Through Cable</button>
+          <button class="challenge-item" onclick="startSpecificChallenge(3)">🔄 Crossover Cable</button>
+          <button class="challenge-item" onclick="startSpecificChallenge(4)">📡 IP Configuration</button>
+          <button class="challenge-item" onclick="startSpecificChallenge(5)">🌐 Subnet Masking</button>
+          <button class="challenge-item" onclick="startSpecificChallenge(6)">🏢 Network Topology</button>
+          <button class="challenge-item" onclick="startSpecificChallenge(7)">📶 Wi-Fi Setup</button>
+          <button class="challenge-item" onclick="startSpecificChallenge(8)">🔒 Network Security</button>
+        </div>
+      </div>
     </div>
 
-    <!-- CHALLENGE 2 / PRACTICE SCREEN (RJ45 MINIGAME) -->
-    <div id="challenge-2" class="screen">
+    <!-- STORY SCREEN 1 -->
+    <div id="story-1" class="screen">
       <button class="pixel-btn btn-back" onclick="goToMenu()">BACK</button>
+      <img id="story-img-1" src="image/cha1.jpg" alt="Story 1" class="story-bg" onclick="goToStory2()">
+      <div class="story-overlay">
+        <button class="pixel-btn btn-next-story" onclick="goToStory2()">NEXT ➜</button>
+      </div>
+    </div>
 
+    <!-- STORY SCREEN 2 -->
+    <div id="story-2" class="screen">
+      <button class="pixel-btn btn-back" onclick="goToMenu()">BACK</button>
+      <img id="story-img-2" src="image/cha2.PNG" alt="Story 2" class="story-bg" onclick="goToGame()">
+      <div class="story-overlay">
+        <button class="pixel-btn btn-next-story" onclick="goToGame()">NEXT ➜</button>
+      </div>
+    </div>
+
+    <!-- RJ45 CHALLENGE SCREEN -->
+    <div id="challenge-2" class="screen">
+      <button class="pixel-btn btn-back" onclick="confirmGoToMenu()">BACK</button>
+      <div class="lives-display" id="lives-display">
+        <span class="lives-label">LIVES:</span>
+        <span class="lives-icons" id="lives-icons">❤️❤️❤️❤️❤️</span>
+        <span class="score-display" id="score-display">SCORE: 0</span>
+      </div>
       <div class="rj45-workspace">
         <div class="header-bar">
-          <span class="title">RJ45 CONNECTOR MASTER</span>
+          <span class="title" id="challenge-title">RJ45 CONNECTOR MASTER</span>
           <span id="game-status" class="status">STATUS: SELECT SCHEMATIC &amp; DRAG WIRES</span>
         </div>
-
         <div class="mini-game-body">
-          <!-- Left: Schematic Selection -->
           <div class="schematic-card">
             <h3>SCHEMATIC</h3>
             <div class="standard-options">
@@ -49,36 +823,32 @@
             <div id="pinout-list" class="pinout-display hidden">
               <p>Select a standard above to view target sequence.</p>
             </div>
+            <div class="challenge-info">
+              <p>💡 <span id="challenge-hint">Drag wires to correct pins in order</span></p>
+            </div>
           </div>
-
-          <!-- Center: Wire Palette -->
           <div class="wire-palette">
             <h4>WIRES</h4>
             <div class="wires-grid" id="wire-source-container"></div>
           </div>
-
-          <!-- Right: RJ45 Plug Drop Zones -->
           <div class="rj45-preview">
             <h4>RJ45 PLUG</h4>
             <div class="rj45-connector-wrapper">
-              
-              <svg class="rj45-svg" viewBox="0 0 200 320" xmlns="http://www.w3.org/2000/svg">
-                <rect x="25" y="30" width="150" height="200" rx="8" fill="rgba(255,255,255,0.25)" stroke="#ffffff" stroke-width="4"/>
-                <rect x="40" y="230" width="120" height="70" fill="rgba(240,240,240,0.2)" stroke="#ffffff" stroke-width="3"/>
-                <rect x="75" y="5" width="50" height="25" rx="3" fill="rgba(255,255,255,0.3)" stroke="#ffffff" stroke-width="2"/>
-                
-                <g fill="#f1c40f" stroke="#d4ac0d" stroke-width="1">
-                  <rect x="33" y="40" width="10" height="40" rx="2"/>
-                  <rect x="51" y="40" width="10" height="40" rx="2"/>
-                  <rect x="69" y="40" width="10" height="40" rx="2"/>
-                  <rect x="87" y="40" width="10" height="40" rx="2"/>
-                  <rect x="105" y="40" width="10" height="40" rx="2"/>
-                  <rect x="123" y="40" width="10" height="40" rx="2"/>
-                  <rect x="141" y="40" width="10" height="40" rx="2"/>
-                  <rect x="159" y="40" width="10" height="40" rx="2"/>
+              <svg class="rj45-svg" viewBox="0 0 160 180" xmlns="http://www.w3.org/2000/svg">
+                <rect x="15" y="15" width="130" height="120" rx="6" fill="rgba(255,255,255,0.15)" stroke="#ffffff" stroke-width="2.5"/>
+                <rect x="25" y="135" width="110" height="35" fill="rgba(240,240,240,0.1)" stroke="#ffffff" stroke-width="2"/>
+                <rect x="60" y="3" width="40" height="12" rx="2" fill="rgba(255,255,255,0.2)" stroke="#ffffff" stroke-width="1.5"/>
+                <g fill="#f1c40f" stroke="#d4ac0d" stroke-width="0.8">
+                  <rect x="22" y="22" width="10" height="25" rx="1.5"/>
+                  <rect x="38" y="22" width="10" height="25" rx="1.5"/>
+                  <rect x="54" y="22" width="10" height="25" rx="1.5"/>
+                  <rect x="70" y="22" width="10" height="25" rx="1.5"/>
+                  <rect x="86" y="22" width="10" height="25" rx="1.5"/>
+                  <rect x="102" y="22" width="10" height="25" rx="1.5"/>
+                  <rect x="118" y="22" width="10" height="25" rx="1.5"/>
+                  <rect x="134" y="22" width="10" height="25" rx="1.5"/>
                 </g>
               </svg>
-
               <div class="connector-slots">
                 <div class="drop-zone" data-pin="1" ondragover="event.preventDefault()" ondrop="dropWire(event)"><span class="pin-num">1</span></div>
                 <div class="drop-zone" data-pin="2" ondragover="event.preventDefault()" ondrop="dropWire(event)"><span class="pin-num">2</span></div>
@@ -89,14 +859,151 @@
                 <div class="drop-zone" data-pin="7" ondragover="event.preventDefault()" ondrop="dropWire(event)"><span class="pin-num">7</span></div>
                 <div class="drop-zone" data-pin="8" ondragover="event.preventDefault()" ondrop="dropWire(event)"><span class="pin-num">8</span></div>
               </div>
-
             </div>
-
             <div class="actions">
               <button class="tool-btn" onclick="crimpConnector()">CRIMP</button>
               <button class="tool-btn reset-btn" onclick="resetWires()">RESET</button>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IP CONFIGURATION CHALLENGE SCREEN -->
+    <div id="ip-challenge" class="screen">
+      <button class="pixel-btn btn-back" onclick="confirmGoToMenu()">BACK</button>
+      <div class="lives-display" id="ip-lives-display">
+        <span class="lives-label">LIVES:</span>
+        <span class="lives-icons" id="ip-lives-icons">❤️❤️❤️❤️❤️</span>
+        <span class="score-display" id="ip-score-display">SCORE: 0</span>
+      </div>
+
+      <div class="ip-workspace">
+        <div class="ip-header">
+          <span class="ip-title">💻 PC1 - IP CONFIGURATION</span>
+          <span id="ip-status" class="ip-status">STATUS: CONFIGURE IP ADDRESS SETTINGS</span>
+        </div>
+
+        <div class="ip-body">
+          <div class="pc-config">
+            <div class="pc-icon" style="text-align:center; margin-bottom:8px;">
+              <svg width="50" height="50" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="15" y="25" width="70" height="50" rx="3" fill="#2c3e50" stroke="#2bf1c9" stroke-width="2"/>
+                <rect x="25" y="35" width="50" height="25" rx="2" fill="#1a252f"/>
+                <rect x="40" y="65" width="20" height="10" rx="2" fill="#34495e" stroke="#2bf1c9" stroke-width="1"/>
+                <circle cx="50" cy="70" r="3" fill="#2bf1c9"/>
+                <rect x="35" y="75" width="30" height="5" rx="1" fill="#34495e"/>
+              </svg>
+            </div>
+            
+            <div class="pc-title">PC1 - Configuration</div>
+            
+            <div class="config-section">
+              <div class="section-title">📡 Interface: FastEthernet0</div>
+              <div class="config-row">
+                <span class="config-label">IP Configuration:</span>
+                <span class="config-value">Static</span>
+              </div>
+              <div class="config-row">
+                <span class="config-label">IPv4 Address:</span>
+                <input type="text" class="config-input" id="ip-address" placeholder="192.168.1.x" maxlength="15">
+              </div>
+              <div class="config-row">
+                <span class="config-label">Subnet Mask:</span>
+                <input type="text" class="config-input" id="subnet-mask" placeholder="255.255.255.0" maxlength="15">
+              </div>
+              <div class="config-row">
+                <span class="config-label">Default Gateway:</span>
+                <input type="text" class="config-input" id="default-gateway" placeholder="192.168.1.1" maxlength="15">
+              </div>
+              <div class="config-row">
+                <span class="config-label">DNS Server:</span>
+                <input type="text" class="config-input" id="dns-server" placeholder="8.8.8.8" maxlength="15">
+              </div>
+            </div>
+
+            <div class="config-section">
+              <div class="section-title">🌐 IPv6 Configuration</div>
+              <div class="config-row">
+                <span class="config-label">IPv6 Address:</span>
+                <span class="config-value blank" style="color:#e74c3c;">Not Configured</span>
+              </div>
+              <div class="config-row">
+                <span class="config-label">Link Local Address:</span>
+                <span class="config-value">FE80::202:16FF:FE20:8B32</span>
+              </div>
+            </div>
+
+            <div class="config-section">
+              <div class="section-title">🔒 802.1X Security</div>
+              <div class="config-row">
+                <span class="config-label">Authentication:</span>
+                <span class="config-value">MD5</span>
+              </div>
+            </div>
+
+            <div class="ip-actions">
+              <button class="ip-tool-btn" onclick="checkIPConfig()">✅ VERIFY</button>
+              <button class="ip-tool-btn ip-reset-btn" onclick="resetIPConfig()">🔄 RESET</button>
+            </div>
+          </div>
+
+          <div class="ip-instructions">
+            <div class="instructions-title">📋 CONFIGURATION TASK</div>
+            <div class="instruction-item">
+              Configure PC1 with the following settings:
+            </div>
+            <div class="instruction-item">
+              🔹 IPv4 Address: <span class="correct-value">192.168.1.2</span>
+            </div>
+            <div class="instruction-item">
+              🔹 Subnet Mask: <span class="correct-value">255.255.255.0</span>
+            </div>
+            <div class="instruction-item">
+              🔹 Default Gateway: <span class="correct-value">192.168.1.1</span>
+            </div>
+            <div class="instruction-item">
+              🔹 DNS Server: <span class="correct-value">8.8.8.8</span>
+            </div>
+            <div class="instruction-item" style="margin-top:8px; border-top:2px solid #f39c12; padding-top:8px;">
+              💡 <span class="highlight">Hint:</span> Use standard network addressing
+            </div>
+            <div class="instruction-item" style="color:#e74c3c; font-size:0.3rem;">
+              ⚠️ Wrong config = -1 Life!
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUCCESS SCREEN -->
+    <div id="success-screen" class="screen">
+      <button class="pixel-btn btn-back" onclick="goToMenu()">BACK</button>
+      <div class="success-content">
+        <img id="success-img" src="image/RJ45 thank you.jpg" alt="Thank You" class="success-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22500%22 height=%22300%22%3E%3Crect fill=%22%230d2840%22 width=%22500%22 height=%22300%22/%3E%3Ctext x=%22250%22 y=%22140%22 text-anchor=%22middle%22 fill=%22%23f1c40f%22 font-size=%2228%22 font-family=%22Arial%22%3E✅ CHALLENGE COMPLETE!%3C/text%3E%3Ctext x=%22250%22 y=%22180%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-size=%2216%22 font-family=%22Arial%22%3EThank you, IT Man!%3C/text%3E%3Ctext x=%22250%22 y=%22220%22 text-anchor=%22middle%22 fill=%22%232ecc71%22 font-size=%2220%22 font-family=%22Arial%22%3E🔗 INTERNET IS CONNECTED%3C/text%3E%3C/svg%3E'">
+        <div class="success-stats">
+          <p>⭐ Score: <span id="final-score">0</span></p>
+          <p>❤️ Lives: <span id="final-lives">0</span></p>
+        </div>
+        <div class="success-actions">
+          <button class="pixel-btn btn-next-challenge" id="next-btn" onclick="goToNextChallenge()">NEXT CHALLENGE ➜</button>
+          <button class="pixel-btn btn-menu" onclick="goToMenu()">MENU</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- GAME OVER MODAL -->
+    <div id="game-over-modal" class="modal-overlay">
+      <div class="modal-content game-over-content">
+        <div class="modal-icon" style="font-size:3rem;">💔</div>
+        <h2 style="color:#e74c3c; font-size:0.8rem;">OUT OF LIVES!</h2>
+        <p style="font-size:0.5rem; line-height:1.8; color:#ecf0f1;">
+          You've used all your attempts.<br>
+          <span style="color:#f1c40f;">Try Practice Mode!</span>
+        </p>
+        <div class="game-over-buttons">
+          <button class="pixel-btn modal-btn" onclick="goToPracticeFromGameOver()" style="position:relative!important; display:inline-block!important; margin:3px!important; font-size:0.4rem!important;">PRACTICE MODE</button>
+          <button class="pixel-btn modal-btn" onclick="resetAndRetry()" style="position:relative!important; display:inline-block!important; margin:3px!important; background:#f39c12!important; font-size:0.4rem!important;">RETRY</button>
         </div>
       </div>
     </div>
@@ -113,6 +1020,710 @@
 
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    // ============================================
+    // CABLE CONNECT - COMPLETE GAME SCRIPT
+    // RJ45 → IP CONFIGURATION FLOW
+    // ============================================
+
+    // ===== GAME VARIABLES =====
+    let currentTargetStandard = null;
+    let isPracticeMode = false;
+    let lives = 5;
+    let maxLives = 5;
+    let score = 0;
+    let currentChallenge = 1;
+    let totalChallenges = 8;
+    let isGameOver = false;
+    let isAudioPlaying = false;
+    let modalTimeout = null;
+    let challengeOrder = [1, 4, 2, 5, 3, 6, 7, 8]; // RJ45 → IP → RJ45 → IP → etc
+    let challengeIndex = 0;
+
+    // ===== CHALLENGE DEFINITIONS =====
+    const challenges = {
+      1: { name: 'RJ45 Crimping - T568B', hint: 'Drag wires to correct pins in T568B order', standard: 'T568B', type: 'rj45' },
+      2: { name: 'Straight-Through Cable', hint: 'Both ends use T568B standard', standard: 'T568B', type: 'rj45' },
+      3: { name: 'Crossover Cable', hint: 'One end T568A, other T568B', standard: 'T568A', type: 'rj45' },
+      4: { name: 'IP Configuration', hint: 'Configure PC1 with correct IP settings', standard: 'T568B', type: 'ip' },
+      5: { name: 'Subnet Masking', hint: 'Calculate subnet mask for /24 network', standard: 'T568B', type: 'ip' },
+      6: { name: 'Network Topology', hint: 'Star topology with 8 devices', standard: 'T568B', type: 'rj45' },
+      7: { name: 'Wi-Fi Setup', hint: 'Configure WPA2 with SSID "OfficeNet"', standard: 'T568B', type: 'rj45' },
+      8: { name: 'Network Security', hint: 'Enable firewall and MAC filtering', standard: 'T568B', type: 'rj45' }
+    };
+
+    // ===== WIRE DEFINITIONS =====
+    const standards = {
+      T568A: ['Green+White', 'Green', 'Orange+White', 'Blue', 'Blue+White', 'Orange', 'Brown+White', 'Brown'],
+      T568B: ['Orange+White', 'Orange', 'Green+White', 'Blue', 'Blue+White', 'Green', 'Brown+White', 'Brown']
+    };
+
+    const wireDefinitions = [
+      { name: 'Green+White', bg: 'repeating-linear-gradient(45deg, #27ae60, #27ae60 4px, #ffffff 4px, #ffffff 8px)' },
+      { name: 'Green', bg: '#27ae60' },
+      { name: 'Orange+White', bg: 'repeating-linear-gradient(45deg, #e67e22, #e67e22 4px, #ffffff 4px, #ffffff 8px)' },
+      { name: 'Orange', bg: '#e67e22' },
+      { name: 'Blue', bg: '#2980b9' },
+      { name: 'Blue+White', bg: 'repeating-linear-gradient(45deg, #2980b9, #2980b9 4px, #ffffff 4px, #ffffff 8px)' },
+      { name: 'Brown+White', bg: 'repeating-linear-gradient(45deg, #6d4c41, #6d4c41 4px, #ffffff 4px, #ffffff 8px)' },
+      { name: 'Brown', bg: '#6d4c41' }
+    ];
+
+    // ===== CORRECT IP CONFIGURATION =====
+    const correctIPConfig = {
+      ipAddress: '192.168.1.2',
+      subnetMask: '255.255.255.0',
+      defaultGateway: '192.168.1.1',
+      dnsServer: '8.8.8.8'
+    };
+
+    // ===== AUDIO SYSTEM =====
+    const bgMusic = document.getElementById('bg-music');
+
+    function playMusic() {
+      if (!isAudioPlaying) {
+        bgMusic.play().then(() => {
+          isAudioPlaying = true;
+          console.log('🎵 Music playing');
+        }).catch(e => {
+          console.log('Audio play prevented:', e);
+        });
+      }
+    }
+
+    document.addEventListener('click', playMusic);
+    document.addEventListener('touchstart', playMusic);
+
+    // ===== SCREEN FUNCTIONS =====
+    function showScreen(screenId) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(screenId).classList.add('active');
+      console.log('📺 Showing screen:', screenId);
+    }
+
+    function goToMenu() {
+      showScreen('main-menu');
+      resetGameState();
+      resetIPConfig();
+      document.getElementById('game-status').innerHTML = "STATUS: SELECT SCHEMATIC &amp; DRAG WIRES";
+      document.getElementById('pinout-list').classList.add('hidden');
+      lives = maxLives;
+      challengeIndex = 0;
+      updateLivesDisplay();
+      updateIPLivesDisplay();
+      console.log('🏠 Returned to menu');
+    }
+
+    function showChallengeSelect() {
+      showScreen('challenge-select');
+      console.log('📋 Showing challenge select');
+    }
+
+    // ===== STORY FLOW =====
+    function startChallenge() {
+      isPracticeMode = false;
+      lives = maxLives;
+      score = 0;
+      isGameOver = false;
+      challengeIndex = 0;
+      updateLivesDisplay();
+      updateIPLivesDisplay();
+      updateScoreDisplay();
+      updateIPScoreDisplay();
+      showScreen('story-1');
+      console.log('🎬 Starting story - cha1.jpg');
+    }
+
+    function goToStory2() {
+      showScreen('story-2');
+      console.log('📖 Going to story 2 - cha2.PNG');
+    }
+
+    function goToGame() {
+      // Start with first challenge in order
+      currentChallenge = challengeOrder[challengeIndex];
+      loadChallenge(currentChallenge);
+    }
+
+    function loadChallenge(challengeId) {
+      const challenge = challenges[challengeId];
+      if (challenge.type === 'ip') {
+        showScreen('ip-challenge');
+        document.getElementById('ip-status').innerHTML = "STATUS: " + challenge.name;
+        document.getElementById('ip-title').textContent = "💻 " + challenge.name;
+        resetIPConfig();
+        console.log('💻 Starting IP challenge:', challengeId);
+      } else {
+        showScreen('challenge-2');
+        document.getElementById('pinout-list').classList.add('hidden');
+        document.getElementById('game-status').innerHTML = "STATUS: " + challenge.name;
+        document.getElementById('challenge-title').textContent = challenge.name;
+        document.getElementById('challenge-hint').textContent = challenge.hint;
+        resetGameState();
+        initWirePalette();
+        console.log('🎯 Starting RJ45 challenge:', challengeId);
+      }
+    }
+
+    function startPractice() {
+      isPracticeMode = true;
+      lives = maxLives;
+      score = 0;
+      isGameOver = false;
+      challengeIndex = 0;
+      updateLivesDisplay();
+      updateIPLivesDisplay();
+      updateScoreDisplay();
+      updateIPScoreDisplay();
+      currentChallenge = challengeOrder[0];
+      loadChallenge(currentChallenge);
+      console.log('📚 Practice mode started');
+    }
+
+    function startSpecificChallenge(challengeId) {
+      isPracticeMode = false;
+      lives = maxLives;
+      score = 0;
+      isGameOver = false;
+      updateLivesDisplay();
+      updateIPLivesDisplay();
+      updateScoreDisplay();
+      updateIPScoreDisplay();
+      currentChallenge = challengeId;
+      loadChallenge(challengeId);
+      console.log('🎯 Starting specific challenge:', challengeId);
+    }
+
+    // ===== GO TO NEXT CHALLENGE =====
+    function goToNextChallenge() {
+      challengeIndex++;
+      if (challengeIndex < challengeOrder.length) {
+        currentChallenge = challengeOrder[challengeIndex];
+        loadChallenge(currentChallenge);
+      } else {
+        showModal('🎉 You completed all challenges! Great job!', 'success', '🏆 CHAMPION!');
+        goToMenu();
+      }
+    }
+
+    // ===== LIVES & SCORE =====
+    function updateLivesDisplay() {
+      const livesIcons = document.getElementById('lives-icons');
+      let hearts = '';
+      for (let i = 0; i < lives; i++) {
+        hearts += '❤️';
+      }
+      for (let i = lives; i < maxLives; i++) {
+        hearts += '🖤';
+      }
+      livesIcons.textContent = hearts;
+    }
+
+    function updateIPLivesDisplay() {
+      const livesIcons = document.getElementById('ip-lives-icons');
+      let hearts = '';
+      for (let i = 0; i < lives; i++) {
+        hearts += '❤️';
+      }
+      for (let i = lives; i < maxLives; i++) {
+        hearts += '🖤';
+      }
+      livesIcons.textContent = hearts;
+    }
+
+    function updateScoreDisplay() {
+      document.getElementById('score-display').textContent = 'SCORE: ' + score;
+    }
+
+    function updateIPScoreDisplay() {
+      document.getElementById('ip-score-display').textContent = 'SCORE: ' + score;
+    }
+
+    // ===== LOSE LIFE FUNCTION =====
+    function loseLife() {
+      if (isPracticeMode) {
+        const status = document.getElementById('ip-status') || document.getElementById('game-status');
+        status.innerHTML = "⚠️ PRACTICE MODE: No lives lost!";
+        status.style.color = '#f39c12';
+        setTimeout(() => {
+          status.style.color = '#f1c40f';
+        }, 1500);
+        return;
+      }
+      
+      lives--;
+      updateLivesDisplay();
+      updateIPLivesDisplay();
+      
+      const livesIcons = document.getElementById('lives-icons');
+      livesIcons.classList.remove('life-lost');
+      void livesIcons.offsetWidth;
+      livesIcons.classList.add('life-lost');
+      
+      const status = document.getElementById('game-status') || document.getElementById('ip-status');
+      status.innerHTML = "💔 LIFE LOST! " + lives + " lives remaining";
+      status.style.color = '#e74c3c';
+      
+      setTimeout(() => {
+        status.style.color = '#f1c40f';
+      }, 2000);
+      
+      console.log('💔 Lost a life. Lives left:', lives);
+      
+      if (lives <= 0) {
+        lives = 0;
+        updateLivesDisplay();
+        updateIPLivesDisplay();
+        setTimeout(() => {
+          showGameOver();
+        }, 600);
+      }
+    }
+
+    // ===== GAME OVER =====
+    function showGameOver() {
+      document.getElementById('game-over-modal').classList.add('active');
+      isGameOver = true;
+      console.log('💀 Game Over!');
+    }
+
+    function goToPracticeFromGameOver() {
+      document.getElementById('game-over-modal').classList.remove('active');
+      startPractice();
+    }
+
+    function resetAndRetry() {
+      document.getElementById('game-over-modal').classList.remove('active');
+      lives = maxLives;
+      score = 0;
+      isGameOver = false;
+      challengeIndex = 0;
+      updateLivesDisplay();
+      updateIPLivesDisplay();
+      updateScoreDisplay();
+      updateIPScoreDisplay();
+      resetGameState();
+      resetIPConfig();
+      initWirePalette();
+      currentChallenge = challengeOrder[0];
+      loadChallenge(currentChallenge);
+      console.log('🔄 Retry - lives reset to 5');
+    }
+
+    // ===== RESET GAME STATE =====
+    function resetGameState() {
+      currentTargetStandard = null;
+      document.querySelectorAll('.standard-btn').forEach(b => b.classList.remove('selected'));
+      document.querySelectorAll('.drop-zone').forEach(zone => {
+        const wire = zone.querySelector('.drag-wire');
+        if (wire) wire.remove();
+      });
+    }
+
+    // ===== WIRE PALETTE =====
+    function initWirePalette() {
+      const container = document.getElementById('wire-source-container');
+      container.innerHTML = '';
+      
+      const shuffled = [...wireDefinitions].sort(() => Math.random() - 0.5);
+      
+      shuffled.forEach((wire) => {
+        const el = document.createElement('div');
+        el.classList.add('drag-wire');
+        el.draggable = true;
+        el.dataset.name = wire.name;
+        el.style.background = wire.bg;
+        el.innerText = wire.name;
+        
+        el.addEventListener('dragstart', function(e) {
+          e.dataTransfer.setData('text/plain', JSON.stringify(wire));
+          this.style.opacity = '0.5';
+        });
+        
+        el.addEventListener('dragend', function(e) {
+          this.style.opacity = '1';
+        });
+
+        container.appendChild(el);
+      });
+    }
+
+    // ===== DRAG AND DROP =====
+    function dropWire(e) {
+      e.preventDefault();
+      const zone = e.target.closest('.drop-zone');
+      if (!zone) return;
+
+      if (isGameOver) {
+        showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER');
+        return;
+      }
+
+      const existing = zone.querySelector('.drag-wire');
+      if (existing) {
+        returnWireToPalette(existing);
+      }
+
+      try {
+        const wireData = JSON.parse(e.dataTransfer.getData('text/plain'));
+        
+        const sourceEl = document.querySelector(`.drag-wire[data-name="${wireData.name}"]`);
+        if (sourceEl && sourceEl.parentElement && sourceEl.parentElement.id === 'wire-source-container') {
+          sourceEl.remove();
+        }
+
+        const newWire = document.createElement('div');
+        newWire.classList.add('drag-wire');
+        newWire.dataset.name = wireData.name;
+        newWire.style.background = wireData.bg;
+        newWire.innerText = wireData.name;
+        newWire.draggable = false;
+        zone.appendChild(newWire);
+        
+      } catch (error) {
+        console.error('Drop error:', error);
+      }
+    }
+
+    function returnWireToPalette(wireElement) {
+      const container = document.getElementById('wire-source-container');
+      const wireName = wireElement.dataset.name;
+      const wireDef = wireDefinitions.find(w => w.name === wireName);
+      
+      if (wireDef) {
+        const newWire = document.createElement('div');
+        newWire.classList.add('drag-wire');
+        newWire.draggable = true;
+        newWire.dataset.name = wireDef.name;
+        newWire.style.background = wireDef.bg;
+        newWire.innerText = wireDef.name;
+        
+        newWire.addEventListener('dragstart', function(e) {
+          e.dataTransfer.setData('text/plain', JSON.stringify(wireDef));
+          this.style.opacity = '0.5';
+        });
+        
+        newWire.addEventListener('dragend', function(e) {
+          this.style.opacity = '1';
+        });
+        
+        container.appendChild(newWire);
+        wireElement.remove();
+      }
+    }
+
+    // ===== SET TARGET STANDARD =====
+    function setTargetStandard(std) {
+      if (isGameOver) {
+        showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER');
+        return;
+      }
+      
+      currentTargetStandard = std;
+      
+      document.querySelectorAll('.standard-btn').forEach(b => b.classList.remove('selected'));
+      if (std === 'T568A') {
+        document.querySelectorAll('.standard-btn')[0].classList.add('selected');
+      } else {
+        document.querySelectorAll('.standard-btn')[1].classList.add('selected');
+      }
+      
+      if (isPracticeMode) {
+        const list = document.getElementById('pinout-list');
+        list.innerHTML = `<b>${std} Sequence:</b><ol type="1" style="margin-left: 15px;">` + 
+          standards[std].map(w => `<li>${w}</li>`).join('') + `</ol>`;
+        list.classList.remove('hidden');
+      }
+      
+      document.getElementById('game-status').innerHTML = `STATUS: TARGET SET TO ${std}`;
+      console.log('🎯 Target standard set to:', std);
+    }
+
+    // ===== CRIMP CONNECTOR =====
+    function crimpConnector() {
+      if (isGameOver) {
+        showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER');
+        return;
+      }
+      
+      if (!currentTargetStandard) {
+        showModal('Please select a schematic (T568A or T568B) target first!', 'warning', '⚠️ SCHEMATIC REQUIRED');
+        return;
+      }
+
+      const dropZones = document.querySelectorAll('.drop-zone');
+      const targetSequence = standards[currentTargetStandard];
+      let isCorrect = true;
+      let filledSlots = 0;
+      let wrongPin = -1;
+      let emptyPins = [];
+
+      dropZones.forEach((zone, idx) => {
+        const placedWire = zone.querySelector('.drag-wire');
+        if (!placedWire) {
+          isCorrect = false;
+          emptyPins.push(idx + 1);
+        } else if (placedWire.dataset.name !== targetSequence[idx]) {
+          isCorrect = false;
+          wrongPin = idx + 1;
+        } else {
+          filledSlots++;
+        }
+      });
+
+      if (!isCorrect || filledSlots < 8) {
+        loseLife();
+        
+        let errorMsg = '';
+        if (emptyPins.length > 0) {
+          errorMsg = `❌ Empty pins: ${emptyPins.join(', ')}. `;
+          errorMsg += `You crimped with ${filledSlots}/8 wires!`;
+        } else if (wrongPin > 0) {
+          errorMsg = `❌ Pin ${wrongPin} has the wrong wire. `;
+          errorMsg += `Check the correct sequence!`;
+        }
+        errorMsg += '\n💔 -1 Life!';
+        
+        showModal(errorMsg, 'error', '❌ CRIMP FAILED');
+        highlightCorrectWires(false);
+        console.log('❌ CRIMP FAILED - Life lost');
+        return;
+      }
+
+      if (isCorrect && filledSlots === 8) {
+        score += 100;
+        updateScoreDisplay();
+        updateIPScoreDisplay();
+        document.getElementById('game-status').innerHTML = "STATUS: ✅ SUCCESS! WIRED CORRECTLY! +100 POINTS";
+        highlightCorrectWires(true);
+        
+        setTimeout(() => {
+          showSuccessScreen();
+        }, 800);
+        console.log('✅ CRIMP SUCCESS! Score:', score);
+      }
+    }
+
+    // ===== IP CONFIGURATION CHECK =====
+    function checkIPConfig() {
+      if (isGameOver) {
+        showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER');
+        return;
+      }
+
+      const ipAddress = document.getElementById('ip-address').value.trim();
+      const subnetMask = document.getElementById('subnet-mask').value.trim();
+      const defaultGateway = document.getElementById('default-gateway').value.trim();
+      const dnsServer = document.getElementById('dns-server').value.trim();
+
+      const ipInput = document.getElementById('ip-address');
+      const subnetInput = document.getElementById('subnet-mask');
+      const gatewayInput = document.getElementById('default-gateway');
+      const dnsInput = document.getElementById('dns-server');
+
+      if (!ipAddress || !subnetMask || !defaultGateway || !dnsServer) {
+        showModal('❌ Please fill in all fields before verifying!', 'warning', '⚠️ INCOMPLETE');
+        return;
+      }
+
+      let isCorrect = true;
+      let errors = [];
+
+      if (ipAddress !== correctIPConfig.ipAddress) {
+        isCorrect = false;
+        errors.push('IPv4 Address');
+        ipInput.classList.add('wrong');
+        ipInput.classList.remove('correct');
+      } else {
+        ipInput.classList.add('correct');
+        ipInput.classList.remove('wrong');
+      }
+
+      if (subnetMask !== correctIPConfig.subnetMask) {
+        isCorrect = false;
+        errors.push('Subnet Mask');
+        subnetInput.classList.add('wrong');
+        subnetInput.classList.remove('correct');
+      } else {
+        subnetInput.classList.add('correct');
+        subnetInput.classList.remove('wrong');
+      }
+
+      if (defaultGateway !== correctIPConfig.defaultGateway) {
+        isCorrect = false;
+        errors.push('Default Gateway');
+        gatewayInput.classList.add('wrong');
+        gatewayInput.classList.remove('correct');
+      } else {
+        gatewayInput.classList.add('correct');
+        gatewayInput.classList.remove('wrong');
+      }
+
+      if (dnsServer !== correctIPConfig.dnsServer) {
+        isCorrect = false;
+        errors.push('DNS Server');
+        dnsInput.classList.add('wrong');
+        dnsInput.classList.remove('correct');
+      } else {
+        dnsInput.classList.add('correct');
+        dnsInput.classList.remove('wrong');
+      }
+
+      if (isCorrect) {
+        score += 100;
+        updateScoreDisplay();
+        updateIPScoreDisplay();
+        document.getElementById('ip-status').innerHTML = "✅ SUCCESS! IP CONFIGURATION CORRECT! +100 POINTS";
+        document.getElementById('ip-status').style.color = '#2ecc71';
+        
+        setTimeout(() => {
+          showSuccessScreen();
+        }, 800);
+        console.log('✅ IP CONFIG SUCCESS! Score:', score);
+      } else {
+        loseLife();
+        document.getElementById('ip-status').innerHTML = "❌ INCORRECT: " + errors.join(', ');
+        document.getElementById('ip-status').style.color = '#e74c3c';
+        showModal(`❌ Wrong values: ${errors.join(', ')}\n💔 -1 Life!`, 'error', '❌ CONFIG FAILED');
+        console.log('❌ IP CONFIG FAILED - Life lost');
+      }
+    }
+
+    // ===== RESET IP CONFIG =====
+    function resetIPConfig() {
+      const inputs = ['ip-address', 'subnet-mask', 'default-gateway', 'dns-server'];
+      inputs.forEach(id => {
+        const input = document.getElementById(id);
+        input.value = '';
+        input.classList.remove('correct', 'wrong');
+      });
+      document.getElementById('ip-status').innerHTML = "STATUS: CONFIGURE IP ADDRESS SETTINGS";
+      document.getElementById('ip-status').style.color = '#f1c40f';
+    }
+
+    // ===== HIGHLIGHT CORRECT WIRES =====
+    function highlightCorrectWires(success) {
+      const dropZones = document.querySelectorAll('.drop-zone');
+      const targetSequence = standards[currentTargetStandard];
+      
+      dropZones.forEach((zone, idx) => {
+        const wire = zone.querySelector('.drag-wire');
+        if (wire) {
+          if (success || wire.dataset.name === targetSequence[idx]) {
+            wire.style.border = '3px solid #2ecc71';
+            wire.style.boxShadow = '0 0 15px #2ecc71';
+          } else {
+            wire.style.border = '3px solid #e74c3c';
+            wire.style.boxShadow = '0 0 15px #e74c3c';
+          }
+        }
+      });
+      
+      setTimeout(() => {
+        document.querySelectorAll('.drop-zone .drag-wire').forEach(wire => {
+          wire.style.border = '1px solid #000';
+          wire.style.boxShadow = 'none';
+        });
+      }, 3000);
+    }
+
+    // ===== RESET WIRES =====
+    function resetWires() {
+      if (isGameOver) {
+        showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER');
+        return;
+      }
+      
+      document.querySelectorAll('.drop-zone').forEach(zone => {
+        const wire = zone.querySelector('.drag-wire');
+        if (wire) wire.remove();
+      });
+      
+      initWirePalette();
+      document.getElementById('game-status').innerHTML = "STATUS: WIRES RESET";
+      
+      document.querySelectorAll('.drop-zone .drag-wire').forEach(wire => {
+        wire.style.border = '1px solid #000';
+        wire.style.boxShadow = 'none';
+      });
+      
+      showModal('🔄 All wires have been reset!', 'info', '🔄 RESET COMPLETE');
+    }
+
+    // ===== SUCCESS SCREEN =====
+    function showSuccessScreen() {
+      document.getElementById('final-score').textContent = score;
+      document.getElementById('final-lives').textContent = lives;
+      
+      // Check if next challenge is IP or RJ45
+      const nextIdx = challengeIndex + 1;
+      if (nextIdx < challengeOrder.length) {
+        const nextChallengeId = challengeOrder[nextIdx];
+        const nextType = challenges[nextChallengeId].type;
+        document.getElementById('next-btn').textContent = nextType === 'ip' ? '💻 NEXT: IP CONFIG ➜' : '🔌 NEXT: RJ45 ➜';
+      } else {
+        document.getElementById('next-btn').textContent = '🏆 FINISH ➜';
+      }
+      
+      showScreen('success-screen');
+      console.log('🏆 Success screen shown!');
+    }
+
+    // ===== MODAL FUNCTIONS =====
+    function showModal(message, type = 'warning', title = '') {
+      const modal = document.getElementById('custom-modal');
+      const icon = document.getElementById('modal-icon');
+      const titleEl = document.getElementById('modal-title');
+      const messageEl = document.getElementById('modal-message');
+      
+      const titles = { error: '❌ ERROR', success: '✅ SUCCESS', warning: '⚠️ NOTICE', info: 'ℹ️ INFO' };
+      const icons = { error: '❌', success: '✅', warning: '⚠️', info: 'ℹ️' };
+      
+      icon.textContent = icons[type] || icons.warning;
+      titleEl.textContent = title || titles[type] || titles.warning;
+      messageEl.textContent = message;
+      
+      modal.className = 'modal-overlay';
+      modal.classList.add(`modal-${type}`);
+      modal.classList.add('active');
+      
+      if (modalTimeout) clearTimeout(modalTimeout);
+      if (type === 'success' || type === 'info') {
+        modalTimeout = setTimeout(closeModal, 5000);
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('custom-modal').classList.remove('active');
+      if (modalTimeout) clearTimeout(modalTimeout);
+    }
+
+    document.getElementById('custom-modal').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+
+    // ===== CONFIRM GO TO MENU =====
+    function confirmGoToMenu() {
+      showModal('Are you sure you want to go back to the main menu? Your progress will be lost.', 'warning', '⚠️ CONFIRM');
+      const origClose = closeModal;
+      closeModal = function() {
+        origClose();
+        goToMenu();
+      };
+    }
+
+    // ===== INIT =====
+    console.log('🎮 Cable Connect Game Loaded!');
+    console.log('📋 Challenge Order: RJ45 → IP Configuration → RJ45 → IP → etc');
+    console.log('❤️ You have 5 lives. Each wrong answer costs 1 life!');
+    console.log('✅ Correct = +100 points!');
+    console.log('Click START CHALLENGE to begin!');
+    initWirePalette();
+    updateLivesDisplay();
+    updateIPLivesDisplay();
+    updateScoreDisplay();
+    updateIPScoreDisplay();
+  </script>
+
 </body>
 </html>
