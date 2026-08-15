@@ -251,7 +251,7 @@
 
     .life-lost { animation: lifeLost 0.6s ease; }
 
-    /* ===== RJ45 CHALLENGE - FIXED LAYOUT ===== */
+    /* ===== RJ45 CHALLENGE ===== */
     .rj45-workspace {
       width: 100%;
       height: 100%;
@@ -595,6 +595,301 @@
 
     .ip-reset-btn { background: #e74c3c; }
 
+    /* ===== WORKGROUP & SHARING CHALLENGE ===== */
+    #workgroup-challenge {
+      background: #0d2840;
+    }
+
+    .workgroup-workspace {
+      width: 100%;
+      height: 100%;
+      padding: 10px;
+      padding-top: 35px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .workgroup-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #051422;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.4rem;
+      margin-bottom: 6px;
+    }
+
+    .workgroup-title { color: #2bf1c9; }
+    .workgroup-status { color: #f1c40f; }
+
+    .workgroup-body {
+      display: flex;
+      flex: 1;
+      gap: 10px;
+      min-height: 0;
+    }
+
+    .workgroup-config {
+      flex: 2;
+      background: #143552;
+      border-radius: 8px;
+      padding: 10px;
+      border: 2px solid #2bf1c9;
+      overflow-y: auto;
+    }
+
+    .workgroup-pc-title {
+      color: #2bf1c9;
+      font-size: 0.5rem;
+      text-align: center;
+      border-bottom: 2px solid #2bf1c9;
+      padding-bottom: 6px;
+      margin-bottom: 8px;
+    }
+
+    .workgroup-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 4px;
+      font-size: 0.35rem;
+      color: #ecf0f1;
+      flex-wrap: wrap;
+    }
+
+    .workgroup-label { min-width: 100px; color: #aaa; }
+    .workgroup-value { color: #2ecc71; }
+
+    .workgroup-input {
+      background: #081d2e;
+      border: 2px solid #2980b9;
+      border-radius: 4px;
+      padding: 2px 6px;
+      color: #fff;
+      font-family: 'Courier New', monospace;
+      font-size: 0.35rem;
+      width: 140px;
+      outline: none;
+    }
+
+    .workgroup-input:focus { border-color: #2bf1c9; }
+    .workgroup-input.correct { border-color: #2ecc71; background: rgba(46,204,113,0.1); }
+    .workgroup-input.wrong { border-color: #e74c3c; background: rgba(231,76,60,0.1); }
+
+    .workgroup-checkbox {
+      accent-color: #2bf1c9;
+      width: 14px;
+      height: 14px;
+      cursor: pointer;
+    }
+
+    .workgroup-checkbox:checked + label { color: #2ecc71; }
+
+    .workgroup-checkbox-label {
+      font-size: 0.35rem;
+      color: #ecf0f1;
+      cursor: pointer;
+    }
+
+    .workgroup-instructions {
+      flex: 1;
+      background: #143552;
+      border-radius: 8px;
+      padding: 10px;
+      border: 2px solid #f39c12;
+      overflow-y: auto;
+    }
+
+    .workgroup-instructions-title {
+      color: #f39c12;
+      font-size: 0.45rem;
+      text-align: center;
+      border-bottom: 2px solid #f39c12;
+      padding-bottom: 6px;
+      margin-bottom: 6px;
+    }
+
+    .workgroup-instruction-item {
+      font-size: 0.32rem;
+      color: #ecf0f1;
+      padding: 3px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .workgroup-instruction-item .correct-value { color: #2ecc71; }
+    .workgroup-instruction-item .highlight { color: #2bf1c9; }
+
+    .workgroup-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+      justify-content: center;
+    }
+
+    .workgroup-tool-btn {
+      padding: 4px 14px;
+      background: #27ae60;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 0.35rem;
+    }
+
+    .workgroup-reset-btn { background: #e74c3c; }
+
+    /* ===== ROUTER CONNECTIVITY TEST CHALLENGE ===== */
+    #router-challenge {
+      background: #0d2840;
+    }
+
+    .router-workspace {
+      width: 100%;
+      height: 100%;
+      padding: 10px;
+      padding-top: 35px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .router-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #051422;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.4rem;
+      margin-bottom: 6px;
+    }
+
+    .router-title { color: #2bf1c9; }
+    .router-status { color: #f1c40f; }
+
+    .router-body {
+      display: flex;
+      flex: 1;
+      gap: 10px;
+      min-height: 0;
+    }
+
+    .router-config {
+      flex: 2;
+      background: #143552;
+      border-radius: 8px;
+      padding: 10px;
+      border: 2px solid #2bf1c9;
+      overflow-y: auto;
+    }
+
+    .router-section {
+      margin-bottom: 8px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 4px;
+      padding: 6px;
+    }
+
+    .router-section-title {
+      color: #f1c40f;
+      font-size: 0.4rem;
+      margin-bottom: 4px;
+    }
+
+    .router-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 2px;
+      font-size: 0.35rem;
+      color: #ecf0f1;
+      flex-wrap: wrap;
+    }
+
+    .router-label { min-width: 80px; color: #aaa; }
+    .router-value { color: #2ecc71; font-family: 'Courier New', monospace; }
+
+    .router-input {
+      background: #081d2e;
+      border: 2px solid #2980b9;
+      border-radius: 4px;
+      padding: 2px 6px;
+      color: #fff;
+      font-family: 'Courier New', monospace;
+      font-size: 0.35rem;
+      width: 120px;
+      outline: none;
+    }
+
+    .router-input:focus { border-color: #2bf1c9; }
+    .router-input.correct { border-color: #2ecc71; background: rgba(46,204,113,0.1); }
+    .router-input.wrong { border-color: #e74c3c; background: rgba(231,76,60,0.1); }
+
+    .ping-result {
+      background: #081d2e;
+      padding: 6px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.3rem;
+      color: #2ecc71;
+      margin-top: 4px;
+      min-height: 40px;
+      border: 1px solid #2980b9;
+    }
+
+    .ping-result .success { color: #2ecc71; }
+    .ping-result .fail { color: #e74c3c; }
+    .ping-result .info { color: #f1c40f; }
+
+    .router-instructions {
+      flex: 1;
+      background: #143552;
+      border-radius: 8px;
+      padding: 10px;
+      border: 2px solid #f39c12;
+      overflow-y: auto;
+    }
+
+    .router-instructions-title {
+      color: #f39c12;
+      font-size: 0.45rem;
+      text-align: center;
+      border-bottom: 2px solid #f39c12;
+      padding-bottom: 6px;
+      margin-bottom: 6px;
+    }
+
+    .router-instruction-item {
+      font-size: 0.32rem;
+      color: #ecf0f1;
+      padding: 3px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .router-instruction-item .correct-value { color: #2ecc71; }
+    .router-instruction-item .highlight { color: #2bf1c9; }
+
+    .router-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+      justify-content: center;
+    }
+
+    .router-tool-btn {
+      padding: 4px 14px;
+      background: #27ae60;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 0.35rem;
+    }
+
+    .router-reset-btn { background: #e74c3c; }
+
     /* ===== SUCCESS SCREEN ===== */
     .success-content {
       display: flex;
@@ -730,6 +1025,8 @@
       }
       .mini-game-body { flex-direction: column; }
       .ip-body { flex-direction: column; }
+      .workgroup-body { flex-direction: column; }
+      .router-body { flex-direction: column; }
       .character-sprite { height: 100px; }
       .game-title { font-size: 1.2rem; }
       .challenge-list { grid-template-columns: 1fr; }
@@ -775,8 +1072,8 @@
           <button class="challenge-item" onclick="startSpecificChallenge(3)">🔄 Crossover Cable</button>
           <button class="challenge-item" onclick="startSpecificChallenge(4)">📡 IP Configuration</button>
           <button class="challenge-item" onclick="startSpecificChallenge(5)">🌐 Subnet Masking</button>
-          <button class="challenge-item" onclick="startSpecificChallenge(6)">🏢 Network Topology</button>
-          <button class="challenge-item" onclick="startSpecificChallenge(7)">📶 Wi-Fi Setup</button>
+          <button class="challenge-item" onclick="startSpecificChallenge(6)">🏢 Workgroup & Sharing Setup</button>
+          <button class="challenge-item" onclick="startSpecificChallenge(7)">📶 Router & Connectivity Testing</button>
           <button class="challenge-item" onclick="startSpecificChallenge(8)">🔒 Network Security</button>
         </div>
       </div>
@@ -926,7 +1223,7 @@
               <div class="section-title">🌐 IPv6 Configuration</div>
               <div class="config-row">
                 <span class="config-label">IPv6 Address:</span>
-                <span class="config-value blank" style="color:#e74c3c;">Not Configured</span>
+                <span class="config-value" style="color:#e74c3c;">Not Configured</span>
               </div>
               <div class="config-row">
                 <span class="config-label">Link Local Address:</span>
@@ -969,6 +1266,188 @@
               💡 <span class="highlight">Hint:</span> Use standard network addressing
             </div>
             <div class="instruction-item" style="color:#e74c3c; font-size:0.3rem;">
+              ⚠️ Wrong config = -1 Life!
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WORKGROUP & SHARING SETUP CHALLENGE -->
+    <div id="workgroup-challenge" class="screen">
+      <button class="pixel-btn btn-back" onclick="confirmGoToMenu()">BACK</button>
+      <div class="lives-display" id="workgroup-lives-display">
+        <span class="lives-label">LIVES:</span>
+        <span class="lives-icons" id="workgroup-lives-icons">❤️❤️❤️❤️❤️</span>
+        <span class="score-display" id="workgroup-score-display">SCORE: 0</span>
+      </div>
+
+      <div class="workgroup-workspace">
+        <div class="workgroup-header">
+          <span class="workgroup-title">🏢 WORKGROUP & SHARING SETUP</span>
+          <span id="workgroup-status" class="workgroup-status">STATUS: CONFIGURE WORKGROUP SETTINGS</span>
+        </div>
+
+        <div class="workgroup-body">
+          <div class="workgroup-config">
+            <div class="workgroup-pc-title">💻 This PC - System Properties</div>
+            
+            <div class="config-section">
+              <div class="section-title">📁 Computer Name & Workgroup</div>
+              <div class="workgroup-row">
+                <span class="workgroup-label">Computer Name:</span>
+                <input type="text" class="workgroup-input" id="computer-name" placeholder="PC-01" maxlength="20">
+              </div>
+              <div class="workgroup-row">
+                <span class="workgroup-label">Workgroup:</span>
+                <input type="text" class="workgroup-input" id="workgroup-name" placeholder="WORKGROUP" maxlength="20">
+              </div>
+            </div>
+
+            <div class="config-section">
+              <div class="section-title">🔗 Network Discovery & Sharing</div>
+              <div class="workgroup-row">
+                <span class="workgroup-label">Network Discovery:</span>
+                <input type="checkbox" class="workgroup-checkbox" id="network-discovery">
+                <label for="network-discovery" class="workgroup-checkbox-label">Turn on Network Discovery</label>
+              </div>
+              <div class="workgroup-row">
+                <span class="workgroup-label">File Sharing:</span>
+                <input type="checkbox" class="workgroup-checkbox" id="file-sharing">
+                <label for="file-sharing" class="workgroup-checkbox-label">Turn on File and Printer Sharing</label>
+              </div>
+              <div class="workgroup-row">
+                <span class="workgroup-label">Password Protection:</span>
+                <input type="checkbox" class="workgroup-checkbox" id="password-protection">
+                <label for="password-protection" class="workgroup-checkbox-label">Turn off password-protected sharing</label>
+              </div>
+            </div>
+
+            <div class="workgroup-actions">
+              <button class="workgroup-tool-btn" onclick="checkWorkgroupConfig()">✅ VERIFY SETTINGS</button>
+              <button class="workgroup-tool-btn workgroup-reset-btn" onclick="resetWorkgroupConfig()">🔄 RESET</button>
+            </div>
+          </div>
+
+          <div class="workgroup-instructions">
+            <div class="workgroup-instructions-title">📋 CONFIGURATION TASK</div>
+            <div class="workgroup-instruction-item">
+              Configure This PC with the following settings:
+            </div>
+            <div class="workgroup-instruction-item">
+              🔹 Computer Name: <span class="correct-value">PC-01</span>
+            </div>
+            <div class="workgroup-instruction-item">
+              🔹 Workgroup: <span class="correct-value">WORKGROUP</span>
+            </div>
+            <div class="workgroup-instruction-item">
+              🔹 Network Discovery: <span class="correct-value">ON</span>
+            </div>
+            <div class="workgroup-instruction-item">
+              🔹 File Sharing: <span class="correct-value">ON</span>
+            </div>
+            <div class="workgroup-instruction-item">
+              🔹 Password Protection: <span class="correct-value">OFF</span>
+            </div>
+            <div class="workgroup-instruction-item" style="margin-top:8px; border-top:2px solid #f39c12; padding-top:8px;">
+              💡 <span class="highlight">Hint:</span> All PCs need the same workgroup name
+            </div>
+            <div class="workgroup-instruction-item" style="color:#e74c3c; font-size:0.3rem;">
+              ⚠️ Wrong config = -1 Life!
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROUTER CONNECTIVITY TESTING CHALLENGE -->
+    <div id="router-challenge" class="screen">
+      <button class="pixel-btn btn-back" onclick="confirmGoToMenu()">BACK</button>
+      <div class="lives-display" id="router-lives-display">
+        <span class="lives-label">LIVES:</span>
+        <span class="lives-icons" id="router-lives-icons">❤️❤️❤️❤️❤️</span>
+        <span class="score-display" id="router-score-display">SCORE: 0</span>
+      </div>
+
+      <div class="router-workspace">
+        <div class="router-header">
+          <span class="router-title">📶 ROUTER & CONNECTIVITY TEST</span>
+          <span id="router-status" class="router-status">STATUS: CONFIGURE ROUTER SETTINGS</span>
+        </div>
+
+        <div class="router-body">
+          <div class="router-config">
+            <div class="pc-title">🌐 Wireless Router Configuration</div>
+            
+            <div class="router-section">
+              <div class="router-section-title">📡 Wireless Settings</div>
+              <div class="router-row">
+                <span class="router-label">SSID:</span>
+                <input type="text" class="router-input" id="router-ssid" placeholder="OfficeNet" maxlength="30">
+              </div>
+              <div class="router-row">
+                <span class="router-label">Security:</span>
+                <select class="router-input" id="router-security" style="width:140px;">
+                  <option value="">Select Security</option>
+                  <option value="WPA2">WPA2</option>
+                  <option value="WPA">WPA</option>
+                  <option value="WEP">WEP</option>
+                  <option value="None">None</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="router-section">
+              <div class="router-section-title">🌍 LAN/WAN Ports</div>
+              <div class="router-row">
+                <span class="router-label">LAN IP:</span>
+                <input type="text" class="router-input" id="router-lan" placeholder="192.168.1.1" maxlength="15">
+              </div>
+              <div class="router-row">
+                <span class="router-label">DHCP Range:</span>
+                <span class="router-value">192.168.1.100 - 192.168.1.200</span>
+              </div>
+            </div>
+
+            <div class="router-section">
+              <div class="router-section-title">🖥️ Connectivity Test (ping)</div>
+              <div class="router-row">
+                <span class="router-label">IP Address to ping:</span>
+                <input type="text" class="router-input" id="ping-ip" placeholder="192.168.1.1" maxlength="15">
+              </div>
+              <button class="router-tool-btn" onclick="runPingTest()" style="margin-top:4px;">▶️ RUN PING</button>
+              <div class="ping-result" id="ping-result">
+                <span class="info">📡 Ready to ping...</span>
+              </div>
+            </div>
+
+            <div class="router-actions">
+              <button class="router-tool-btn" onclick="checkRouterConfig()">✅ VERIFY ROUTER</button>
+              <button class="router-tool-btn router-reset-btn" onclick="resetRouterConfig()">🔄 RESET</button>
+            </div>
+          </div>
+
+          <div class="router-instructions">
+            <div class="router-instructions-title">📋 CONFIGURATION TASK</div>
+            <div class="router-instruction-item">
+              Configure Router with the following settings:
+            </div>
+            <div class="router-instruction-item">
+              🔹 SSID: <span class="correct-value">OfficeNet</span>
+            </div>
+            <div class="router-instruction-item">
+              🔹 Security: <span class="correct-value">WPA2</span>
+            </div>
+            <div class="router-instruction-item">
+              🔹 LAN IP: <span class="correct-value">192.168.1.1</span>
+            </div>
+            <div class="router-instruction-item">
+              🔹 Ping IP: <span class="correct-value">192.168.1.1</span>
+            </div>
+            <div class="router-instruction-item" style="margin-top:8px; border-top:2px solid #f39c12; padding-top:8px;">
+              💡 <span class="highlight">Hint:</span> Ping tests network connectivity
+            </div>
+            <div class="router-instruction-item" style="color:#e74c3c; font-size:0.3rem;">
               ⚠️ Wrong config = -1 Life!
             </div>
           </div>
@@ -1023,7 +1502,8 @@
   <script>
     // ============================================
     // CABLE CONNECT - COMPLETE GAME SCRIPT
-    // RJ45 → IP CONFIGURATION FLOW
+    // WRONG = -1 LIFE, STAY ON SAME CHALLENGE
+    // ALL LIVES GONE = GO TO MENU
     // ============================================
 
     // ===== GAME VARIABLES =====
@@ -1037,19 +1517,19 @@
     let isGameOver = false;
     let isAudioPlaying = false;
     let modalTimeout = null;
-    let challengeOrder = [1, 4, 2, 5, 3, 6, 7, 8]; // RJ45 → IP → RJ45 → IP → etc
+    let challengeOrder = [1, 4, 6, 7, 2, 5, 3, 8];
     let challengeIndex = 0;
 
     // ===== CHALLENGE DEFINITIONS =====
     const challenges = {
-      1: { name: 'RJ45 Crimping - T568B', hint: 'Drag wires to correct pins in T568B order', standard: 'T568B', type: 'rj45' },
-      2: { name: 'Straight-Through Cable', hint: 'Both ends use T568B standard', standard: 'T568B', type: 'rj45' },
-      3: { name: 'Crossover Cable', hint: 'One end T568A, other T568B', standard: 'T568A', type: 'rj45' },
-      4: { name: 'IP Configuration', hint: 'Configure PC1 with correct IP settings', standard: 'T568B', type: 'ip' },
-      5: { name: 'Subnet Masking', hint: 'Calculate subnet mask for /24 network', standard: 'T568B', type: 'ip' },
-      6: { name: 'Network Topology', hint: 'Star topology with 8 devices', standard: 'T568B', type: 'rj45' },
-      7: { name: 'Wi-Fi Setup', hint: 'Configure WPA2 with SSID "OfficeNet"', standard: 'T568B', type: 'rj45' },
-      8: { name: 'Network Security', hint: 'Enable firewall and MAC filtering', standard: 'T568B', type: 'rj45' }
+      1: { name: 'RJ45 Crimping - T568B', hint: 'Drag wires to correct pins in T568B order', type: 'rj45' },
+      2: { name: 'Straight-Through Cable', hint: 'Both ends use T568B standard', type: 'rj45' },
+      3: { name: 'Crossover Cable', hint: 'One end T568A, other T568B', type: 'rj45' },
+      4: { name: 'IP Configuration', hint: 'Configure PC1 with correct IP settings', type: 'ip' },
+      5: { name: 'Subnet Masking', hint: 'Calculate subnet mask for /24 network', type: 'ip' },
+      6: { name: 'Workgroup & Sharing Setup', hint: 'Configure computer name, workgroup and sharing', type: 'workgroup' },
+      7: { name: 'Router & Connectivity Testing', hint: 'Configure SSID, security and test ping', type: 'router' },
+      8: { name: 'Network Security', hint: 'Enable firewall and MAC filtering', type: 'rj45' }
     };
 
     // ===== WIRE DEFINITIONS =====
@@ -1069,12 +1549,27 @@
       { name: 'Brown', bg: '#6d4c41' }
     ];
 
-    // ===== CORRECT IP CONFIGURATION =====
+    // ===== CORRECT CONFIGURATIONS =====
     const correctIPConfig = {
       ipAddress: '192.168.1.2',
       subnetMask: '255.255.255.0',
       defaultGateway: '192.168.1.1',
       dnsServer: '8.8.8.8'
+    };
+
+    const correctWorkgroupConfig = {
+      computerName: 'PC-01',
+      workgroup: 'WORKGROUP',
+      networkDiscovery: true,
+      fileSharing: true,
+      passwordProtection: false
+    };
+
+    const correctRouterConfig = {
+      ssid: 'OfficeNet',
+      security: 'WPA2',
+      lanIp: '192.168.1.1',
+      pingIp: '192.168.1.1'
     };
 
     // ===== AUDIO SYSTEM =====
@@ -1105,12 +1600,14 @@
       showScreen('main-menu');
       resetGameState();
       resetIPConfig();
+      resetWorkgroupConfig();
+      resetRouterConfig();
       document.getElementById('game-status').innerHTML = "STATUS: SELECT SCHEMATIC &amp; DRAG WIRES";
       document.getElementById('pinout-list').classList.add('hidden');
       lives = maxLives;
       challengeIndex = 0;
-      updateLivesDisplay();
-      updateIPLivesDisplay();
+      updateAllLives();
+      isGameOver = false;
       console.log('🏠 Returned to menu');
     }
 
@@ -1126,10 +1623,8 @@
       score = 0;
       isGameOver = false;
       challengeIndex = 0;
-      updateLivesDisplay();
-      updateIPLivesDisplay();
-      updateScoreDisplay();
-      updateIPScoreDisplay();
+      updateAllLives();
+      updateAllScores();
       showScreen('story-1');
       console.log('🎬 Starting story - cha1.jpg');
     }
@@ -1140,7 +1635,6 @@
     }
 
     function goToGame() {
-      // Start with first challenge in order
       currentChallenge = challengeOrder[challengeIndex];
       loadChallenge(currentChallenge);
     }
@@ -1153,6 +1647,16 @@
         document.getElementById('ip-title').textContent = "💻 " + challenge.name;
         resetIPConfig();
         console.log('💻 Starting IP challenge:', challengeId);
+      } else if (challenge.type === 'workgroup') {
+        showScreen('workgroup-challenge');
+        document.getElementById('workgroup-status').innerHTML = "STATUS: " + challenge.name;
+        resetWorkgroupConfig();
+        console.log('🏢 Starting Workgroup challenge:', challengeId);
+      } else if (challenge.type === 'router') {
+        showScreen('router-challenge');
+        document.getElementById('router-status').innerHTML = "STATUS: " + challenge.name;
+        resetRouterConfig();
+        console.log('📶 Starting Router challenge:', challengeId);
       } else {
         showScreen('challenge-2');
         document.getElementById('pinout-list').classList.add('hidden');
@@ -1171,10 +1675,8 @@
       score = 0;
       isGameOver = false;
       challengeIndex = 0;
-      updateLivesDisplay();
-      updateIPLivesDisplay();
-      updateScoreDisplay();
-      updateIPScoreDisplay();
+      updateAllLives();
+      updateAllScores();
       currentChallenge = challengeOrder[0];
       loadChallenge(currentChallenge);
       console.log('📚 Practice mode started');
@@ -1185,10 +1687,8 @@
       lives = maxLives;
       score = 0;
       isGameOver = false;
-      updateLivesDisplay();
-      updateIPLivesDisplay();
-      updateScoreDisplay();
-      updateIPScoreDisplay();
+      updateAllLives();
+      updateAllScores();
       currentChallenge = challengeId;
       loadChallenge(challengeId);
       console.log('🎯 Starting specific challenge:', challengeId);
@@ -1207,42 +1707,34 @@
     }
 
     // ===== LIVES & SCORE =====
-    function updateLivesDisplay() {
-      const livesIcons = document.getElementById('lives-icons');
-      let hearts = '';
-      for (let i = 0; i < lives; i++) {
-        hearts += '❤️';
-      }
-      for (let i = lives; i < maxLives; i++) {
-        hearts += '🖤';
-      }
-      livesIcons.textContent = hearts;
+    function updateAllLives() {
+      const elements = ['lives-icons', 'ip-lives-icons', 'workgroup-lives-icons', 'router-lives-icons'];
+      elements.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          let hearts = '';
+          for (let i = 0; i < lives; i++) hearts += '❤️';
+          for (let i = lives; i < maxLives; i++) hearts += '🖤';
+          el.textContent = hearts;
+        }
+      });
     }
 
-    function updateIPLivesDisplay() {
-      const livesIcons = document.getElementById('ip-lives-icons');
-      let hearts = '';
-      for (let i = 0; i < lives; i++) {
-        hearts += '❤️';
-      }
-      for (let i = lives; i < maxLives; i++) {
-        hearts += '🖤';
-      }
-      livesIcons.textContent = hearts;
+    function updateAllScores() {
+      const elements = ['score-display', 'ip-score-display', 'workgroup-score-display', 'router-score-display'];
+      elements.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = 'SCORE: ' + score;
+      });
     }
 
-    function updateScoreDisplay() {
-      document.getElementById('score-display').textContent = 'SCORE: ' + score;
-    }
-
-    function updateIPScoreDisplay() {
-      document.getElementById('ip-score-display').textContent = 'SCORE: ' + score;
-    }
-
-    // ===== LOSE LIFE FUNCTION =====
+    // ===== LOSE LIFE FUNCTION - STAY ON SAME CHALLENGE =====
     function loseLife() {
       if (isPracticeMode) {
-        const status = document.getElementById('ip-status') || document.getElementById('game-status');
+        const status = document.getElementById('ip-status') || 
+                       document.getElementById('workgroup-status') || 
+                       document.getElementById('router-status') || 
+                       document.getElementById('game-status');
         status.innerHTML = "⚠️ PRACTICE MODE: No lives lost!";
         status.style.color = '#f39c12';
         setTimeout(() => {
@@ -1252,16 +1744,18 @@
       }
       
       lives--;
-      updateLivesDisplay();
-      updateIPLivesDisplay();
+      updateAllLives();
       
       const livesIcons = document.getElementById('lives-icons');
       livesIcons.classList.remove('life-lost');
       void livesIcons.offsetWidth;
       livesIcons.classList.add('life-lost');
       
-      const status = document.getElementById('game-status') || document.getElementById('ip-status');
-      status.innerHTML = "💔 LIFE LOST! " + lives + " lives remaining";
+      const status = document.getElementById('game-status') || 
+                     document.getElementById('ip-status') || 
+                     document.getElementById('workgroup-status') || 
+                     document.getElementById('router-status');
+      status.innerHTML = "💔 LIFE LOST! " + lives + " lives remaining. Try again!";
       status.style.color = '#e74c3c';
       
       setTimeout(() => {
@@ -1270,21 +1764,23 @@
       
       console.log('💔 Lost a life. Lives left:', lives);
       
+      // ONLY GO TO MENU IF ALL LIVES ARE GONE
       if (lives <= 0) {
         lives = 0;
-        updateLivesDisplay();
-        updateIPLivesDisplay();
+        updateAllLives();
         setTimeout(() => {
           showGameOver();
         }, 600);
       }
+      // Otherwise STAY ON THE SAME CHALLENGE - do NOT change screen
     }
 
-    // ===== GAME OVER =====
+    // ===== GAME OVER - GO TO MENU =====
     function showGameOver() {
+      // Show game over modal
       document.getElementById('game-over-modal').classList.add('active');
       isGameOver = true;
-      console.log('💀 Game Over!');
+      console.log('💀 Game Over! All lives lost. Going to menu on close.');
     }
 
     function goToPracticeFromGameOver() {
@@ -1298,12 +1794,12 @@
       score = 0;
       isGameOver = false;
       challengeIndex = 0;
-      updateLivesDisplay();
-      updateIPLivesDisplay();
-      updateScoreDisplay();
-      updateIPScoreDisplay();
+      updateAllLives();
+      updateAllScores();
       resetGameState();
       resetIPConfig();
+      resetWorkgroupConfig();
+      resetRouterConfig();
       initWirePalette();
       currentChallenge = challengeOrder[0];
       loadChallenge(currentChallenge);
@@ -1472,7 +1968,7 @@
       });
 
       if (!isCorrect || filledSlots < 8) {
-        loseLife();
+        loseLife(); // This will subtract a life and STAY on the same screen
         
         let errorMsg = '';
         if (emptyPins.length > 0) {
@@ -1486,14 +1982,13 @@
         
         showModal(errorMsg, 'error', '❌ CRIMP FAILED');
         highlightCorrectWires(false);
-        console.log('❌ CRIMP FAILED - Life lost');
+        console.log('❌ CRIMP FAILED - Life lost, staying on same challenge');
         return;
       }
 
       if (isCorrect && filledSlots === 8) {
         score += 100;
-        updateScoreDisplay();
-        updateIPScoreDisplay();
+        updateAllScores();
         document.getElementById('game-status').innerHTML = "STATUS: ✅ SUCCESS! WIRED CORRECTLY! +100 POINTS";
         highlightCorrectWires(true);
         
@@ -1571,8 +2066,7 @@
 
       if (isCorrect) {
         score += 100;
-        updateScoreDisplay();
-        updateIPScoreDisplay();
+        updateAllScores();
         document.getElementById('ip-status').innerHTML = "✅ SUCCESS! IP CONFIGURATION CORRECT! +100 POINTS";
         document.getElementById('ip-status').style.color = '#2ecc71';
         
@@ -1581,11 +2075,11 @@
         }, 800);
         console.log('✅ IP CONFIG SUCCESS! Score:', score);
       } else {
-        loseLife();
+        loseLife(); // This will subtract a life and STAY on the same screen
         document.getElementById('ip-status').innerHTML = "❌ INCORRECT: " + errors.join(', ');
         document.getElementById('ip-status').style.color = '#e74c3c';
         showModal(`❌ Wrong values: ${errors.join(', ')}\n💔 -1 Life!`, 'error', '❌ CONFIG FAILED');
-        console.log('❌ IP CONFIG FAILED - Life lost');
+        console.log('❌ IP CONFIG FAILED - Life lost, staying on same challenge');
       }
     }
 
@@ -1594,11 +2088,246 @@
       const inputs = ['ip-address', 'subnet-mask', 'default-gateway', 'dns-server'];
       inputs.forEach(id => {
         const input = document.getElementById(id);
-        input.value = '';
-        input.classList.remove('correct', 'wrong');
+        if (input) {
+          input.value = '';
+          input.classList.remove('correct', 'wrong');
+        }
       });
-      document.getElementById('ip-status').innerHTML = "STATUS: CONFIGURE IP ADDRESS SETTINGS";
-      document.getElementById('ip-status').style.color = '#f1c40f';
+      const status = document.getElementById('ip-status');
+      if (status) {
+        status.innerHTML = "STATUS: CONFIGURE IP ADDRESS SETTINGS";
+        status.style.color = '#f1c40f';
+      }
+    }
+
+    // ===== WORKGROUP CONFIGURATION CHECK =====
+    function checkWorkgroupConfig() {
+      if (isGameOver) {
+        showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER');
+        return;
+      }
+
+      const computerName = document.getElementById('computer-name').value.trim();
+      const workgroup = document.getElementById('workgroup-name').value.trim();
+      const networkDiscovery = document.getElementById('network-discovery').checked;
+      const fileSharing = document.getElementById('file-sharing').checked;
+      const passwordProtection = document.getElementById('password-protection').checked;
+
+      const nameInput = document.getElementById('computer-name');
+      const workgroupInput = document.getElementById('workgroup-name');
+
+      if (!computerName || !workgroup) {
+        showModal('❌ Please fill in Computer Name and Workgroup!', 'warning', '⚠️ INCOMPLETE');
+        return;
+      }
+
+      let isCorrect = true;
+      let errors = [];
+
+      if (computerName !== correctWorkgroupConfig.computerName) {
+        isCorrect = false;
+        errors.push('Computer Name');
+        nameInput.classList.add('wrong');
+        nameInput.classList.remove('correct');
+      } else {
+        nameInput.classList.add('correct');
+        nameInput.classList.remove('wrong');
+      }
+
+      if (workgroup !== correctWorkgroupConfig.workgroup) {
+        isCorrect = false;
+        errors.push('Workgroup');
+        workgroupInput.classList.add('wrong');
+        workgroupInput.classList.remove('correct');
+      } else {
+        workgroupInput.classList.add('correct');
+        workgroupInput.classList.remove('wrong');
+      }
+
+      if (networkDiscovery !== correctWorkgroupConfig.networkDiscovery) {
+        isCorrect = false;
+        errors.push('Network Discovery');
+      }
+
+      if (fileSharing !== correctWorkgroupConfig.fileSharing) {
+        isCorrect = false;
+        errors.push('File Sharing');
+      }
+
+      if (passwordProtection !== correctWorkgroupConfig.passwordProtection) {
+        isCorrect = false;
+        errors.push('Password Protection');
+      }
+
+      if (isCorrect) {
+        score += 100;
+        updateAllScores();
+        document.getElementById('workgroup-status').innerHTML = "✅ SUCCESS! WORKGROUP CONFIGURATION CORRECT! +100 POINTS";
+        document.getElementById('workgroup-status').style.color = '#2ecc71';
+        
+        setTimeout(() => {
+          showSuccessScreen();
+        }, 800);
+        console.log('✅ WORKGROUP SUCCESS! Score:', score);
+      } else {
+        loseLife(); // This will subtract a life and STAY on the same screen
+        document.getElementById('workgroup-status').innerHTML = "❌ INCORRECT: " + errors.join(', ');
+        document.getElementById('workgroup-status').style.color = '#e74c3c';
+        showModal(`❌ Wrong values: ${errors.join(', ')}\n💔 -1 Life!`, 'error', '❌ CONFIG FAILED');
+        console.log('❌ WORKGROUP CONFIG FAILED - Life lost, staying on same challenge');
+      }
+    }
+
+    // ===== RESET WORKGROUP CONFIG =====
+    function resetWorkgroupConfig() {
+      ['computer-name', 'workgroup-name'].forEach(id => {
+        const input = document.getElementById(id);
+        if (input) {
+          input.value = '';
+          input.classList.remove('correct', 'wrong');
+        }
+      });
+      ['network-discovery', 'file-sharing', 'password-protection'].forEach(id => {
+        const checkbox = document.getElementById(id);
+        if (checkbox) checkbox.checked = false;
+      });
+      const status = document.getElementById('workgroup-status');
+      if (status) {
+        status.innerHTML = "STATUS: CONFIGURE WORKGROUP SETTINGS";
+        status.style.color = '#f1c40f';
+      }
+    }
+
+    // ===== ROUTER CONFIGURATION CHECK =====
+    function checkRouterConfig() {
+      if (isGameOver) {
+        showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER');
+        return;
+      }
+
+      const ssid = document.getElementById('router-ssid').value.trim();
+      const security = document.getElementById('router-security').value;
+      const lanIp = document.getElementById('router-lan').value.trim();
+
+      const ssidInput = document.getElementById('router-ssid');
+      const securityInput = document.getElementById('router-security');
+      const lanInput = document.getElementById('router-lan');
+
+      if (!ssid || !security || !lanIp) {
+        showModal('❌ Please fill in all router fields!', 'warning', '⚠️ INCOMPLETE');
+        return;
+      }
+
+      let isCorrect = true;
+      let errors = [];
+
+      if (ssid !== correctRouterConfig.ssid) {
+        isCorrect = false;
+        errors.push('SSID');
+        ssidInput.classList.add('wrong');
+        ssidInput.classList.remove('correct');
+      } else {
+        ssidInput.classList.add('correct');
+        ssidInput.classList.remove('wrong');
+      }
+
+      if (security !== correctRouterConfig.security) {
+        isCorrect = false;
+        errors.push('Security');
+        securityInput.classList.add('wrong');
+        securityInput.classList.remove('correct');
+      } else {
+        securityInput.classList.add('correct');
+        securityInput.classList.remove('wrong');
+      }
+
+      if (lanIp !== correctRouterConfig.lanIp) {
+        isCorrect = false;
+        errors.push('LAN IP');
+        lanInput.classList.add('wrong');
+        lanInput.classList.remove('correct');
+      } else {
+        lanInput.classList.add('correct');
+        lanInput.classList.remove('wrong');
+      }
+
+      if (isCorrect) {
+        score += 100;
+        updateAllScores();
+        document.getElementById('router-status').innerHTML = "✅ SUCCESS! ROUTER CONFIGURATION CORRECT! +100 POINTS";
+        document.getElementById('router-status').style.color = '#2ecc71';
+        
+        setTimeout(() => {
+          showSuccessScreen();
+        }, 800);
+        console.log('✅ ROUTER SUCCESS! Score:', score);
+      } else {
+        loseLife(); // This will subtract a life and STAY on the same screen
+        document.getElementById('router-status').innerHTML = "❌ INCORRECT: " + errors.join(', ');
+        document.getElementById('router-status').style.color = '#e74c3c';
+        showModal(`❌ Wrong values: ${errors.join(', ')}\n💔 -1 Life!`, 'error', '❌ CONFIG FAILED');
+        console.log('❌ ROUTER CONFIG FAILED - Life lost, staying on same challenge');
+      }
+    }
+
+    // ===== RESET ROUTER CONFIG =====
+    function resetRouterConfig() {
+      ['router-ssid', 'router-lan'].forEach(id => {
+        const input = document.getElementById(id);
+        if (input) {
+          input.value = '';
+          input.classList.remove('correct', 'wrong');
+        }
+      });
+      const security = document.getElementById('router-security');
+      if (security) security.value = '';
+      const pingInput = document.getElementById('ping-ip');
+      if (pingInput) pingInput.value = '';
+      const result = document.getElementById('ping-result');
+      if (result) result.innerHTML = '<span class="info">📡 Ready to ping...</span>';
+      
+      const status = document.getElementById('router-status');
+      if (status) {
+        status.innerHTML = "STATUS: CONFIGURE ROUTER SETTINGS";
+        status.style.color = '#f1c40f';
+      }
+    }
+
+    // ===== RUN PING TEST =====
+    function runPingTest() {
+      const pingIp = document.getElementById('ping-ip').value.trim();
+      const result = document.getElementById('ping-result');
+      
+      if (!pingIp) {
+        result.innerHTML = '<span class="fail">❌ Please enter an IP address to ping!</span>';
+        return;
+      }
+
+      result.innerHTML = '<span class="info">⏳ Pinging ' + pingIp + '...</span>';
+      
+      setTimeout(() => {
+        if (pingIp === correctRouterConfig.pingIp) {
+          result.innerHTML = `
+            <span class="success">✅ Reply from ${pingIp}: bytes=32 time=1ms TTL=64</span><br>
+            <span class="success">✅ Reply from ${pingIp}: bytes=32 time=1ms TTL=64</span><br>
+            <span class="success">✅ Reply from ${pingIp}: bytes=32 time=2ms TTL=64</span><br>
+            <span class="success">✅ Reply from ${pingIp}: bytes=32 time=1ms TTL=64</span><br>
+            <span class="info">📊 Packets: Sent = 4, Received = 4, Lost = 0 (0% loss)</span>
+          `;
+          document.getElementById('router-status').innerHTML = "✅ PING SUCCESSFUL! Network is stable!";
+          document.getElementById('router-status').style.color = '#2ecc71';
+        } else {
+          result.innerHTML = `
+            <span class="fail">❌ Request timed out.</span><br>
+            <span class="fail">❌ Request timed out.</span><br>
+            <span class="fail">❌ Request timed out.</span><br>
+            <span class="fail">❌ Request timed out.</span><br>
+            <span class="info">📊 Packets: Sent = 4, Received = 0, Lost = 4 (100% loss)</span>
+          `;
+          document.getElementById('router-status').innerHTML = "❌ PING FAILED! Check network connectivity!";
+          document.getElementById('router-status').style.color = '#e74c3c';
+        }
+      }, 1500);
     }
 
     // ===== HIGHLIGHT CORRECT WIRES =====
@@ -1655,12 +2384,17 @@
       document.getElementById('final-score').textContent = score;
       document.getElementById('final-lives').textContent = lives;
       
-      // Check if next challenge is IP or RJ45
       const nextIdx = challengeIndex + 1;
       if (nextIdx < challengeOrder.length) {
         const nextChallengeId = challengeOrder[nextIdx];
         const nextType = challenges[nextChallengeId].type;
-        document.getElementById('next-btn').textContent = nextType === 'ip' ? '💻 NEXT: IP CONFIG ➜' : '🔌 NEXT: RJ45 ➜';
+        const typeLabels = {
+          'rj45': '🔌 RJ45',
+          'ip': '💻 IP CONFIG',
+          'workgroup': '🏢 WORKGROUP',
+          'router': '📶 ROUTER'
+        };
+        document.getElementById('next-btn').textContent = '➜ ' + (typeLabels[nextType] || 'NEXT');
       } else {
         document.getElementById('next-btn').textContent = '🏆 FINISH ➜';
       }
@@ -1714,15 +2448,23 @@
 
     // ===== INIT =====
     console.log('🎮 Cable Connect Game Loaded!');
-    console.log('📋 Challenge Order: RJ45 → IP Configuration → RJ45 → IP → etc');
+    console.log('📋 Challenge Order:');
+    console.log('  1️⃣ RJ45 Crimping');
+    console.log('  2️⃣ IP Configuration');
+    console.log('  3️⃣ Workgroup & Sharing Setup');
+    console.log('  4️⃣ Router & Connectivity Testing');
+    console.log('  5️⃣ Straight-Through Cable');
+    console.log('  6️⃣ Subnet Masking');
+    console.log('  7️⃣ Crossover Cable');
+    console.log('  8️⃣ Network Security');
     console.log('❤️ You have 5 lives. Each wrong answer costs 1 life!');
     console.log('✅ Correct = +100 points!');
+    console.log('⚠️ Wrong = -1 Life, you stay on the same challenge');
+    console.log('💀 All lives lost = Game Over - Go to Menu');
     console.log('Click START CHALLENGE to begin!');
     initWirePalette();
-    updateLivesDisplay();
-    updateIPLivesDisplay();
-    updateScoreDisplay();
-    updateIPScoreDisplay();
+    updateAllLives();
+    updateAllScores();
   </script>
 
 </body>
