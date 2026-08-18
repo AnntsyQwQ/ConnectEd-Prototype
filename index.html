@@ -147,6 +147,19 @@
       z-index: 20;
     }
 
+    .btn-dashboard {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      padding: 6px 12px;
+      font-size: 0.45rem;
+      background-color: #2bf1c9;
+      color: #0b1c28;
+      box-shadow: inset 0 -4px 0 #18a98c, 0 4px 0 #000;
+      width: auto;
+      z-index: 20;
+    }
+
     /* ===== CHALLENGE SELECT ===== */
     #challenge-select {
       background: rgba(13, 40, 64, 0.95);
@@ -189,12 +202,28 @@
       font-size: 0.5rem;
       transition: all 0.2s;
       text-align: center;
+      position: relative;
     }
 
     .challenge-item:hover {
       background: #2bf1c9;
       color: #0b1c28;
       transform: scale(1.05);
+    }
+
+    .challenge-item .completed-badge {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: #2ecc71;
+      color: #fff;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      font-size: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     /* ===== STORY SCREENS ===== */
@@ -243,13 +272,359 @@
     .lives-icons { color: #e74c3c; font-size: 0.7rem; min-width: 60px; text-align: center; }
     .score-display { color: #f1c40f; }
 
-    @keyframes lifeLost {
-      0%, 100% { transform: scale(1); }
-      30% { transform: scale(1.8); color: #ff0000; }
-      60% { transform: scale(0.8); }
+    /* ===== MICRO-LEARNING MODULE ===== */
+    .micro-learning-container {
+      width: 100%;
+      height: 100%;
+      background: rgba(13, 40, 64, 0.95);
+      padding: 15px;
+      padding-top: 40px;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
     }
 
-    .life-lost { animation: lifeLost 0.6s ease; }
+    .micro-learning-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #051422;
+      padding: 8px 16px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      border: 2px solid #2bf1c9;
+    }
+
+    .ml-topic {
+      color: #2bf1c9;
+      font-size: 0.65rem;
+      font-weight: bold;
+    }
+
+    .ml-challenge-name {
+      color: #f1c40f;
+      font-size: 0.5rem;
+    }
+
+    .micro-learning-body {
+      display: flex;
+      flex: 1;
+      gap: 15px;
+      min-height: 0;
+    }
+
+    .ml-content {
+      flex: 2;
+      background: #143552;
+      border-radius: 8px;
+      padding: 15px;
+      border: 2px solid #2bf1c9;
+      overflow-y: auto;
+    }
+
+    .ml-content h3 {
+      color: #2bf1c9;
+      font-size: 0.55rem;
+      margin-bottom: 6px;
+      font-family: 'Press Start 2P', cursive;
+    }
+
+    .ml-content p {
+      color: #ecf0f1;
+      font-size: 0.4rem;
+      line-height: 1.8;
+      margin-bottom: 10px;
+    }
+
+    .ml-content ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 10px 0;
+    }
+
+    .ml-content ul li {
+      color: #ecf0f1;
+      font-size: 0.38rem;
+      line-height: 1.8;
+      padding: 3px 0 3px 20px;
+      position: relative;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .ml-content ul li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: #2bf1c9;
+    }
+
+    .ml-definition {
+      background: rgba(0,0,0,0.3);
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      border-left: 3px solid #2bf1c9;
+    }
+
+    .ml-key-points {
+      background: rgba(0,0,0,0.3);
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      border-left: 3px solid #f1c40f;
+    }
+
+    .ml-example {
+      background: rgba(0,0,0,0.3);
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      border-left: 3px solid #2ecc71;
+    }
+
+    .ml-example p {
+      color: #2ecc71;
+      font-size: 0.38rem;
+    }
+
+    .ml-remember {
+      background: rgba(241, 196, 15, 0.1);
+      padding: 10px;
+      border-radius: 6px;
+      border: 2px dashed #f1c40f;
+    }
+
+    .ml-remember p {
+      color: #f1c40f;
+      font-size: 0.38rem;
+    }
+
+    .ml-sidebar {
+      flex: 1;
+      background: #143552;
+      border-radius: 8px;
+      padding: 15px;
+      border: 2px solid #f39c12;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .ml-progress {
+      background: rgba(0,0,0,0.3);
+      padding: 10px;
+      border-radius: 6px;
+    }
+
+    .ml-progress-label {
+      color: #ecf0f1;
+      font-size: 0.4rem;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .ml-progress-bar {
+      width: 100%;
+      height: 8px;
+      background: #081d2e;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .ml-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #2bf1c9, #27ae60);
+      border-radius: 4px;
+      transition: width 0.5s ease;
+    }
+
+    .ml-progress-text {
+      color: #aaa;
+      font-size: 0.35rem;
+      display: block;
+      margin-top: 4px;
+      text-align: right;
+    }
+
+    .ml-quiz {
+      background: rgba(0,0,0,0.3);
+      padding: 10px;
+      border-radius: 6px;
+    }
+
+    .ml-quiz h4 {
+      color: #f39c12;
+      font-size: 0.4rem;
+      margin-bottom: 8px;
+      font-family: 'Press Start 2P', cursive;
+    }
+
+    .ml-quiz-option {
+      display: block;
+      padding: 5px 10px;
+      margin: 3px 0;
+      background: #081d2e;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.35rem;
+      color: #ecf0f1;
+      border: 2px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .ml-quiz-option:hover {
+      border-color: #2bf1c9;
+      background: #1a3a5c;
+    }
+
+    .ml-quiz-option.correct {
+      border-color: #2ecc71;
+      background: rgba(46,204,113,0.2);
+    }
+
+    .ml-quiz-option.wrong {
+      border-color: #e74c3c;
+      background: rgba(231,76,60,0.2);
+    }
+
+    .ml-quiz-option.selected {
+      border-color: #f1c40f;
+    }
+
+    .ml-practice-mode-badge {
+      background: #f39c12;
+      color: #0b1c28;
+      font-size: 0.4rem;
+      padding: 6px 12px;
+      border-radius: 4px;
+      text-align: center;
+      font-family: 'Press Start 2P', cursive;
+      border: 2px solid #d68910;
+      display: none;
+    }
+
+    .ml-practice-mode-badge.active {
+      display: block;
+    }
+
+    .ml-start-btn {
+      position: relative !important;
+      width: 100% !important;
+      padding: 12px 20px !important;
+      font-size: 0.6rem !important;
+      background: #27ae60 !important;
+      box-shadow: inset 0 -4px 0 #1e8449, 0 4px 0 #000 !important;
+      margin-top: auto;
+    }
+
+    .ml-start-btn:hover {
+      background: #2ecc71 !important;
+    }
+
+    .ml-start-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* ===== DASHBOARD SCREEN ===== */
+    #dashboard {
+      background: rgba(13, 40, 64, 0.95);
+    }
+
+    .dashboard-container {
+      width: 100%;
+      height: 100%;
+      padding: 20px;
+      padding-top: 40px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .dashboard-container h2 {
+      color: #2bf1c9;
+      font-size: 0.9rem;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .dashboard-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .stat-card {
+      background: #143552;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      border: 2px solid #2bf1c9;
+    }
+
+    .stat-value {
+      color: #2bf1c9;
+      font-size: 1.2rem;
+    }
+
+    .stat-label {
+      color: #ecf0f1;
+      font-size: 0.3rem;
+      margin-top: 4px;
+    }
+
+    .challenge-results {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .result-item {
+      background: #143552;
+      padding: 10px;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-left: 4px solid #555;
+    }
+
+    .result-item.completed {
+      border-left-color: #2ecc71;
+    }
+
+    .result-item.failed {
+      border-left-color: #e74c3c;
+    }
+
+    .result-item .name {
+      color: #ecf0f1;
+      font-size: 0.35rem;
+    }
+
+    .result-item .status {
+      font-size: 0.3rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    .result-item .status.pass {
+      background: #2ecc71;
+      color: #0b1c28;
+    }
+
+    .result-item .status.fail {
+      background: #e74c3c;
+      color: #fff;
+    }
+
+    .result-item .status.pending {
+      background: #f39c12;
+      color: #0b1c28;
+    }
 
     /* ===== RJ45 CHALLENGE ===== */
     .rj45-workspace {
@@ -1027,9 +1402,12 @@
       .ip-body { flex-direction: column; }
       .workgroup-body { flex-direction: column; }
       .router-body { flex-direction: column; }
+      .micro-learning-body { flex-direction: column; }
       .character-sprite { height: 100px; }
       .game-title { font-size: 1.2rem; }
       .challenge-list { grid-template-columns: 1fr; }
+      .dashboard-stats { grid-template-columns: 1fr 1fr; }
+      .challenge-results { grid-template-columns: 1fr; }
       .rj45-connector-wrapper { width: 130px; height: 140px; }
       .connector-slots { top: 38px; left: 20px; width: 90px; height: 88px; }
       .drop-zone { width: 10px; }
@@ -1058,6 +1436,7 @@
           <button class="pixel-btn menu-btn" onclick="startChallenge()">START CHALLENGE</button>
           <button class="pixel-btn menu-btn btn-practice" onclick="startPractice()">PRACTICE MODE</button>
           <button class="pixel-btn menu-btn btn-challenges" onclick="showChallengeSelect()">ALL CHALLENGES</button>
+          <button class="pixel-btn menu-btn" style="background:#9b59b6; box-shadow:inset 0 -4px 0 #7d3c98,0 4px 0 #000;" onclick="showDashboard()">📊 DASHBOARD</button>
         </div>
       </div>
     </div>
@@ -1067,16 +1446,43 @@
       <button class="pixel-btn btn-back" onclick="goToMenu()">BACK</button>
       <div class="challenge-grid">
         <h2>SELECT CHALLENGE</h2>
-        <div class="challenge-list">
-          <button class="challenge-item" onclick="startSpecificChallenge(1)">🔌 RJ45 Crimping - T568B</button>
-          <button class="challenge-item" onclick="startSpecificChallenge(2)">🔗 Straight-Through Cable</button>
-          <button class="challenge-item" onclick="startSpecificChallenge(3)">🔄 Crossover Cable</button>
-          <button class="challenge-item" onclick="startSpecificChallenge(4)">📡 IP Configuration</button>
-          <button class="challenge-item" onclick="startSpecificChallenge(5)">🌐 Subnet Masking</button>
-          <button class="challenge-item" onclick="startSpecificChallenge(6)">🏢 Workgroup & Sharing Setup</button>
-          <button class="challenge-item" onclick="startSpecificChallenge(7)">📶 Router & Connectivity Testing</button>
-          <button class="challenge-item" onclick="startSpecificChallenge(8)">🔒 Network Security</button>
+        <div class="challenge-list" id="challenge-list">
+          <button class="challenge-item" data-id="1" onclick="startSpecificChallenge(1)">🔌 RJ45 Crimping - T568B</button>
+          <button class="challenge-item" data-id="2" onclick="startSpecificChallenge(2)">🔗 Straight-Through Cable</button>
+          <button class="challenge-item" data-id="3" onclick="startSpecificChallenge(3)">🔄 Crossover Cable</button>
+          <button class="challenge-item" data-id="4" onclick="startSpecificChallenge(4)">📡 IP Configuration</button>
+          <button class="challenge-item" data-id="5" onclick="startSpecificChallenge(5)">🌐 Subnet Masking</button>
+          <button class="challenge-item" data-id="6" onclick="startSpecificChallenge(6)">🏢 Workgroup & Sharing Setup</button>
+          <button class="challenge-item" data-id="7" onclick="startSpecificChallenge(7)">📶 Router & Connectivity Testing</button>
+          <button class="challenge-item" data-id="8" onclick="startSpecificChallenge(8)">🔒 Network Security</button>
         </div>
+      </div>
+    </div>
+
+    <!-- DASHBOARD SCREEN -->
+    <div id="dashboard" class="screen">
+      <button class="pixel-btn btn-back" onclick="goToMenu()">BACK</button>
+      <div class="dashboard-container">
+        <h2>📊 PERFORMANCE DASHBOARD</h2>
+        <div class="dashboard-stats">
+          <div class="stat-card">
+            <div class="stat-value" id="stat-completed">0</div>
+            <div class="stat-label">Challenges Completed</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="stat-total-score">0</div>
+            <div class="stat-label">Total Score</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="stat-attempts">0</div>
+            <div class="stat-label">Total Attempts</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="stat-success-rate">0%</div>
+            <div class="stat-label">Success Rate</div>
+          </div>
+        </div>
+        <div class="challenge-results" id="challenge-results"></div>
       </div>
     </div>
 
@@ -1095,6 +1501,62 @@
       <img id="story-img-2" src="image/cha2.PNG" alt="Story 2" class="story-bg" onclick="goToGame()">
       <div class="story-overlay">
         <button class="pixel-btn btn-next-story" onclick="goToGame()">NEXT ➜</button>
+      </div>
+    </div>
+
+    <!-- MICRO-LEARNING SCREEN -->
+    <div id="micro-learning" class="screen">
+      <button class="pixel-btn btn-back" onclick="exitMicroLearning()">BACK</button>
+      <div class="micro-learning-container">
+        <div class="micro-learning-header">
+          <span class="ml-topic" id="ml-topic">📚 Topic</span>
+          <span class="ml-challenge-name" id="ml-challenge-name">Challenge</span>
+        </div>
+        <div class="micro-learning-body">
+          <div class="ml-content">
+            <div class="ml-definition">
+              <h3>📖 What You Need to Know</h3>
+              <p id="ml-description">Loading lesson...</p>
+            </div>
+            
+            <div class="ml-key-points">
+              <h3>🔑 Key Points</h3>
+              <ul id="ml-points"></ul>
+            </div>
+            
+            <div class="ml-example">
+              <h3>💡 Example</h3>
+              <p id="ml-example-text">Loading example...</p>
+            </div>
+            
+            <div class="ml-remember">
+              <h3>🧠 Remember</h3>
+              <p id="ml-remember-text">Loading tip...</p>
+            </div>
+          </div>
+          
+          <div class="ml-sidebar">
+            <div class="ml-progress">
+              <span class="ml-progress-label">📈 Progress</span>
+              <div class="ml-progress-bar">
+                <div class="ml-progress-fill" id="ml-progress-fill" style="width:0%"></div>
+              </div>
+              <span class="ml-progress-text" id="ml-progress-text">0 / 8</span>
+            </div>
+            
+            <div class="ml-quiz">
+              <h4>🎯 Quick Check</h4>
+              <p style="color:#ecf0f1; font-size:0.3rem; margin-bottom:6px;" id="ml-quiz-question">Test your understanding</p>
+              <div id="ml-quiz-options"></div>
+            </div>
+            
+            <div class="ml-practice-mode-badge" id="ml-practice-badge">📚 PRACTICE MODE - No lives lost!</div>
+            
+            <button class="pixel-btn ml-start-btn" id="ml-start-btn" onclick="startChallengeFromLearning()">
+              🚀 START CHALLENGE
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -1502,8 +1964,7 @@
 
   <script>
     // ============================================
-    // ConnectED - COMPLETE GAME SCRIPT
-    // WITH BACKGROUND MUSIC FROM music/ FOLDER
+    // ConnectED - COMPLETE GAME SCRIPT WITH DASHBOARD
     // ============================================
 
     // ===== GAME VARIABLES =====
@@ -1519,6 +1980,18 @@
     let modalTimeout = null;
     let challengeOrder = [1, 4, 6, 7, 2, 5, 3, 8];
     let challengeIndex = 0;
+    let learningChallengeId = null;
+    let learningIsPractice = false;
+
+    // ===== PERFORMANCE TRACKING =====
+    let performanceData = {
+      completed: new Set(),
+      scores: {},
+      attempts: {},
+      totalScore: 0,
+      totalAttempts: 0,
+      successRate: 0
+    };
 
     // ===== CHALLENGE DEFINITIONS =====
     const challenges = {
@@ -1530,6 +2003,194 @@
       6: { name: 'Workgroup & Sharing Setup', hint: 'Configure computer name, workgroup and sharing', type: 'workgroup' },
       7: { name: 'Router & Connectivity Testing', hint: 'Configure SSID, security and test ping', type: 'router' },
       8: { name: 'Network Security', hint: 'Enable firewall and MAC filtering', type: 'rj45' }
+    };
+
+    // ===== MICRO-LEARNING LESSONS =====
+    const microLessons = {
+      1: {
+        topic: "RJ45 Crimping - T568B Standard",
+        description: "The T568B is a standard wiring scheme for RJ45 connectors used in Ethernet networks. It defines the color order of the eight wires inside a twisted pair cable. This is the most commonly used standard in the Philippines and worldwide.",
+        points: [
+          "T568B is the most widely used wiring standard for Ethernet cables.",
+          "The wire order: Orange/White, Orange, Green/White, Blue, Blue/White, Green, Brown/White, Brown.",
+          "Used for both straight-through and crossover cables.",
+          "Both ends of a straight-through cable use the same standard.",
+          "The T568B standard ensures compatibility with most network devices."
+        ],
+        example: "If you are making a network cable to connect a computer to a switch, you would use the T568B standard on both ends. The colors go: Pin 1 = Orange/White, Pin 2 = Orange, Pin 3 = Green/White, Pin 4 = Blue, Pin 5 = Blue/White, Pin 6 = Green, Pin 7 = Brown/White, Pin 8 = Brown.",
+        remember: "Remember: T568B is the default standard for most networks. Always double-check your wire order before crimping! The orange pair comes first, followed by the green pair, then blue, then brown.",
+        quiz: {
+          question: "What is the correct wire order for T568B standard?",
+          options: [
+            "Orange/White, Orange, Green/White, Blue, Blue/White, Green, Brown/White, Brown",
+            "Green/White, Green, Orange/White, Blue, Blue/White, Orange, Brown/White, Brown",
+            "Brown/White, Brown, Green/White, Blue, Blue/White, Green, Orange/White, Orange",
+            "Orange/White, Orange, Blue/White, Blue, Green/White, Green, Brown/White, Brown"
+          ],
+          correct: 0
+        }
+      },
+      2: {
+        topic: "Straight-Through Cable",
+        description: "A straight-through cable is a type of Ethernet cable where both ends use the same wiring standard (usually T568B). It is used to connect different types of devices, such as a computer to a switch or a router.",
+        points: [
+          "Both ends of a straight-through cable use the same wiring standard.",
+          "Most commonly used for connecting computers to network switches.",
+          "The wire order is identical on both ends.",
+          "It is the most common type of network cable.",
+          "Color order: Orange/White, Orange, Green/White, Blue, Blue/White, Green, Brown/White, Brown."
+        ],
+        example: "When connecting your PC to the school's network switch, you would use a straight-through cable. Both ends of the cable follow the T568B standard so the signals pass through correctly.",
+        remember: "Straight-through = same standard on both ends. Use this when connecting different types of devices (computer to switch).",
+        quiz: {
+          question: "When would you use a straight-through cable?",
+          options: [
+            "Connecting a computer to a switch",
+            "Connecting two computers directly",
+            "Connecting two switches directly",
+            "Connecting a computer to a router directly"
+          ],
+          correct: 0
+        }
+      },
+      3: {
+        topic: "Crossover Cable",
+        description: "A crossover cable is a type of Ethernet cable where one end uses T568A and the other uses T568B. It is used to connect two similar devices directly, such as two computers or two switches.",
+        points: [
+          "One end uses T568A, the other uses T568B.",
+          "Used to connect similar devices directly (PC to PC, Switch to Switch).",
+          "The transmit and receive pairs are crossed over.",
+          "Less common today because modern devices auto-detect cable types.",
+          "Still useful for direct connections without a switch."
+        ],
+        example: "If you want to connect two laptops directly to share files without a switch, you would use a crossover cable. One end is T568A and the other is T568B so the signals cross properly.",
+        remember: "Crossover = different standards on each end. Use this for same-type devices (PC to PC, Switch to Switch). Modern devices often don't need it anymore!",
+        quiz: {
+          question: "What type of cable connects two computers directly?",
+          options: [
+            "Straight-through cable",
+            "Crossover cable",
+            "Rollover cable",
+            "Fiber optic cable"
+          ],
+          correct: 1
+        }
+      },
+      4: {
+        topic: "IP Configuration",
+        description: "IP Configuration is the process of assigning a unique IP address to a device on a network. This allows the device to communicate with other devices. A proper IP configuration includes an IP address, subnet mask, default gateway, and DNS server.",
+        points: [
+          "Every device on a network needs a unique IP address.",
+          "IP addresses identify devices on the network.",
+          "The subnet mask determines which part is the network and which is the host.",
+          "The default gateway is the router that connects to other networks.",
+          "DNS servers translate domain names (like google.com) to IP addresses."
+        ],
+        example: "A computer is configured with: IP: 192.168.1.2, Subnet: 255.255.255.0, Gateway: 192.168.1.1, DNS: 8.8.8.8. This allows it to communicate with other devices on the network and access the internet.",
+        remember: "IP address = your device's unique ID. Subnet mask = tells you which network you're on. Gateway = the door to the internet. DNS = the phonebook that turns names into addresses.",
+        quiz: {
+          question: "What is the correct IPv4 address format?",
+          options: [
+            "192.168.1.2",
+            "192.168.1",
+            "192.168.1.2.3",
+            "192-168-1-2"
+          ],
+          correct: 0
+        }
+      },
+      5: {
+        topic: "Subnet Masking",
+        description: "A subnet mask is a 32-bit number that divides an IP address into network and host portions. It helps devices determine whether a destination is on the same local network or requires routing through a gateway.",
+        points: [
+          "The subnet mask separates the network ID from the host ID.",
+          "Common subnet mask: 255.255.255.0 (/24) supports up to 254 devices.",
+          "It helps improve network performance and security.",
+          "Subnetting creates smaller, manageable network segments.",
+          "The number after the slash (/24) indicates how many bits are for the network."
+        ],
+        example: "With IP 192.168.1.5 and subnet mask 255.255.255.0, the network is 192.168.1.0 and the host is 5. This device can directly talk to any device from 192.168.1.1 to 192.168.1.254 without going through a router.",
+        remember: "Subnet mask = network boundaries. It tells you which part of the IP is the network and which part is the device. /24 means the first 3 numbers are the network.",
+        quiz: {
+          question: "What does the subnet mask 255.255.255.0 (/24) tell you?",
+          options: [
+            "The first 3 numbers are the network, the last is the host",
+            "All 4 numbers are the network",
+            "The first number is the network, the rest are hosts",
+            "The last 3 numbers are the network"
+          ],
+          correct: 0
+        }
+      },
+      6: {
+        topic: "Workgroup & Sharing Setup",
+        description: "A workgroup is a peer-to-peer network setup where computers communicate directly with each other without a central server. Sharing setup involves enabling network discovery and file sharing so computers can see and access each other's files.",
+        points: [
+          "A workgroup is a small network without a central server.",
+          "All computers should have the same workgroup name (e.g., WORKGROUP).",
+          "Turn on Network Discovery to see other computers on the network.",
+          "Turn on File and Printer Sharing to share resources.",
+          "Turn off password-protected sharing for easier access in a lab setting."
+        ],
+        example: "In a computer lab, all PCs are set to the same workgroup 'WORKGROUP'. Network Discovery is turned on so students can see each other's computers. File Sharing is enabled so they can share project files easily.",
+        remember: "Same workgroup name = computers can see each other. Network Discovery ON = visible to others. File Sharing ON = can share files. Password Protection OFF = easier access in a trusted environment.",
+        quiz: {
+          question: "What must all computers in a workgroup have in common?",
+          options: [
+            "The same workgroup name",
+            "The same IP address",
+            "The same computer name",
+            "The same subnet mask"
+          ],
+          correct: 0
+        }
+      },
+      7: {
+        topic: "Router & Connectivity Testing",
+        description: "Routers connect different networks together and direct traffic between them. Connectivity testing using the ping command verifies that devices can communicate successfully. It tests the physical connection and IP configuration.",
+        points: [
+          "Routers connect networks and direct internet traffic.",
+          "The ping command tests network connectivity.",
+          "Ping sends ICMP echo requests to a target IP address.",
+          "A successful ping means the connection is working.",
+          "Troubleshoot by pinging your gateway, then internet addresses."
+        ],
+        example: "To test your network connection, you can ping the router's IP: ping 192.168.1.1. If you get replies, your connection to the router is working. Then ping google.com to check internet connectivity.",
+        remember: "Ping = the network test tool. Start by pinging your own IP (localhost), then your gateway, then the internet. This helps you find where the problem is.",
+        quiz: {
+          question: "What does the ping command test?",
+          options: [
+            "Network connectivity",
+            "File sharing",
+            "Wireless signal strength",
+            "IP address assignment"
+          ],
+          correct: 0
+        }
+      },
+      8: {
+        topic: "Network Security",
+        description: "Network security involves protecting the network from unauthorized access and threats. This includes enabling firewalls, using strong passwords, implementing MAC filtering, and securing wireless networks with encryption like WPA2.",
+        points: [
+          "Firewalls block unauthorized access to the network.",
+          "WPA2/WPA3 encryption secures wireless networks.",
+          "MAC filtering allows only approved devices to connect.",
+          "Strong passwords prevent unauthorized access.",
+          "Regular updates and monitoring keep the network secure."
+        ],
+        example: "A school network has a firewall that blocks unauthorized traffic, WPA2 encryption on the Wi-Fi so only students with the password can connect, and MAC filtering to allow only registered school devices.",
+        remember: "Security = protection. Firewall = gatekeeper. Encryption = scrambles data so only authorized users can read it. Keep your passwords strong and your software updated!",
+        quiz: {
+          question: "Which of these is a method to secure a wireless network?",
+          options: [
+            "WPA2 encryption",
+            "Using a crossover cable",
+            "Disabling DHCP",
+            "Using static IP addresses"
+          ],
+          correct: 0
+        }
+      }
     };
 
     // ===== WIRE DEFINITIONS =====
@@ -1579,29 +2240,22 @@
       if (!isAudioPlaying) {
         bgMusic.play().then(() => {
           isAudioPlaying = true;
-          console.log('🎵 Music playing from music/background music.mp3');
+          console.log('🎵 Music playing');
         }).catch(e => {
           console.log('Audio play prevented:', e);
-          // Try alternative path if music folder doesn't work
-          bgMusic.src = 'background music.mp3';
-          bgMusic.play().catch(e2 => {
-            console.log('Alternative path also failed:', e2);
-          });
         });
       }
     }
 
-    // Start music on any user interaction
     document.addEventListener('click', playMusic);
     document.addEventListener('touchstart', playMusic);
     document.addEventListener('keydown', playMusic);
 
-    // Try to play on load
     window.addEventListener('load', function() {
       setTimeout(playMusic, 1000);
+      loadPerformanceData();
     });
 
-    // Handle music ending - restart
     bgMusic.addEventListener('ended', function() {
       bgMusic.currentTime = 0;
       bgMusic.play().catch(e => console.log('Restart error:', e));
@@ -1626,12 +2280,20 @@
       challengeIndex = 0;
       updateAllLives();
       isGameOver = false;
+      loadPerformanceData();
       console.log('🏠 Returned to menu');
     }
 
     function showChallengeSelect() {
       showScreen('challenge-select');
+      updateChallengeBadges();
       console.log('📋 Showing challenge select');
+    }
+
+    function showDashboard() {
+      showScreen('dashboard');
+      updateDashboard();
+      console.log('📊 Showing dashboard');
     }
 
     // ===== STORY FLOW =====
@@ -1654,9 +2316,140 @@
 
     function goToGame() {
       currentChallenge = challengeOrder[challengeIndex];
-      loadChallenge(currentChallenge);
+      showMicroLearning(currentChallenge, false);
     }
 
+    function startPractice() {
+      isPracticeMode = true;
+      lives = maxLives;
+      score = 0;
+      isGameOver = false;
+      challengeIndex = 0;
+      updateAllLives();
+      updateAllScores();
+      currentChallenge = challengeOrder[0];
+      showMicroLearning(currentChallenge, true);
+      console.log('📚 Practice mode started');
+    }
+
+    function startSpecificChallenge(challengeId) {
+      isPracticeMode = false;
+      lives = maxLives;
+      score = 0;
+      isGameOver = false;
+      updateAllLives();
+      updateAllScores();
+      currentChallenge = challengeId;
+      showMicroLearning(challengeId, false);
+      console.log('🎯 Starting specific challenge:', challengeId);
+    }
+
+    // ===== MICRO-LEARNING FUNCTIONS =====
+    function showMicroLearning(challengeId, isPractice = false) {
+      learningChallengeId = challengeId;
+      learningIsPractice = isPractice;
+      
+      const lesson = microLessons[challengeId];
+      if (!lesson) {
+        console.error('No lesson found for challenge:', challengeId);
+        loadChallenge(challengeId);
+        return;
+      }
+      
+      document.getElementById('ml-topic').textContent = '📚 ' + lesson.topic;
+      document.getElementById('ml-challenge-name').textContent = 'Challenge ' + challengeId + ': ' + challenges[challengeId].name;
+      document.getElementById('ml-description').textContent = lesson.description;
+      
+      const pointsList = document.getElementById('ml-points');
+      pointsList.innerHTML = '';
+      lesson.points.forEach(point => {
+        const li = document.createElement('li');
+        li.textContent = point;
+        pointsList.appendChild(li);
+      });
+      
+      document.getElementById('ml-example-text').textContent = lesson.example;
+      document.getElementById('ml-remember-text').textContent = lesson.remember;
+      
+      const progress = ((challengeIndex) / challengeOrder.length) * 100;
+      document.getElementById('ml-progress-fill').style.width = progress + '%';
+      document.getElementById('ml-progress-text').textContent = challengeIndex + ' / ' + challengeOrder.length;
+      
+      const badge = document.getElementById('ml-practice-badge');
+      if (isPractice) {
+        badge.classList.add('active');
+      } else {
+        badge.classList.remove('active');
+      }
+      
+      // Setup quiz
+      if (lesson.quiz) {
+        document.getElementById('ml-quiz-question').textContent = lesson.quiz.question;
+        const optionsContainer = document.getElementById('ml-quiz-options');
+        optionsContainer.innerHTML = '';
+        lesson.quiz.options.forEach((opt, idx) => {
+          const div = document.createElement('div');
+          div.className = 'ml-quiz-option';
+          div.textContent = opt;
+          div.dataset.index = idx;
+          div.onclick = function() {
+            checkQuizAnswer(this, lesson.quiz.correct);
+          };
+          optionsContainer.appendChild(div);
+        });
+      }
+      
+      // Enable start button
+      const startBtn = document.getElementById('ml-start-btn');
+      startBtn.disabled = false;
+      startBtn.textContent = '🚀 START CHALLENGE';
+      
+      showScreen('micro-learning');
+    }
+
+    function checkQuizAnswer(element, correctIndex) {
+      const options = document.querySelectorAll('.ml-quiz-option');
+      options.forEach(opt => {
+        opt.classList.remove('selected', 'correct', 'wrong');
+        if (parseInt(opt.dataset.index) === correctIndex) {
+          opt.classList.add('correct');
+        }
+      });
+      
+      const selected = parseInt(element.dataset.index);
+      if (selected === correctIndex) {
+        element.classList.add('correct');
+        document.getElementById('ml-start-btn').textContent = '✅ GREAT! START CHALLENGE';
+      } else {
+        element.classList.add('wrong');
+        document.getElementById('ml-start-btn').textContent = '❌ TRY AGAIN';
+        setTimeout(() => {
+          options.forEach(opt => {
+            opt.classList.remove('correct', 'wrong', 'selected');
+          });
+          document.getElementById('ml-start-btn').textContent = '🚀 START CHALLENGE';
+        }, 1500);
+      }
+    }
+
+    function exitMicroLearning() {
+      if (learningIsPractice) {
+        goToMenu();
+      } else {
+        showScreen('challenge-select');
+      }
+    }
+
+    function startChallengeFromLearning() {
+      if (learningIsPractice) {
+        isPracticeMode = true;
+      } else {
+        isPracticeMode = false;
+      }
+      loadChallenge(learningChallengeId);
+    }
+
+    // ===== loadChallenge - Loads the actual challenge =====
     function loadChallenge(challengeId) {
       const challenge = challenges[challengeId];
       if (challenge.type === 'ip') {
@@ -1687,37 +2480,12 @@
       }
     }
 
-    function startPractice() {
-      isPracticeMode = true;
-      lives = maxLives;
-      score = 0;
-      isGameOver = false;
-      challengeIndex = 0;
-      updateAllLives();
-      updateAllScores();
-      currentChallenge = challengeOrder[0];
-      loadChallenge(currentChallenge);
-      console.log('📚 Practice mode started');
-    }
-
-    function startSpecificChallenge(challengeId) {
-      isPracticeMode = false;
-      lives = maxLives;
-      score = 0;
-      isGameOver = false;
-      updateAllLives();
-      updateAllScores();
-      currentChallenge = challengeId;
-      loadChallenge(challengeId);
-      console.log('🎯 Starting specific challenge:', challengeId);
-    }
-
     // ===== GO TO NEXT CHALLENGE =====
     function goToNextChallenge() {
       challengeIndex++;
       if (challengeIndex < challengeOrder.length) {
         currentChallenge = challengeOrder[challengeIndex];
-        loadChallenge(currentChallenge);
+        showMicroLearning(currentChallenge, isPracticeMode);
       } else {
         showModal('🎉 You completed all challenges! Great job!', 'success', '🏆 CHAMPION!');
         goToMenu();
@@ -1795,7 +2563,7 @@
     function showGameOver() {
       document.getElementById('game-over-modal').classList.add('active');
       isGameOver = true;
-      console.log('💀 Game Over! All lives lost.');
+      console.log('💀 Game Over!');
     }
 
     function goToPracticeFromGameOver() {
@@ -1817,7 +2585,7 @@
       resetRouterConfig();
       initWirePalette();
       currentChallenge = challengeOrder[0];
-      loadChallenge(currentChallenge);
+      showMicroLearning(currentChallenge, isPracticeMode);
       console.log('🔄 Retry - lives reset to 5');
     }
 
@@ -2007,6 +2775,9 @@
         document.getElementById('game-status').innerHTML = "STATUS: ✅ SUCCESS! WIRED CORRECTLY! +100 POINTS";
         highlightCorrectWires(true);
         
+        // Track completion
+        trackChallengeCompletion(currentChallenge, true);
+        
         setTimeout(() => {
           showSuccessScreen();
         }, 800);
@@ -2085,6 +2856,8 @@
         document.getElementById('ip-status').innerHTML = "✅ SUCCESS! IP CONFIGURATION CORRECT! +100 POINTS";
         document.getElementById('ip-status').style.color = '#2ecc71';
         
+        trackChallengeCompletion(currentChallenge, true);
+        
         setTimeout(() => {
           showSuccessScreen();
         }, 800);
@@ -2094,6 +2867,7 @@
         document.getElementById('ip-status').innerHTML = "❌ INCORRECT: " + errors.join(', ');
         document.getElementById('ip-status').style.color = '#e74c3c';
         showModal(`❌ Wrong values: ${errors.join(', ')}\n💔 -1 Life!`, 'error', '❌ CONFIG FAILED');
+        trackChallengeCompletion(currentChallenge, false);
         console.log('❌ IP CONFIG FAILED - Life lost, staying on same challenge');
       }
     }
@@ -2180,6 +2954,8 @@
         document.getElementById('workgroup-status').innerHTML = "✅ SUCCESS! WORKGROUP CONFIGURATION CORRECT! +100 POINTS";
         document.getElementById('workgroup-status').style.color = '#2ecc71';
         
+        trackChallengeCompletion(currentChallenge, true);
+        
         setTimeout(() => {
           showSuccessScreen();
         }, 800);
@@ -2189,6 +2965,7 @@
         document.getElementById('workgroup-status').innerHTML = "❌ INCORRECT: " + errors.join(', ');
         document.getElementById('workgroup-status').style.color = '#e74c3c';
         showModal(`❌ Wrong values: ${errors.join(', ')}\n💔 -1 Life!`, 'error', '❌ CONFIG FAILED');
+        trackChallengeCompletion(currentChallenge, false);
         console.log('❌ WORKGROUP CONFIG FAILED - Life lost, staying on same challenge');
       }
     }
@@ -2272,6 +3049,8 @@
         document.getElementById('router-status').innerHTML = "✅ SUCCESS! ROUTER CONFIGURATION CORRECT! +100 POINTS";
         document.getElementById('router-status').style.color = '#2ecc71';
         
+        trackChallengeCompletion(currentChallenge, true);
+        
         setTimeout(() => {
           showSuccessScreen();
         }, 800);
@@ -2281,6 +3060,7 @@
         document.getElementById('router-status').innerHTML = "❌ INCORRECT: " + errors.join(', ');
         document.getElementById('router-status').style.color = '#e74c3c';
         showModal(`❌ Wrong values: ${errors.join(', ')}\n💔 -1 Life!`, 'error', '❌ CONFIG FAILED');
+        trackChallengeCompletion(currentChallenge, false);
         console.log('❌ ROUTER CONFIG FAILED - Life lost, staying on same challenge');
       }
     }
@@ -2418,6 +3198,123 @@
       console.log('🏆 Success screen shown!');
     }
 
+    // ===== PERFORMANCE TRACKING =====
+    function trackChallengeCompletion(challengeId, success) {
+      const key = challengeId.toString();
+      
+      if (!performanceData.attempts[key]) {
+        performanceData.attempts[key] = 0;
+      }
+      performanceData.attempts[key]++;
+      performanceData.totalAttempts++;
+      
+      if (success) {
+        performanceData.completed.add(key);
+        performanceData.scores[key] = (performanceData.scores[key] || 0) + 100;
+        performanceData.totalScore += 100;
+      }
+      
+      // Calculate success rate
+      const completed = performanceData.completed.size;
+      const attempted = Object.keys(performanceData.attempts).length;
+      performanceData.successRate = attempted > 0 ? Math.round((completed / attempted) * 100) : 0;
+      
+      savePerformanceData();
+      updateDashboard();
+    }
+
+    function savePerformanceData() {
+      try {
+        localStorage.setItem('connected_performance', JSON.stringify({
+          completed: Array.from(performanceData.completed),
+          scores: performanceData.scores,
+          attempts: performanceData.attempts,
+          totalScore: performanceData.totalScore,
+          totalAttempts: performanceData.totalAttempts,
+          successRate: performanceData.successRate
+        }));
+      } catch (e) {
+        console.log('Could not save performance data:', e);
+      }
+    }
+
+    function loadPerformanceData() {
+      try {
+        const data = localStorage.getItem('connected_performance');
+        if (data) {
+          const parsed = JSON.parse(data);
+          performanceData.completed = new Set(parsed.completed || []);
+          performanceData.scores = parsed.scores || {};
+          performanceData.attempts = parsed.attempts || {};
+          performanceData.totalScore = parsed.totalScore || 0;
+          performanceData.totalAttempts = parsed.totalAttempts || 0;
+          performanceData.successRate = parsed.successRate || 0;
+        }
+      } catch (e) {
+        console.log('Could not load performance data:', e);
+      }
+    }
+
+    function updateDashboard() {
+      document.getElementById('stat-completed').textContent = performanceData.completed.size;
+      document.getElementById('stat-total-score').textContent = performanceData.totalScore;
+      document.getElementById('stat-attempts').textContent = performanceData.totalAttempts;
+      document.getElementById('stat-success-rate').textContent = performanceData.successRate + '%';
+      
+      const container = document.getElementById('challenge-results');
+      container.innerHTML = '';
+      
+      for (let i = 1; i <= 8; i++) {
+        const item = document.createElement('div');
+        item.className = 'result-item';
+        
+        const completed = performanceData.completed.has(i.toString());
+        const attempts = performanceData.attempts[i] || 0;
+        const score = performanceData.scores[i] || 0;
+        
+        if (completed) {
+          item.classList.add('completed');
+        } else if (attempts > 0) {
+          item.classList.add('failed');
+        }
+        
+        const name = document.createElement('span');
+        name.className = 'name';
+        name.textContent = challenges[i].name;
+        
+        const status = document.createElement('span');
+        status.className = 'status';
+        if (completed) {
+          status.textContent = '✅ PASS';
+          status.classList.add('pass');
+        } else if (attempts > 0) {
+          status.textContent = '❌ FAIL';
+          status.classList.add('fail');
+        } else {
+          status.textContent = '⏳ PENDING';
+          status.classList.add('pending');
+        }
+        
+        item.appendChild(name);
+        item.appendChild(status);
+        container.appendChild(item);
+      }
+    }
+
+    function updateChallengeBadges() {
+      document.querySelectorAll('.challenge-item').forEach(item => {
+        const id = item.dataset.id;
+        if (performanceData.completed.has(id)) {
+          if (!item.querySelector('.completed-badge')) {
+            const badge = document.createElement('span');
+            badge.className = 'completed-badge';
+            badge.textContent = '✓';
+            item.appendChild(badge);
+          }
+        }
+      });
+    }
+
     // ===== MODAL FUNCTIONS =====
     function showModal(message, type = 'warning', title = '') {
       const modal = document.getElementById('custom-modal');
@@ -2463,24 +3360,15 @@
 
     // ===== INIT =====
     console.log('🎮 ConnectED Game Loaded!');
-    console.log('🎵 Music file: music/background music.mp3');
-    console.log('📋 Challenge Order:');
-    console.log('  1️⃣ RJ45 Crimping');
-    console.log('  2️⃣ IP Configuration');
-    console.log('  3️⃣ Workgroup & Sharing Setup');
-    console.log('  4️⃣ Router & Connectivity Testing');
-    console.log('  5️⃣ Straight-Through Cable');
-    console.log('  6️⃣ Subnet Masking');
-    console.log('  7️⃣ Crossover Cable');
-    console.log('  8️⃣ Network Security');
+    console.log('📚 Micro-Learning Module shows before each challenge!');
+    console.log('📊 Performance Dashboard tracks your progress!');
     console.log('❤️ You have 5 lives. Each wrong answer costs 1 life!');
     console.log('✅ Correct = +100 points!');
-    console.log('⚠️ Wrong = -1 Life, you stay on the same challenge');
-    console.log('💀 All lives lost = Game Over - Go to Menu');
     console.log('Click START CHALLENGE to begin!');
     initWirePalette();
     updateAllLives();
     updateAllScores();
+    loadPerformanceData();
   </script>
 
 </body>
