@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ConnectED Thesis Game</title>
+  <title>ConnectED - Network Trainer</title>
   <style>
     * {
       box-sizing: border-box;
@@ -43,19 +43,32 @@
 
     .screen.active { display: block; }
 
-    /* ===== MENU SCREEN ===== */
+    /* ===== MENU SCREEN with Video Background ===== */
     #main-menu {
-      background: rgba(13, 40, 64, 0.85);
+      background: rgba(13, 40, 64, 0.7);
     }
 
-    .menu-content {
+    #menu-bg-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    #main-menu .menu-content {
+      position: relative;
+      z-index: 1;
+      height: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100%;
       padding: 20px;
-      position: relative;
+      background: rgba(0,0,0,0.35);
     }
 
     .menu-header {
@@ -77,13 +90,9 @@
       margin-top: 5px;
     }
 
+    /* Remove the old character sprite from menu */
     .character-sprite {
-      height: 180px;
-      width: auto;
-      margin: 10px 0;
-      pointer-events: none;
-      z-index: 1;
-      object-fit: contain;
+      display: none;
     }
 
     .menu-buttons {
@@ -94,6 +103,7 @@
       z-index: 10;
       width: 100%;
       max-width: 320px;
+      margin-top: 10px;
     }
 
     .pixel-btn {
@@ -111,28 +121,32 @@
       font-size: 0.8rem;
     }
 
-    .pixel-btn:hover { 
-      background-color: #55ffdb; 
+    .pixel-btn:hover {
+      background-color: #55ffdb;
       transform: scale(1.02);
     }
 
-    .pixel-btn:active { 
-      transform: scale(0.95); 
+    .pixel-btn:active {
+      transform: scale(0.95);
     }
 
     .btn-practice {
       background-color: #f39c12;
       box-shadow: inset 0 -4px 0 #d68910, 0 4px 0 #000;
     }
-
     .btn-practice:hover { background-color: #f1c40f; }
 
     .btn-challenges {
       background-color: #3498db;
       box-shadow: inset 0 -4px 0 #2980b9, 0 4px 0 #000;
     }
-
     .btn-challenges:hover { background-color: #5dade2; }
+
+    .btn-dashboard {
+      background-color: #9b59b6;
+      box-shadow: inset 0 -4px 0 #7d3c98, 0 4px 0 #000;
+    }
+    .btn-dashboard:hover { background-color: #af7ac5; }
 
     .btn-back {
       position: absolute;
@@ -143,19 +157,6 @@
       background-color: #ff5252;
       color: #fff;
       box-shadow: inset 0 -4px 0 #b33939, 0 4px 0 #000;
-      width: auto;
-      z-index: 20;
-    }
-
-    .btn-dashboard {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      padding: 6px 12px;
-      font-size: 0.45rem;
-      background-color: #2bf1c9;
-      color: #0b1c28;
-      box-shadow: inset 0 -4px 0 #18a98c, 0 4px 0 #000;
       width: auto;
       z-index: 20;
     }
@@ -1403,7 +1404,6 @@
       .workgroup-body { flex-direction: column; }
       .router-body { flex-direction: column; }
       .micro-learning-body { flex-direction: column; }
-      .character-sprite { height: 100px; }
       .game-title { font-size: 1.2rem; }
       .challenge-list { grid-template-columns: 1fr; }
       .dashboard-stats { grid-template-columns: 1fr 1fr; }
@@ -1423,20 +1423,22 @@
   <audio id="bg-music" src="music/background music.mp3" loop></audio>
 
   <div class="game-container" id="gameContainer">
-    
-    <!-- MAIN MENU SCREEN -->
+
+    <!-- MAIN MENU SCREEN with Video Background -->
     <div id="main-menu" class="screen active">
+      <video id="menu-bg-video" autoplay loop muted playsinline>
+        <source src="image/ITMAN TALKING.mp4" type="video/mp4">
+      </video>
       <div class="menu-content">
         <div class="menu-header">
-          <h1 class="game-title">ConnectED THESIS GAME</h1>
+          <h1 class="game-title">ConnectED</h1>
           <p class="game-subtitle">NETWORK CONFIGURATION TRAINER</p>
         </div>
-        <img src="image/IT_MAN-removebg-preview.png" alt="IT Man Character" class="character-sprite" onerror="this.style.display='none'">
         <div class="menu-buttons">
           <button class="pixel-btn menu-btn" onclick="startChallenge()">START CHALLENGE</button>
           <button class="pixel-btn menu-btn btn-practice" onclick="startPractice()">PRACTICE MODE</button>
           <button class="pixel-btn menu-btn btn-challenges" onclick="showChallengeSelect()">ALL CHALLENGES</button>
-          <button class="pixel-btn menu-btn" style="background:#9b59b6; box-shadow:inset 0 -4px 0 #7d3c98,0 4px 0 #000;" onclick="showDashboard()">📊 DASHBOARD</button>
+          <button class="pixel-btn menu-btn btn-dashboard" onclick="showDashboard()">📊 DASHBOARD</button>
         </div>
       </div>
     </div>
@@ -1518,23 +1520,19 @@
               <h3>📖 What You Need to Know</h3>
               <p id="ml-description">Loading lesson...</p>
             </div>
-            
             <div class="ml-key-points">
               <h3>🔑 Key Points</h3>
               <ul id="ml-points"></ul>
             </div>
-            
             <div class="ml-example">
               <h3>💡 Example</h3>
               <p id="ml-example-text">Loading example...</p>
             </div>
-            
             <div class="ml-remember">
               <h3>🧠 Remember</h3>
               <p id="ml-remember-text">Loading tip...</p>
             </div>
           </div>
-          
           <div class="ml-sidebar">
             <div class="ml-progress">
               <span class="ml-progress-label">📈 Progress</span>
@@ -1543,15 +1541,12 @@
               </div>
               <span class="ml-progress-text" id="ml-progress-text">0 / 8</span>
             </div>
-            
             <div class="ml-quiz">
               <h4>🎯 Quick Check</h4>
               <p style="color:#ecf0f1; font-size:0.3rem; margin-bottom:6px;" id="ml-quiz-question">Test your understanding</p>
               <div id="ml-quiz-options"></div>
             </div>
-            
             <div class="ml-practice-mode-badge" id="ml-practice-badge">📚 PRACTICE MODE - No lives lost!</div>
-            
             <button class="pixel-btn ml-start-btn" id="ml-start-btn" onclick="startChallengeFromLearning()">
               🚀 START CHALLENGE
             </button>
@@ -1655,9 +1650,9 @@
                 <rect x="35" y="75" width="30" height="5" rx="1" fill="#34495e"/>
               </svg>
             </div>
-            
+
             <div class="pc-title">PC1 - Configuration</div>
-            
+
             <div class="config-section">
               <div class="section-title">📡 Interface: FastEthernet0</div>
               <div class="config-row">
@@ -1754,7 +1749,7 @@
         <div class="workgroup-body">
           <div class="workgroup-config">
             <div class="workgroup-pc-title">💻 This PC - System Properties</div>
-            
+
             <div class="config-section">
               <div class="section-title">📁 Computer Name & Workgroup</div>
               <div class="workgroup-row">
@@ -1841,7 +1836,7 @@
         <div class="router-body">
           <div class="router-config">
             <div class="pc-title">🌐 Wireless Router Configuration</div>
-            
+
             <div class="router-section">
               <div class="router-section-title">📡 Wireless Settings</div>
               <div class="router-row">
@@ -1964,7 +1959,7 @@
 
   <script>
     // ============================================
-    // ConnectED - COMPLETE GAME SCRIPT WITH DASHBOARD
+    // ConnectED - COMPLETE GAME SCRIPT
     // ============================================
 
     // ===== GAME VARIABLES =====
@@ -2087,7 +2082,7 @@
           "DNS servers translate domain names (like google.com) to IP addresses."
         ],
         example: "A computer is configured with: IP: 192.168.1.2, Subnet: 255.255.255.0, Gateway: 192.168.1.1, DNS: 8.8.8.8. This allows it to communicate with other devices on the network and access the internet.",
-        remember: "IP address = your device's unique ID. Subnet mask = tells you which network you're on. Gateway = the door to the internet. DNS = the phonebook that turns names into addresses.",
+        remember: "IP address = your device's unique ID. Subnet mask = tells you which part of the IP is the network. Gateway = the door to the internet. DNS = the phonebook that turns names into addresses.",
         quiz: {
           question: "What is the correct IPv4 address format?",
           options: [
@@ -2348,18 +2343,18 @@
     function showMicroLearning(challengeId, isPractice = false) {
       learningChallengeId = challengeId;
       learningIsPractice = isPractice;
-      
+
       const lesson = microLessons[challengeId];
       if (!lesson) {
         console.error('No lesson found for challenge:', challengeId);
         loadChallenge(challengeId);
         return;
       }
-      
+
       document.getElementById('ml-topic').textContent = '📚 ' + lesson.topic;
       document.getElementById('ml-challenge-name').textContent = 'Challenge ' + challengeId + ': ' + challenges[challengeId].name;
       document.getElementById('ml-description').textContent = lesson.description;
-      
+
       const pointsList = document.getElementById('ml-points');
       pointsList.innerHTML = '';
       lesson.points.forEach(point => {
@@ -2367,21 +2362,21 @@
         li.textContent = point;
         pointsList.appendChild(li);
       });
-      
+
       document.getElementById('ml-example-text').textContent = lesson.example;
       document.getElementById('ml-remember-text').textContent = lesson.remember;
-      
+
       const progress = ((challengeIndex) / challengeOrder.length) * 100;
       document.getElementById('ml-progress-fill').style.width = progress + '%';
       document.getElementById('ml-progress-text').textContent = challengeIndex + ' / ' + challengeOrder.length;
-      
+
       const badge = document.getElementById('ml-practice-badge');
       if (isPractice) {
         badge.classList.add('active');
       } else {
         badge.classList.remove('active');
       }
-      
+
       // Setup quiz
       if (lesson.quiz) {
         document.getElementById('ml-quiz-question').textContent = lesson.quiz.question;
@@ -2398,12 +2393,12 @@
           optionsContainer.appendChild(div);
         });
       }
-      
+
       // Enable start button
       const startBtn = document.getElementById('ml-start-btn');
       startBtn.disabled = false;
       startBtn.textContent = '🚀 START CHALLENGE';
-      
+
       showScreen('micro-learning');
     }
 
@@ -2415,7 +2410,7 @@
           opt.classList.add('correct');
         }
       });
-      
+
       const selected = parseInt(element.dataset.index);
       if (selected === correctIndex) {
         element.classList.add('correct');
@@ -2449,7 +2444,7 @@
       loadChallenge(learningChallengeId);
     }
 
-    // ===== loadChallenge - Loads the actual challenge =====
+    // ===== LOAD CHALLENGE =====
     function loadChallenge(challengeId) {
       const challenge = challenges[challengeId];
       if (challenge.type === 'ip') {
@@ -2514,12 +2509,12 @@
       });
     }
 
-    // ===== LOSE LIFE FUNCTION =====
+    // ===== LOSE LIFE =====
     function loseLife() {
       if (isPracticeMode) {
-        const status = document.getElementById('ip-status') || 
-                       document.getElementById('workgroup-status') || 
-                       document.getElementById('router-status') || 
+        const status = document.getElementById('ip-status') ||
+                       document.getElementById('workgroup-status') ||
+                       document.getElementById('router-status') ||
                        document.getElementById('game-status');
         status.innerHTML = "⚠️ PRACTICE MODE: No lives lost!";
         status.style.color = '#f39c12';
@@ -2528,28 +2523,28 @@
         }, 1500);
         return;
       }
-      
+
       lives--;
       updateAllLives();
-      
+
       const livesIcons = document.getElementById('lives-icons');
       livesIcons.classList.remove('life-lost');
       void livesIcons.offsetWidth;
       livesIcons.classList.add('life-lost');
-      
-      const status = document.getElementById('game-status') || 
-                     document.getElementById('ip-status') || 
-                     document.getElementById('workgroup-status') || 
+
+      const status = document.getElementById('game-status') ||
+                     document.getElementById('ip-status') ||
+                     document.getElementById('workgroup-status') ||
                      document.getElementById('router-status');
       status.innerHTML = "💔 LIFE LOST! " + lives + " lives remaining. Try again!";
       status.style.color = '#e74c3c';
-      
+
       setTimeout(() => {
         status.style.color = '#f1c40f';
       }, 2000);
-      
+
       console.log('💔 Lost a life. Lives left:', lives);
-      
+
       if (lives <= 0) {
         lives = 0;
         updateAllLives();
@@ -2603,9 +2598,9 @@
     function initWirePalette() {
       const container = document.getElementById('wire-source-container');
       container.innerHTML = '';
-      
+
       const shuffled = [...wireDefinitions].sort(() => Math.random() - 0.5);
-      
+
       shuffled.forEach((wire) => {
         const el = document.createElement('div');
         el.classList.add('drag-wire');
@@ -2613,12 +2608,12 @@
         el.dataset.name = wire.name;
         el.style.background = wire.bg;
         el.innerText = wire.name;
-        
+
         el.addEventListener('dragstart', function(e) {
           e.dataTransfer.setData('text/plain', JSON.stringify(wire));
           this.style.opacity = '0.5';
         });
-        
+
         el.addEventListener('dragend', function(e) {
           this.style.opacity = '1';
         });
@@ -2645,7 +2640,7 @@
 
       try {
         const wireData = JSON.parse(e.dataTransfer.getData('text/plain'));
-        
+
         const sourceEl = document.querySelector(`.drag-wire[data-name="${wireData.name}"]`);
         if (sourceEl && sourceEl.parentElement && sourceEl.parentElement.id === 'wire-source-container') {
           sourceEl.remove();
@@ -2658,7 +2653,7 @@
         newWire.innerText = wireData.name;
         newWire.draggable = false;
         zone.appendChild(newWire);
-        
+
       } catch (error) {
         console.error('Drop error:', error);
       }
@@ -2668,7 +2663,7 @@
       const container = document.getElementById('wire-source-container');
       const wireName = wireElement.dataset.name;
       const wireDef = wireDefinitions.find(w => w.name === wireName);
-      
+
       if (wireDef) {
         const newWire = document.createElement('div');
         newWire.classList.add('drag-wire');
@@ -2676,16 +2671,16 @@
         newWire.dataset.name = wireDef.name;
         newWire.style.background = wireDef.bg;
         newWire.innerText = wireDef.name;
-        
+
         newWire.addEventListener('dragstart', function(e) {
           e.dataTransfer.setData('text/plain', JSON.stringify(wireDef));
           this.style.opacity = '0.5';
         });
-        
+
         newWire.addEventListener('dragend', function(e) {
           this.style.opacity = '1';
         });
-        
+
         container.appendChild(newWire);
         wireElement.remove();
       }
@@ -2697,23 +2692,23 @@
         showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER');
         return;
       }
-      
+
       currentTargetStandard = std;
-      
+
       document.querySelectorAll('.standard-btn').forEach(b => b.classList.remove('selected'));
       if (std === 'T568A') {
         document.querySelectorAll('.standard-btn')[0].classList.add('selected');
       } else {
         document.querySelectorAll('.standard-btn')[1].classList.add('selected');
       }
-      
+
       if (isPracticeMode) {
         const list = document.getElementById('pinout-list');
-        list.innerHTML = `<b>${std} Sequence:</b><ol type="1" style="margin-left: 15px;">` + 
+        list.innerHTML = `<b>${std} Sequence:</b><ol type="1" style="margin-left: 15px;">` +
           standards[std].map(w => `<li>${w}</li>`).join('') + `</ol>`;
         list.classList.remove('hidden');
       }
-      
+
       document.getElementById('game-status').innerHTML = `STATUS: TARGET SET TO ${std}`;
       console.log('🎯 Target standard set to:', std);
     }
@@ -2724,7 +2719,7 @@
         showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER');
         return;
       }
-      
+
       if (!currentTargetStandard) {
         showModal('Please select a schematic (T568A or T568B) target first!', 'warning', '⚠️ SCHEMATIC REQUIRED');
         return;
@@ -2752,7 +2747,7 @@
 
       if (!isCorrect || filledSlots < 8) {
         loseLife();
-        
+
         let errorMsg = '';
         if (emptyPins.length > 0) {
           errorMsg = `❌ Empty pins: ${emptyPins.join(', ')}. `;
@@ -2762,7 +2757,7 @@
           errorMsg += `Check the correct sequence!`;
         }
         errorMsg += '\n💔 -1 Life!';
-        
+
         showModal(errorMsg, 'error', '❌ CRIMP FAILED');
         highlightCorrectWires(false);
         console.log('❌ CRIMP FAILED - Life lost, staying on same challenge');
@@ -2774,10 +2769,9 @@
         updateAllScores();
         document.getElementById('game-status').innerHTML = "STATUS: ✅ SUCCESS! WIRED CORRECTLY! +100 POINTS";
         highlightCorrectWires(true);
-        
-        // Track completion
+
         trackChallengeCompletion(currentChallenge, true);
-        
+
         setTimeout(() => {
           showSuccessScreen();
         }, 800);
@@ -2855,9 +2849,9 @@
         updateAllScores();
         document.getElementById('ip-status').innerHTML = "✅ SUCCESS! IP CONFIGURATION CORRECT! +100 POINTS";
         document.getElementById('ip-status').style.color = '#2ecc71';
-        
+
         trackChallengeCompletion(currentChallenge, true);
-        
+
         setTimeout(() => {
           showSuccessScreen();
         }, 800);
@@ -2953,9 +2947,9 @@
         updateAllScores();
         document.getElementById('workgroup-status').innerHTML = "✅ SUCCESS! WORKGROUP CONFIGURATION CORRECT! +100 POINTS";
         document.getElementById('workgroup-status').style.color = '#2ecc71';
-        
+
         trackChallengeCompletion(currentChallenge, true);
-        
+
         setTimeout(() => {
           showSuccessScreen();
         }, 800);
@@ -3048,9 +3042,9 @@
         updateAllScores();
         document.getElementById('router-status').innerHTML = "✅ SUCCESS! ROUTER CONFIGURATION CORRECT! +100 POINTS";
         document.getElementById('router-status').style.color = '#2ecc71';
-        
+
         trackChallengeCompletion(currentChallenge, true);
-        
+
         setTimeout(() => {
           showSuccessScreen();
         }, 800);
@@ -3080,7 +3074,7 @@
       if (pingInput) pingInput.value = '';
       const result = document.getElementById('ping-result');
       if (result) result.innerHTML = '<span class="info">📡 Ready to ping...</span>';
-      
+
       const status = document.getElementById('router-status');
       if (status) {
         status.innerHTML = "STATUS: CONFIGURE ROUTER SETTINGS";
@@ -3092,14 +3086,14 @@
     function runPingTest() {
       const pingIp = document.getElementById('ping-ip').value.trim();
       const result = document.getElementById('ping-result');
-      
+
       if (!pingIp) {
         result.innerHTML = '<span class="fail">❌ Please enter an IP address to ping!</span>';
         return;
       }
 
       result.innerHTML = '<span class="info">⏳ Pinging ' + pingIp + '...</span>';
-      
+
       setTimeout(() => {
         if (pingIp === correctRouterConfig.pingIp) {
           result.innerHTML = `
@@ -3129,7 +3123,7 @@
     function highlightCorrectWires(success) {
       const dropZones = document.querySelectorAll('.drop-zone');
       const targetSequence = standards[currentTargetStandard];
-      
+
       dropZones.forEach((zone, idx) => {
         const wire = zone.querySelector('.drag-wire');
         if (wire) {
@@ -3142,7 +3136,7 @@
           }
         }
       });
-      
+
       setTimeout(() => {
         document.querySelectorAll('.drop-zone .drag-wire').forEach(wire => {
           wire.style.border = '1px solid #000';
@@ -3157,20 +3151,20 @@
         showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER');
         return;
       }
-      
+
       document.querySelectorAll('.drop-zone').forEach(zone => {
         const wire = zone.querySelector('.drag-wire');
         if (wire) wire.remove();
       });
-      
+
       initWirePalette();
       document.getElementById('game-status').innerHTML = "STATUS: WIRES RESET";
-      
+
       document.querySelectorAll('.drop-zone .drag-wire').forEach(wire => {
         wire.style.border = '1px solid #000';
         wire.style.boxShadow = 'none';
       });
-      
+
       showModal('🔄 All wires have been reset!', 'info', '🔄 RESET COMPLETE');
     }
 
@@ -3178,7 +3172,7 @@
     function showSuccessScreen() {
       document.getElementById('final-score').textContent = score;
       document.getElementById('final-lives').textContent = lives;
-      
+
       const nextIdx = challengeIndex + 1;
       if (nextIdx < challengeOrder.length) {
         const nextChallengeId = challengeOrder[nextIdx];
@@ -3193,7 +3187,7 @@
       } else {
         document.getElementById('next-btn').textContent = '🏆 FINISH ➜';
       }
-      
+
       showScreen('success-screen');
       console.log('🏆 Success screen shown!');
     }
@@ -3201,24 +3195,23 @@
     // ===== PERFORMANCE TRACKING =====
     function trackChallengeCompletion(challengeId, success) {
       const key = challengeId.toString();
-      
+
       if (!performanceData.attempts[key]) {
         performanceData.attempts[key] = 0;
       }
       performanceData.attempts[key]++;
       performanceData.totalAttempts++;
-      
+
       if (success) {
         performanceData.completed.add(key);
         performanceData.scores[key] = (performanceData.scores[key] || 0) + 100;
         performanceData.totalScore += 100;
       }
-      
-      // Calculate success rate
+
       const completed = performanceData.completed.size;
       const attempted = Object.keys(performanceData.attempts).length;
       performanceData.successRate = attempted > 0 ? Math.round((completed / attempted) * 100) : 0;
-      
+
       savePerformanceData();
       updateDashboard();
     }
@@ -3260,28 +3253,28 @@
       document.getElementById('stat-total-score').textContent = performanceData.totalScore;
       document.getElementById('stat-attempts').textContent = performanceData.totalAttempts;
       document.getElementById('stat-success-rate').textContent = performanceData.successRate + '%';
-      
+
       const container = document.getElementById('challenge-results');
       container.innerHTML = '';
-      
+
       for (let i = 1; i <= 8; i++) {
         const item = document.createElement('div');
         item.className = 'result-item';
-        
+
         const completed = performanceData.completed.has(i.toString());
         const attempts = performanceData.attempts[i] || 0;
         const score = performanceData.scores[i] || 0;
-        
+
         if (completed) {
           item.classList.add('completed');
         } else if (attempts > 0) {
           item.classList.add('failed');
         }
-        
+
         const name = document.createElement('span');
         name.className = 'name';
         name.textContent = challenges[i].name;
-        
+
         const status = document.createElement('span');
         status.className = 'status';
         if (completed) {
@@ -3294,7 +3287,7 @@
           status.textContent = '⏳ PENDING';
           status.classList.add('pending');
         }
-        
+
         item.appendChild(name);
         item.appendChild(status);
         container.appendChild(item);
@@ -3321,18 +3314,18 @@
       const icon = document.getElementById('modal-icon');
       const titleEl = document.getElementById('modal-title');
       const messageEl = document.getElementById('modal-message');
-      
+
       const titles = { error: '❌ ERROR', success: '✅ SUCCESS', warning: '⚠️ NOTICE', info: 'ℹ️ INFO' };
       const icons = { error: '❌', success: '✅', warning: '⚠️', info: 'ℹ️' };
-      
+
       icon.textContent = icons[type] || icons.warning;
       titleEl.textContent = title || titles[type] || titles.warning;
       messageEl.textContent = message;
-      
+
       modal.className = 'modal-overlay';
       modal.classList.add(`modal-${type}`);
       modal.classList.add('active');
-      
+
       if (modalTimeout) clearTimeout(modalTimeout);
       if (type === 'success' || type === 'info') {
         modalTimeout = setTimeout(closeModal, 5000);
@@ -3373,5 +3366,3 @@
 
 </body>
 </html>
-
-
