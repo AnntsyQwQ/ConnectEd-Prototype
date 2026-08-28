@@ -12,14 +12,22 @@
             padding: 0;
         }
 
+        html {
+            font-size: 16px;
+        }
+
         body {
             background-color: #1a1a1a;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            font-family: 'Press Start 2P', cursive;
+            font-family: var(--game-font, 'Press Start 2P'), cursive;
             overflow: hidden;
+        }
+
+        body.font-adjusted * {
+            font-family: var(--game-font, 'Press Start 2P'), cursive !important;
         }
 
         .game-container {
@@ -143,9 +151,9 @@
 
         .settings-btn {
             position: absolute;
-            top: 14px;
+            top: 8px;
             right: 14px;
-            z-index: 5;
+            z-index: 50;
             padding: 8px 12px;
             font-size: 0.5rem;
             background: #f1c40f;
@@ -204,6 +212,23 @@
             width: 100%;
             accent-color: #2bf1c9;
             cursor: pointer;
+        }
+
+        .font-control select {
+            width: 100%;
+            padding: 8px;
+            background: #081d2e;
+            border: 2px solid #2980b9;
+            border-radius: 4px;
+            color: #fff;
+            font-family: inherit;
+            font-size: 0.55rem;
+            cursor: pointer;
+        }
+
+        .font-control select:focus {
+            border-color: #2bf1c9;
+            outline: none;
         }
 
         .mute-control {
@@ -277,6 +302,29 @@
         .btn-back:hover {
             background-color: #ff6b6b;
             transform: scale(1.02);
+        }
+
+        .screen > .btn-back {
+            top: 8px;
+        }
+
+        .lives-display {
+            left: 50%;
+            right: auto;
+            transform: translateX(-50%);
+        }
+
+        .challenge-grid,
+        .dashboard-container,
+        .router-prep-container,
+        .micro-learning-container,
+        .rj45-workspace,
+        .ip-workspace,
+        .workgroup-workspace,
+        .router-workspace,
+        .security-workspace,
+        .topology-workspace {
+            padding-top: 80px !important;
         }
 
         /* ===== CHALLENGE SELECT ===== */
@@ -2308,13 +2356,16 @@
 
     <!-- BACKGROUND MUSIC -->
     <audio id="bg-music" src="music/background music.mp3" autoplay loop preload="auto" volume="0.15"></audio>
+    <audio id="menu-voice" src="image/IT MAN TALKING.mp4" preload="auto"></audio>
 
     <div class="game-container" id="gameContainer">
 
+        <button class="pixel-btn settings-btn" onclick="toggleSettings(true)" aria-label="Open game settings">⚙ SETTINGS</button>
+
         <!-- MAIN MENU -->
         <div id="main-menu" class="screen active">
-            <video id="menu-bg-video" autoplay loop muted playsinline preload="auto" poster="image/IT MAN.png">
-                <source src="image/ITMAN TALKING.mp4" type="video/mp4">
+            <video id="menu-bg-video" autoplay muted playsinline preload="auto" poster="image/IT MAN.png">
+                <source src="image/IT MAN TALKING.mp4" type="video/mp4">
                 <img src="image/IT MAN.png" alt="ConnectEd network trainer">
             </video>
             <div class="menu-content">
@@ -2322,7 +2373,6 @@
                     <h1 class="game-title">ConnectEd</h1>
                     <p class="game-subtitle">NETWORK CONFIGURATION TRAINER</p>
                 </div>
-                <button class="pixel-btn settings-btn" onclick="toggleSettings(true)" aria-label="Open sound settings">⚙ SETTINGS</button>
                 <div class="menu-spacer"></div>
                 <div class="menu-buttons">
                     <button class="pixel-btn" onclick="startChallenge()">START CHALLENGE</button>
@@ -2335,7 +2385,7 @@
 
         <div id="settings-overlay" class="settings-overlay" role="dialog" aria-modal="true" aria-labelledby="settings-title">
             <div class="settings-panel">
-                <h2 id="settings-title">SOUND SETTINGS</h2>
+                <h2 id="settings-title">GAME SETTINGS</h2>
                 <div class="sound-control">
                     <label for="master-volume"><span>MASTER VOLUME</span><span id="master-volume-value">100%</span></label>
                     <input id="master-volume" type="range" min="0" max="100" value="100">
@@ -2343,6 +2393,19 @@
                 <div class="sound-control">
                     <label for="music-volume"><span>MUSIC VOLUME</span><span id="music-volume-value">15%</span></label>
                     <input id="music-volume" type="range" min="0" max="100" value="15">
+                </div>
+                <div class="sound-control font-control">
+                    <label for="font-size"><span>FONT SIZE</span><span id="font-size-value">100%</span></label>
+                    <input id="font-size" type="range" min="80" max="130" value="100" step="5">
+                </div>
+                <div class="sound-control font-control">
+                    <label for="font-family">FONT STYLE</label>
+                    <select id="font-family">
+                        <option value="'Press Start 2P'">PIXEL</option>
+                        <option value="Arial">CLEAN</option>
+                        <option value="Georgia">SERIF</option>
+                        <option value="'Courier New'">MONO</option>
+                    </select>
                 </div>
                 <label class="mute-control" for="sound-muted">
                     <input id="sound-muted" type="checkbox">
@@ -3241,10 +3304,16 @@
         // AUDIO SYSTEM
         // ============================================
         var bgMusic = document.getElementById('bg-music');
+        var menuVoice = document.getElementById('menu-voice');
+        var menuVoiceInterval = null;
         var savedMasterVolume = localStorage.getItem('connected-master-volume');
         var savedMusicVolume = localStorage.getItem('connected-music-volume');
+        var savedFontSize = localStorage.getItem('connected-font-size');
+        var savedFontFamily = localStorage.getItem('connected-font-family');
         var masterVolume = savedMasterVolume === null ? 1 : Number(savedMasterVolume);
         var musicVolume = savedMusicVolume === null ? 0.15 : Number(savedMusicVolume);
+        var fontSize = savedFontSize === null ? 100 : Number(savedFontSize);
+        var fontFamily = savedFontFamily === null ? "'Press Start 2P'" : savedFontFamily;
         var soundMuted = localStorage.getItem('connected-sound-muted') === 'true';
 
         bgMusic.loop = true;
@@ -3252,31 +3321,84 @@
         function applyAudioSettings() {
             bgMusic.volume = musicVolume * masterVolume;
             bgMusic.muted = soundMuted;
+            menuVoice.volume = masterVolume;
+            menuVoice.muted = soundMuted;
             document.querySelectorAll('video').forEach(function(video) {
-                if (video.id !== 'menu-bg-video' && video.id !== 'success-video') {
-                    video.volume = masterVolume;
+                video.volume = masterVolume;
+                video.muted = true;
+                if (video.id !== 'menu-bg-video' && video.id !== 'success-video' &&
+                    document.getElementById('main-menu').classList.contains('active')) {
+                    video.pause();
                 }
-                video.muted = soundMuted || video.id === 'menu-bg-video';
             });
+        }
+
+        function playMenuVoiceOnce() {
+            var mainMenu = document.getElementById('main-menu');
+            var menuVideo = document.getElementById('menu-bg-video');
+            if (!mainMenu || !mainMenu.classList.contains('active') || soundMuted) {
+                menuVoice.pause();
+                if (menuVideo) menuVideo.pause();
+                return;
+            }
+            if (menuVideo) {
+                menuVideo.currentTime = 0;
+                menuVideo.play().catch(function(e) { console.log('Menu video play prevented:', e); });
+            }
+            menuVoice.currentTime = 0;
+            menuVoice.play().catch(function(e) { console.log('Menu voice play prevented:', e); });
+            setTimeout(function() {
+                menuVoice.pause();
+                menuVoice.currentTime = 0;
+                if (menuVideo) {
+                    menuVideo.pause();
+                    menuVideo.currentTime = 0;
+                }
+            }, 9900);
+        }
+
+        function startMenuVoiceCycle() {
+            if (menuVoiceInterval === null) {
+                menuVoiceInterval = setInterval(playMenuVoiceOnce, 10000);
+            }
+            playMenuVoiceOnce();
+        }
+
+        function applyFontSettings() {
+            document.documentElement.style.fontSize = (16 * fontSize / 100) + 'px';
+            document.body.style.setProperty('--game-font', fontFamily);
+            document.body.classList.add('font-adjusted');
         }
 
         function updateSoundSetting(setting, value) {
             if (setting === 'master') masterVolume = Number(value) / 100;
             if (setting === 'music') musicVolume = Number(value) / 100;
+            if (setting === 'font-size') fontSize = Number(value);
+            if (setting === 'font-family') fontFamily = value;
             if (setting === 'muted') soundMuted = value;
             localStorage.setItem('connected-master-volume', masterVolume);
             localStorage.setItem('connected-music-volume', musicVolume);
+            localStorage.setItem('connected-font-size', fontSize);
+            localStorage.setItem('connected-font-family', fontFamily);
             localStorage.setItem('connected-sound-muted', soundMuted);
             applyAudioSettings();
+            if (soundMuted) menuVoice.pause();
+            if (!soundMuted && document.getElementById('main-menu').classList.contains('active')) {
+                startMenuVoiceCycle();
+            }
+            applyFontSettings();
             updateSettingsLabels();
         }
 
         function updateSettingsLabels() {
             document.getElementById('master-volume').value = Math.round(masterVolume * 100);
             document.getElementById('music-volume').value = Math.round(musicVolume * 100);
+            document.getElementById('font-size').value = fontSize;
+            document.getElementById('font-family').value = fontFamily;
             document.getElementById('sound-muted').checked = soundMuted;
             document.getElementById('master-volume-value').textContent = Math.round(masterVolume * 100) + '%';
             document.getElementById('music-volume-value').textContent = Math.round(musicVolume * 100) + '%';
+            document.getElementById('font-size-value').textContent = fontSize + '%';
         }
 
         function toggleSettings(open) {
@@ -3289,6 +3411,12 @@
         document.getElementById('music-volume').addEventListener('input', function(event) {
             updateSoundSetting('music', event.target.value);
         });
+        document.getElementById('font-size').addEventListener('input', function(event) {
+            updateSoundSetting('font-size', event.target.value);
+        });
+        document.getElementById('font-family').addEventListener('change', function(event) {
+            updateSoundSetting('font-family', event.target.value);
+        });
         document.getElementById('sound-muted').addEventListener('change', function(event) {
             updateSoundSetting('muted', event.target.checked);
         });
@@ -3297,14 +3425,15 @@
         });
         updateSettingsLabels();
         applyAudioSettings();
+        applyFontSettings();
 
         function playMusic() {
             var menuVideo = document.getElementById('menu-bg-video');
             var mainMenu = document.getElementById('main-menu');
             if (menuVideo && mainMenu && mainMenu.classList.contains('active')) {
                 menuVideo.volume = masterVolume;
-                menuVideo.muted = soundMuted;
-                menuVideo.play().catch(function(e) { console.log('Menu video play on interaction:', e); });
+                menuVideo.muted = true;
+                startMenuVoiceCycle();
             }
             if (!isAudioPlaying) {
                 bgMusic.play().then(function() {
@@ -3321,10 +3450,6 @@
         document.addEventListener('keydown', playMusic);
 
         window.addEventListener('load', function() {
-            var menuVideo = document.getElementById('menu-bg-video');
-            if (menuVideo) {
-                menuVideo.play().catch(function(e) { console.log('Menu video load play:', e); });
-            }
             setTimeout(playMusic, 1000);
             loadPerformanceData();
             initTopology();
@@ -5019,10 +5144,10 @@
 
             if (screenId === 'main-menu') {
                 if (menuVideo) {
-                    menuVideo.muted = false;
-                    menuVideo.play().catch(function(e) { console.log('Menu video play:', e); });
+                    menuVideo.muted = true;
                 }
-                bgMusic.volume = 0.15;
+                startMenuVoiceCycle();
+                bgMusic.volume = musicVolume * masterVolume;
                 if (isAudioPlaying) {
                     bgMusic.play().catch(function(e) { console.log('Menu bgMusic play:', e); });
                 }
@@ -5030,6 +5155,8 @@
                 if (menuVideo) {
                     menuVideo.pause();
                 }
+                menuVoice.pause();
+                menuVoice.currentTime = 0;
                 if (isVideoScene) {
                     bgMusic.volume = 0.05;
                     if (isAudioPlaying) {
@@ -5106,7 +5233,7 @@
             updateAllLives();
             isGameOver = false;
             loadPerformanceData();
-            bgMusic.volume = 0.15;
+            bgMusic.volume = musicVolume * masterVolume;
             console.log('🏠 Returned to menu');
         }
 
@@ -5138,10 +5265,7 @@
         updateAllLives();
         updateAllScores();
         loadPerformanceData();
-        var initMenuVideo = document.getElementById('menu-bg-video');
-        if (initMenuVideo) {
-            initMenuVideo.play().catch(function(e) { console.log('Init video play:', e); });
-        }
+        document.getElementById('menu-bg-video').pause();
     </script>
 
 </body>
