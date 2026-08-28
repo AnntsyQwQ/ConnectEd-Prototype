@@ -2422,16 +2422,16 @@
         <div id="challenge-select" class="screen">
             <button class="pixel-btn btn-back" onclick="goToMenu()">BACK</button>
             <div class="challenge-grid">
-                <h2>SELECT CHALLENGE</h2>
+                <h2>SELECT MODULE QUIZ</h2>
                 <div class="challenge-list" id="challenge-list">
-                    <button class="challenge-item" data-id="1" onclick="startSpecificChallenge(1)">🔌 RJ45 Crimping - T568B</button>
-                    <button class="challenge-item" data-id="2" onclick="startSpecificChallenge(2)">🔗 Straight-Through Cable</button>
-                    <button class="challenge-item" data-id="3" onclick="startSpecificChallenge(3)">🔄 Crossover Cable</button>
-                    <button class="challenge-item" data-id="4" onclick="startSpecificChallenge(4)">📡 IP Configuration</button>
-                    <button class="challenge-item" data-id="5" onclick="startSpecificChallenge(5)">🌐 Network Topology</button>
-                    <button class="challenge-item" data-id="6" onclick="startSpecificChallenge(6)">🏢 Workgroup & Sharing Setup</button>
-                    <button class="challenge-item" data-id="7" onclick="startSpecificChallenge(7)">📶 Router & Connectivity Testing</button>
-                    <button class="challenge-item" data-id="8" onclick="startSpecificChallenge(8)">🔒 Network Security</button>
+                    <button class="challenge-item" data-id="1" onclick="startModuleQuiz(1)">🔌 RJ45 Crimping - T568B</button>
+                    <button class="challenge-item" data-id="2" onclick="startModuleQuiz(2)">🔗 Straight-Through Cable</button>
+                    <button class="challenge-item" data-id="3" onclick="startModuleQuiz(3)">🔄 Crossover Cable</button>
+                    <button class="challenge-item" data-id="4" onclick="startModuleQuiz(4)">📡 IP Configuration</button>
+                    <button class="challenge-item" data-id="5" onclick="startModuleQuiz(5)">🌐 Network Topology</button>
+                    <button class="challenge-item" data-id="6" onclick="startModuleQuiz(6)">🏢 Workgroup & Sharing Setup</button>
+                    <button class="challenge-item" data-id="7" onclick="startModuleQuiz(7)">📶 Router & Connectivity Testing</button>
+                    <button class="challenge-item" data-id="8" onclick="startModuleQuiz(8)">🔒 Network Security</button>
                 </div>
             </div>
         </div>
@@ -2546,12 +2546,13 @@
                         </div>
                         <div class="ml-quiz">
                             <h4>🎯 Quick Check</h4>
-                            <div class="ml-quiz-progress" id="ml-quiz-progress">Question 1 of 3</div>
+                            <div class="ml-quiz-progress" id="ml-quiz-progress">Question 1 of 10</div>
+                            <div class="ml-quiz-progress" id="ml-score">Score: 0 / 3</div>
                             <p class="ml-quiz-question" id="ml-quiz-question">Test your understanding</p>
                             <div id="ml-quiz-options"></div>
                         </div>
                         <div class="ml-practice-mode-badge" id="ml-practice-badge">📚 PRACTICE MODE - No lives lost!</div>
-                        <button class="pixel-btn ml-start-btn" id="ml-start-btn" onclick="startChallengeFromLearning()">🚀 START CHALLENGE</button>
+                        <button class="pixel-btn ml-start-btn" id="ml-start-btn" onclick="startChallengeFromLearning()">🔒 ANSWER ALL QUESTIONS</button>
                     </div>
                 </div>
             </div>
@@ -2980,6 +2981,10 @@
         var learningIsPractice = false;
         var isIPStoryFlow = false;
         var quizQuestionIndex = 0;
+        var quizScore = 0;
+        var quizOnlyMode = false;
+        var quizQuestionLimit = 3;
+        var modalCloseAction = null;
 
         // ===== PERFORMANCE TRACKING =====
         var performanceData = {
@@ -3006,44 +3011,100 @@
 
         var challengeQuizQuestions = {
             1: [
-                { question: 'Which standard is used in this challenge?', options: ['T568A', 'T568B', 'WPA2', 'IPv4'], correct: 1 },
-                { question: 'Which wire comes first in T568B?', options: ['Green/White', 'Blue', 'Orange/White', 'Brown'], correct: 2 },
-                { question: 'How many wires are placed in an RJ45 connector?', options: ['4', '6', '8', '10'], correct: 2 }
+                { question: 'Which TIA/EIA standard is used for this RJ45 module?', options: ['T568A', 'T568B', 'WPA2', 'IPv6'], correct: 1 },
+                { question: 'Which color is pin 1 in T568B?', options: ['Green/White', 'Orange/White', 'Blue', 'Brown'], correct: 1 },
+                { question: 'How many conductors are terminated in an RJ45 plug?', options: ['4', '6', '8', '10'], correct: 2 },
+                { question: 'What tool attaches an RJ45 plug to the cable?', options: ['Punch-down tool', 'Crimping tool', 'Multimeter', 'Cable tester only'], correct: 1 },
+                { question: 'What should be checked before crimping?', options: ['Wire sequence', 'Monitor brightness', 'IP gateway', 'Wi-Fi password'], correct: 0 },
+                { question: 'Which pair is on pins 3 and 6 in T568B?', options: ['Blue pair', 'Green pair', 'Orange pair', 'Brown pair'], correct: 1 },
+                { question: 'What does a cable tester check?', options: ['Continuity and pinout', 'Internet speed only', 'Password strength', 'Screen resolution'], correct: 0 },
+                { question: 'What protects each Ethernet pair from interference?', options: ['Twisting', 'Painting', 'DHCP', 'Routing'], correct: 0 },
+                { question: 'What is the recommended jacket strip length?', options: ['Only enough to expose pairs', 'One meter', 'The entire cable', 'No exposed wires'], correct: 0 },
+                { question: 'A wrong pinout can cause what result?', options: ['Link failure', 'More bandwidth', 'Automatic encryption', 'A stronger signal'], correct: 0 }
             ],
             2: [
-                { question: 'What does a straight-through cable use on both ends?', options: ['The same standard', 'No standard', 'Only T568A', 'Only fiber'], correct: 0 },
-                { question: 'What devices commonly use a straight-through cable?', options: ['Computer to switch', 'Computer to computer only', 'Two batteries', 'Two monitors'], correct: 0 },
-                { question: 'What is identical on both ends?', options: ['The device name', 'The wire order', 'The IP address', 'The password'], correct: 1 }
+                { question: 'What wiring standard is normally used on both ends of a straight-through cable?', options: ['T568B', 'T568A on one end only', 'WPA2', 'RS-232'], correct: 0 },
+                { question: 'What is the defining feature of a straight-through cable?', options: ['Same pinout on both ends', 'No pinout', 'Fiber on one end', 'Reversed power wires'], correct: 0 },
+                { question: 'Which connection commonly uses straight-through wiring?', options: ['PC to switch', 'PC to PC only', 'Switch to switch only', 'Printer to printer'], correct: 0 },
+                { question: 'What does a switch primarily connect?', options: ['Devices on a LAN', 'Different continents', 'Power outlets', 'Passwords'], correct: 0 },
+                { question: 'What does UTP mean?', options: ['Unshielded Twisted Pair', 'Universal Transfer Port', 'Unused Test Pin', 'Ultra Thin Plug'], correct: 0 },
+                { question: 'What is the maximum common Cat5e channel length?', options: ['10 m', '50 m', '100 m', '500 m'], correct: 2 },
+                { question: 'Which connector is used with common UTP Ethernet cable?', options: ['RJ11', 'RJ45', 'USB-C', 'BNC only'], correct: 1 },
+                { question: 'What should both ends have for a reliable cable?', options: ['Matching correct pinouts', 'Different IP addresses', 'The same MAC address', 'A router password'], correct: 0 },
+                { question: 'Which device forwards frames using MAC addresses?', options: ['Switch', 'Modem only', 'Keyboard', 'Monitor'], correct: 0 },
+                { question: 'What is a link light used to indicate?', options: ['Physical link status', 'DNS status', 'User permission', 'File size'], correct: 0 }
             ],
             3: [
-                { question: 'What standards are used in a crossover cable?', options: ['T568A and T568B', 'WPA and WPA2', 'IPv4 and IPv6', 'HTTP and FTP'], correct: 0 },
-                { question: 'What type of devices can it connect directly?', options: ['Similar devices', 'Only printers', 'Only routers', 'Only phones'], correct: 0 },
-                { question: 'What is crossed in this cable?', options: ['Power wires', 'Transmit and receive pairs', 'Video signals', 'Passwords'], correct: 1 }
+                { question: 'How are the ends of a traditional crossover cable wired?', options: ['T568A and T568B', 'T568B and T568B', 'Both with no standard', 'USB and RJ45'], correct: 0 },
+                { question: 'What pairs are crossed?', options: ['Transmit and receive', 'Power and ground', 'Blue and brown only', 'DNS and DHCP'], correct: 0 },
+                { question: 'What devices were commonly connected directly with crossover cable?', options: ['PC to PC', 'PC to keyboard', 'Monitor to printer', 'Router to internet'], correct: 0 },
+                { question: 'Which device type can also use a crossover connection?', options: ['Switch to switch', 'Mouse to mouse', 'Speaker to speaker', 'Printer to paper'], correct: 0 },
+                { question: 'What feature reduces the need for crossover cables?', options: ['Auto-MDI/MDIX', 'DHCP', 'DNS', 'WPA3'], correct: 0 },
+                { question: 'What is the purpose of crossing pairs?', options: ['Match transmit to receive', 'Increase voltage', 'Assign an IP', 'Encrypt files'], correct: 0 },
+                { question: 'Which standard has the green pair first?', options: ['T568A', 'T568B', '802.11', '802.3af'], correct: 0 },
+                { question: 'Which standard has the orange pair first?', options: ['T568A', 'T568B', 'WPA2', 'IPv4'], correct: 1 },
+                { question: 'Should a crossover cable still be tested after termination?', options: ['Yes', 'No, never', 'Only over Wi-Fi', 'Only with DNS'], correct: 0 },
+                { question: 'What happens with an incorrect crossover pinout?', options: ['The link may fail', 'The cable becomes wireless', 'The IP changes automatically', 'The switch reboots'], correct: 0 }
             ],
             4: [
-                { question: 'What identifies a device on a network?', options: ['IP address', 'Monitor size', 'Workgroup color', 'Cable length'], correct: 0 },
-                { question: 'What is the correct IPv4 format?', options: ['192.168.1.2', '192.168.1', '192-168-1-2', '192.168.1.2.3'], correct: 0 },
-                { question: 'What does DNS translate?', options: ['Names to IP addresses', 'Cables to ports', 'Passwords to usernames', 'Files to folders'], correct: 0 }
+                { question: 'What identifies a host on an IP network?', options: ['IP address', 'Cable color', 'Monitor size', 'Computer wallpaper'], correct: 0 },
+                { question: 'How many octets are in an IPv4 address?', options: ['2', '4', '6', '8'], correct: 1 },
+                { question: 'Which is a valid IPv4 address?', options: ['192.168.1.2', '192.168.1', '192.168.1.2.3', '192-168-1-2'], correct: 0 },
+                { question: 'What does a subnet mask identify?', options: ['Network and host portions', 'Wi-Fi password', 'Cable category', 'MAC vendor only'], correct: 0 },
+                { question: 'What is the purpose of a default gateway?', options: ['Reach other networks', 'Test a cable', 'Name a computer', 'Encrypt a file'], correct: 0 },
+                { question: 'What service translates names to IP addresses?', options: ['DNS', 'DHCP', 'FTP', 'ARP only'], correct: 0 },
+                { question: 'What service can assign IP settings automatically?', options: ['DHCP', 'DNS', 'HTTP', 'SSH'], correct: 0 },
+                { question: 'Which address is in the private 192.168.1.0/24 network?', options: ['192.168.1.25', '8.8.8.8', '172.40.1.1', '1.1.1.1'], correct: 0 },
+                { question: 'What command displays Windows IP configuration?', options: ['ipconfig', 'format', 'mkdir', 'netstat only'], correct: 0 },
+                { question: 'What can duplicate IP addresses cause?', options: ['Communication problems', 'Faster browsing', 'More storage', 'Stronger encryption'], correct: 0 }
             ],
             5: [
-                { question: 'What is the correct basic network order?', options: ['Router → Switch → PC', 'PC → PC → Router', 'Switch → Router → PC', 'Router → PC → Switch'], correct: 0 },
-                { question: 'What does a switch connect?', options: ['Devices in one network', 'Only the internet', 'Power outlets', 'Passwords'], correct: 0 },
-                { question: 'In a star topology, devices connect to a...', options: ['Central switch or router', 'Single cable end', 'Printer only', 'DNS server only'], correct: 0 }
+                { question: 'In a star topology, devices connect to a...', options: ['Central switch', 'Single bus cable', 'Ring only', 'Printer'], correct: 0 },
+                { question: 'What does a router connect?', options: ['Different networks', 'Only USB devices', 'Power cables', 'Files'], correct: 0 },
+                { question: 'What does a switch connect?', options: ['Hosts within a LAN', 'Only WAN providers', 'Passwords', 'DNS names'], correct: 0 },
+                { question: 'Which topology uses one main backbone cable?', options: ['Bus', 'Star', 'Mesh', 'Tree only'], correct: 0 },
+                { question: 'Which topology provides many redundant paths?', options: ['Mesh', 'Bus', 'Single point', 'Line only'], correct: 0 },
+                { question: 'What is a LAN?', options: ['Local Area Network', 'Long Access Node', 'Link Address Name', 'Local Audio Network'], correct: 0 },
+                { question: 'What device connects a LAN to the internet?', options: ['Router', 'Patch panel', 'Keyboard', 'Cable tester'], correct: 0 },
+                { question: 'What is a network diagram used for?', options: ['Planning and troubleshooting', 'Increasing RAM', 'Changing passwords only', 'Formatting disks'], correct: 0 },
+                { question: 'What physical medium carries Ethernet signals?', options: ['Copper or fiber cable', 'Printer ink', 'Keyboard keys', 'DNS records'], correct: 0 },
+                { question: 'A single central switch failure in a star affects...', options: ['Connected devices', 'Only the internet name', 'The keyboard battery', 'Nothing at all'], correct: 0 }
             ],
             6: [
-                { question: 'What should computers in one workgroup share?', options: ['The same workgroup name', 'The same IP address', 'The same computer name', 'The same password'], correct: 0 },
-                { question: 'What lets computers see each other?', options: ['Network Discovery', 'Screen brightness', 'Airplane Mode', 'A crossover quiz'], correct: 0 },
-                { question: 'What enables shared files and printers?', options: ['File and Printer Sharing', 'Changing the DNS', 'Disabling the router', 'Using IPv6 only'], correct: 0 }
+                { question: 'What must computers in one Windows workgroup share?', options: ['Workgroup name', 'IP address', 'Computer name', 'MAC address'], correct: 0 },
+                { question: 'What lets a PC discover other PCs?', options: ['Network Discovery', 'Airplane Mode', 'Screen sharing only', 'DNS cache'], correct: 0 },
+                { question: 'What enables shared files and printers?', options: ['File and Printer Sharing', 'Changing wallpaper', 'Disabling TCP/IP', 'Changing DNS only'], correct: 0 },
+                { question: 'What should each computer have on a LAN?', options: ['A unique computer name', 'The same IP address', 'No password ever', 'The same MAC address'], correct: 0 },
+                { question: 'Which Windows feature controls network visibility?', options: ['Network profile', 'Recycle Bin', 'Task Manager only', 'Display settings'], correct: 0 },
+                { question: 'What is a shared folder used for?', options: ['Network file access', 'Changing IP class', 'Testing voltage', 'Crimping cable'], correct: 0 },
+                { question: 'What is required to access a protected share?', options: ['Permission or credentials', 'A crossover cable always', 'A new monitor', 'A public DNS only'], correct: 0 },
+                { question: 'Which protocol commonly supports Windows file sharing?', options: ['SMB', 'FTP only', 'SMTP', 'ICMP'], correct: 0 },
+                { question: 'Why should passwords not be shared publicly?', options: ['To prevent unauthorized access', 'To improve cable speed', 'To change topology', 'To increase screen size'], correct: 0 },
+                { question: 'What should be checked when a share is inaccessible?', options: ['Permissions and connectivity', 'Monitor color', 'Cable brand only', 'Browser theme'], correct: 0 }
             ],
             7: [
-                { question: 'What does a router connect?', options: ['Different networks', 'Only keyboards', 'Two file types', 'Only monitors'], correct: 0 },
-                { question: 'What command tests network connectivity?', options: ['ping', 'print', 'copy', 'format'], correct: 0 },
-                { question: 'What does a successful ping show?', options: ['The target can communicate', 'The password is strong', 'The cable is blue', 'The screen is bright'], correct: 0 }
+                { question: 'What is the main role of a router?', options: ['Forward packets between networks', 'Crimp cables', 'Store passwords', 'Print documents'], correct: 0 },
+                { question: 'Which command tests reachability?', options: ['ping', 'copy', 'format', 'mkdir'], correct: 0 },
+                { question: 'What protocol does ping use?', options: ['ICMP', 'FTP', 'SMTP', 'SMB'], correct: 0 },
+                { question: 'What identifies a wireless network name?', options: ['SSID', 'MAC mask', 'DNS', 'Subnet'], correct: 0 },
+                { question: 'Which security standard is preferred over WEP?', options: ['WPA2', 'HTTP', 'FTP', 'Telnet'], correct: 0 },
+                { question: 'What is the router LAN IP used for?', options: ['Local management and gateway', 'Cable testing only', 'Naming files', 'Encrypting email'], correct: 0 },
+                { question: 'What does a successful ping reply indicate?', options: ['The target responded', 'The password is correct', 'The cable is fiber', 'DNS is disabled'], correct: 0 },
+                { question: 'What should be pinged first during troubleshooting?', options: ['Local gateway', 'A random printer', 'A file name', 'The monitor'], correct: 0 },
+                { question: 'What does SSID stand for?', options: ['Service Set Identifier', 'Secure Server Internet ID', 'Switch System Interface Data', 'Static Subnet IP Device'], correct: 0 },
+                { question: 'What can interference affect?', options: ['Wireless connectivity', 'File names only', 'Monitor brightness', 'Keyboard layout'], correct: 0 }
             ],
             8: [
-                { question: 'What blocks unauthorized network traffic?', options: ['Firewall', 'Switch label', 'DNS name', 'Crossover cable'], correct: 0 },
-                { question: 'Which option secures Wi-Fi?', options: ['WPA2 encryption', 'Disabling all passwords', 'Sharing the admin key', 'Turning off updates'], correct: 0 },
-                { question: 'What helps prevent unauthorized device access?', options: ['MAC filtering', 'Lower screen brightness', 'Changing the monitor', 'Removing the gateway'], correct: 0 }
+                { question: 'What blocks unauthorized network traffic?', options: ['Firewall', 'Patch cable', 'DNS name', 'Switch label'], correct: 0 },
+                { question: 'Which option secures Wi-Fi?', options: ['WPA2 encryption', 'Open access', 'Disabling updates', 'Sharing the key'], correct: 0 },
+                { question: 'What limits access to approved device hardware addresses?', options: ['MAC filtering', 'DHCP only', 'DNS', 'Ping'], correct: 0 },
+                { question: 'What makes an administrator password stronger?', options: ['Length and complexity', 'Using a name', 'Using 123456', 'Leaving it blank'], correct: 0 },
+                { question: 'Why install security updates?', options: ['To fix vulnerabilities', 'To change cable colors', 'To increase monitor size', 'To remove all users'], correct: 0 },
+                { question: 'What does encryption provide?', options: ['Confidentiality', 'More cable length', 'Automatic wiring', 'A new IP class'], correct: 0 },
+                { question: 'What is social engineering?', options: ['Manipulating people for information', 'Routing packets', 'Testing a cable', 'Assigning an IP'], correct: 0 },
+                { question: 'What should be done with unused network services?', options: ['Disable them when possible', 'Publish passwords', 'Remove the firewall', 'Use default credentials'], correct: 0 },
+                { question: 'What is a backup useful for after an incident?', options: ['Restoring data', 'Increasing Wi-Fi range', 'Changing a MAC address', 'Crimping RJ45'], correct: 0 },
+                { question: 'What is a secure practice for network administration?', options: ['Change default credentials', 'Use the default password', 'Disable logging', 'Share admin accounts'], correct: 0 }
             ]
         };
 
@@ -3621,15 +3682,23 @@
         }
 
         function startQuizMode() {
+            startModuleQuiz(1, true);
+            console.log('📝 Quiz mode started');
+        }
+
+        function startModuleQuiz(moduleId, onlyQuiz) {
+            quizOnlyMode = onlyQuiz === true;
+            quizQuestionLimit = quizOnlyMode ? 10 : 3;
             isPracticeMode = true;
             lives = maxLives;
             score = 0;
             isGameOver = false;
-            challengeIndex = 0;
+            currentChallenge = moduleId;
+            challengeIndex = challengeOrder.indexOf(moduleId);
+            if (challengeIndex < 0) challengeIndex = 0;
             updateAllLives();
             updateAllScores();
-            showMicroLearning(1, true);
-            console.log('📝 Quiz mode started');
+            showMicroLearning(moduleId, true);
         }
 
         function startSpecificChallenge(challengeId) {
@@ -3657,6 +3726,8 @@
         function showMicroLearning(challengeId, isPractice) {
             learningChallengeId = challengeId;
             learningIsPractice = isPractice;
+            quizScore = 0;
+            quizQuestionLimit = quizOnlyMode ? 10 : 3;
 
             var lesson = microLessons[challengeId];
             if (!lesson) {
@@ -3705,10 +3776,12 @@
             var progress = document.getElementById('ml-quiz-progress');
             var startBtn = document.getElementById('ml-start-btn');
             if (!question) return;
-            progress.textContent = 'Question ' + (quizQuestionIndex + 1) + ' of ' + questions.length;
+            progress.textContent = 'Question ' + (quizQuestionIndex + 1) + ' of ' + quizQuestionLimit;
+            document.getElementById('ml-score').textContent = 'Score: ' + quizScore + ' / ' + quizQuestionLimit;
             document.getElementById('ml-quiz-question').textContent = question.question;
             optionsContainer.innerHTML = '';
             question.options.forEach(function(option, index) {
+                if (index >= 4) return;
                 var answer = document.createElement('div');
                 answer.className = 'ml-quiz-option';
                 answer.textContent = String.fromCharCode(65 + index) + '. ' + option;
@@ -3730,13 +3803,16 @@
             });
             if (selected === correctIndex) {
                 element.classList.add('correct');
+                quizScore++;
+                document.getElementById('ml-score').textContent = 'Score: ' + quizScore + ' / ' + quizQuestionLimit;
                 quizQuestionIndex++;
-                if (quizQuestionIndex >= challengeQuizQuestions[challengeId].length) {
-                    document.getElementById('ml-quiz-progress').textContent = 'All 3 questions correct';
-                    document.getElementById('ml-quiz-question').textContent = 'Excellent! You are ready for this challenge.';
+                if (quizQuestionIndex >= quizQuestionLimit) {
+                    document.getElementById('ml-quiz-progress').textContent = 'All ' + quizQuestionLimit + ' questions complete';
+                    document.getElementById('ml-quiz-question').textContent = 'Excellent! Module quiz complete.';
                     document.getElementById('ml-quiz-options').innerHTML = '';
-                    document.getElementById('ml-start-btn').disabled = false;
-                    document.getElementById('ml-start-btn').textContent = '🚀 START CHALLENGE';
+                    var completeButton = document.getElementById('ml-start-btn');
+                    completeButton.disabled = false;
+                    completeButton.textContent = quizOnlyMode ? 'NEXT MODULE' : '🚀 START CHALLENGE';
                 } else {
                     setTimeout(function() {
                         renderQuizQuestion(challengeId);
@@ -3763,6 +3839,15 @@
         }
 
         function startChallengeFromLearning() {
+            if (quizOnlyMode) {
+                var nextModuleIndex = challengeOrder.indexOf(learningChallengeId) + 1;
+                if (nextModuleIndex < challengeOrder.length) {
+                    startModuleQuiz(challengeOrder[nextModuleIndex]);
+                } else {
+                    showChallengeSelect();
+                }
+                return;
+            }
             if (learningIsPractice) {
                 isPracticeMode = true;
             } else {
@@ -4123,6 +4208,7 @@
                 return;
             }
             if (!currentTargetStandard) {
+                loseLife();
                 showModal('Please select a schematic (T568A or T568B) target first!', 'warning', '⚠️ SCHEMATIC REQUIRED');
                 return;
             }
@@ -5084,6 +5170,7 @@
 
         function showModal(message, type, title) {
             type = type || 'warning';
+            modalCloseAction = null;
             var modal = document.getElementById('custom-modal');
             var icon = document.getElementById('modal-icon');
             var titleEl = document.getElementById('modal-title');
@@ -5105,6 +5192,9 @@
         function closeModal() {
             document.getElementById('custom-modal').classList.remove('active');
             if (modalTimeout) clearTimeout(modalTimeout);
+            var action = modalCloseAction;
+            modalCloseAction = null;
+            if (action) action();
         }
 
         document.getElementById('custom-modal').addEventListener('click', function(e) {
@@ -5118,11 +5208,7 @@
         function confirmGoToMenu() {
             showModal('Are you sure you want to go back to the main menu? Your progress will be lost.', 'warning',
                 '⚠️ CONFIRM');
-            var origClose = closeModal;
-            closeModal = function() {
-                origClose();
-                goToMenu();
-            };
+            modalCloseAction = goToMenu;
         }
 
         // ============================================
@@ -5236,6 +5322,7 @@
             lives = maxLives;
             challengeIndex = 0;
             isPracticeMode = false;
+            quizOnlyMode = false;
             updateAllLives();
             isGameOver = false;
             loadPerformanceData();
