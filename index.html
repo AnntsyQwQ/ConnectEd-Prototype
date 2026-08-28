@@ -2377,7 +2377,8 @@
                 <div class="menu-buttons">
                     <button class="pixel-btn" onclick="startChallenge()">START CHALLENGE</button>
                     <button class="pixel-btn btn-practice" onclick="startPractice()">PRACTICE MODE</button>
-                    <button class="pixel-btn btn-challenges" onclick="showChallengeSelect()">ALL CHALLENGES</button>
+                    <button class="pixel-btn btn-challenges" onclick="showChallengeSelect()">ALL MODULES</button>
+                    <button class="pixel-btn btn-quiz" onclick="startQuizMode()">QUIZ</button>
                     <button class="pixel-btn btn-dashboard" onclick="showDashboard()">📊 DASHBOARD</button>
                 </div>
             </div>
@@ -3619,6 +3620,18 @@
             console.log('📚 Practice mode started');
         }
 
+        function startQuizMode() {
+            isPracticeMode = true;
+            lives = maxLives;
+            score = 0;
+            isGameOver = false;
+            challengeIndex = 0;
+            updateAllLives();
+            updateAllScores();
+            showMicroLearning(1, true);
+            console.log('📝 Quiz mode started');
+        }
+
         function startSpecificChallenge(challengeId) {
             isPracticeMode = false;
             lives = maxLives;
@@ -3642,9 +3655,6 @@
         // ============================================
 
         function showMicroLearning(challengeId, isPractice) {
-            loadChallenge(challengeId);
-            return;
-
             learningChallengeId = challengeId;
             learningIsPractice = isPractice;
 
@@ -3684,10 +3694,6 @@
 
             quizQuestionIndex = 0;
             renderQuizQuestion(challengeId);
-
-            var startBtn = document.getElementById('ml-start-btn');
-            startBtn.disabled = false;
-            startBtn.textContent = '🚀 START CHALLENGE';
 
             showScreen('micro-learning');
         }

@@ -459,6 +459,18 @@ function startPractice() {
     console.log('📚 Practice mode started');
 }
 
+function startQuizMode() {
+    isPracticeMode = true;
+    lives = maxLives;
+    score = 0;
+    isGameOver = false;
+    challengeIndex = 0;
+    updateAllLives();
+    updateAllScores();
+    showMicroLearning(1, true);
+    console.log('📝 Quiz mode started');
+}
+
 function startSpecificChallenge(challengeId) {
     isPracticeMode = false;
     lives = maxLives;
