@@ -1123,6 +1123,76 @@
         .ip-reset-btn {
             background: #e74c3c;
         }
+        .crossover-workspace { width: 100%; height: 100%; padding: 10px; padding-top: 35px; display: flex; flex-direction: column; }
+        .crossover-body { position: relative; display: flex; align-items: center; justify-content: center; gap: 12px; flex: 1; min-height: 0; }
+        #crossover-wire-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 3; overflow: visible; }
+        .crossover-end { position: relative; z-index: 4; }
+        .crossover-end { flex: 1; height: 100%; max-width: 330px; background: #143552; border: 2px solid #2bf1c9; border-radius: 8px; padding: 12px; }
+        .crossover-end h3 { color: #2bf1c9; font-size: 0.5rem; text-align: center; margin-bottom: 10px; }
+        .crossover-pins { display: flex; flex-direction: column; gap: 5px; }
+        .crossover-pin { display: flex; align-items: center; gap: 6px; min-height: 31px; background: #081d2e; border: 2px dashed #2bf1c9; border-radius: 4px; padding: 3px; }
+        .crossover-pin-label { width: 18px; color: #f1c40f; font-size: 0.35rem; text-align: center; }
+        .crossover-pin .drag-wire { flex: 1; min-height: 22px; margin: 0; padding: 4px; font-size: 0.3rem; }
+        .crossover-source { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+        .crossover-source .drag-wire { flex: 1 1 90px; margin: 0; cursor: grab; font-size: 0.3rem; padding: 5px; }
+        .crossover-cable-line { color: #f1c40f; font-size: 0.42rem; text-align: center; font-weight: bold; }
+        .crossover-actions { display: flex; justify-content: center; gap: 8px; margin-top: 10px; }
+        .crossover-guide-toggle { display: none; position: relative; z-index: 20; margin: 6px auto 0; padding: 5px 10px; background: #f1c40f; color: #051422; border: 2px solid #b7950b; border-radius: 4px; cursor: pointer; font: 0.35rem 'Press Start 2P', cursive; }
+        .crossover-guide { display: none; position: relative; z-index: 20; margin-top: 6px; padding: 8px 10px; max-height: 150px; overflow-y: auto; background: #051422; border: 2px solid #f1c40f; border-radius: 4px; color: #ecf0f1; font-size: 0.34rem; line-height: 1.5; text-align: left; }
+        .crossover-guide.visible { display: block; }
+        .crossover-guide-title { color: #f1c40f; font-size: 0.45rem; text-align: center; margin-bottom: 5px; }
+        .crossover-guide-steps { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 14px; margin-bottom: 6px; }
+        .crossover-guide-steps span { color: #2bf1c9; }
+        .crossover-guide-table { width: 100%; border-collapse: collapse; font-size: 0.3rem; }
+        .crossover-guide-table th { color: #2bf1c9; text-align: left; border-bottom: 1px solid #2bf1c9; padding: 2px; }
+        .crossover-guide-table td { padding: 2px; border-bottom: 1px solid rgba(255,255,255,0.12); }
+        .crossover-guide-table td:first-child { color: #f1c40f; width: 12%; }
+        .crossover-guide-note { color: #f39c12; margin-top: 5px; text-align: center; }
+        .ip-cmd-panel {
+            background: #050505;
+            border: 2px solid #2bf1c9;
+            border-radius: 6px;
+            padding: 8px;
+            margin-bottom: 8px;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            font-size: 0.5rem;
+        }
+        .ip-cmd-line {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .ip-cmd-input {
+            flex: 1;
+            min-width: 0;
+            border: 0;
+            outline: 0;
+            background: transparent;
+            color: #fff;
+            font: inherit;
+        }
+        .ip-cmd-output {
+            display: none;
+            margin-top: 8px;
+            line-height: 1.5;
+            white-space: pre-wrap;
+        }
+        .ip-cmd-output.visible {
+            display: block;
+        }
+        .ip-cmd-output strong {
+            color: #2ecc71;
+        }
+        .ip-cmd-run {
+            padding: 4px 8px;
+            border: 0;
+            border-radius: 3px;
+            background: #2bf1c9;
+            color: #051422;
+            cursor: pointer;
+            font: 0.35rem 'Press Start 2P', cursive;
+        }
 
         /* ===== WORKGROUP ===== */
         #workgroup-challenge {
@@ -1736,13 +1806,14 @@
             min-height: 0;
         }
         .topology-canvas {
-            flex: 2;
+            flex: 3;
             background: #0a1a2a;
             border-radius: 8px;
             border: 2px solid #2bf1c9;
             position: relative;
             overflow: hidden;
             padding: 10px;
+            min-height: 390px;
         }
         .topology-devices {
             position: relative;
@@ -1757,8 +1828,8 @@
         .device-row {
             display: flex;
             justify-content: center;
-            gap: 40px;
-            margin: 5px 0;
+            gap: 54px;
+            margin: 12px 0;
             width: 100%;
         }
         .device-node {
@@ -1813,6 +1884,18 @@
             border-color: #f39c12;
             width: 80px;
             height: 55px;
+        }
+        .device-node.server {
+            background: #3a2418;
+            border-color: #e67e22;
+            width: 100px;
+            height: 62px;
+        }
+        .device-node.hub {
+            background: #173b4d;
+            border-color: #1abc9c;
+            width: 92px;
+            height: 54px;
         }
         .device-node.switch {
             background: #1a3a2a;
@@ -1932,6 +2015,14 @@
         .topology-legend .dot.grey {
             background: #555;
         }
+        .pc-config-modal { display: none; position: absolute; inset: 0; z-index: 100; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.78); }
+        .pc-config-modal.open { display: flex; }
+        .pc-config-dialog { position: relative; width: min(360px, 90%); padding: 18px; background: #143552; border: 3px solid #2bf1c9; border-radius: 8px; box-shadow: 5px 5px 0 #000; }
+        .pc-config-dialog h2 { color: #2bf1c9; font-size: 0.65rem; text-align: center; margin-bottom: 8px; }
+        .pc-config-dialog p { color: #ecf0f1; font-size: 0.38rem; line-height: 1.5; margin-bottom: 10px; }
+        .pc-config-dialog label { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: #f1c40f; font-size: 0.35rem; margin: 7px 0; }
+        .pc-config-dialog input { width: 150px; padding: 5px; background: #081d2e; border: 2px solid #2980b9; border-radius: 3px; color: #fff; font: 0.38rem 'Courier New', monospace; }
+        .pc-config-close { position: absolute; top: 6px; right: 8px; border: 0; background: #e74c3c; color: #fff; cursor: pointer; font-weight: bold; }
 
         @keyframes shake {
             0%,
@@ -2428,6 +2519,7 @@
                     <button class="challenge-item" data-id="2" onclick="startModuleQuiz(2)">🔗 Straight-Through Cable</button>
                     <button class="challenge-item" data-id="3" onclick="startModuleQuiz(3)">🔄 Crossover Cable</button>
                     <button class="challenge-item" data-id="4" onclick="startModuleQuiz(4)">📡 IP Configuration</button>
+                    <button class="challenge-item" data-id="9" onclick="startModuleQuiz(9)">💻 Find IP Address Using CMD</button>
                     <button class="challenge-item" data-id="5" onclick="startModuleQuiz(5)">🌐 Network Topology</button>
                     <button class="challenge-item" data-id="6" onclick="startModuleQuiz(6)">🏢 Workgroup & Sharing Setup</button>
                     <button class="challenge-item" data-id="7" onclick="startModuleQuiz(7)">📶 Router & Connectivity Testing</button>
@@ -2498,6 +2590,22 @@
                 <source src="image/R2.mp4" type="video/mp4">
             </video>
             <div class="story-overlay"><button class="pixel-btn btn-next-story" onclick="proceedToRouterChallenge()">NEXT ➜</button></div>
+        </div>
+
+        <!-- WORKGROUP STORY SCREENS -->
+        <div id="story-workgroup1" class="screen">
+            <button class="pixel-btn btn-back" onclick="goToMenu()">BACK</button>
+            <video id="story-workgroup1-video" class="story-bg" autoplay playsinline onclick="goToWorkgroupStory2()">
+                <source src="image/W1.mp4" type="video/mp4">
+            </video>
+            <div class="story-overlay"><button class="pixel-btn btn-next-story" onclick="goToWorkgroupStory2()">NEXT ➜</button></div>
+        </div>
+        <div id="story-workgroup2" class="screen">
+            <button class="pixel-btn btn-back" onclick="goToMenu()">BACK</button>
+            <video id="story-workgroup2-video" class="story-bg" autoplay playsinline onclick="proceedToWorkgroupChallenge()">
+                <source src="image/W2.mp4" type="video/mp4">
+            </video>
+            <div class="story-overlay"><button class="pixel-btn btn-next-story" onclick="proceedToWorkgroupChallenge()">NEXT ➜</button></div>
         </div>
 
         <!-- ROUTER PREPARATION -->
@@ -2675,6 +2783,80 @@
             </div>
         </div>
 
+        <!-- CROSSOVER CABLE CHALLENGE -->
+        <div id="crossover-challenge" class="screen">
+            <button class="pixel-btn btn-back" onclick="confirmGoToMenu()">BACK</button>
+            <div class="lives-display">
+                <span class="lives-label">LIVES:</span>
+                <span class="lives-icons" id="crossover-lives-icons">❤️❤️❤️❤️❤️</span>
+                <span class="score-display" id="crossover-score-display">SCORE: 0</span>
+            </div>
+            <div class="crossover-workspace">
+                <div class="ip-header">
+                    <span class="ip-title">🔄 CROSSOVER CABLE</span>
+                    <span id="crossover-status" class="ip-status">STATUS: DRAG WIRES TO BOTH ENDS</span>
+                </div>
+                <div class="crossover-body">
+                    <svg id="crossover-wire-svg" aria-hidden="true"></svg>
+                    <div class="crossover-end">
+                        <h3>COMPUTER A - T568A</h3>
+                        <div class="crossover-pins" id="crossover-a-pins"></div>
+                    </div>
+                    <div class="crossover-cable-line">CROSSOVER<br>CABLE</div>
+                    <div class="crossover-end">
+                        <h3>COMPUTER B - T568B</h3>
+                        <div class="crossover-pins" id="crossover-b-pins"></div>
+                    </div>
+                </div>
+                <button id="crossover-guide-toggle" class="crossover-guide-toggle" onclick="toggleCrossoverGuide()">SHOW KEY POINTS</button>
+                <div id="crossover-guide" class="crossover-guide"></div>
+                <div class="crossover-actions">
+                    <button class="ip-tool-btn" onclick="checkCrossoverCable()">VERIFY CABLE</button>
+                    <button class="ip-tool-btn ip-reset-btn" onclick="resetCrossoverCable()">RESET</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- CMD IP ADDRESS CHALLENGE -->
+        <div id="cmd-ip-challenge" class="screen">
+            <button class="pixel-btn btn-back" onclick="confirmGoToMenu()">BACK</button>
+            <div class="lives-display">
+                <span class="lives-label">LIVES:</span>
+                <span class="lives-icons" id="cmd-ip-lives-icons">❤️❤️❤️❤️❤️</span>
+                <span class="score-display" id="cmd-ip-score-display">SCORE: 0</span>
+            </div>
+            <div class="ip-workspace">
+                <div class="ip-header">
+                    <span class="ip-title">💻 FIND IP ADDRESS USING CMD</span>
+                    <span id="cmd-ip-status" class="ip-status">STATUS: TYPE IPCONFIG</span>
+                </div>
+                <div class="ip-body">
+                    <div class="pc-config">
+                        <div class="pc-title">COMMAND PROMPT</div>
+                        <div class="ip-cmd-panel">
+                            <div class="ip-cmd-line"><span>C:\&gt;</span><input id="cmd-ip-input" class="ip-cmd-input" type="text" placeholder="Type ipconfig" autocomplete="off" onkeydown="if (event.key === 'Enter') runCmdIPConfig()"><button class="ip-cmd-run" onclick="runCmdIPConfig()">RUN</button></div>
+                            <div id="cmd-ip-output" class="ip-cmd-output">Type ipconfig and press Run.</div>
+                        </div>
+                        <div class="config-section">
+                            <div class="section-title">ANSWER</div>
+                            <div class="config-row"><span class="config-label">IPv4 Address:</span><input id="cmd-ip-answer" class="config-input" type="text" placeholder="Run ipconfig first" maxlength="15" disabled></div>
+                        </div>
+                        <div class="ip-actions">
+                            <button class="ip-tool-btn" onclick="checkCmdIPAnswer()">VERIFY</button>
+                            <button class="ip-tool-btn ip-reset-btn" onclick="resetCmdIPChallenge()">RESET</button>
+                        </div>
+                    </div>
+                    <div class="ip-instructions">
+                        <div class="instructions-title">📋 CMD TASK</div>
+                        <div class="instruction-item">1. Type <span class="highlight">ipconfig</span>.</div>
+                        <div class="instruction-item">2. Press <span class="highlight">RUN</span>.</div>
+                        <div class="instruction-item">3. Read the <span class="highlight">IPv4 Address</span>.</div>
+                        <div class="instruction-item">4. Enter the address and verify.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- WORKGROUP CHALLENGE -->
         <div id="workgroup-challenge" class="screen">
             <button class="pixel-btn btn-back" onclick="confirmGoToMenu()">BACK</button>
@@ -2845,64 +3027,80 @@
                     <div class="topology-canvas">
                         <svg id="topology-svg"></svg>
                         <div class="topology-devices" id="topology-devices">
-                            <!-- Row 1: Router -->
+                            <!-- Row 1: Server -->
                             <div class="device-row">
-                                <div class="device-node router" data-id="router" onclick="selectDevice('router')">
-                                    <span class="device-icon">📡</span>
-                                    <span>ROUTER</span>
-                                    <span class="conn-count" id="conn-router">0</span>
+                                <div class="device-node server" data-id="server" draggable="true" ondragstart="startTopologyDrag(event, 'server')" ondragover="event.preventDefault()" ondrop="dropTopologyConnection(event, 'server')" onclick="selectDevice('server')">
+                                    <span class="device-icon">🖥️</span>
+                                    <span>SERVER</span>
+                                    <span class="conn-count" id="conn-server">0</span>
                                 </div>
                             </div>
-                            <!-- Row 2: Switches -->
+                            <!-- Row 2: Hubs -->
                             <div class="device-row">
-                                <div class="device-node switch" data-id="switch1" onclick="selectDevice('switch1')">
+                                <div class="device-node hub" data-id="hub1" draggable="true" ondragstart="startTopologyDrag(event, 'hub1')" ondragover="event.preventDefault()" ondrop="dropTopologyConnection(event, 'hub1')" onclick="selectDevice('hub1')">
                                     <span class="device-icon">🔀</span>
-                                    <span>SW1</span>
-                                    <span class="conn-count" id="conn-switch1">0</span>
+                                    <span>HUB 1</span>
+                                    <span class="conn-count" id="conn-hub1">0</span>
                                 </div>
-                                <div class="device-node switch" data-id="switch2" onclick="selectDevice('switch2')">
+                                <div class="device-node hub" data-id="hub2" draggable="true" ondragstart="startTopologyDrag(event, 'hub2')" ondragover="event.preventDefault()" ondrop="dropTopologyConnection(event, 'hub2')" onclick="selectDevice('hub2')">
                                     <span class="device-icon">🔀</span>
-                                    <span>SW2</span>
-                                    <span class="conn-count" id="conn-switch2">0</span>
+                                    <span>HUB 2</span>
+                                    <span class="conn-count" id="conn-hub2">0</span>
                                 </div>
-                                <div class="device-node switch" data-id="switch3" onclick="selectDevice('switch3')">
+                                <div class="device-node hub" data-id="hub3" draggable="true" ondragstart="startTopologyDrag(event, 'hub3')" ondragover="event.preventDefault()" ondrop="dropTopologyConnection(event, 'hub3')" onclick="selectDevice('hub3')">
                                     <span class="device-icon">🔀</span>
-                                    <span>SW3</span>
-                                    <span class="conn-count" id="conn-switch3">0</span>
+                                    <span>HUB 3</span>
+                                    <span class="conn-count" id="conn-hub3">0</span>
                                 </div>
                             </div>
-                            <!-- Row 3: PCs -->
+                            <!-- Rows 3 and 4: Computers -->
                             <div class="device-row">
-                                <div class="device-node pc" data-id="pc1" onclick="selectDevice('pc1')">
+                                <div class="device-node pc" data-id="pc1" draggable="true" ondragstart="startTopologyDrag(event, 'pc1')" ondragover="event.preventDefault()" ondrop="dropTopologyConnection(event, 'pc1')" onclick="openPCConfig('pc1')">
                                     <span class="device-icon">🖥️</span>
                                     <span>PC 1</span>
                                     <span class="conn-count" id="conn-pc1">0</span>
                                 </div>
-                                <div class="device-node pc" data-id="pc2" onclick="selectDevice('pc2')">
+                                <div class="device-node pc" data-id="pc2" draggable="true" ondragstart="startTopologyDrag(event, 'pc2')" ondragover="event.preventDefault()" ondrop="dropTopologyConnection(event, 'pc2')" onclick="openPCConfig('pc2')">
                                     <span class="device-icon">🖥️</span>
                                     <span>PC 2</span>
                                     <span class="conn-count" id="conn-pc2">0</span>
                                 </div>
-                                <div class="device-node pc" data-id="pc3" onclick="selectDevice('pc3')">
+                                <div class="device-node pc" data-id="pc3" draggable="true" ondragstart="startTopologyDrag(event, 'pc3')" ondragover="event.preventDefault()" ondrop="dropTopologyConnection(event, 'pc3')" onclick="openPCConfig('pc3')">
                                     <span class="device-icon">🖥️</span>
                                     <span>PC 3</span>
                                     <span class="conn-count" id="conn-pc3">0</span>
+                                </div>
+                                <div class="device-node pc" data-id="pc4" draggable="true" ondragstart="startTopologyDrag(event, 'pc4')" ondragover="event.preventDefault()" ondrop="dropTopologyConnection(event, 'pc4')" onclick="openPCConfig('pc4')">
+                                    <span class="device-icon">🖥️</span>
+                                    <span>PC 4</span>
+                                    <span class="conn-count" id="conn-pc4">0</span>
+                                </div>
+                                <div class="device-node pc" data-id="pc5" draggable="true" ondragstart="startTopologyDrag(event, 'pc5')" ondragover="event.preventDefault()" ondrop="dropTopologyConnection(event, 'pc5')" onclick="openPCConfig('pc5')">
+                                    <span class="device-icon">🖥️</span>
+                                    <span>PC 5</span>
+                                    <span class="conn-count" id="conn-pc5">0</span>
+                                </div>
+                                <div class="device-node pc" data-id="pc6" draggable="true" ondragstart="startTopologyDrag(event, 'pc6')" ondragover="event.preventDefault()" ondrop="dropTopologyConnection(event, 'pc6')" onclick="openPCConfig('pc6')">
+                                    <span class="device-icon">🖥️</span>
+                                    <span>PC 6</span>
+                                    <span class="conn-count" id="conn-pc6">0</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="topology-instructions">
                         <div class="topology-instructions-title">📋 HOW TO CONNECT</div>
-                        <div class="topology-instruction-item">1. <span class="highlight">Click</span> a device to select it</div>
-                        <div class="topology-instruction-item">2. <span class="highlight">Click</span> another device to connect them</div>
-                        <div class="topology-instruction-item">3. <span class="highlight">Green</span> = correct connection</div>
-                        <div class="topology-instruction-item">4. <span class="highlight">Red</span> = wrong connection (lose life)</div>
-                        <div class="topology-instruction-item">5. Connect all <span class="highlight">6</span> devices correctly</div>
+                        <div class="topology-instruction-item">1. <span class="highlight">Click each computer</span> and save its IP settings</div>
+                        <div class="topology-instruction-item">2. <span class="highlight">Drag</span> SERVER to each HUB</div>
+                        <div class="topology-instruction-item">3. <span class="highlight">Drag</span> each COMPUTER to a HUB</div>
+                        <div class="topology-instruction-item">4. <span class="highlight">Green</span> = correct connection</div>
+                        <div class="topology-instruction-item">5. <span class="highlight">Red</span> = wrong connection (lose life)</div>
+                        <div class="topology-instruction-item">6. Connect all <span class="highlight">9</span> cables correctly</div>
                         <div class="topology-instruction-item" style="color:#f1c40f; font-size:0.28rem; margin-top:6px;">
                             📌 Correct connections:<br>
-                            Router → SW1 → PC1<br>
-                            Router → SW2 → PC2<br>
-                            Router → SW3 → PC3
+                            SERVER → HUB 1 → PC 1 + PC 2<br>
+                            SERVER → HUB 2 → PC 3 + PC 4<br>
+                            SERVER → HUB 3 → PC 5 + PC 6
                         </div>
                         <div class="topology-legend">
                             <span><span class="dot grey"></span> Not Connected</span>
@@ -2915,6 +3113,19 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div id="pc-config-modal" class="pc-config-modal" aria-hidden="true">
+            <div class="pc-config-dialog">
+                <button class="pc-config-close" onclick="closePCConfig()">X</button>
+                <h2 id="pc-config-title">PC CONFIGURATION</h2>
+                <p>Set the network values before connecting this PC.</p>
+                <label>IPv4 Address<input id="pc-config-ip" value="192.168.1.2"></label>
+                <label>Subnet Mask<input id="pc-config-mask" value="255.255.255.0"></label>
+                <label>Default Gateway<input id="pc-config-gateway" value="192.168.1.1"></label>
+                <label>DNS Server<input id="pc-config-dns" value="8.8.8.8"></label>
+                <button class="topology-tool-btn" onclick="savePCConfig()">SAVE PC CONFIGURATION</button>
             </div>
         </div>
 
@@ -2971,11 +3182,11 @@
         var maxLives = 5;
         var score = 0;
         var currentChallenge = 1;
-        var totalChallenges = 8;
+        var totalChallenges = 9;
         var isGameOver = false;
         var isAudioPlaying = false;
         var modalTimeout = null;
-        var challengeOrder = [1, 4, 6, 7, 2, 5, 3, 8];
+        var challengeOrder = [1, 4, 9, 6, 7, 2, 5, 3, 8];
         var challengeIndex = 0;
         var learningChallengeId = null;
         var learningIsPractice = false;
@@ -3001,8 +3212,9 @@
         var challenges = {
             1: { name: 'RJ45 Crimping - T568B', hint: 'Drag wires to correct pins in T568B order', type: 'rj45' },
             2: { name: 'Straight-Through Cable', hint: 'Both ends use T568B standard', type: 'rj45' },
-            3: { name: 'Crossover Cable', hint: 'One end T568A, other T568B', type: 'rj45' },
+            3: { name: 'Crossover Cable', hint: 'Drag wires into T568A on one end and T568B on the other', type: 'crossover' },
             4: { name: 'IP Configuration', hint: 'Configure PC1 with correct IP settings', type: 'ip' },
+            9: { name: 'Find IP Address Using CMD', hint: 'Type ipconfig and read the IPv4 address', type: 'cmd-ip' },
             5: { name: 'Network Topology', hint: 'Connect devices to build a working network', type: 'topology' },
             6: { name: 'Workgroup & Sharing Setup', hint: 'Configure computer name, workgroup and sharing', type: 'workgroup' },
             7: { name: 'Router & Connectivity Testing', hint: 'Configure SSID, security and test ping', type: 'router' },
@@ -3021,6 +3233,11 @@
                 { question: 'What protects each Ethernet pair from interference?', options: ['Twisting', 'Painting', 'DHCP', 'Routing'], correct: 0 },
                 { question: 'What is the recommended jacket strip length?', options: ['Only enough to expose pairs', 'One meter', 'The entire cable', 'No exposed wires'], correct: 0 },
                 { question: 'A wrong pinout can cause what result?', options: ['Link failure', 'More bandwidth', 'Automatic encryption', 'A stronger signal'], correct: 0 }
+            ],
+            9: [
+                { question: 'Which command displays Windows IP configuration?', options: ['ipconfig', 'ping', 'format', 'mkdir'], correct: 0 },
+                { question: 'Which value identifies the computer on the local network?', options: ['IPv4 Address', 'Subnet Mask', 'Default Gateway', 'DNS Suffix'], correct: 0 },
+                { question: 'What IPv4 address is shown in this challenge?', options: ['192.168.136.128', '255.255.255.0', '192.168.136.2', '127.0.0.1'], correct: 0 }
             ],
             2: [
                 { question: 'What wiring standard is normally used on both ends of a straight-through cable?', options: ['T568B', 'T568A on one end only', 'WPA2', 'RS-232'], correct: 0 },
@@ -3130,6 +3347,24 @@
                         "Brown/White, Brown, Green/White, Blue, Blue/White, Green, Orange/White, Orange",
                         "Orange/White, Orange, Blue/White, Blue, Green/White, Green, Brown/White, Brown"
                     ],
+                    correct: 0
+                }
+            },
+            9: {
+                topic: "Find IP Address Using CMD",
+                description: "Use the Windows ipconfig command to display the computer's network information, then identify its IPv4 address.",
+                points: [
+                    "Open Command Prompt inside the challenge.",
+                    "Type ipconfig and press Run.",
+                    "Find the active Ethernet adapter.",
+                    "Read the IPv4 Address value.",
+                    "Enter the IPv4 address in the answer field."
+                ],
+                example: "The IPv4 Address in this challenge is 192.168.136.128.",
+                remember: "Use the IPv4 Address, not the Subnet Mask or Default Gateway.",
+                quiz: {
+                    question: "Which command displays Windows IP configuration?",
+                    options: ["ipconfig", "ping", "format", "mkdir"],
                     correct: 0
                 }
             },
@@ -3350,22 +3585,30 @@
         var topologyConnections = {}; // { deviceId: [connectedDeviceIds] }
         var topologySelected = null;
         var topologyCorrect = {
-            router: ['switch1', 'switch2', 'switch3'],
-            switch1: ['router', 'pc1'],
-            switch2: ['router', 'pc2'],
-            switch3: ['router', 'pc3'],
-            pc1: ['switch1'],
-            pc2: ['switch2'],
-            pc3: ['switch3']
+            server: ['hub1', 'hub2', 'hub3'],
+            hub1: ['server', 'pc1', 'pc2'],
+            hub2: ['server', 'pc3', 'pc4'],
+            hub3: ['server', 'pc5', 'pc6'],
+            pc1: ['hub1'],
+            pc2: ['hub1'],
+            pc3: ['hub2'],
+            pc4: ['hub2'],
+            pc5: ['hub3'],
+            pc6: ['hub3']
         };
-        var topologyMaxConnections = 6; // Total connections needed
+        var topologyMaxConnections = 9; // Total connections needed
         var topologyCurrentConnections = 0;
         var routerQuizIndex = 0;
+        var crossoverDragWire = null;
+        var topologyPCConfigs = {};
+        var activePCConfig = null;
 
         // ============================================
         // AUDIO SYSTEM
         // ============================================
         var bgMusic = document.getElementById('bg-music');
+        var clickSound = new Audio('music/CLICKSOUND.wav');
+        clickSound.preload = 'auto';
         var menuVoice = document.getElementById('menu-voice');
         var menuVoiceInterval = null;
         var savedMasterVolume = localStorage.getItem('connected-master-volume');
@@ -3508,6 +3751,15 @@
         }
 
         document.addEventListener('click', playMusic);
+        document.addEventListener('click', function(event) {
+            var button = event.target.closest('button');
+            if (!button) return;
+
+            clickSound.currentTime = 0;
+            clickSound.play().catch(function(e) {
+                console.log('Click sound play prevented:', e);
+            });
+        });
         document.addEventListener('touchstart', playMusic);
         document.addEventListener('keydown', playMusic);
 
@@ -3664,6 +3916,43 @@
             console.log('📶 Starting Router challenge setup');
         }
 
+        function startWorkgroupStorySequence() {
+            showScreen('story-workgroup1');
+            var workgroupVideo1 = document.getElementById('story-workgroup1-video');
+            if (workgroupVideo1) {
+                workgroupVideo1.currentTime = 0;
+                playStoryVideo(workgroupVideo1);
+            }
+            console.log('🎬 Starting Workgroup story 1 - W1.mp4');
+        }
+
+        function goToWorkgroupStory2() {
+            var workgroupVideo1 = document.getElementById('story-workgroup1-video');
+            if (workgroupVideo1) {
+                workgroupVideo1.pause();
+                workgroupVideo1.currentTime = 0;
+            }
+            showScreen('story-workgroup2');
+            var workgroupVideo2 = document.getElementById('story-workgroup2-video');
+            if (workgroupVideo2) {
+                workgroupVideo2.currentTime = 0;
+                playStoryVideo(workgroupVideo2);
+            }
+            console.log('📖 Going to Workgroup story 2 - W2.mp4');
+        }
+
+        function proceedToWorkgroupChallenge() {
+            var workgroupVideo2 = document.getElementById('story-workgroup2-video');
+            if (workgroupVideo2) {
+                workgroupVideo2.pause();
+                workgroupVideo2.currentTime = 0;
+            }
+            showScreen('workgroup-challenge');
+            document.getElementById('workgroup-status').innerHTML = "STATUS: " + challenges[6].name;
+            resetWorkgroupConfig();
+            console.log('🏢 Starting Workgroup challenge setup');
+        }
+
         function startPractice() {
             isPracticeMode = true;
             lives = maxLives;
@@ -3711,6 +4000,8 @@
             currentChallenge = challengeId;
             if (challengeId === 4) {
                 startIPStorySequence();
+            } else if (challengeId === 6) {
+                startWorkgroupStorySequence();
             } else if (challengeId === 7) {
                 startRouterStorySequence();
             } else {
@@ -3853,7 +4144,9 @@
             } else {
                 isPracticeMode = false;
             }
-            if (learningChallengeId === 7) {
+            if (learningChallengeId === 6) {
+                startWorkgroupStorySequence();
+            } else if (learningChallengeId === 7) {
                 startRouterStorySequence();
             } else {
                 loadChallenge(learningChallengeId);
@@ -3866,7 +4159,13 @@
 
         function loadChallenge(challengeId) {
             var challenge = challenges[challengeId];
-            if (challenge.type === 'ip') {
+            if (challenge.type === 'crossover') {
+                showScreen('crossover-challenge');
+                resetCrossoverCable();
+            } else if (challenge.type === 'cmd-ip') {
+                showScreen('cmd-ip-challenge');
+                resetCmdIPChallenge();
+            } else if (challenge.type === 'ip') {
                 showScreen('ip-challenge');
                 document.getElementById('ip-status').innerHTML = "STATUS: " + challenge.name;
                 document.getElementById('ip-title').textContent = "💻 " + challenge.name;
@@ -3930,7 +4229,7 @@
 
         function updateAllLives() {
             var elements = ['lives-icons', 'ip-lives-icons', 'workgroup-lives-icons', 'router-lives-icons',
-                'security-lives-icons', 'topology-lives-icons'
+                'security-lives-icons', 'topology-lives-icons', 'cmd-ip-lives-icons', 'crossover-lives-icons'
             ];
             elements.forEach(function(id) {
                 var el = document.getElementById(id);
@@ -3945,7 +4244,7 @@
 
         function updateAllScores() {
             var elements = ['score-display', 'ip-score-display', 'workgroup-score-display', 'router-score-display',
-                'security-score-display', 'topology-score-display'
+                'security-score-display', 'topology-score-display', 'cmd-ip-score-display', 'crossover-score-display'
             ];
             elements.forEach(function(id) {
                 var el = document.getElementById(id);
@@ -3960,6 +4259,7 @@
         function loseLife() {
             if (isPracticeMode) {
                 var status = document.getElementById('ip-status') ||
+                    document.getElementById('cmd-ip-status') ||
                     document.getElementById('workgroup-status') ||
                     document.getElementById('router-status') ||
                     document.getElementById('security-status') ||
@@ -3986,6 +4286,7 @@
             }
 
             var status = document.getElementById('game-status') ||
+                document.getElementById('cmd-ip-status') ||
                 document.getElementById('ip-status') ||
                 document.getElementById('workgroup-status') ||
                 document.getElementById('router-status') ||
@@ -4067,6 +4368,9 @@
                     resetIPConfig();
                     document.getElementById('ip-status').innerHTML = "STATUS: CONFIGURE IP ADDRESS SETTINGS";
                     break;
+                case 'cmd-ip':
+                    resetCmdIPChallenge();
+                    break;
                 case 'workgroup':
                     resetWorkgroupConfig();
                     document.getElementById('workgroup-status').innerHTML = "STATUS: CONFIGURE WORKGROUP SETTINGS";
@@ -4096,6 +4400,182 @@
         // ============================================
         // RJ45 FUNCTIONS
         // ============================================
+
+        function resetCrossoverCable() {
+            var sequences = { a: standards.T568A, b: standards.T568B };
+            ['a', 'b'].forEach(function(end) {
+                var pins = document.getElementById('crossover-' + end + '-pins');
+                if (!pins) return;
+                var oldSource = document.getElementById('crossover-' + end + '-source');
+                if (oldSource) oldSource.remove();
+                pins.innerHTML = '';
+                sequences[end].forEach(function(wireName, index) {
+                    var pin = document.createElement('div');
+                    pin.className = 'crossover-pin';
+                    pin.dataset.pin = index + 1;
+                    pin.ondragover = function(event) {
+                        event.preventDefault();
+                        drawCrossoverPreview(event, end, index + 1);
+                    };
+                    pin.ondrop = dropCrossoverWire;
+                    pin.innerHTML = '<span class="crossover-pin-label">' + (index + 1) + '</span>';
+                    pins.appendChild(pin);
+                });
+                var source = document.createElement('div');
+                source.className = 'crossover-source';
+                source.id = 'crossover-' + end + '-source';
+                wireDefinitions.forEach(function(wire) {
+                    var item = document.createElement('div');
+                    item.className = 'drag-wire';
+                    item.draggable = true;
+                    item.dataset.name = wire.name;
+                    item.style.background = wire.bg;
+                    item.textContent = wire.name;
+                    item.ondragstart = function(event) {
+                        crossoverDragWire = { wire: wire, end: end };
+                        event.dataTransfer.setData('text/plain', JSON.stringify(wire));
+                    };
+                    item.ondragend = function() {
+                        crossoverDragWire = null;
+                        drawCrossoverWires();
+                    };
+                    source.appendChild(item);
+                });
+                pins.parentElement.appendChild(source);
+            });
+            drawCrossoverWires();
+            var guide = document.getElementById('crossover-guide');
+            if (guide) {
+                guide.innerHTML = '<div class="crossover-guide-title">PRACTICE GUIDE: HOW TO MAKE A CROSSOVER CABLE</div>' +
+                    '<div class="crossover-guide-steps">' +
+                    '<div><span>1.</span> Fill Computer A using T568A.</div>' +
+                    '<div><span>2.</span> Fill Computer B using T568B.</div>' +
+                    '<div><span>3.</span> Match each wire color on both ends.</div>' +
+                    '<div><span>4.</span> Click VERIFY CABLE.</div>' +
+                    '</div>' +
+                    '<table class="crossover-guide-table"><tr><th>Pin</th><th>Computer A: T568A</th><th>Computer B: T568B</th></tr>' +
+                    '<tr><td>1</td><td>Green/White</td><td>Orange/White</td></tr>' +
+                    '<tr><td>2</td><td>Green</td><td>Orange</td></tr>' +
+                    '<tr><td>3</td><td>Orange/White</td><td>Green/White</td></tr>' +
+                    '<tr><td>4</td><td>Blue</td><td>Blue</td></tr>' +
+                    '<tr><td>5</td><td>Blue/White</td><td>Blue/White</td></tr>' +
+                    '<tr><td>6</td><td>Orange</td><td>Green</td></tr>' +
+                    '<tr><td>7</td><td>Brown/White</td><td>Brown/White</td></tr>' +
+                    '<tr><td>8</td><td>Brown</td><td>Brown</td></tr></table>' +
+                    '<div class="crossover-guide-note">Only pins 1, 2, 3, and 6 cross. Pins 4, 5, 7, and 8 stay straight.</div>';
+                var guideToggle = document.getElementById('crossover-guide-toggle');
+                guide.classList.remove('visible');
+                guide.setAttribute('aria-hidden', 'true');
+                if (guideToggle) {
+                    guideToggle.style.display = isPracticeMode ? 'block' : 'none';
+                    guideToggle.textContent = 'SHOW KEY POINTS';
+                    guideToggle.setAttribute('aria-hidden', isPracticeMode ? 'false' : 'true');
+                }
+            }
+            var status = document.getElementById('crossover-status');
+            if (status) status.innerHTML = 'STATUS: DRAG WIRES TO BOTH ENDS';
+        }
+
+        function toggleCrossoverGuide() {
+            var guide = document.getElementById('crossover-guide');
+            var guideToggle = document.getElementById('crossover-guide-toggle');
+            if (!guide || !guideToggle) return;
+            var isVisible = guide.classList.toggle('visible');
+            guide.setAttribute('aria-hidden', isVisible ? 'false' : 'true');
+            guideToggle.textContent = isVisible ? 'HIDE KEY POINTS' : 'SHOW KEY POINTS';
+        }
+
+        function dropCrossoverWire(event) {
+            event.preventDefault();
+            var pin = event.currentTarget;
+            var wireData = JSON.parse(event.dataTransfer.getData('text/plain'));
+            var oldWire = pin.querySelector('.drag-wire');
+            if (oldWire) oldWire.remove();
+            var wire = document.createElement('div');
+            wire.className = 'drag-wire';
+            wire.dataset.name = wireData.name;
+            wire.style.background = wireData.bg;
+            wire.textContent = wireData.name;
+            pin.appendChild(wire);
+            crossoverDragWire = null;
+            drawCrossoverWires();
+        }
+
+        function drawCrossoverPreview(event, end, pinNumber) {
+            var svg = document.getElementById('crossover-wire-svg');
+            if (!svg || !crossoverDragWire) return;
+            drawCrossoverWires();
+            var body = document.querySelector('.crossover-body').getBoundingClientRect();
+            var source = crossoverDragWire.wire;
+            var sourceRect = source.getBoundingClientRect();
+            var x1 = sourceRect.left + sourceRect.width / 2 - body.left;
+            var y1 = sourceRect.top + sourceRect.height / 2 - body.top;
+            var x2 = event.clientX - body.left;
+            var y2 = event.clientY - body.top;
+            drawCrossoverPath(svg, x1, y1, x2, y2, source.bg, true);
+        }
+
+        function drawCrossoverWires() {
+            var svg = document.getElementById('crossover-wire-svg');
+            var body = document.querySelector('.crossover-body');
+            if (!svg || !body) return;
+            svg.innerHTML = '';
+            var bodyRect = body.getBoundingClientRect();
+            var mapping = [3, 6, 1, 4, 5, 2, 7, 8];
+            var leftPins = document.querySelectorAll('#crossover-a-pins .crossover-pin');
+            var rightPins = document.querySelectorAll('#crossover-b-pins .crossover-pin');
+            leftPins.forEach(function(pin, index) {
+                var wire = pin.querySelector('.drag-wire');
+                var target = rightPins[mapping[index] - 1];
+                if (!wire || !target || !target.querySelector('.drag-wire')) return;
+                var start = pin.getBoundingClientRect();
+                var finish = target.getBoundingClientRect();
+                drawCrossoverPath(svg,
+                    start.right - bodyRect.left,
+                    start.top + start.height / 2 - bodyRect.top,
+                    finish.left - bodyRect.left,
+                    finish.top + finish.height / 2 - bodyRect.top,
+                    wire.style.background || '#2bf1c9', false);
+            });
+        }
+
+        function drawCrossoverPath(svg, x1, y1, x2, y2, background, preview) {
+            var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            var bend = (x1 + x2) / 2;
+            path.setAttribute('d', 'M ' + x1 + ' ' + y1 + ' C ' + bend + ' ' + y1 + ', ' + bend + ' ' + y2 + ', ' + x2 + ' ' + y2);
+            path.setAttribute('fill', 'none');
+            path.setAttribute('stroke', background.indexOf('gradient') >= 0 ? '#ecf0f1' : background);
+            path.setAttribute('stroke-width', preview ? '3' : '5');
+            path.setAttribute('stroke-linecap', 'round');
+            path.setAttribute('opacity', preview ? '0.7' : '0.9');
+            if (preview) path.setAttribute('stroke-dasharray', '6 4');
+            svg.appendChild(path);
+        }
+
+        function checkCrossoverCable() {
+            var correct = true;
+            ['a', 'b'].forEach(function(end) {
+                var sequence = end === 'a' ? standards.T568A : standards.T568B;
+                document.querySelectorAll('#crossover-' + end + '-pins .crossover-pin').forEach(function(pin, index) {
+                    var wire = pin.querySelector('.drag-wire');
+                    if (!wire || wire.dataset.name !== sequence[index]) correct = false;
+                });
+            });
+            if (correct) {
+                score += 100;
+                updateAllScores();
+                document.getElementById('crossover-status').innerHTML = 'SUCCESS! CROSSOVER CABLE CORRECT! +100 POINTS';
+                document.getElementById('crossover-status').style.color = '#2ecc71';
+                trackChallengeCompletion(currentChallenge, true);
+                setTimeout(function() { showSuccessScreen(); }, 800);
+            } else {
+                loseLife();
+                document.getElementById('crossover-status').innerHTML = 'INCORRECT: T568A AND T568B MUST BE OPPOSITE ENDS';
+                document.getElementById('crossover-status').style.color = '#e74c3c';
+                showModal('Check both connector ends and try again.\n-1 Life!', 'error', 'CABLE FAILED');
+                trackChallengeCompletion(currentChallenge, false);
+            }
+        }
 
         function resetGameState() {
             currentTargetStandard = null;
@@ -4371,6 +4851,62 @@
                 showModal('❌ Wrong values: ' + errors.join(', ') + '\n💔 -1 Life!', 'error', '❌ CONFIG FAILED');
                 trackChallengeCompletion(currentChallenge, false);
             }
+        }
+
+        function runCmdIPConfig() {
+            var commandInput = document.getElementById('cmd-ip-input');
+            var output = document.getElementById('cmd-ip-output');
+            var command = commandInput.value.trim().toLowerCase();
+            if (command !== 'ipconfig' && command !== 'ipconfig /all') {
+                output.textContent = "'" + commandInput.value.trim() + "' is not recognized. Type ipconfig and press Run.";
+                output.classList.add('visible');
+                return;
+            }
+            output.innerHTML = 'Windows IP Configuration\n\nEthernet adapter Ethernet0:\n\n   IPv4 Address. . . . . . . . . . . : <strong>192.168.136.128</strong>\n   Subnet Mask . . . . . . . . . . . : 255.255.255.0\n   Default Gateway . . . . . . . . . : 192.168.136.2';
+            output.classList.add('visible');
+            document.getElementById('cmd-ip-answer').disabled = false;
+            document.getElementById('cmd-ip-answer').focus();
+            document.getElementById('cmd-ip-status').innerHTML = 'STATUS: ENTER THE IPv4 ADDRESS';
+        }
+
+        function checkCmdIPAnswer() {
+            if (isGameOver) return;
+            var answer = document.getElementById('cmd-ip-answer');
+            if (answer.disabled) {
+                showModal('Type ipconfig and press Run first.', 'warning', 'CMD REQUIRED');
+                return;
+            }
+            if (answer.value.trim() === '192.168.136.128') {
+                answer.classList.add('correct');
+                score += 100;
+                updateAllScores();
+                document.getElementById('cmd-ip-status').innerHTML = 'SUCCESS! IPv4 ADDRESS CORRECT! +100 POINTS';
+                trackChallengeCompletion(currentChallenge, true);
+                setTimeout(function() { showSuccessScreen(); }, 800);
+            } else {
+                answer.classList.add('wrong');
+                loseLife();
+                document.getElementById('cmd-ip-status').innerHTML = 'INCORRECT IPv4 ADDRESS';
+                showModal('Wrong IPv4 address.\n-1 Life!', 'error', 'CONFIG FAILED');
+                trackChallengeCompletion(currentChallenge, false);
+            }
+        }
+
+        function resetCmdIPChallenge() {
+            var commandInput = document.getElementById('cmd-ip-input');
+            var output = document.getElementById('cmd-ip-output');
+            var answer = document.getElementById('cmd-ip-answer');
+            if (commandInput) commandInput.value = '';
+            if (output) {
+                output.innerHTML = 'Type ipconfig and press Run.';
+                output.classList.remove('visible');
+            }
+            if (answer) {
+                answer.value = '';
+                answer.disabled = true;
+                answer.classList.remove('correct', 'wrong');
+            }
+            document.getElementById('cmd-ip-status').innerHTML = 'STATUS: TYPE IPCONFIG';
         }
 
         function resetIPConfig() {
@@ -4764,9 +5300,11 @@
 
         function initTopology() {
             topologyConnections = {};
+            topologyPCConfigs = {};
+            closePCConfig();
             topologySelected = null;
             topologyCurrentConnections = 0;
-            var deviceIds = ['router', 'switch1', 'switch2', 'switch3', 'pc1', 'pc2', 'pc3'];
+            var deviceIds = ['server', 'hub1', 'hub2', 'hub3', 'pc1', 'pc2', 'pc3', 'pc4', 'pc5', 'pc6'];
             deviceIds.forEach(function(id) {
                 topologyConnections[id] = [];
                 updateConnCount(id);
@@ -4804,10 +5342,9 @@
             if (!el) return;
 
             // If device already has max connections (router has 3, others have 2 or 1)
-            var maxConn = 3;
-            if (deviceId === 'router') maxConn = 3;
-            else if (deviceId.startsWith('switch')) maxConn = 2;
-            else maxConn = 1;
+            var maxConn = 1;
+            if (deviceId === 'server') maxConn = 3;
+            else if (deviceId.startsWith('hub')) maxConn = 3;
 
             if (topologyConnections[deviceId] && topologyConnections[deviceId].length >= maxConn) {
                 showModal('⚠️ This device already has the maximum number of connections!', 'warning', '⚠️ MAX CONNECTIONS');
@@ -4915,6 +5452,58 @@
             }
         }
 
+        function startTopologyDrag(event, deviceId) {
+            event.dataTransfer.setData('text/plain', deviceId);
+            event.dataTransfer.effectAllowed = 'link';
+        }
+
+        function dropTopologyConnection(event, deviceId) {
+            event.preventDefault();
+            var sourceId = event.dataTransfer.getData('text/plain');
+            if (!sourceId || sourceId === deviceId) return;
+            topologySelected = sourceId;
+            selectDevice(deviceId);
+        }
+
+        function openPCConfig(deviceId) {
+            activePCConfig = deviceId;
+            document.getElementById('pc-config-title').textContent = deviceId.toUpperCase() + ' NETWORK CONFIGURATION';
+            var config = topologyPCConfigs[deviceId] || {
+                ip: '192.168.1.2', mask: '255.255.255.0', gateway: '192.168.1.1', dns: '8.8.8.8'
+            };
+            document.getElementById('pc-config-ip').value = config.ip;
+            document.getElementById('pc-config-mask').value = config.mask;
+            document.getElementById('pc-config-gateway').value = config.gateway;
+            document.getElementById('pc-config-dns').value = config.dns;
+            document.getElementById('pc-config-modal').classList.add('open');
+            document.getElementById('pc-config-modal').setAttribute('aria-hidden', 'false');
+        }
+
+        function closePCConfig() {
+            document.getElementById('pc-config-modal').classList.remove('open');
+            document.getElementById('pc-config-modal').setAttribute('aria-hidden', 'true');
+            activePCConfig = null;
+        }
+
+        function savePCConfig() {
+            var config = {
+                ip: document.getElementById('pc-config-ip').value.trim(),
+                mask: document.getElementById('pc-config-mask').value.trim(),
+                gateway: document.getElementById('pc-config-gateway').value.trim(),
+                dns: document.getElementById('pc-config-dns').value.trim()
+            };
+            var correct = config.ip === '192.168.1.2' && config.mask === '255.255.255.0' &&
+                config.gateway === '192.168.1.1' && config.dns === '8.8.8.8';
+            if (!correct) {
+                showModal('Use the required IPv4, subnet mask, gateway, and DNS values.', 'warning', 'INVALID PC CONFIG');
+                return;
+            }
+            topologyPCConfigs[activePCConfig] = config;
+            document.querySelector('.device-node[data-id="' + activePCConfig + '"]').classList.add('connected');
+            closePCConfig();
+            document.getElementById('topology-status').innerHTML = activePCConfig.toUpperCase() + ' CONFIGURED. DRAG A CABLE TO CONNECT IT.';
+        }
+
         function drawTopologyLine(device1, device2, color) {
             var svg = document.getElementById('topology-svg');
             var el1 = document.querySelector('.device-node[data-id="' + device1 + '"]');
@@ -4981,8 +5570,13 @@
             }
             total = total / 2; // Each connection counted twice
 
-            if (total < 6) {
-                showModal('❌ You need to make all 6 connections! (' + total + '/6)', 'warning', '⚠️ INCOMPLETE');
+            if (total < 9) {
+                showModal('❌ You need to make all 9 connections! (' + total + '/9)', 'warning', '⚠️ INCOMPLETE');
+                return;
+            }
+
+            if (['pc1', 'pc2', 'pc3', 'pc4', 'pc5', 'pc6'].some(function(id) { return !topologyPCConfigs[id]; })) {
+                showModal('Click each PC and save the required IP configuration first.', 'warning', '⚠️ CONFIGURE PCS');
                 return;
             }
 
@@ -5001,7 +5595,7 @@
                 if (!allCorrect) break;
             }
 
-            if (allCorrect && total >= 6) {
+            if (allCorrect && total >= 9) {
                 // SUCCESS!
                 score += 100;
                 updateAllScores();
@@ -5039,7 +5633,9 @@
                 var nextType = challenges[nextChallengeId].type;
                 var typeLabels = {
                     'rj45': '🔌 RJ45',
+                    'crossover': '🔄 CROSSOVER CABLE',
                     'ip': '💻 IP CONFIG',
+                    'cmd-ip': '💻 CMD IP CONFIG',
                     'workgroup': '🏢 WORKGROUP',
                     'router': '📶 ROUTER',
                     'security': '🔒 SECURITY',
@@ -5119,7 +5715,7 @@
             document.getElementById('stat-success-rate').textContent = performanceData.successRate + '%';
             var container = document.getElementById('challenge-results');
             container.innerHTML = '';
-            for (var i = 1; i <= 8; i++) {
+            for (var i = 1; i <= 9; i++) {
                 var item = document.createElement('div');
                 item.className = 'result-item';
                 var completed = performanceData.completed.has(i.toString());
@@ -5223,10 +5819,13 @@
             var ipStory2 = document.getElementById('story-ip2-video');
             var routerStory1 = document.getElementById('story-router1-video');
             var routerStory2 = document.getElementById('story-router2-video');
+            var workgroupStory1 = document.getElementById('story-workgroup1-video');
+            var workgroupStory2 = document.getElementById('story-workgroup2-video');
             var successVideo = document.getElementById('success-video');
             var isVideoScene = screenId === 'story-1' || screenId === 'story-2' ||
                 screenId === 'story-ip1' || screenId === 'story-ip2' ||
                 screenId === 'story-router1' || screenId === 'story-router2' ||
+                screenId === 'story-workgroup1' || screenId === 'story-workgroup2' ||
                 screenId === 'success-screen';
 
             if (successVideo && screenId !== 'success-screen') {
@@ -5274,6 +5873,10 @@
                 routerStory1.currentTime = 0; }
             if (screenId !== 'story-router2' && routerStory2) { routerStory2.pause();
                 routerStory2.currentTime = 0; }
+            if (screenId !== 'story-workgroup1' && workgroupStory1) { workgroupStory1.pause();
+                workgroupStory1.currentTime = 0; }
+            if (screenId !== 'story-workgroup2' && workgroupStory2) { workgroupStory2.pause();
+                workgroupStory2.currentTime = 0; }
 
             document.querySelectorAll('.screen').forEach(function(s) {
                 s.classList.remove('active');
@@ -5297,6 +5900,8 @@
             var ipStory2 = document.getElementById('story-ip2-video');
             var routerStory1 = document.getElementById('story-router1-video');
             var routerStory2 = document.getElementById('story-router2-video');
+            var workgroupStory1 = document.getElementById('story-workgroup1-video');
+            var workgroupStory2 = document.getElementById('story-workgroup2-video');
             if (story1) { story1.pause();
                 story1.currentTime = 0; }
             if (story2) { story2.pause();
@@ -5309,6 +5914,10 @@
                 routerStory1.currentTime = 0; }
             if (routerStory2) { routerStory2.pause();
                 routerStory2.currentTime = 0; }
+            if (workgroupStory1) { workgroupStory1.pause();
+                workgroupStory1.currentTime = 0; }
+            if (workgroupStory2) { workgroupStory2.pause();
+                workgroupStory2.currentTime = 0; }
 
             showScreen('main-menu');
             resetGameState();
