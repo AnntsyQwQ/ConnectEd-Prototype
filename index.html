@@ -1344,6 +1344,105 @@
             background: #e74c3c;
         }
 
+        #file-sharing-challenge {
+            background: rgba(8, 29, 46, 0.96);
+            padding: 18px;
+        }
+
+        .file-sharing-workspace {
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            border: 2px solid #2bf1c9;
+            border-radius: 10px;
+            color: #ecf0f1;
+        }
+
+        .file-sharing-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #2bf1c9;
+            color: #2bf1c9;
+            font-size: 0.6rem;
+        }
+
+        .file-sharing-status {
+            color: #f1c40f;
+            font-size: 0.45rem;
+            text-align: right;
+        }
+
+        .file-sharing-body {
+            display: grid;
+            grid-template-columns: 1fr 120px 1fr;
+            align-items: center;
+            gap: 18px;
+            height: calc(100% - 70px);
+        }
+
+        .computer-share-panel {
+            min-height: 190px;
+            padding: 18px;
+            background: #143552;
+            border: 2px solid #2980b9;
+            border-radius: 8px;
+        }
+
+        .computer-share-panel h3 {
+            margin-bottom: 20px;
+            color: #f1c40f;
+            font-size: 0.55rem;
+        }
+
+        .shared-folder {
+            padding: 12px;
+            background: #081d2e;
+            border: 1px dashed #2bf1c9;
+            color: #ecf0f1;
+            font-size: 0.45rem;
+        }
+
+        .sample-file {
+            display: block;
+            margin-top: 14px;
+            padding: 10px;
+            background: #f1c40f;
+            color: #0b1c28;
+            border-radius: 4px;
+            font-size: 0.4rem;
+        }
+
+        .sample-file.copied {
+            background: #2ecc71;
+        }
+
+        .copy-file-btn {
+            width: 100%;
+            padding: 12px 8px;
+            background: #2bf1c9;
+            color: #0b1c28;
+            border: 3px solid #0b1c28;
+            border-radius: 8px;
+            box-shadow: 0 4px 0 #000;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.4rem;
+        }
+
+        .copy-file-btn:disabled {
+            background: #2ecc71;
+            cursor: default;
+        }
+
+        .copy-arrow {
+            margin-bottom: 12px;
+            color: #2bf1c9;
+            font-size: 1.4rem;
+            text-align: center;
+        }
+
         /* ===== ROUTER ===== */
         #router-challenge {
             background: #0d2840;
@@ -2901,6 +3000,33 @@
             </div>
         </div>
 
+        <!-- FILE SHARING VERIFICATION -->
+        <div id="file-sharing-challenge" class="screen">
+            <button class="pixel-btn btn-back" onclick="confirmGoToMenu()">BACK</button>
+            <div class="file-sharing-workspace">
+                <div class="file-sharing-header">
+                    <span>📁 PC-TO-PC FILE SHARING TEST</span>
+                    <span id="file-sharing-status" class="file-sharing-status">STATUS: COPY THE SAMPLE FILE TO PC 1</span>
+                </div>
+                <div class="file-sharing-body">
+                    <div class="computer-share-panel">
+                        <h3>💻 PC 2 - SHARED FILE</h3>
+                        <div class="shared-folder">📂 \\PC-02\Shared</div>
+                        <span id="source-sample-file" class="sample-file">📄 sample-network-file.txt</span>
+                    </div>
+                    <div>
+                        <div class="copy-arrow">➜</div>
+                        <button id="copy-file-btn" class="copy-file-btn" onclick="copySampleFileToPC1()">COPY FILE TO PC 1</button>
+                    </div>
+                    <div class="computer-share-panel">
+                        <h3>💻 PC 1 - DESTINATION</h3>
+                        <div class="shared-folder">📂 \\PC-01\Shared</div>
+                        <span id="destination-sample-file" class="sample-file" hidden>📄 sample-network-file.txt</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- ROUTER CHALLENGE -->
         <div id="router-challenge" class="screen">
             <button class="pixel-btn btn-back" onclick="confirmGoToMenu()">BACK</button>
@@ -3191,6 +3317,7 @@
         var learningChallengeId = null;
         var learningIsPractice = false;
         var isIPStoryFlow = false;
+        var fileShareCompleted = false;
         var quizQuestionIndex = 0;
         var quizScore = 0;
         var quizOnlyMode = false;
@@ -4984,7 +5111,7 @@
                 document.getElementById('workgroup-status').style.color = '#2ecc71';
                 trackChallengeCompletion(currentChallenge, true);
                 setTimeout(function() {
-                    showSuccessScreen();
+                    showFileSharingChallenge();
                 }, 800);
             } else {
                 loseLife();
@@ -5012,6 +5139,42 @@
                 status.innerHTML = "STATUS: CONFIGURE WORKGROUP SETTINGS";
                 status.style.color = '#f1c40f';
             }
+        }
+
+        function showFileSharingChallenge() {
+            fileShareCompleted = false;
+            var sourceFile = document.getElementById('source-sample-file');
+            var destinationFile = document.getElementById('destination-sample-file');
+            var copyButton = document.getElementById('copy-file-btn');
+            if (sourceFile) sourceFile.classList.remove('copied');
+            if (destinationFile) {
+                destinationFile.hidden = true;
+                destinationFile.classList.remove('copied');
+            }
+            if (copyButton) {
+                copyButton.disabled = false;
+                copyButton.textContent = 'COPY FILE TO PC 1';
+            }
+            document.getElementById('file-sharing-status').textContent = 'STATUS: COPY THE SAMPLE FILE TO PC 1';
+            document.getElementById('file-sharing-status').style.color = '#f1c40f';
+            showScreen('file-sharing-challenge');
+        }
+
+        function copySampleFileToPC1() {
+            if (fileShareCompleted || isGameOver) return;
+            fileShareCompleted = true;
+            score += 100;
+            updateAllScores();
+            document.getElementById('source-sample-file').classList.add('copied');
+            document.getElementById('destination-sample-file').hidden = false;
+            document.getElementById('destination-sample-file').classList.add('copied');
+            document.getElementById('copy-file-btn').disabled = true;
+            document.getElementById('copy-file-btn').textContent = 'FILE COPIED';
+            document.getElementById('file-sharing-status').textContent = 'SUCCESS! PC 1 RECEIVED THE SHARED FILE! +100 POINTS';
+            document.getElementById('file-sharing-status').style.color = '#2ecc71';
+            setTimeout(function() {
+                showSuccessScreen();
+            }, 900);
         }
 
         // ============================================
