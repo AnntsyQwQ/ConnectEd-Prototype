@@ -1,0 +1,14 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor folders
+.vscode/
+.idea/
+
+# Node (only relevant if you ever add npm packages later)
+node_modules/
+
+# Logs
+*.log
