@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>ConnectED - Network Trainer</title>
     <style>
         /* ===== RESET & BASE ===== */
@@ -22,13 +22,13 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            font-family: var(--game-font, 'Press Start 2P'), cursive;
+            font-family: var(--game-font, 'Segoe UI'), Arial, sans-serif;
             overflow-x: hidden;
             overflow-y: auto;
         }
 
         body.font-adjusted * {
-            font-family: var(--game-font, 'Press Start 2P'), cursive !important;
+            font-family: var(--game-font, 'Segoe UI'), Arial, sans-serif !important;
         }
 
         .game-container {
@@ -57,7 +57,6 @@
             display: block;
         }
 
-        /* ===== MENU SCREEN ===== */
         #main-menu {
             background: transparent;
         }
@@ -132,7 +131,7 @@
         }
 
         .pixel-btn {
-            font-family: 'Press Start 2P', cursive;
+            font-family: inherit;
             background-color: #2bf1c9;
             color: #0b1c28;
             border: 4px solid #0b1c28;
@@ -250,7 +249,6 @@
             accent-color: #ff5252;
         }
 
-        /* ===== ACCOUNT SCREEN ===== */
         #account-screen {
             background: radial-gradient(circle, #173a58, #081d2e 100%);
             color: #ecf0f1;
@@ -349,7 +347,7 @@
             border-radius: 8px;
             color: #fff;
             padding: 9px 10px;
-            font-family: 'Courier New', monospace;
+            font-family: inherit;
             font-size: 0.55rem;
         }
 
@@ -420,134 +418,6 @@
             font-size: 0.45rem;
         }
 
-        @media (max-width: 820px) {
-            body {
-                align-items: flex-start;
-                overflow-x: hidden;
-                overflow-y: auto;
-                min-height: 100vh;
-            }
-
-            .game-container {
-                width: min(100vw, 960px);
-                min-width: 100vw;
-                height: auto;
-                min-height: 100vh;
-                max-height: none;
-                border-width: 2px;
-                overflow-y: auto;
-                background-size: cover;
-            }
-
-            .screen {
-                min-height: 100vh;
-                overflow-y: auto;
-            }
-
-            .account-screen-wrap {
-                padding: 12px;
-            }
-
-            .account-panel {
-                grid-template-columns: 1fr;
-                width: min(680px, 96vw);
-                padding: 14px;
-                gap: 16px;
-            }
-
-            .account-left h1 {
-                font-size: clamp(1.7rem, 5vw, 2.4rem);
-            }
-
-            .account-left .game-subtitle {
-                font-size: clamp(0.56rem, 2vw, 0.7rem);
-            }
-
-            .account-copy {
-                font-size: clamp(0.45rem, 2vw, 0.56rem);
-                line-height: 1.5;
-            }
-
-            .account-form-wrap {
-                padding: 12px;
-            }
-
-            .account-form-wrap h2 {
-                font-size: clamp(0.7rem, 2vw, 0.85rem);
-            }
-
-            .account-form-row label {
-                font-size: clamp(0.42rem, 2vw, 0.55rem);
-            }
-
-            .account-form-row input {
-                font-size: clamp(0.46rem, 2vw, 0.68rem);
-            }
-
-            .account-button-row {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .account-button-row .pixel-btn {
-                width: min(220px, 90vw);
-                font-size: clamp(0.44rem, 2vw, 0.55rem);
-            }
-
-            .menu-buttons {
-                flex-direction: column;
-                align-items: center;
-                gap: 12px;
-            }
-
-            .menu-buttons .pixel-btn {
-                width: min(280px, 80vw);
-                font-size: clamp(0.46rem, 2vw, 0.68rem);
-                padding: 12px 16px;
-            }
-
-            .menu-header {
-                position: static;
-                padding-top: 80px;
-            }
-
-            .game-title {
-                font-size: clamp(1.8rem, 8vw, 2.4rem);
-            }
-
-            .game-subtitle {
-                font-size: clamp(0.55rem, 2vw, 0.72rem);
-            }
-
-            .settings-panel {
-                width: min(380px, calc(100vw - 28px));
-                padding: 16px;
-            }
-
-            .settings-actions {
-                flex-wrap: wrap;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .game-container {
-                min-width: 100vw;
-            }
-
-            .account-panel {
-                width: min(420px, 96vw);
-            }
-
-            .account-logo {
-                width: 72px;
-                height: 72px;
-            }
-
-            .screen {
-                font-size: 16px;
-            }
-        }
-
         .btn-practice {
             background-color: #f39c12;
             box-shadow: inset 0 -4px 0 #d68910, 0 4px 0 #000;
@@ -583,7 +453,7 @@
             box-shadow: inset 0 -4px 0 #b33939, 0 4px 0 #000;
             width: auto;
             z-index: 20;
-            font-family: 'Press Start 2P', cursive;
+            font-family: inherit;
             border: 4px solid #0b1c28;
             border-radius: 12px;
             cursor: pointer;
@@ -617,7 +487,6 @@
             padding-top: 80px !important;
         }
 
-        /* ===== CHALLENGE SELECT ===== */
         #challenge-select {
             background: rgba(13, 40, 64, 0.95);
         }
@@ -651,7 +520,7 @@
             border-radius: 8px;
             color: #ecf0f1;
             cursor: pointer;
-            font-family: 'Press Start 2P', cursive;
+            font-family: inherit;
             font-size: 0.5rem;
             transition: all 0.2s;
             text-align: center;
@@ -677,7 +546,6 @@
             justify-content: center;
         }
 
-        /* ===== STORY SCREENS ===== */
         .story-bg {
             width: 100%;
             height: 100%;
@@ -702,7 +570,6 @@
             background-color: #55ffdb !important;
         }
 
-        /* ===== LIVES DISPLAY ===== */
         .lives-display {
             position: absolute;
             top: 8px;
@@ -730,7 +597,6 @@
             color: #f1c40f;
         }
 
-        /* ===== MICRO-LEARNING ===== */
         .micro-learning-container {
             width: 100%;
             height: 100%;
@@ -778,7 +644,7 @@
             color: #2bf1c9;
             font-size: 0.55rem;
             margin-bottom: 6px;
-            font-family: 'Press Start 2P', cursive;
+            font-family: inherit;
         }
         .ml-content p {
             color: #ecf0f1;
@@ -890,7 +756,7 @@
             color: #f39c12;
             font-size: 0.4rem;
             margin-bottom: 8px;
-            font-family: 'Press Start 2P', cursive;
+            font-family: inherit;
         }
         .ml-quiz-option {
             display: block;
@@ -926,7 +792,7 @@
             padding: 6px 12px;
             border-radius: 4px;
             text-align: center;
-            font-family: 'Press Start 2P', cursive;
+            font-family: inherit;
             border: 2px solid #d68910;
             display: none;
         }
@@ -985,7 +851,6 @@
             line-height: 1.45;
         }
 
-        /* ===== DASHBOARD ===== */
         #dashboard {
             background: rgba(13, 40, 64, 0.95);
         }
@@ -1070,7 +935,6 @@
             color: #0b1c28;
         }
 
-        /* ===== RJ45 CHALLENGE ===== */
         .rj45-workspace {
             width: 100%;
             height: 100%;
@@ -1123,7 +987,7 @@
         .rj45-preview h4 {
             font-size: 0.4rem;
             margin-bottom: 4px;
-            font-family: 'Press Start 2P', cursive;
+            font-family: inherit;
             text-align: center;
             color: #2bf1c9;
         }
@@ -1181,7 +1045,7 @@
             display: flex;
             align-items: center;
             padding-left: 4px;
-            font-family: sans-serif;
+            font-family: inherit;
             font-size: 0.35rem;
             font-weight: bold;
             color: #000;
@@ -1256,7 +1120,7 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            font-family: 'Press Start 2P', cursive;
+            font-family: inherit;
             font-size: 0.35rem;
         }
         .tool-btn:hover {
@@ -1266,7 +1130,6 @@
             background: #e74c3c;
         }
 
-        /* ===== IP CONFIGURATION ===== */
         #ip-challenge {
             background: #0d2840;
         }
@@ -1407,7 +1270,7 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            font-family: 'Press Start 2P', cursive;
+            font-family: inherit;
             font-size: 0.35rem;
         }
         .ip-reset-btn {
@@ -1427,7 +1290,7 @@
         .crossover-source .drag-wire { flex: 1 1 90px; margin: 0; cursor: grab; font-size: 0.3rem; padding: 5px; }
         .crossover-cable-line { color: #f1c40f; font-size: 0.42rem; text-align: center; font-weight: bold; }
         .crossover-actions { display: flex; justify-content: center; gap: 8px; margin-top: 10px; }
-        .crossover-guide-toggle { display: none; position: relative; z-index: 20; margin: 6px auto 0; padding: 5px 10px; background: #f1c40f; color: #051422; border: 2px solid #b7950b; border-radius: 4px; cursor: pointer; font: 0.35rem 'Press Start 2P', cursive; }
+        .crossover-guide-toggle { display: none; position: relative; z-index: 20; margin: 6px auto 0; padding: 5px 10px; background: #f1c40f; color: #051422; border: 2px solid #b7950b; border-radius: 4px; cursor: pointer; font: 0.35rem inherit; }
         .crossover-guide { display: none; position: relative; z-index: 20; margin-top: 6px; padding: 8px 10px; max-height: 150px; overflow-y: auto; background: #051422; border: 2px solid #f1c40f; border-radius: 4px; color: #ecf0f1; font-size: 0.34rem; line-height: 1.5; text-align: left; }
         .crossover-guide.visible { display: block; }
         .crossover-guide-title { color: #f1c40f; font-size: 0.45rem; text-align: center; margin-bottom: 5px; }
@@ -1481,10 +1344,9 @@
             background: #2bf1c9;
             color: #051422;
             cursor: pointer;
-            font: 0.35rem 'Press Start 2P', cursive;
+            font: 0.35rem inherit;
         }
 
-        /* ===== WORKGROUP ===== */
         #workgroup-challenge {
             background: #0d2840;
         }
@@ -1627,7 +1489,7 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            font-family: 'Press Start 2P', cursive;
+            font-family: inherit;
             font-size: 0.35rem;
         }
         .workgroup-reset-btn {
@@ -1638,7 +1500,6 @@
             background: rgba(8, 29, 46, 0.96);
             padding: 18px;
         }
-
         .file-sharing-workspace {
             width: 100%;
             height: 100%;
@@ -1647,7 +1508,6 @@
             border-radius: 10px;
             color: #ecf0f1;
         }
-
         .file-sharing-header {
             display: flex;
             justify-content: space-between;
@@ -1657,13 +1517,11 @@
             color: #2bf1c9;
             font-size: 0.6rem;
         }
-
         .file-sharing-status {
             color: #f1c40f;
             font-size: 0.45rem;
             text-align: right;
         }
-
         .file-sharing-body {
             display: grid;
             grid-template-columns: 1fr 120px 1fr;
@@ -1671,7 +1529,6 @@
             gap: 18px;
             height: calc(100% - 70px);
         }
-
         .computer-share-panel {
             min-height: 190px;
             padding: 18px;
@@ -1679,13 +1536,11 @@
             border: 2px solid #2980b9;
             border-radius: 8px;
         }
-
         .computer-share-panel h3 {
             margin-bottom: 20px;
             color: #f1c40f;
             font-size: 0.55rem;
         }
-
         .shared-folder {
             padding: 12px;
             background: #081d2e;
@@ -1693,7 +1548,6 @@
             color: #ecf0f1;
             font-size: 0.45rem;
         }
-
         .sample-file {
             display: block;
             margin-top: 14px;
@@ -1703,11 +1557,9 @@
             border-radius: 4px;
             font-size: 0.4rem;
         }
-
         .sample-file.copied {
             background: #2ecc71;
         }
-
         .copy-file-btn {
             width: 100%;
             padding: 12px 8px;
@@ -1720,12 +1572,10 @@
             font-family: inherit;
             font-size: 0.4rem;
         }
-
         .copy-file-btn:disabled {
             background: #2ecc71;
             cursor: default;
         }
-
         .copy-arrow {
             margin-bottom: 12px;
             color: #2bf1c9;
@@ -1733,7 +1583,6 @@
             text-align: center;
         }
 
-        /* ===== ROUTER ===== */
         #router-challenge {
             background: #0d2840;
         }
@@ -1994,14 +1843,13 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            font-family: 'Press Start 2P', cursive;
+            font-family: inherit;
             font-size: 0.35rem;
         }
         .router-reset-btn {
             background: #e74c3c;
         }
 
-        /* ===== SECURITY CHALLENGE ===== */
         #security-challenge {
             background: #1a0d28;
         }
@@ -2122,7 +1970,7 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            font-family: 'Press Start 2P', cursive;
+            font-family: inherit;
             font-size: 0.35rem;
         }
         .security-reset-btn {
@@ -2157,9 +2005,6 @@
             color: #f1c40f;
         }
 
-        /* ============================================ */
-        /* NEW: NETWORK TOPOLOGY CHALLENGE STYLES      */
-        /* ============================================ */
         #topology-challenge {
             background: #0a1a2a;
         }
@@ -2213,7 +2058,6 @@
             align-items: center;
             justify-content: center;
         }
-        /* Device nodes */
         .device-row {
             display: flex;
             justify-content: center;
@@ -2230,7 +2074,7 @@
             align-items: center;
             justify-content: center;
             font-size: 0.3rem;
-            font-family: 'Press Start 2P', cursive;
+            font-family: inherit;
             cursor: pointer;
             border: 3px solid #555;
             background: #143552;
@@ -2307,9 +2151,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Press Start 2P', cursive;
+            font-family: inherit;
         }
-        /* SVG lines */
         #topology-svg {
             position: absolute;
             top: 0;
@@ -2364,7 +2207,7 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            font-family: 'Press Start 2P', cursive;
+            font-family: inherit;
             font-size: 0.35rem;
         }
         .topology-tool-btn:hover {
@@ -2395,15 +2238,9 @@
             border-radius: 50%;
             display: inline-block;
         }
-        .topology-legend .dot.green {
-            background: #2ecc71;
-        }
-        .topology-legend .dot.yellow {
-            background: #f1c40f;
-        }
-        .topology-legend .dot.grey {
-            background: #555;
-        }
+        .topology-legend .dot.green { background: #2ecc71; }
+        .topology-legend .dot.yellow { background: #f1c40f; }
+        .topology-legend .dot.grey { background: #555; }
         .pc-config-modal { display: none; position: absolute; inset: 0; z-index: 100; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.78); }
         .pc-config-modal.open { display: flex; }
         .pc-config-dialog { position: relative; width: min(360px, 90%); padding: 18px; background: #143552; border: 3px solid #2bf1c9; border-radius: 8px; box-shadow: 5px 5px 0 #000; }
@@ -2414,19 +2251,11 @@
         .pc-config-close { position: absolute; top: 6px; right: 8px; border: 0; background: #e74c3c; color: #fff; cursor: pointer; font-weight: bold; }
 
         @keyframes shake {
-            0%,
-            100% {
-                transform: translateX(0);
-            }
-            25% {
-                transform: translateX(-8px);
-            }
-            75% {
-                transform: translateX(8px);
-            }
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
         }
 
-        /* ===== SUCCESS SCREEN ===== */
         .success-content {
             position: relative;
             overflow: hidden;
@@ -2494,7 +2323,6 @@
             order: 1;
         }
 
-        /* ===== MODAL ===== */
         .modal-overlay {
             display: none;
             position: absolute;
@@ -2511,14 +2339,8 @@
             display: flex;
         }
         @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         .modal-content {
             background: linear-gradient(145deg, #1a3a5c, #0d2840);
@@ -2536,13 +2358,13 @@
             margin-bottom: 8px;
         }
         .modal-content h2 {
-            font-family: 'Press Start 2P', cursive;
+            font-family: inherit;
             font-size: 0.8rem;
             color: #f1c40f;
             margin-bottom: 8px;
         }
         .modal-content p {
-            font-family: 'Press Start 2P', cursive;
+            font-family: inherit;
             font-size: 0.5rem;
             color: #ecf0f1;
             line-height: 1.6;
@@ -2560,7 +2382,7 @@
             border-radius: 12px !important;
             box-shadow: inset 0 -4px 0 #18a98c, 0 4px 0 #000 !important;
             cursor: pointer !important;
-            font-family: 'Press Start 2P', cursive !important;
+            font-family: inherit !important;
         }
         .modal-btn:hover {
             background: #55ffdb !important;
@@ -2575,7 +2397,6 @@
             flex-wrap: wrap;
         }
 
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             .game-container {
                 width: 100vw;
@@ -2602,275 +2423,236 @@
             .micro-learning-body {
                 flex-direction: column;
             }
-            .game-title {
-                font-size: 1.2rem;
+            .game-title { font-size: 1.2rem; }
+            .challenge-list { grid-template-columns: 1fr; }
+            .dashboard-stats { grid-template-columns: 1fr 1fr; }
+            .challenge-results { grid-template-columns: 1fr; }
+            .rj45-connector-wrapper { width: 130px; height: 140px; }
+            .connector-slots { top: 38px; left: 20px; width: 90px; height: 88px; }
+            .drop-zone { width: 10px; }
+            .config-input { width: 100px; }
+            .security-input { width: 120px; }
+            .success-stats { flex-direction: column; gap: 4px; }
+            .success-actions { gap: 10px; width: 100%; margin-top: 34px; }
+            .menu-buttons { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 8px; }
+            .menu-buttons .pixel-btn { flex: 0 1 auto; min-width: 100px; font-size: 0.5rem; padding: 8px 12px; white-space: nowrap; }
+            .device-row { gap: 15px; }
+            .device-node { width: 50px; height: 40px; font-size: 0.2rem; }
+            .device-node .device-icon { font-size: 0.4rem; }
+            .device-node.router { width: 60px; height: 45px; }
+            .micro-learning-container { padding: 12px; padding-top: 42px; }
+            .ml-content p, .ml-content ul li { font-size: 0.65rem; line-height: 1.65; }
+            .ml-content h3, .ml-tips h4, .ml-quiz h4 { font-size: 0.7rem; }
+            .ml-quiz-question { font-size: 0.6rem; }
+            .ml-quiz-progress { font-size: 0.52rem; }
+            .ml-quiz-option { padding: 9px 10px; font-size: 0.56rem; line-height: 1.45; }
+            .lives-display, .lives-label, .score-display, .title, .ip-title,
+            .workgroup-title, .router-title, .security-title, .topology-title,
+            .status, .ip-status, .workgroup-status, .router-status,
+            .security-status, .topology-status, .section-title, .pc-title,
+            .instructions-title, .workgroup-instructions-title,
+            .router-instructions-title, .security-instructions-title,
+            .topology-instructions-title { font-size: 0.58rem; line-height: 1.45; }
+            .config-label, .config-value, .workgroup-label,
+            .workgroup-checkbox-label, .router-label, .router-value,
+            .security-label, .security-checkbox-label, .instruction-item,
+            .workgroup-instruction-item, .router-instruction-item,
+            .security-instruction-item, .topology-instruction-item {
+                font-size: 0.5rem; line-height: 1.5;
             }
-            .challenge-list {
-                grid-template-columns: 1fr;
-            }
-            .dashboard-stats {
-                grid-template-columns: 1fr 1fr;
-            }
-            .challenge-results {
-                grid-template-columns: 1fr;
-            }
-            .rj45-connector-wrapper {
-                width: 130px;
-                height: 140px;
-            }
-            .connector-slots {
-                top: 38px;
-                left: 20px;
-                width: 90px;
-                height: 88px;
-            }
-            .drop-zone {
-                width: 10px;
-            }
-            .config-input {
-                width: 100px;
-            }
-            .security-input {
-                width: 120px;
-            }
-            .success-stats {
-                flex-direction: column;
-                gap: 4px;
-            }
-            .success-actions {
-                gap: 10px;
-                width: 100%;
-                margin-top: 34px;
-            }
-            .menu-buttons {
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 8px;
-            }
-            .menu-buttons .pixel-btn {
-                flex: 0 1 auto;
-                min-width: 100px;
-                font-size: 0.5rem;
-                padding: 8px 12px;
-                white-space: nowrap;
-            }
-            .device-row {
-                gap: 15px;
-            }
-            .device-node {
-                width: 50px;
-                height: 40px;
-                font-size: 0.2rem;
-            }
-            .device-node .device-icon {
-                font-size: 0.4rem;
-            }
-            .device-node.router {
-                width: 60px;
-                height: 45px;
-            }
-
-            .micro-learning-container {
-                padding: 12px;
-                padding-top: 42px;
-            }
-
-            .ml-content p,
-            .ml-content ul li {
-                font-size: 0.65rem;
-                line-height: 1.65;
-            }
-
-            .ml-content h3,
-            .ml-tips h4,
-            .ml-quiz h4 {
-                font-size: 0.7rem;
-            }
-
-            .ml-quiz-question {
-                font-size: 0.6rem;
-            }
-
-            .ml-quiz-progress {
-                font-size: 0.52rem;
-            }
-
-            .ml-quiz-option {
-                padding: 9px 10px;
-                font-size: 0.56rem;
-                line-height: 1.45;
-            }
-
-            .lives-display,
-            .lives-label,
-            .score-display,
-            .title,
-            .ip-title,
-            .workgroup-title,
-            .router-title,
-            .security-title,
-            .topology-title,
-            .status,
-            .ip-status,
-            .workgroup-status,
-            .router-status,
-            .security-status,
-            .topology-status,
-            .section-title,
-            .pc-title,
-            .instructions-title,
-            .workgroup-instructions-title,
-            .router-instructions-title,
-            .security-instructions-title,
-            .topology-instructions-title {
-                font-size: 0.58rem;
-                line-height: 1.45;
-            }
-
-            .config-label,
-            .config-value,
-            .workgroup-label,
-            .workgroup-checkbox-label,
-            .router-label,
-            .router-value,
-            .security-label,
-            .security-checkbox-label,
-            .instruction-item,
-            .workgroup-instruction-item,
-            .router-instruction-item,
-            .security-instruction-item,
-            .topology-instruction-item {
-                font-size: 0.5rem;
-                line-height: 1.5;
-            }
-
-            .config-input,
-            .workgroup-input,
-            .router-input,
-            .security-input {
-                font-size: 0.55rem;
-            }
-
-            .router-key-points-title,
-            .router-quiz-title {
-                font-size: 0.58rem;
-            }
-
-            .router-key-point,
-            .router-quiz-progress {
-                font-size: 0.48rem;
-                line-height: 1.5;
-            }
-
-            .router-quiz-question,
-            .router-quiz-option {
-                font-size: 0.52rem;
-                line-height: 1.5;
-            }
-
-            .router-quiz-option {
-                padding: 8px;
-            }
-
-            .tool-btn,
-            .ip-tool-btn,
-            .workgroup-tool-btn,
-            .router-tool-btn,
-            .security-tool-btn,
-            .topology-tool-btn {
-                font-size: 0.5rem;
-                padding: 7px 12px;
-            }
+            .config-input, .workgroup-input, .router-input, .security-input { font-size: 0.55rem; }
+            .router-key-points-title, .router-quiz-title { font-size: 0.58rem; }
+            .router-key-point, .router-quiz-progress { font-size: 0.48rem; line-height: 1.5; }
+            .router-quiz-question, .router-quiz-option { font-size: 0.52rem; line-height: 1.5; }
+            .router-quiz-option { padding: 8px; }
+            .tool-btn, .ip-tool-btn, .workgroup-tool-btn, .router-tool-btn,
+            .security-tool-btn, .topology-tool-btn { font-size: 0.5rem; padding: 7px 12px; }
         }
 
         /* ===== READABILITY ===== */
-        html {
-            font-size: 18px;
+        html { font-size: 18px; }
+        body, button, input, select, textarea { font-weight: 700; }
+        .game-title, .game-subtitle, .challenge-grid h2, .dashboard-container h2,
+        .settings-panel h2, .header-bar, .ip-header, .workgroup-header,
+        .router-header, .security-header, .topology-header, .modal-content h2 {
+            font-weight: 900; text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.65);
         }
+        .status, .ip-status, .workgroup-status, .router-status,
+        .security-status, .topology-status, .config-label,
+        .workgroup-label, .router-label, .security-label,
+        .instruction-item, .workgroup-instruction-item,
+        .router-instruction-item, .security-instruction-item,
+        .topology-instruction-item { font-weight: 700; }
 
-        body,
-        button,
-        input,
-        select,
-        textarea {
-            font-weight: 700;
-        }
-
-        .game-title,
-        .game-subtitle,
-        .challenge-grid h2,
-        .dashboard-container h2,
-        .settings-panel h2,
-        .header-bar,
-        .ip-header,
-        .workgroup-header,
-        .router-header,
-        .security-header,
-        .topology-header,
-        .modal-content h2 {
-            font-weight: 900;
-            text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.65);
-        }
-
-        .status,
-        .ip-status,
-        .workgroup-status,
-        .router-status,
-        .security-status,
-        .topology-status,
-        .config-label,
-        .workgroup-label,
-        .router-label,
-        .security-label,
-        .instruction-item,
-        .workgroup-instruction-item,
-        .router-instruction-item,
-        .security-instruction-item,
-        .topology-instruction-item {
-            font-weight: 700;
-                    /* ===== MOBILE: drag note + CLEAN font ===== */
-        .mobile-drag-note {
-            display: none;
-            background: rgba(241, 196, 15, 0.15);
-            border: 1px dashed #f1c40f;
-            border-radius: 6px;
-            padding: 6px 8px;
-            margin: 4px 0 6px;
-            color: #f1c40f;
-            font-size: 0.55rem;
-            line-height: 1.4;
-            text-align: center;
-        }
-
+        /* ============================================ */
+        /* MOBILE PORTRAIT — FULL SCREEN + CLEAN FONT   */
+        /* ============================================ */
         @media (max-width: 820px) {
-            .mobile-drag-note {
-                display: block;
-                font-size: 0.7rem;
-                padding: 8px 10px;
+            html, body {
+                width: 100%;
+                height: auto;
+                margin: 0;
+                padding: 0;
+                overflow-x: hidden;
             }
+            body {
+                display: block;
+                align-items: stretch;
+                min-height: 100vh;
+                min-height: 100dvh;
+                background: #1a1a1a;
+            }
+            .game-container {
+                width: 100vw !important;
+                min-width: 100vw !important;
+                max-width: 100vw !important;
+                height: auto !important;
+                min-height: 100vh;
+                min-height: 100dvh;
+                max-height: none !important;
+                margin: 0 !important;
+                border-width: 0 !important;
+                border-radius: 0 !important;
+                overflow: visible !important;
+                box-shadow: none !important;
+            }
+            .screen {
+                position: relative !important;
+                top: auto !important;
+                left: auto !important;
+                width: 100% !important;
+                height: auto !important;
+                min-height: 100vh;
+                min-height: 100dvh;
+                overflow-y: auto;
+                display: none;
+            }
+            .screen.active {
+                display: flex !important;
+                flex-direction: column;
+            }
+            .rj45-workspace,
+            .ip-workspace,
+            .workgroup-workspace,
+            .router-workspace,
+            .security-workspace,
+            .topology-workspace,
+            .crossover-workspace {
+                flex: 1;
+                min-height: 100vh;
+                min-height: 100dvh;
+                padding: 60px 10px 14px !important;
+                box-sizing: border-box;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+            .mini-game-body,
+            .ip-body,
+            .workgroup-body,
+            .router-body,
+            .security-body,
+            .topology-body,
+            .micro-learning-body,
+            .crossover-body {
+                display: flex;
+                flex-direction: column !important;
+                gap: 10px !important;
+                flex: 1;
+                min-height: 0;
+            }
+            .schematic-card,
+            .wire-palette,
+            .rj45-preview,
+            .pc-config,
+            .ip-instructions,
+            .workgroup-config,
+            .workgroup-instructions,
+            .router-config,
+            .router-instructions,
+            .security-config,
+            .security-instructions,
+            .topology-canvas,
+            .topology-instructions,
+            .ml-content,
+            .ml-sidebar,
+            .crossover-end {
+                flex: 0 0 auto !important;
+                width: 100% !important;
+                box-sizing: border-box;
+            }
+            .wire-palette { flex: 1 1 auto !important; min-height: 200px; display: flex; flex-direction: column; }
+            .wires-grid { flex: 1; gap: 5px !important; }
+            .drag-wire { height: 34px !important; font-size: 0.75rem !important; padding-left: 12px !important; cursor: pointer; }
+            .rj45-connector-wrapper { width: 170px !important; height: 180px !important; margin: 8px auto !important; }
+            .connector-slots { top: 52px !important; left: 26px !important; width: 118px !important; height: 116px !important; }
+            .drop-zone { width: 14px !important; min-height: 100% !important; cursor: pointer; }
+            .drop-zone:active { background: rgba(241, 196, 15, 0.35) !important; }
+            .topology-canvas { min-height: 420px !important; }
+            .header-bar { flex-direction: column !important; align-items: flex-start !important; gap: 4px; padding: 8px 12px !important; }
+            .lives-display {
+                position: fixed !important;
+                top: 8px;
+                left: 50%;
+                right: auto;
+                transform: translateX(-50%);
+                z-index: 100;
+                max-width: calc(100vw - 200px);
+                white-space: nowrap;
+            }
+            .btn-back { position: fixed !important; top: 8px !important; left: 8px !important; z-index: 101; }
+            .settings-btn { position: fixed !important; top: 8px !important; right: 8px !important; z-index: 101; }
+            #main-menu .menu-content {
+                min-height: 100vh;
+                min-height: 100dvh;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                padding: 20px 20px 40px;
+                box-sizing: border-box;
+            }
+            .menu-header { position: static !important; padding-top: 80px; margin-bottom: auto; }
+            .menu-buttons {
+                flex-direction: column !important;
+                align-items: stretch !important;
+                gap: 10px !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 0 20px 0 !important;
+            }
+            .menu-buttons .pixel-btn {
+                width: 100% !important;
+                font-size: 0.8rem !important;
+                padding: 14px 16px !important;
+                min-height: 50px !important;
+                white-space: normal !important;
+            }
+            .account-screen-wrap,
+            .dashboard-container,
+            .challenge-grid,
+            .router-prep-container,
+            .micro-learning-container {
+                padding: 60px 12px 20px !important;
+                min-height: 100vh;
+                min-height: 100dvh;
+                box-sizing: border-box;
+            }
+            .success-content { min-height: 100vh; min-height: 100dvh; box-sizing: border-box; }
 
-            body,
-            body.font-adjusted *,
-            button, input, select, textarea,
-            .game-title, .game-subtitle, .pixel-btn,
-            .modal-content h2, .modal-content p,
-            .challenge-item, .drag-wire,
-            .header-bar, .ip-header,
-            .workgroup-header, .router-header,
-            .security-header, .topology-header,
+            /* CLEAN FONT on mobile */
+            body, body.font-adjusted *, button, input, select, textarea,
+            .game-title, .game-subtitle, .pixel-btn, .modal-content h2, .modal-content p,
+            .challenge-item, .drag-wire, .header-bar, .ip-header,
+            .workgroup-header, .router-header, .security-header, .topology-header,
             .ml-quiz-option, .router-quiz-option {
                 font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
                 letter-spacing: normal !important;
             }
         }
- }
     </style>
-    
 </head>
 <body>
 
-    <!-- BACKGROUND MUSIC -->
     <audio id="bg-music" src="music/background music.mp3" autoplay loop preload="auto" volume="0.15"></audio>
     <audio id="menu-voice" src="image/IT MAN TALKING.mp4" preload="auto"></audio>
 
@@ -2916,7 +2698,6 @@
             <span class="user-name" id="user-name">Player</span>
         </div>
 
-        <!-- MAIN MENU -->
         <div id="main-menu" class="screen">
             <video id="menu-bg-video" autoplay muted playsinline preload="auto" poster="image/IT MAN.png">
                 <source src="image/IT MAN TALKING.mp4" type="video/mp4">
@@ -2956,10 +2737,10 @@
                 <div class="sound-control font-control">
                     <label for="font-family">FONT STYLE</label>
                     <select id="font-family">
-                        <option value="'Press Start 2P'">PIXEL</option>
-                        <option value="Arial">CLEAN</option>
-                        <option value="Georgia">SERIF</option>
-                        <option value="'Courier New'">MONO</option>
+                        <option value="'Segoe UI', Arial, sans-serif">CLEAN</option>
+                        <option value="'Press Start 2P', cursive">PIXEL</option>
+                        <option value="Georgia, serif">SERIF</option>
+                        <option value="'Courier New', monospace">MONO</option>
                     </select>
                 </div>
                 <label class="mute-control" for="sound-muted">
@@ -2973,7 +2754,6 @@
             </div>
         </div>
 
-        <!-- CHALLENGE SELECT -->
         <div id="challenge-select" class="screen">
             <button class="pixel-btn btn-back" onclick="goToMenu()">BACK</button>
             <div class="challenge-grid">
@@ -2992,7 +2772,6 @@
             </div>
         </div>
 
-        <!-- DASHBOARD -->
         <div id="dashboard" class="screen">
             <button class="pixel-btn btn-back" onclick="goToMenu()">BACK</button>
             <div class="dashboard-container">
@@ -3007,7 +2786,6 @@
             </div>
         </div>
 
-        <!-- STORY SCREENS -->
         <div id="story-1" class="screen">
             <button class="pixel-btn btn-back" onclick="goToMenu()">BACK</button>
             <video id="story-img-1" class="story-bg" autoplay loop playsinline poster="image/cha1.jpg" onclick="goToStory2()">
@@ -3024,7 +2802,6 @@
             <div class="story-overlay"><button class="pixel-btn btn-next-story" onclick="goToGame()">NEXT ➜</button></div>
         </div>
 
-        <!-- IP STORY SCREENS -->
         <div id="story-ip1" class="screen">
             <button class="pixel-btn btn-back" onclick="goToMenu()">BACK</button>
             <video id="story-ip1-video" class="story-bg" autoplay loop playsinline poster="image/IT MAN.png" onclick="goToIPStory2()">
@@ -3040,7 +2817,6 @@
             <div class="story-overlay"><button class="pixel-btn btn-next-story" onclick="proceedToIPChallenge()">NEXT ➜</button></div>
         </div>
 
-        <!-- ROUTER STORY SCREENS -->
         <div id="story-router1" class="screen">
             <button class="pixel-btn btn-back" onclick="goToMenu()">BACK</button>
             <video id="story-router1-video" class="story-bg" autoplay playsinline onclick="goToRouterStory2()">
@@ -3056,7 +2832,6 @@
             <div class="story-overlay"><button class="pixel-btn btn-next-story" onclick="proceedToRouterChallenge()">NEXT ➜</button></div>
         </div>
 
-        <!-- WORKGROUP STORY SCREENS -->
         <div id="story-workgroup1" class="screen">
             <button class="pixel-btn btn-back" onclick="goToMenu()">BACK</button>
             <video id="story-workgroup1-video" class="story-bg" autoplay playsinline onclick="goToWorkgroupStory2()">
@@ -3072,7 +2847,6 @@
             <div class="story-overlay"><button class="pixel-btn btn-next-story" onclick="proceedToWorkgroupChallenge()">NEXT ➜</button></div>
         </div>
 
-        <!-- ROUTER PREPARATION -->
         <div id="router-prep" class="screen">
             <button class="pixel-btn btn-back" onclick="goToMenu()">BACK</button>
             <div class="router-prep-container">
@@ -3095,7 +2869,6 @@
             </div>
         </div>
 
-        <!-- MICRO-LEARNING -->
         <div id="micro-learning" class="screen">
             <button class="pixel-btn btn-back" onclick="exitMicroLearning()">BACK</button>
             <div class="micro-learning-container">
@@ -3130,7 +2903,6 @@
             </div>
         </div>
 
-        <!-- RJ45 CHALLENGE -->
         <div id="challenge-2" class="screen">
             <button class="pixel-btn btn-back" onclick="confirmGoToMenu()">BACK</button>
             <div class="lives-display" id="lives-display">
@@ -3154,14 +2926,14 @@
                             <p>Select a standard above to view target sequence.</p>
                         </div>
                         <div class="challenge-info">
-                            <H4>💡 <span id="challenge-hint">Drag wires to correct pins in order if mobile user </span></H4>
-                            <H4>💡 <span id="challenge-hint">📱 On mobile:  hold and drag the wire to a pin</span></H4>
-
+                            <h4>💡 <span id="challenge-hint">Drag wires to correct pins in order</span></h4>
+                            <h4>📱 On mobile: tap a wire, then tap a pin</h4>
                         </div>
                     </div>
                     <div class="wire-palette">
-                <h4>WIRES</h4>
-                        <div class="wires-grid" id="wire-source-container"></div>   
+                        <h4>WIRES</h4>
+                        <div class="wires-grid" id="wire-source-container"></div>
+                    </div>
                     <div class="rj45-preview">
                         <h4>RJ45 PLUG</h4>
                         <div class="rj45-connector-wrapper">
@@ -3181,14 +2953,14 @@
                                 </g>
                             </svg>
                             <div class="connector-slots">
-                                <div class="drop-zone" data-pin="1" ondragover="event.preventDefault()" ondrop="dropWire(event)"><span class="pin-num">1</span></div>
-                                <div class="drop-zone" data-pin="2" ondragover="event.preventDefault()" ondrop="dropWire(event)"><span class="pin-num">2</span></div>
-                                <div class="drop-zone" data-pin="3" ondragover="event.preventDefault()" ondrop="dropWire(event)"><span class="pin-num">3</span></div>
-                                <div class="drop-zone" data-pin="4" ondragover="event.preventDefault()" ondrop="dropWire(event)"><span class="pin-num">4</span></div>
-                                <div class="drop-zone" data-pin="5" ondragover="event.preventDefault()" ondrop="dropWire(event)"><span class="pin-num">5</span></div>
-                                <div class="drop-zone" data-pin="6" ondragover="event.preventDefault()" ondrop="dropWire(event)"><span class="pin-num">6</span></div>
-                                <div class="drop-zone" data-pin="7" ondragover="event.preventDefault()" ondrop="dropWire(event)"><span class="pin-num">7</span></div>
-                                <div class="drop-zone" data-pin="8" ondragover="event.preventDefault()" ondrop="dropWire(event)"><span class="pin-num">8</span></div>
+                                <div class="drop-zone" data-pin="1" ondragover="event.preventDefault()" ondrop="dropWire(event)" onclick="dropWire(event)"><span class="pin-num">1</span></div>
+                                <div class="drop-zone" data-pin="2" ondragover="event.preventDefault()" ondrop="dropWire(event)" onclick="dropWire(event)"><span class="pin-num">2</span></div>
+                                <div class="drop-zone" data-pin="3" ondragover="event.preventDefault()" ondrop="dropWire(event)" onclick="dropWire(event)"><span class="pin-num">3</span></div>
+                                <div class="drop-zone" data-pin="4" ondragover="event.preventDefault()" ondrop="dropWire(event)" onclick="dropWire(event)"><span class="pin-num">4</span></div>
+                                <div class="drop-zone" data-pin="5" ondragover="event.preventDefault()" ondrop="dropWire(event)" onclick="dropWire(event)"><span class="pin-num">5</span></div>
+                                <div class="drop-zone" data-pin="6" ondragover="event.preventDefault()" ondrop="dropWire(event)" onclick="dropWire(event)"><span class="pin-num">6</span></div>
+                                <div class="drop-zone" data-pin="7" ondragover="event.preventDefault()" ondrop="dropWire(event)" onclick="dropWire(event)"><span class="pin-num">7</span></div>
+                                <div class="drop-zone" data-pin="8" ondragover="event.preventDefault()" ondrop="dropWire(event)" onclick="dropWire(event)"><span class="pin-num">8</span></div>
                             </div>
                         </div>
                         <div class="actions">
@@ -3200,7 +2972,6 @@
             </div>
         </div>
 
-        <!-- IP CHALLENGE -->
         <div id="ip-challenge" class="screen">
             <button class="pixel-btn btn-back" onclick="confirmGoToMenu()">BACK</button>
             <div class="lives-display" id="ip-lives-display">
@@ -3248,7 +3019,6 @@
             </div>
         </div>
 
-        <!-- CROSSOVER CABLE CHALLENGE -->
         <div id="crossover-challenge" class="screen">
             <button class="pixel-btn btn-back" onclick="confirmGoToMenu()">BACK</button>
             <div class="lives-display">
@@ -3282,7 +3052,6 @@
             </div>
         </div>
 
-        <!-- CMD IP ADDRESS CHALLENGE -->
         <div id="cmd-ip-challenge" class="screen">
             <button class="pixel-btn btn-back" onclick="confirmGoToMenu()">BACK</button>
             <div class="lives-display">
@@ -3322,7 +3091,6 @@
             </div>
         </div>
 
-        <!-- WORKGROUP CHALLENGE -->
         <div id="workgroup-challenge" class="screen">
             <button class="pixel-btn btn-back" onclick="confirmGoToMenu()">BACK</button>
             <div class="lives-display" id="workgroup-lives-display">
@@ -3366,7 +3134,6 @@
             </div>
         </div>
 
-        <!-- FILE SHARING VERIFICATION -->
         <div id="file-sharing-challenge" class="screen">
             <button class="pixel-btn btn-back" onclick="confirmGoToMenu()">BACK</button>
             <div class="file-sharing-workspace">
@@ -3393,7 +3160,6 @@
             </div>
         </div>
 
-        <!-- ROUTER CHALLENGE -->
         <div id="router-challenge" class="screen">
             <button class="pixel-btn btn-back" onclick="confirmGoToMenu()">BACK</button>
             <div class="lives-display" id="router-lives-display">
@@ -3441,7 +3207,6 @@
             </div>
         </div>
 
-        <!-- SECURITY CHALLENGE -->
         <div id="security-challenge" class="screen">
             <button class="pixel-btn btn-back" onclick="confirmGoToMenu()">BACK</button>
             <div class="lives-display" id="security-lives-display">
@@ -3500,9 +3265,6 @@
             </div>
         </div>
 
-        <!-- ============================================ -->
-        <!-- NEW: NETWORK TOPOLOGY CHALLENGE              -->
-        <!-- ============================================ -->
         <div id="topology-challenge" class="screen">
             <button class="pixel-btn btn-back" onclick="confirmGoToMenu()">BACK</button>
             <div class="lives-display" id="topology-lives-display">
@@ -3519,7 +3281,6 @@
                     <div class="topology-canvas">
                         <svg id="topology-svg"></svg>
                         <div class="topology-devices" id="topology-devices">
-                            <!-- Row 1: Server -->
                             <div class="device-row">
                                 <div class="device-node server" data-id="server" draggable="true" ondragstart="startTopologyDrag(event, 'server')" ondragover="event.preventDefault()" ondrop="dropTopologyConnection(event, 'server')" onclick="selectDevice('server')">
                                     <span class="device-icon">🖥️</span>
@@ -3527,7 +3288,6 @@
                                     <span class="conn-count" id="conn-server">0</span>
                                 </div>
                             </div>
-                            <!-- Row 2: Hubs -->
                             <div class="device-row">
                                 <div class="device-node hub" data-id="hub1" draggable="true" ondragstart="startTopologyDrag(event, 'hub1')" ondragover="event.preventDefault()" ondrop="dropTopologyConnection(event, 'hub1')" onclick="selectDevice('hub1')">
                                     <span class="device-icon">🔀</span>
@@ -3545,7 +3305,6 @@
                                     <span class="conn-count" id="conn-hub3">0</span>
                                 </div>
                             </div>
-                            <!-- Rows 3 and 4: Computers -->
                             <div class="device-row">
                                 <div class="device-node pc" data-id="pc1" draggable="true" ondragstart="startTopologyDrag(event, 'pc1')" ondragover="event.preventDefault()" ondrop="dropTopologyConnection(event, 'pc1')" onclick="openPCConfig('pc1')">
                                     <span class="device-icon">🖥️</span>
@@ -3621,7 +3380,6 @@
             </div>
         </div>
 
-        <!-- SUCCESS SCREEN -->
         <div id="success-screen" class="screen">
             <button class="pixel-btn btn-back" onclick="goToMenu()">BACK</button>
             <div class="success-content">
@@ -3636,7 +3394,6 @@
             </div>
         </div>
 
-        <!-- GAME OVER MODAL -->
         <div id="game-over-modal" class="modal-overlay">
             <div class="modal-content game-over-content">
                 <div class="modal-icon" style="font-size:3rem;">💔</div>
@@ -3649,7 +3406,6 @@
             </div>
         </div>
 
-        <!-- CUSTOM MODAL -->
         <div id="custom-modal" class="modal-overlay">
             <div class="modal-content">
                 <div class="modal-icon" id="modal-icon">⚠️</div>
@@ -3661,17 +3417,19 @@
 
     </div>
 
+    
     <script>
+        // ============================================
+        // FORCE CLEAN FONT ON MOBILE (runs once)
+        // ============================================
         if (!localStorage.getItem('font-clean-v1')) {
-    localStorage.removeItem('connected-font-family');
-    localStorage.setItem('font-clean-v1', 'true');
-}
-        // ============================================
-        // ConnectED - COMPLETE GAME SCRIPT
-        // NEW: Network Topology Challenge (Challenge 5)
-        // ============================================
+            localStorage.removeItem('connected-font-family');
+            localStorage.setItem('font-clean-v1', 'true');
+        }
 
-        // ===== GAME VARIABLES =====
+        // ============================================
+        // GAME VARIABLES
+        // ============================================
         var currentTargetStandard = null;
         var isPracticeMode = false;
         var lives = 5;
@@ -3695,7 +3453,6 @@
         var modalCloseAction = null;
         var currentUser = null;
 
-        // ===== PERFORMANCE TRACKING =====
         var performanceData = {
             completed: new Set(),
             scores: {},
@@ -3705,8 +3462,6 @@
             successRate: 0
         };
 
-        // ===== CHALLENGE DEFINITIONS =====
-        // Challenge 5 is now 'topology'
         var challenges = {
             1: { name: 'RJ45 Crimping - T568B', hint: 'Drag wires to correct pins in T568B order', type: 'rj45' },
             2: { name: 'Straight-Through Cable', hint: 'Both ends use T568B standard', type: 'rj45' },
@@ -3823,213 +3578,81 @@
             ]
         };
 
-        // ===== MICRO-LEARNING LESSONS =====
         var microLessons = {
             1: {
                 topic: "RJ45 Crimping - T568B Standard",
                 description: "The T568B is a standard wiring scheme for RJ45 connectors used in Ethernet networks. It defines the color order of the eight wires inside a twisted pair cable. This is the most commonly used standard in the Philippines and worldwide.",
-                points: [
-                    "T568B is the most widely used wiring standard for Ethernet cables.",
-                    "The wire order: Orange/White, Orange, Green/White, Blue, Blue/White, Green, Brown/White, Brown.",
-                    "Used for both straight-through and crossover cables.",
-                    "Both ends of a straight-through cable use the same standard.",
-                    "The T568B standard ensures compatibility with most network devices."
-                ],
+                points: ["T568B is the most widely used wiring standard for Ethernet cables.", "The wire order: Orange/White, Orange, Green/White, Blue, Blue/White, Green, Brown/White, Brown.", "Used for both straight-through and crossover cables.", "Both ends of a straight-through cable use the same standard.", "The T568B standard ensures compatibility with most network devices."],
                 example: "If you are making a network cable to connect a computer to a switch, you would use the T568B standard on both ends. The colors go: Pin 1 = Orange/White, Pin 2 = Orange, Pin 3 = Green/White, Pin 4 = Blue, Pin 5 = Blue/White, Pin 6 = Green, Pin 7 = Brown/White, Pin 8 = Brown.",
                 remember: "Remember: T568B is the default standard for most networks. Always double-check your wire order before crimping! The orange pair comes first, followed by the green pair, then blue, then brown.",
-                quiz: {
-                    question: "What is the correct wire order for T568B standard?",
-                    options: [
-                        "Orange/White, Orange, Green/White, Blue, Blue/White, Green, Brown/White, Brown",
-                        "Green/White, Green, Orange/White, Blue, Blue/White, Orange, Brown/White, Brown",
-                        "Brown/White, Brown, Green/White, Blue, Blue/White, Green, Orange/White, Orange",
-                        "Orange/White, Orange, Blue/White, Blue, Green/White, Green, Brown/White, Brown"
-                    ],
-                    correct: 0
-                }
+                quiz: { question: "What is the correct wire order for T568B standard?", options: ["Orange/White, Orange, Green/White, Blue, Blue/White, Green, Brown/White, Brown", "Green/White, Green, Orange/White, Blue, Blue/White, Orange, Brown/White, Brown", "Brown/White, Brown, Green/White, Blue, Blue/White, Green, Orange/White, Orange", "Orange/White, Orange, Blue/White, Blue, Green/White, Green, Brown/White, Brown"], correct: 0 }
             },
             9: {
                 topic: "Find IP Address Using CMD",
                 description: "Use the Windows ipconfig command to display the computer's network information, then identify its IPv4 address.",
-                points: [
-                    "Open Command Prompt inside the challenge.",
-                    "Type ipconfig and press Run.",
-                    "Find the active Ethernet adapter.",
-                    "Read the IPv4 Address value.",
-                    "Enter the IPv4 address in the answer field."
-                ],
+                points: ["Open Command Prompt inside the challenge.", "Type ipconfig and press Run.", "Find the active Ethernet adapter.", "Read the IPv4 Address value.", "Enter the IPv4 address in the answer field."],
                 example: "The IPv4 Address in this challenge is 192.168.136.128.",
                 remember: "Use the IPv4 Address, not the Subnet Mask or Default Gateway.",
-                quiz: {
-                    question: "Which command displays Windows IP configuration?",
-                    options: ["ipconfig", "ping", "format", "mkdir"],
-                    correct: 0
-                }
+                quiz: { question: "Which command displays Windows IP configuration?", options: ["ipconfig", "ping", "format", "mkdir"], correct: 0 }
             },
             2: {
                 topic: "Straight-Through Cable",
                 description: "A straight-through cable is a type of Ethernet cable where both ends use the same wiring standard (usually T568B). It is used to connect different types of devices, such as a computer to a switch or a router.",
-                points: [
-                    "Both ends of a straight-through cable use the same wiring standard.",
-                    "Most commonly used for connecting computers to network switches.",
-                    "The wire order is identical on both ends.",
-                    "It is the most common type of network cable.",
-                    "Color order: Orange/White, Orange, Green/White, Blue, Blue/White, Green, Brown/White, Brown."
-                ],
+                points: ["Both ends of a straight-through cable use the same wiring standard.", "Most commonly used for connecting computers to network switches.", "The wire order is identical on both ends.", "It is the most common type of network cable.", "Color order: Orange/White, Orange, Green/White, Blue, Blue/White, Green, Brown/White, Brown."],
                 example: "When connecting your PC to the school's network switch, you would use a straight-through cable. Both ends of the cable follow the T568B standard so the signals pass through correctly.",
                 remember: "Straight-through = same standard on both ends. Use this when connecting different types of devices (computer to switch).",
-                quiz: {
-                    question: "When would you use a straight-through cable?",
-                    options: [
-                        "Connecting a computer to a switch",
-                        "Connecting two computers directly",
-                        "Connecting two switches directly",
-                        "Connecting a computer to a router directly"
-                    ],
-                    correct: 0
-                }
+                quiz: { question: "When would you use a straight-through cable?", options: ["Connecting a computer to a switch", "Connecting two computers directly", "Connecting two switches directly", "Connecting a computer to a router directly"], correct: 0 }
             },
             3: {
                 topic: "Crossover Cable",
                 description: "A crossover cable is a type of Ethernet cable where one end uses T568A and the other uses T568B. It is used to connect two similar devices directly, such as two computers or two switches.",
-                points: [
-                    "One end uses T568A, the other uses T568B.",
-                    "Used to connect similar devices directly (PC to PC, Switch to Switch).",
-                    "The transmit and receive pairs are crossed over.",
-                    "Less common today because modern devices auto-detect cable types.",
-                    "Still useful for direct connections without a switch."
-                ],
+                points: ["One end uses T568A, the other uses T568B.", "Used to connect similar devices directly (PC to PC, Switch to Switch).", "The transmit and receive pairs are crossed over.", "Less common today because modern devices auto-detect cable types.", "Still useful for direct connections without a switch."],
                 example: "If you want to connect two laptops directly to share files without a switch, you would use a crossover cable. One end is T568A and the other is T568B so the signals cross properly.",
                 remember: "Crossover = different standards on each end. Use this for same-type devices (PC to PC, Switch to Switch). Modern devices often don't need it anymore!",
-                quiz: {
-                    question: "What type of cable connects two computers directly?",
-                    options: [
-                        "Straight-through cable",
-                        "Crossover cable",
-                        "Rollover cable",
-                        "Fiber optic cable"
-                    ],
-                    correct: 1
-                }
+                quiz: { question: "What type of cable connects two computers directly?", options: ["Straight-through cable", "Crossover cable", "Rollover cable", "Fiber optic cable"], correct: 1 }
             },
             4: {
                 topic: "IP Configuration",
                 description: "IP Configuration is the process of assigning a unique IP address to a device on a network. This allows the device to communicate with other devices. A proper IP configuration includes an IP address, subnet mask, default gateway, and DNS server.",
-                points: [
-                    "Every device on a network needs a unique IP address.",
-                    "IP addresses identify devices on the network.",
-                    "The subnet mask determines which part is the network and which is the host.",
-                    "The default gateway is the router that connects to other networks.",
-                    "DNS servers translate domain names (like google.com) to IP addresses."
-                ],
+                points: ["Every device on a network needs a unique IP address.", "IP addresses identify devices on the network.", "The subnet mask determines which part is the network and which is the host.", "The default gateway is the router that connects to other networks.", "DNS servers translate domain names (like google.com) to IP addresses."],
                 example: "A computer is configured with: IP: 192.168.1.2, Subnet: 255.255.255.0, Gateway: 192.168.1.1, DNS: 8.8.8.8. This allows it to communicate with other devices on the network and access the internet.",
                 remember: "IP address = your device's unique ID. Subnet mask = tells you which network you're on. Gateway = the door to the internet. DNS = the phonebook that turns names into addresses.",
-                quiz: {
-                    question: "What is the correct IPv4 address format?",
-                    options: [
-                        "192.168.1.2",
-                        "192.168.1",
-                        "192.168.1.2.3",
-                        "192-168-1-2"
-                    ],
-                    correct: 0
-                }
+                quiz: { question: "What is the correct IPv4 address format?", options: ["192.168.1.2", "192.168.1", "192.168.1.2.3", "192-168-1-2"], correct: 0 }
             },
             5: {
                 topic: "Network Topology - Connecting Devices",
                 description: "A network topology is the arrangement of devices and cables in a network. In a star topology, all devices connect to a central switch or router. This is the most common topology in modern networks.",
-                points: [
-                    "A network topology defines how devices are connected.",
-                    "In a star topology, all devices connect to a central hub/switch.",
-                    "Routers connect different networks together.",
-                    "Switches connect devices within the same network.",
-                    "Each device needs a physical connection to the network."
-                ],
+                points: ["A network topology defines how devices are connected.", "In a star topology, all devices connect to a central hub/switch.", "Routers connect different networks together.", "Switches connect devices within the same network.", "Each device needs a physical connection to the network."],
                 example: "In a small office network, a router connects to the internet. Three switches connect to the router, and each switch connects to multiple computers. This creates a hierarchical star topology.",
                 remember: "Remember: Router → Switch → PC is the basic building block of a network. Each connection must be correct for the network to work properly!",
-                quiz: {
-                    question: "What is the correct connection order in a typical network?",
-                    options: [
-                        "Router → Switch → PC",
-                        "PC → Router → Switch",
-                        "Switch → PC → Router",
-                        "PC → Switch → Router"
-                    ],
-                    correct: 0
-                }
+                quiz: { question: "What is the correct connection order in a typical network?", options: ["Router → Switch → PC", "PC → Router → Switch", "Switch → PC → Router", "PC → Switch → Router"], correct: 0 }
             },
             6: {
                 topic: "Workgroup & Sharing Setup",
                 description: "A workgroup is a peer-to-peer network setup where computers communicate directly with each other without a central server. Sharing setup involves enabling network discovery and file sharing so computers can see and access each other's files.",
-                points: [
-                    "A workgroup is a small network without a central server.",
-                    "All computers should have the same workgroup name (e.g., WORKGROUP).",
-                    "Turn on Network Discovery to see other computers on the network.",
-                    "Turn on File and Printer Sharing to share resources.",
-                    "Turn off password-protected sharing for easier access in a lab setting."
-                ],
+                points: ["A workgroup is a small network without a central server.", "All computers should have the same workgroup name (e.g., WORKGROUP).", "Turn on Network Discovery to see other computers on the network.", "Turn on File and Printer Sharing to share resources.", "Turn off password-protected sharing for easier access in a lab setting."],
                 example: "In a computer lab, all PCs are set to the same workgroup 'WORKGROUP'. Network Discovery is turned on so students can see each other's computers. File Sharing is enabled so they can share project files easily.",
                 remember: "Same workgroup name = computers can see each other. Network Discovery ON = visible to others. File Sharing ON = can share files. Password Protection OFF = easier access in a trusted environment.",
-                quiz: {
-                    question: "What must all computers in a workgroup have in common?",
-                    options: [
-                        "The same workgroup name",
-                        "The same IP address",
-                        "The same computer name",
-                        "The same subnet mask"
-                    ],
-                    correct: 0
-                }
+                quiz: { question: "What must all computers in a workgroup have in common?", options: ["The same workgroup name", "The same IP address", "The same computer name", "The same subnet mask"], correct: 0 }
             },
             7: {
                 topic: "Router & Connectivity Testing",
                 description: "Routers connect different networks together and direct traffic between them. Connectivity testing using the ping command verifies that devices can communicate successfully. It tests the physical connection and IP configuration.",
-                points: [
-                    "Routers connect networks and direct internet traffic.",
-                    "The ping command tests network connectivity.",
-                    "Ping sends ICMP echo requests to a target IP address.",
-                    "A successful ping means the connection is working.",
-                    "Troubleshoot by pinging your gateway, then internet addresses."
-                ],
+                points: ["Routers connect networks and direct internet traffic.", "The ping command tests network connectivity.", "Ping sends ICMP echo requests to a target IP address.", "A successful ping means the connection is working.", "Troubleshoot by pinging your gateway, then internet addresses."],
                 example: "To test your network connection, you can ping the router's IP: ping 192.168.1.1. If you get replies, your connection to the router is working. Then ping google.com to check internet connectivity.",
                 remember: "Ping = the network test tool. Start by pinging your own IP (localhost), then your gateway, then the internet. This helps you find where the problem is.",
-                quiz: {
-                    question: "What does the ping command test?",
-                    options: [
-                        "Network connectivity",
-                        "File sharing",
-                        "Wireless signal strength",
-                        "IP address assignment"
-                    ],
-                    correct: 0
-                }
+                quiz: { question: "What does the ping command test?", options: ["Network connectivity", "File sharing", "Wireless signal strength", "IP address assignment"], correct: 0 }
             },
             8: {
                 topic: "Network Security",
                 description: "Network security involves protecting the network from unauthorized access and threats. This includes enabling firewalls, using strong passwords, implementing MAC filtering, and securing wireless networks with encryption like WPA2.",
-                points: [
-                    "Firewalls block unauthorized access to the network.",
-                    "WPA2/WPA3 encryption secures wireless networks.",
-                    "MAC filtering allows only approved devices to connect.",
-                    "Strong passwords prevent unauthorized access.",
-                    "Regular updates and monitoring keep the network secure."
-                ],
+                points: ["Firewalls block unauthorized access to the network.", "WPA2/WPA3 encryption secures wireless networks.", "MAC filtering allows only approved devices to connect.", "Strong passwords prevent unauthorized access.", "Regular updates and monitoring keep the network secure."],
                 example: "A school network has a firewall that blocks unauthorized traffic, WPA2 encryption on the Wi-Fi so only students with the password can connect, and MAC filtering to allow only registered school devices.",
                 remember: "Security = protection. Firewall = gatekeeper. Encryption = scrambles data so only authorized users can read it. Keep your passwords strong and your software updated!",
-                quiz: {
-                    question: "Which of these is a method to secure a wireless network?",
-                    options: [
-                        "WPA2 encryption",
-                        "Using a crossover cable",
-                        "Disabling DHCP",
-                        "Using static IP addresses"
-                    ],
-                    correct: 0
-                }
+                quiz: { question: "Which of these is a method to secure a wireless network?", options: ["WPA2 encryption", "Using a crossover cable", "Disabling DHCP", "Using static IP addresses"], correct: 0 }
             }
         };
 
-        // ===== WIRE DEFINITIONS (for RJ45) =====
         var standards = {
             T568A: ['Green+White', 'Green', 'Orange+White', 'Blue', 'Blue+White', 'Orange', 'Brown+White', 'Brown'],
             T568B: ['Orange+White', 'Orange', 'Green+White', 'Blue', 'Blue+White', 'Green', 'Brown+White', 'Brown']
@@ -4046,64 +3669,28 @@
             { name: 'Brown', bg: '#6d4c41' }
         ];
 
-        // ===== CORRECT CONFIGURATIONS =====
-        var correctIPConfig = {
-            ipAddress: '192.168.1.2',
-            subnetMask: '255.255.255.0',
-            defaultGateway: '192.168.1.1',
-            dnsServer: '8.8.8.8'
-        };
+        var correctIPConfig = { ipAddress: '192.168.1.2', subnetMask: '255.255.255.0', defaultGateway: '192.168.1.1', dnsServer: '8.8.8.8' };
+        var correctWorkgroupConfig = { computerName: 'PC-01', workgroup: 'WORKGROUP', networkDiscovery: true, fileSharing: true, passwordProtection: false };
+        var correctRouterConfig = { ssid: 'OfficeNet', security: 'WPA2', lanIp: '192.168.1.1', pingIp: '192.168.1.1' };
+        var correctSecurityConfig = { firewall: true, wpa2: true, macFiltering: true, autoUpdates: true, minPasswordLength: 8 };
 
-        var correctWorkgroupConfig = {
-            computerName: 'PC-01',
-            workgroup: 'WORKGROUP',
-            networkDiscovery: true,
-            fileSharing: true,
-            passwordProtection: false
-        };
-
-        var correctRouterConfig = {
-            ssid: 'OfficeNet',
-            security: 'WPA2',
-            lanIp: '192.168.1.1',
-            pingIp: '192.168.1.1'
-        };
-
-        var correctSecurityConfig = {
-            firewall: true,
-            wpa2: true,
-            macFiltering: true,
-            autoUpdates: true,
-            minPasswordLength: 8
-        };
-
-        // ============================================
-        // TOPOLOGY CHALLENGE VARIABLES
-        // ============================================
-        var topologyConnections = {}; // { deviceId: [connectedDeviceIds] }
+        var topologyConnections = {};
         var topologySelected = null;
         var topologyCorrect = {
             server: ['hub1', 'hub2', 'hub3'],
             hub1: ['server', 'pc1', 'pc2'],
             hub2: ['server', 'pc3', 'pc4'],
             hub3: ['server', 'pc5', 'pc6'],
-            pc1: ['hub1'],
-            pc2: ['hub1'],
-            pc3: ['hub2'],
-            pc4: ['hub2'],
-            pc5: ['hub3'],
-            pc6: ['hub3']
+            pc1: ['hub1'], pc2: ['hub1'], pc3: ['hub2'], pc4: ['hub2'], pc5: ['hub3'], pc6: ['hub3']
         };
-        var topologyMaxConnections = 9; // Total connections needed
+        var topologyMaxConnections = 9;
         var topologyCurrentConnections = 0;
         var routerQuizIndex = 0;
         var crossoverDragWire = null;
         var topologyPCConfigs = {};
         var activePCConfig = null;
+        var selectedWireForTouch = null;
 
-        // ============================================
-        // AUDIO SYSTEM
-        // ============================================
         var bgMusic = document.getElementById('bg-music');
         var clickSound = new Audio('music/CLICKSOUND.wav');
         clickSound.preload = 'auto';
@@ -4129,8 +3716,7 @@
             document.querySelectorAll('video').forEach(function(video) {
                 video.volume = masterVolume;
                 video.muted = true;
-                if (video.id !== 'menu-bg-video' && video.id !== 'success-video' &&
-                    document.getElementById('main-menu').classList.contains('active')) {
+                if (video.id !== 'menu-bg-video' && video.id !== 'success-video' && document.getElementById('main-menu').classList.contains('active')) {
                     video.pause();
                 }
             });
@@ -4144,19 +3730,13 @@
                 if (menuVideo) menuVideo.pause();
                 return;
             }
-            if (menuVideo) {
-                menuVideo.currentTime = 0;
-                menuVideo.play().catch(function(e) { console.log('Menu video play prevented:', e); });
-            }
+            if (menuVideo) { menuVideo.currentTime = 0; menuVideo.play().catch(function(e) { console.log('Menu video play prevented:', e); }); }
             menuVoice.currentTime = 0;
             menuVoice.play().catch(function(e) { console.log('Menu voice play prevented:', e); });
             setTimeout(function() {
                 menuVoice.pause();
                 menuVoice.currentTime = 0;
-                if (menuVideo) {
-                    menuVideo.pause();
-                    menuVideo.currentTime = 0;
-                }
+                if (menuVideo) { menuVideo.pause(); menuVideo.currentTime = 0; }
             }, 9900);
         }
 
@@ -4208,21 +3788,11 @@
             document.getElementById('settings-overlay').classList.toggle('open', open);
         }
 
-        document.getElementById('master-volume').addEventListener('input', function(event) {
-            updateSoundSetting('master', event.target.value);
-        });
-        document.getElementById('music-volume').addEventListener('input', function(event) {
-            updateSoundSetting('music', event.target.value);
-        });
-        document.getElementById('font-size').addEventListener('input', function(event) {
-            updateSoundSetting('font-size', event.target.value);
-        });
-        document.getElementById('font-family').addEventListener('change', function(event) {
-            updateSoundSetting('font-family', event.target.value);
-        });
-        document.getElementById('sound-muted').addEventListener('change', function(event) {
-            updateSoundSetting('muted', event.target.checked);
-        });
+        document.getElementById('master-volume').addEventListener('input', function(event) { updateSoundSetting('master', event.target.value); });
+        document.getElementById('music-volume').addEventListener('input', function(event) { updateSoundSetting('music', event.target.value); });
+        document.getElementById('font-size').addEventListener('input', function(event) { updateSoundSetting('font-size', event.target.value); });
+        document.getElementById('font-family').addEventListener('change', function(event) { updateSoundSetting('font-family', event.target.value); });
+        document.getElementById('sound-muted').addEventListener('change', function(event) { updateSoundSetting('muted', event.target.checked); });
         document.getElementById('settings-overlay').addEventListener('click', function(event) {
             if (event.target === event.currentTarget) toggleSettings(false);
         });
@@ -4239,12 +3809,7 @@
                 startMenuVoiceCycle();
             }
             if (!isAudioPlaying) {
-                bgMusic.play().then(function() {
-                    isAudioPlaying = true;
-                    console.log('🎵 BGM playing continuously at low volume (15%)');
-                }).catch(function(e) {
-                    console.log('Audio play prevented:', e);
-                });
+                bgMusic.play().then(function() { isAudioPlaying = true; }).catch(function(e) { console.log('Audio play prevented:', e); });
             }
         }
 
@@ -4252,11 +3817,8 @@
         document.addEventListener('click', function(event) {
             var button = event.target.closest('button');
             if (!button) return;
-
             clickSound.currentTime = 0;
-            clickSound.play().catch(function(e) {
-                console.log('Click sound play prevented:', e);
-            });
+            clickSound.play().catch(function(e) { console.log('Click sound prevented:', e); });
         });
         document.addEventListener('touchstart', playMusic);
         document.addEventListener('keydown', playMusic);
@@ -4272,105 +3834,60 @@
             bgMusic.play().catch(function(e) { console.log('Restart error:', e); });
         });
 
-        // ============================================
-        // HELPER: Play story video with AUDIO
-        // ============================================
         function playStoryVideo(videoElement) {
             if (!videoElement) return;
             videoElement.muted = soundMuted;
             videoElement.volume = masterVolume;
             videoElement.play().catch(function(error) {
-                console.warn('🔇 Video autoplay with sound blocked:', error);
+                console.warn('🔇 Video autoplay blocked:', error);
                 setTimeout(function() {
-                    videoElement.play().catch(function(e2) {
-                        console.log('Still blocked, user must interact with page.');
-                    });
+                    videoElement.play().catch(function(e2) { console.log('Still blocked.'); });
                 }, 300);
             });
         }
 
-        // ============================================
-        // STORY FLOW FUNCTIONS (with audio)
-        // ============================================
-
         function startChallenge() {
-            isPracticeMode = false;
-            lives = maxLives;
-            score = 0;
-            isGameOver = false;
-            challengeIndex = 0;
-            updateAllLives();
-            updateAllScores();
+            isPracticeMode = false; lives = maxLives; score = 0; isGameOver = false; challengeIndex = 0;
+            updateAllLives(); updateAllScores();
             showScreen('story-1');
             var storyVideo = document.getElementById('story-img-1');
-            if (storyVideo) {
-                storyVideo.currentTime = 0;
-                playStoryVideo(storyVideo);
-            }
-            console.log('🎬 Starting story - cha1.mp4 with AUDIO');
+            if (storyVideo) { storyVideo.currentTime = 0; playStoryVideo(storyVideo); }
         }
 
         function goToStory2() {
             var storyOneVideo = document.getElementById('story-img-1');
-            if (storyOneVideo) {
-                storyOneVideo.pause();
-                storyOneVideo.currentTime = 0;
-            }
+            if (storyOneVideo) { storyOneVideo.pause(); storyOneVideo.currentTime = 0; }
             showScreen('story-2');
             var storyVideo = document.getElementById('story-img-2');
-            if (storyVideo) {
-                storyVideo.currentTime = 0;
-                playStoryVideo(storyVideo);
-            }
-            console.log('📖 Going to story 2 - cha2.mp4 with AUDIO');
+            if (storyVideo) { storyVideo.currentTime = 0; playStoryVideo(storyVideo); }
         }
 
         function goToGame() {
             var storyVideo = document.getElementById('story-img-2');
-            if (storyVideo) {
-                storyVideo.pause();
-                storyVideo.currentTime = 0;
-            }
+            if (storyVideo) { storyVideo.pause(); storyVideo.currentTime = 0; }
             currentChallenge = challengeOrder[challengeIndex];
-            if (currentChallenge === 4) {
-                startIPStorySequence();
-            } else {
-                showMicroLearning(currentChallenge, false);
-            }
+            if (currentChallenge === 4) { startIPStorySequence(); }
+            else { showMicroLearning(currentChallenge, false); }
         }
 
         function startIPStorySequence() {
             isIPStoryFlow = true;
             showScreen('story-ip1');
             var ipVideo1 = document.getElementById('story-ip1-video');
-            if (ipVideo1) {
-                ipVideo1.currentTime = 0;
-                playStoryVideo(ipVideo1);
-            }
-            console.log('🎬 Starting IP story 1 - IP1.mp4 with AUDIO');
+            if (ipVideo1) { ipVideo1.currentTime = 0; playStoryVideo(ipVideo1); }
         }
 
         function goToIPStory2() {
             var ipVideo1 = document.getElementById('story-ip1-video');
-            if (ipVideo1) {
-                ipVideo1.pause();
-                ipVideo1.currentTime = 0;
-            }
+            if (ipVideo1) { ipVideo1.pause(); ipVideo1.currentTime = 0; }
             showScreen('story-ip2');
             var ipVideo2 = document.getElementById('story-ip2-video');
-            if (ipVideo2) {
-                ipVideo2.currentTime = 0;
-                playStoryVideo(ipVideo2);
-            }
-            console.log('📖 Going to IP story 2 - IP2.mp4 with AUDIO');
+            if (ipVideo2) { ipVideo2.currentTime = 0; playStoryVideo(ipVideo2); }
         }
 
         function proceedToIPChallenge() {
             var ipVideo2 = document.getElementById('story-ip2-video');
-            if (ipVideo2) {
-                ipVideo2.pause();
-                ipVideo2.currentTime = 0;
-            }
+            if (ipVideo2) { ipVideo2.pause(); ipVideo2.currentTime = 0; }
             isIPStoryFlow = false;
             currentChallenge = 4;
             showMicroLearning(4, isPracticeMode);
@@ -4379,138 +3896,78 @@
         function startRouterStorySequence() {
             showScreen('story-router1');
             var routerVideo1 = document.getElementById('story-router1-video');
-            if (routerVideo1) {
-                routerVideo1.currentTime = 0;
-                playStoryVideo(routerVideo1);
-            }
-            console.log('🎬 Starting router story 1 - R1.mp4');
+            if (routerVideo1) { routerVideo1.currentTime = 0; playStoryVideo(routerVideo1); }
         }
 
         function goToRouterStory2() {
             var routerVideo1 = document.getElementById('story-router1-video');
-            if (routerVideo1) {
-                routerVideo1.pause();
-                routerVideo1.currentTime = 0;
-            }
+            if (routerVideo1) { routerVideo1.pause(); routerVideo1.currentTime = 0; }
             showScreen('story-router2');
             var routerVideo2 = document.getElementById('story-router2-video');
-            if (routerVideo2) {
-                routerVideo2.currentTime = 0;
-                playStoryVideo(routerVideo2);
-            }
-            console.log('📖 Going to router story 2 - R2.mp4');
+            if (routerVideo2) { routerVideo2.currentTime = 0; playStoryVideo(routerVideo2); }
         }
 
         function proceedToRouterChallenge() {
             var routerVideo2 = document.getElementById('story-router2-video');
-            if (routerVideo2) {
-                routerVideo2.pause();
-                routerVideo2.currentTime = 0;
-            }
+            if (routerVideo2) { routerVideo2.pause(); routerVideo2.currentTime = 0; }
             showScreen('router-challenge');
             document.getElementById('router-status').innerHTML = "STATUS: " + challenges[7].name;
             resetRouterConfig();
             initRouterQuiz();
-            console.log('📶 Starting Router challenge setup');
         }
 
         function startWorkgroupStorySequence() {
             showScreen('story-workgroup1');
             var workgroupVideo1 = document.getElementById('story-workgroup1-video');
-            if (workgroupVideo1) {
-                workgroupVideo1.currentTime = 0;
-                playStoryVideo(workgroupVideo1);
-            }
-            console.log('🎬 Starting Workgroup story 1 - W1.mp4');
+            if (workgroupVideo1) { workgroupVideo1.currentTime = 0; playStoryVideo(workgroupVideo1); }
         }
 
         function goToWorkgroupStory2() {
             var workgroupVideo1 = document.getElementById('story-workgroup1-video');
-            if (workgroupVideo1) {
-                workgroupVideo1.pause();
-                workgroupVideo1.currentTime = 0;
-            }
+            if (workgroupVideo1) { workgroupVideo1.pause(); workgroupVideo1.currentTime = 0; }
             showScreen('story-workgroup2');
             var workgroupVideo2 = document.getElementById('story-workgroup2-video');
-            if (workgroupVideo2) {
-                workgroupVideo2.currentTime = 0;
-                playStoryVideo(workgroupVideo2);
-            }
-            console.log('📖 Going to Workgroup story 2 - W2.mp4');
+            if (workgroupVideo2) { workgroupVideo2.currentTime = 0; playStoryVideo(workgroupVideo2); }
         }
 
         function proceedToWorkgroupChallenge() {
             var workgroupVideo2 = document.getElementById('story-workgroup2-video');
-            if (workgroupVideo2) {
-                workgroupVideo2.pause();
-                workgroupVideo2.currentTime = 0;
-            }
+            if (workgroupVideo2) { workgroupVideo2.pause(); workgroupVideo2.currentTime = 0; }
             showScreen('workgroup-challenge');
             document.getElementById('workgroup-status').innerHTML = "STATUS: " + challenges[6].name;
             resetWorkgroupConfig();
-            console.log('🏢 Starting Workgroup challenge setup');
         }
 
         function startPractice() {
-            isPracticeMode = true;
-            lives = maxLives;
-            score = 0;
-            isGameOver = false;
-            challengeIndex = 0;
-            updateAllLives();
-            updateAllScores();
+            isPracticeMode = true; lives = maxLives; score = 0; isGameOver = false; challengeIndex = 0;
+            updateAllLives(); updateAllScores();
             currentChallenge = challengeOrder[0];
-            if (currentChallenge === 4) {
-                startIPStorySequence();
-            } else {
-                showMicroLearning(currentChallenge, true);
-            }
-            console.log('📚 Practice mode started');
+            if (currentChallenge === 4) { startIPStorySequence(); }
+            else { showMicroLearning(currentChallenge, true); }
         }
 
-        function startQuizMode() {
-            startModuleQuiz(1, true);
-            console.log('📝 Quiz mode started');
-        }
+        function startQuizMode() { startModuleQuiz(1, true); }
 
         function startModuleQuiz(moduleId, onlyQuiz) {
             quizOnlyMode = onlyQuiz === true;
             quizQuestionLimit = quizOnlyMode ? 10 : 3;
-            isPracticeMode = true;
-            lives = maxLives;
-            score = 0;
-            isGameOver = false;
+            isPracticeMode = true; lives = maxLives; score = 0; isGameOver = false;
             currentChallenge = moduleId;
             challengeIndex = challengeOrder.indexOf(moduleId);
             if (challengeIndex < 0) challengeIndex = 0;
-            updateAllLives();
-            updateAllScores();
+            updateAllLives(); updateAllScores();
             showMicroLearning(moduleId, true);
         }
 
         function startSpecificChallenge(challengeId) {
-            isPracticeMode = false;
-            lives = maxLives;
-            score = 0;
-            isGameOver = false;
-            updateAllLives();
-            updateAllScores();
+            isPracticeMode = false; lives = maxLives; score = 0; isGameOver = false;
+            updateAllLives(); updateAllScores();
             currentChallenge = challengeId;
-            if (challengeId === 4) {
-                startIPStorySequence();
-            } else if (challengeId === 6) {
-                startWorkgroupStorySequence();
-            } else if (challengeId === 7) {
-                startRouterStorySequence();
-            } else {
-                showMicroLearning(challengeId, false);
-            }
-            console.log('🎯 Starting specific challenge:', challengeId);
+            if (challengeId === 4) { startIPStorySequence(); }
+            else if (challengeId === 6) { startWorkgroupStorySequence(); }
+            else if (challengeId === 7) { startRouterStorySequence(); }
+            else { showMicroLearning(challengeId, false); }
         }
-
-        // ============================================
-        // MICRO-LEARNING FUNCTIONS
-        // ============================================
 
         function showMicroLearning(challengeId, isPractice) {
             learningChallengeId = challengeId;
@@ -4519,15 +3976,10 @@
             quizQuestionLimit = quizOnlyMode ? 10 : 3;
 
             var lesson = microLessons[challengeId];
-            if (!lesson) {
-                console.error('No lesson found for challenge:', challengeId);
-                loadChallenge(challengeId);
-                return;
-            }
+            if (!lesson) { loadChallenge(challengeId); return; }
 
             document.getElementById('ml-topic').textContent = '📚 ' + lesson.topic;
-            document.getElementById('ml-challenge-name').textContent = 'Challenge ' + challengeId + ': ' + challenges[
-                challengeId].name;
+            document.getElementById('ml-challenge-name').textContent = 'Challenge ' + challengeId + ': ' + challenges[challengeId].name;
             document.getElementById('ml-description').textContent = lesson.description;
 
             var pointsList = document.getElementById('ml-points');
@@ -4546,15 +3998,10 @@
             document.getElementById('ml-progress-text').textContent = challengeIndex + ' / ' + challengeOrder.length;
 
             var badge = document.getElementById('ml-practice-badge');
-            if (isPractice) {
-                badge.classList.add('active');
-            } else {
-                badge.classList.remove('active');
-            }
+            if (isPractice) { badge.classList.add('active'); } else { badge.classList.remove('active'); }
 
             quizQuestionIndex = 0;
             renderQuizQuestion(challengeId);
-
             showScreen('micro-learning');
         }
 
@@ -4575,9 +4022,7 @@
                 answer.className = 'ml-quiz-option';
                 answer.textContent = String.fromCharCode(65 + index) + '. ' + option;
                 answer.dataset.index = index;
-                answer.onclick = function() {
-                    checkQuizAnswer(this, question.correct, challengeId);
-                };
+                answer.onclick = function() { checkQuizAnswer(this, question.correct, challengeId); };
                 optionsContainer.appendChild(answer);
             });
             startBtn.disabled = true;
@@ -4587,9 +4032,7 @@
         function checkQuizAnswer(element, correctIndex, challengeId) {
             var options = document.querySelectorAll('.ml-quiz-option');
             var selected = parseInt(element.dataset.index);
-            options.forEach(function(option) {
-                option.style.pointerEvents = 'none';
-            });
+            options.forEach(function(option) { option.style.pointerEvents = 'none'; });
             if (selected === correctIndex) {
                 element.classList.add('correct');
                 quizScore++;
@@ -4603,9 +4046,7 @@
                     completeButton.disabled = false;
                     completeButton.textContent = quizOnlyMode ? 'NEXT MODULE' : '🚀 START CHALLENGE';
                 } else {
-                    setTimeout(function() {
-                        renderQuizQuestion(challengeId);
-                    }, 450);
+                    setTimeout(function() { renderQuizQuestion(challengeId); }, 450);
                 }
             } else {
                 element.classList.add('wrong');
@@ -4620,75 +4061,52 @@
         }
 
         function exitMicroLearning() {
-            if (learningIsPractice) {
-                goToMenu();
-            } else {
-                showScreen('challenge-select');
-            }
+            if (learningIsPractice) { goToMenu(); }
+            else { showScreen('challenge-select'); }
         }
 
         function startChallengeFromLearning() {
             if (quizOnlyMode) {
                 var nextModuleIndex = challengeOrder.indexOf(learningChallengeId) + 1;
-                if (nextModuleIndex < challengeOrder.length) {
-                    startModuleQuiz(challengeOrder[nextModuleIndex]);
-                } else {
-                    showChallengeSelect();
-                }
+                if (nextModuleIndex < challengeOrder.length) { startModuleQuiz(challengeOrder[nextModuleIndex]); }
+                else { showChallengeSelect(); }
                 return;
             }
-            if (learningIsPractice) {
-                isPracticeMode = true;
-            } else {
-                isPracticeMode = false;
-            }
-            if (learningChallengeId === 6) {
-                startWorkgroupStorySequence();
-            } else if (learningChallengeId === 7) {
-                startRouterStorySequence();
-            } else {
-                loadChallenge(learningChallengeId);
-            }
+            if (learningIsPractice) { isPracticeMode = true; } else { isPracticeMode = false; }
+            if (learningChallengeId === 6) { startWorkgroupStorySequence(); }
+            else if (learningChallengeId === 7) { startRouterStorySequence(); }
+            else { loadChallenge(learningChallengeId); }
         }
-
-        // ============================================
-        // LOAD CHALLENGE
-        // ============================================
 
         function loadChallenge(challengeId) {
             var challenge = challenges[challengeId];
-            if (challenge.type === 'crossover') {
-                showScreen('crossover-challenge');
-                resetCrossoverCable();
-            } else if (challenge.type === 'cmd-ip') {
-                showScreen('cmd-ip-challenge');
-                resetCmdIPChallenge();
-            } else if (challenge.type === 'ip') {
+            if (challenge.type === 'crossover') { showScreen('crossover-challenge'); resetCrossoverCable(); }
+            else if (challenge.type === 'cmd-ip') { showScreen('cmd-ip-challenge'); resetCmdIPChallenge(); }
+            else if (challenge.type === 'ip') {
                 showScreen('ip-challenge');
                 document.getElementById('ip-status').innerHTML = "STATUS: " + challenge.name;
                 document.getElementById('ip-title').textContent = "💻 " + challenge.name;
                 resetIPConfig();
-                console.log('💻 Starting IP challenge:', challengeId);
-            } else if (challenge.type === 'workgroup') {
+            }
+            else if (challenge.type === 'workgroup') {
                 showScreen('workgroup-challenge');
                 document.getElementById('workgroup-status').innerHTML = "STATUS: " + challenge.name;
                 resetWorkgroupConfig();
-                console.log('🏢 Starting Workgroup challenge:', challengeId);
-            } else if (challenge.type === 'router') {
-                startRouterStorySequence();
-            } else if (challenge.type === 'security') {
+            }
+            else if (challenge.type === 'router') { startRouterStorySequence(); }
+            else if (challenge.type === 'security') {
                 showScreen('security-challenge');
                 document.getElementById('security-status').innerHTML = "STATUS: " + challenge.name;
                 document.querySelector('.security-title').textContent = "🔒 " + challenge.name;
                 resetSecurityConfig();
-                console.log('🔒 Starting Security challenge:', challengeId);
-            } else if (challenge.type === 'topology') {
+            }
+            else if (challenge.type === 'topology') {
                 showScreen('topology-challenge');
                 document.getElementById('topology-status').innerHTML = "STATUS: " + challenge.name;
                 document.querySelector('.topology-title').textContent = "🌐 " + challenge.name;
                 resetTopology();
-                console.log('🌐 Starting Topology challenge:', challengeId);
-            } else {
+            }
+            else {
                 showScreen('challenge-2');
                 document.getElementById('pinout-list').classList.add('hidden');
                 document.getElementById('game-status').innerHTML = "STATUS: " + challenge.name;
@@ -4696,39 +4114,24 @@
                 document.getElementById('challenge-hint').textContent = challenge.hint;
                 resetGameState();
                 initWirePalette();
-                console.log('🎯 Starting RJ45 challenge:', challengeId);
             }
         }
-
-        // ============================================
-        // GO TO NEXT CHALLENGE
-        // ============================================
 
         function goToNextChallenge() {
             challengeIndex++;
             if (challengeIndex < challengeOrder.length) {
                 currentChallenge = challengeOrder[challengeIndex];
-                if (currentChallenge === 4) {
-                    startIPStorySequence();
-                } else if (currentChallenge === 7) {
-                    startRouterStorySequence();
-                } else {
-                    showMicroLearning(currentChallenge, isPracticeMode);
-                }
+                if (currentChallenge === 4) { startIPStorySequence(); }
+                else if (currentChallenge === 7) { startRouterStorySequence(); }
+                else { showMicroLearning(currentChallenge, isPracticeMode); }
             } else {
                 showModal('🎉 You completed all challenges! Great job!', 'success', '🏆 CHAMPION!');
                 goToMenu();
             }
         }
 
-        // ============================================
-        // LIVES & SCORE
-        // ============================================
-
         function updateAllLives() {
-            var elements = ['lives-icons', 'ip-lives-icons', 'workgroup-lives-icons', 'router-lives-icons',
-                'security-lives-icons', 'topology-lives-icons', 'cmd-ip-lives-icons', 'crossover-lives-icons'
-            ];
+            var elements = ['lives-icons', 'ip-lives-icons', 'workgroup-lives-icons', 'router-lives-icons', 'security-lives-icons', 'topology-lives-icons', 'cmd-ip-lives-icons', 'crossover-lives-icons'];
             elements.forEach(function(id) {
                 var el = document.getElementById(id);
                 if (el) {
@@ -4741,83 +4144,53 @@
         }
 
         function updateAllScores() {
-            var elements = ['score-display', 'ip-score-display', 'workgroup-score-display', 'router-score-display',
-                'security-score-display', 'topology-score-display', 'cmd-ip-score-display', 'crossover-score-display'
-            ];
+            var elements = ['score-display', 'ip-score-display', 'workgroup-score-display', 'router-score-display', 'security-score-display', 'topology-score-display', 'cmd-ip-score-display', 'crossover-score-display'];
             elements.forEach(function(id) {
                 var el = document.getElementById(id);
                 if (el) el.textContent = 'SCORE: ' + score;
             });
         }
 
-        // ============================================
-        // LOSE LIFE
-        // ============================================
-
         function loseLife() {
             if (isPracticeMode) {
-                var status = document.getElementById('ip-status') ||
-                    document.getElementById('cmd-ip-status') ||
-                    document.getElementById('workgroup-status') ||
-                    document.getElementById('router-status') ||
-                    document.getElementById('security-status') ||
-                    document.getElementById('topology-status') ||
+                var status = document.getElementById('ip-status') || document.getElementById('cmd-ip-status') ||
+                    document.getElementById('workgroup-status') || document.getElementById('router-status') ||
+                    document.getElementById('security-status') || document.getElementById('topology-status') ||
                     document.getElementById('game-status');
                 if (status) {
                     status.innerHTML = "⚠️ PRACTICE MODE: No lives lost!";
                     status.style.color = '#f39c12';
-                    setTimeout(function() {
-                        status.style.color = '#f1c40f';
-                    }, 1500);
+                    setTimeout(function() { status.style.color = '#f1c40f'; }, 1500);
                 }
                 return;
             }
-
             lives--;
             updateAllLives();
-
             var livesIcons = document.getElementById('lives-icons');
             if (livesIcons) {
                 livesIcons.classList.remove('life-lost');
                 void livesIcons.offsetWidth;
                 livesIcons.classList.add('life-lost');
             }
-
-            var status = document.getElementById('game-status') ||
-                document.getElementById('cmd-ip-status') ||
-                document.getElementById('ip-status') ||
-                document.getElementById('workgroup-status') ||
-                document.getElementById('router-status') ||
-                document.getElementById('security-status') ||
+            var status = document.getElementById('game-status') || document.getElementById('cmd-ip-status') ||
+                document.getElementById('ip-status') || document.getElementById('workgroup-status') ||
+                document.getElementById('router-status') || document.getElementById('security-status') ||
                 document.getElementById('topology-status');
-
             if (status) {
                 status.innerHTML = "💔 LIFE LOST! " + lives + " lives remaining. Try again!";
                 status.style.color = '#e74c3c';
-                setTimeout(function() {
-                    status.style.color = '#f1c40f';
-                }, 2000);
+                setTimeout(function() { status.style.color = '#f1c40f'; }, 2000);
             }
-
-            console.log('💔 Lost a life. Lives left:', lives);
-
             if (lives <= 0) {
                 lives = 0;
                 updateAllLives();
-                setTimeout(function() {
-                    showGameOver();
-                }, 600);
+                setTimeout(function() { showGameOver(); }, 600);
             }
         }
-
-        // ============================================
-        // GAME OVER
-        // ============================================
-
+        
         function showGameOver() {
             document.getElementById('game-over-modal').classList.add('active');
             isGameOver = true;
-            console.log('💀 Game Over!');
         }
 
         function retryCurrentChallenge() {
@@ -4826,7 +4199,6 @@
             lives = maxLives;
             updateAllLives();
             resetCurrentChallenge();
-            console.log('🔄 Retrying challenge:', currentChallenge);
         }
 
         function practiceCurrentChallenge() {
@@ -4836,27 +4208,21 @@
             lives = maxLives;
             updateAllLives();
             resetCurrentChallenge();
-            var status = document.getElementById('game-status') ||
-                document.getElementById('ip-status') ||
-                document.getElementById('workgroup-status') ||
-                document.getElementById('router-status') ||
-                document.getElementById('security-status') ||
-                document.getElementById('topology-status');
+            var status = document.getElementById('game-status') || document.getElementById('ip-status') ||
+                document.getElementById('workgroup-status') || document.getElementById('router-status') ||
+                document.getElementById('security-status') || document.getElementById('topology-status');
             if (status) {
                 status.innerHTML = "📚 PRACTICE MODE - No lives lost!";
                 status.style.color = '#f39c12';
             }
-            console.log('📚 Practice mode for challenge:', currentChallenge);
         }
 
         function resetCurrentChallenge() {
             var challenge = challenges[currentChallenge];
             if (!challenge) return;
-
             switch (challenge.type) {
                 case 'rj45':
-                    resetGameState();
-                    initWirePalette();
+                    resetGameState(); initWirePalette();
                     document.getElementById('game-status').innerHTML = "STATUS: WIRES RESET - SELECT SCHEMATIC";
                     document.getElementById('pinout-list').classList.add('hidden');
                     currentTargetStandard = null;
@@ -4866,9 +4232,7 @@
                     resetIPConfig();
                     document.getElementById('ip-status').innerHTML = "STATUS: CONFIGURE IP ADDRESS SETTINGS";
                     break;
-                case 'cmd-ip':
-                    resetCmdIPChallenge();
-                    break;
+                case 'cmd-ip': resetCmdIPChallenge(); break;
                 case 'workgroup':
                     resetWorkgroupConfig();
                     document.getElementById('workgroup-status').innerHTML = "STATUS: CONFIGURE WORKGROUP SETTINGS";
@@ -4885,19 +4249,12 @@
                     resetTopology();
                     document.getElementById('topology-status').innerHTML = "STATUS: CONNECT THE DEVICES";
                     break;
-                default:
-                    break;
+                default: break;
             }
-            document.querySelectorAll('.config-input, .workgroup-input, .router-input, .security-input').forEach(function(
-            el) {
+            document.querySelectorAll('.config-input, .workgroup-input, .router-input, .security-input').forEach(function(el) {
                 el.classList.remove('correct', 'wrong');
             });
-            console.log('🔄 Challenge reset:', currentChallenge);
         }
-
-        // ============================================
-        // RJ45 FUNCTIONS
-        // ============================================
 
         function resetCrossoverCable() {
             var sequences = { a: standards.T568A, b: standards.T568B };
@@ -4911,10 +4268,7 @@
                     var pin = document.createElement('div');
                     pin.className = 'crossover-pin';
                     pin.dataset.pin = index + 1;
-                    pin.ondragover = function(event) {
-                        event.preventDefault();
-                        drawCrossoverPreview(event, end, index + 1);
-                    };
+                    pin.ondragover = function(event) { event.preventDefault(); drawCrossoverPreview(event, end, index + 1); };
                     pin.ondrop = dropCrossoverWire;
                     pin.innerHTML = '<span class="crossover-pin-label">' + (index + 1) + '</span>';
                     pins.appendChild(pin);
@@ -4933,10 +4287,7 @@
                         crossoverDragWire = { wire: wire, end: end };
                         event.dataTransfer.setData('text/plain', JSON.stringify(wire));
                     };
-                    item.ondragend = function() {
-                        crossoverDragWire = null;
-                        drawCrossoverWires();
-                    };
+                    item.ondragend = function() { crossoverDragWire = null; drawCrossoverWires(); };
                     source.appendChild(item);
                 });
                 pins.parentElement.appendChild(source);
@@ -5029,10 +4380,8 @@
                 var start = pin.getBoundingClientRect();
                 var finish = target.getBoundingClientRect();
                 drawCrossoverPath(svg,
-                    start.right - bodyRect.left,
-                    start.top + start.height / 2 - bodyRect.top,
-                    finish.left - bodyRect.left,
-                    finish.top + finish.height / 2 - bodyRect.top,
+                    start.right - bodyRect.left, start.top + start.height / 2 - bodyRect.top,
+                    finish.left - bodyRect.left, finish.top + finish.height / 2 - bodyRect.top,
                     wire.style.background || '#2bf1c9', false);
             });
         }
@@ -5060,8 +4409,7 @@
                 });
             });
             if (correct) {
-                score += 100;
-                updateAllScores();
+                score += 100; updateAllScores();
                 document.getElementById('crossover-status').innerHTML = 'SUCCESS! CROSSOVER CABLE CORRECT! +100 POINTS';
                 document.getElementById('crossover-status').style.color = '#2ecc71';
                 trackChallengeCompletion(currentChallenge, true);
@@ -5082,6 +4430,7 @@
                 var wire = zone.querySelector('.drag-wire');
                 if (wire) wire.remove();
             });
+            selectedWireForTouch = null;
         }
 
         function initWirePalette() {
@@ -5099,8 +4448,22 @@
                     e.dataTransfer.setData('text/plain', JSON.stringify(wire));
                     this.style.opacity = '0.5';
                 });
-                el.addEventListener('dragend', function(e) {
-                    this.style.opacity = '1';
+                el.addEventListener('dragend', function(e) { this.style.opacity = '1'; });
+                el.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (this.parentElement && this.parentElement.id === 'wire-source-container') {
+                        document.querySelectorAll('.drag-wire.selected-for-touch').forEach(function(w) {
+                            w.classList.remove('selected-for-touch');
+                            w.style.outline = '';
+                            w.style.boxShadow = '';
+                        });
+                        selectedWireForTouch = wire;
+                        this.classList.add('selected-for-touch');
+                        this.style.outline = '3px solid #f1c40f';
+                        this.style.boxShadow = '0 0 12px #f1c40f';
+                        document.getElementById('game-status').innerHTML = 'STATUS: SELECTED ' + wire.name + ' - Tap a pin';
+                        document.getElementById('game-status').style.color = '#f1c40f';
+                    }
                 });
                 container.appendChild(el);
             });
@@ -5110,20 +4473,37 @@
             e.preventDefault();
             var zone = e.target.closest('.drop-zone');
             if (!zone) return;
-            if (isGameOver) {
-                showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER');
+            if (isGameOver) { showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER'); return; }
+
+            if (selectedWireForTouch) {
+                var existingT = zone.querySelector('.drag-wire');
+                if (existingT) returnWireToPalette(existingT);
+                var sourceT = document.querySelector('#wire-source-container .drag-wire[data-name="' + selectedWireForTouch.name + '"]');
+                if (sourceT) sourceT.remove();
+                var newWireT = document.createElement('div');
+                newWireT.classList.add('drag-wire');
+                newWireT.dataset.name = selectedWireForTouch.name;
+                newWireT.style.background = selectedWireForTouch.bg;
+                newWireT.innerText = selectedWireForTouch.name;
+                newWireT.draggable = false;
+                zone.appendChild(newWireT);
+                selectedWireForTouch = null;
+                document.querySelectorAll('.drag-wire.selected-for-touch').forEach(function(w) {
+                    w.classList.remove('selected-for-touch');
+                    w.style.outline = '';
+                    w.style.boxShadow = '';
+                });
+                document.getElementById('game-status').innerHTML = 'STATUS: WIRE PLACED';
+                document.getElementById('game-status').style.color = '#f1c40f';
                 return;
             }
+
             var existing = zone.querySelector('.drag-wire');
-            if (existing) {
-                returnWireToPalette(existing);
-            }
+            if (existing) returnWireToPalette(existing);
             try {
                 var wireData = JSON.parse(e.dataTransfer.getData('text/plain'));
-                var sourceEl = document.querySelector('.drag-wire[data-name="' + wireData.name + '"]');
-                if (sourceEl && sourceEl.parentElement && sourceEl.parentElement.id === 'wire-source-container') {
-                    sourceEl.remove();
-                }
+                var sourceEl = document.querySelector('#wire-source-container .drag-wire[data-name="' + wireData.name + '"]');
+                if (sourceEl) sourceEl.remove();
                 var newWire = document.createElement('div');
                 newWire.classList.add('drag-wire');
                 newWire.dataset.name = wireData.name;
@@ -5131,9 +4511,7 @@
                 newWire.innerText = wireData.name;
                 newWire.draggable = false;
                 zone.appendChild(newWire);
-            } catch (error) {
-                console.error('Drop error:', error);
-            }
+            } catch (error) { console.error('Drop error:', error); }
         }
 
         function returnWireToPalette(wireElement) {
@@ -5151,8 +4529,22 @@
                     e.dataTransfer.setData('text/plain', JSON.stringify(wireDef));
                     this.style.opacity = '0.5';
                 });
-                newWire.addEventListener('dragend', function(e) {
-                    this.style.opacity = '1';
+                newWire.addEventListener('dragend', function(e) { this.style.opacity = '1'; });
+                newWire.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (this.parentElement && this.parentElement.id === 'wire-source-container') {
+                        document.querySelectorAll('.drag-wire.selected-for-touch').forEach(function(w) {
+                            w.classList.remove('selected-for-touch');
+                            w.style.outline = '';
+                            w.style.boxShadow = '';
+                        });
+                        selectedWireForTouch = wireDef;
+                        this.classList.add('selected-for-touch');
+                        this.style.outline = '3px solid #f1c40f';
+                        this.style.boxShadow = '0 0 12px #f1c40f';
+                        document.getElementById('game-status').innerHTML = 'STATUS: SELECTED ' + wireDef.name + ' - Tap a pin';
+                        document.getElementById('game-status').style.color = '#f1c40f';
+                    }
                 });
                 container.appendChild(newWire);
                 wireElement.remove();
@@ -5160,17 +4552,11 @@
         }
 
         function setTargetStandard(std) {
-            if (isGameOver) {
-                showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER');
-                return;
-            }
+            if (isGameOver) { showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER'); return; }
             currentTargetStandard = std;
             document.querySelectorAll('.standard-btn').forEach(function(b) { b.classList.remove('selected'); });
-            if (std === 'T568A') {
-                document.querySelectorAll('.standard-btn')[0].classList.add('selected');
-            } else {
-                document.querySelectorAll('.standard-btn')[1].classList.add('selected');
-            }
+            if (std === 'T568A') { document.querySelectorAll('.standard-btn')[0].classList.add('selected'); }
+            else { document.querySelectorAll('.standard-btn')[1].classList.add('selected'); }
             if (isPracticeMode) {
                 var list = document.getElementById('pinout-list');
                 list.innerHTML = '<b>' + std + ' Sequence:</b><ol type="1" style="margin-left: 15px;">' +
@@ -5181,10 +4567,7 @@
         }
 
         function crimpConnector() {
-            if (isGameOver) {
-                showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER');
-                return;
-            }
+            if (isGameOver) { showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER'); return; }
             if (!currentTargetStandard) {
                 loseLife();
                 showModal('Please select a schematic (T568A or T568B) target first!', 'warning', '⚠️ SCHEMATIC REQUIRED');
@@ -5198,38 +4581,26 @@
             var emptyPins = [];
             dropZones.forEach(function(zone, idx) {
                 var placedWire = zone.querySelector('.drag-wire');
-                if (!placedWire) {
-                    isCorrect = false;
-                    emptyPins.push(idx + 1);
-                } else if (placedWire.dataset.name !== targetSequence[idx]) {
-                    isCorrect = false;
-                    wrongPin = idx + 1;
-                } else {
-                    filledSlots++;
-                }
+                if (!placedWire) { isCorrect = false; emptyPins.push(idx + 1); }
+                else if (placedWire.dataset.name !== targetSequence[idx]) { isCorrect = false; wrongPin = idx + 1; }
+                else { filledSlots++; }
             });
             if (!isCorrect || filledSlots < 8) {
                 loseLife();
                 var errorMsg = '';
-                if (emptyPins.length > 0) {
-                    errorMsg = '❌ Empty pins: ' + emptyPins.join(', ') + '. You crimped with ' + filledSlots + '/8 wires!';
-                } else if (wrongPin > 0) {
-                    errorMsg = '❌ Pin ' + wrongPin + ' has the wrong wire. Check the correct sequence!';
-                }
+                if (emptyPins.length > 0) { errorMsg = '❌ Empty pins: ' + emptyPins.join(', ') + '. You crimped with ' + filledSlots + '/8 wires!'; }
+                else if (wrongPin > 0) { errorMsg = '❌ Pin ' + wrongPin + ' has the wrong wire. Check the correct sequence!'; }
                 errorMsg += '\n💔 -1 Life!';
                 showModal(errorMsg, 'error', '❌ CRIMP FAILED');
                 highlightCorrectWires(false);
                 return;
             }
             if (isCorrect && filledSlots === 8) {
-                score += 100;
-                updateAllScores();
+                score += 100; updateAllScores();
                 document.getElementById('game-status').innerHTML = "STATUS: ✅ SUCCESS! WIRED CORRECTLY! +100 POINTS";
                 highlightCorrectWires(true);
                 trackChallengeCompletion(currentChallenge, true);
-                setTimeout(function() {
-                    showSuccessScreen();
-                }, 800);
+                setTimeout(function() { showSuccessScreen(); }, 800);
             }
         }
 
@@ -5257,10 +4628,7 @@
         }
 
         function resetWires() {
-            if (isGameOver) {
-                showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER');
-                return;
-            }
+            if (isGameOver) { showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER'); return; }
             document.querySelectorAll('.drop-zone').forEach(function(zone) {
                 var wire = zone.querySelector('.drag-wire');
                 if (wire) wire.remove();
@@ -5274,15 +4642,8 @@
             showModal('🔄 All wires have been reset!', 'info', '🔄 RESET COMPLETE');
         }
 
-        // ============================================
-        // IP FUNCTIONS
-        // ============================================
-
         function checkIPConfig() {
-            if (isGameOver) {
-                showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER');
-                return;
-            }
+            if (isGameOver) { showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER'); return; }
             var ipAddress = document.getElementById('ip-address').value.trim();
             var subnetMask = document.getElementById('subnet-mask').value.trim();
             var defaultGateway = document.getElementById('default-gateway').value.trim();
@@ -5297,51 +4658,20 @@
             }
             var isCorrect = true;
             var errors = [];
-            if (ipAddress !== correctIPConfig.ipAddress) {
-                isCorrect = false;
-                errors.push('IPv4 Address');
-                ipInput.classList.add('wrong');
-                ipInput.classList.remove('correct');
-            } else {
-                ipInput.classList.add('correct');
-                ipInput.classList.remove('wrong');
-            }
-            if (subnetMask !== correctIPConfig.subnetMask) {
-                isCorrect = false;
-                errors.push('Subnet Mask');
-                subnetInput.classList.add('wrong');
-                subnetInput.classList.remove('correct');
-            } else {
-                subnetInput.classList.add('correct');
-                subnetInput.classList.remove('wrong');
-            }
-            if (defaultGateway !== correctIPConfig.defaultGateway) {
-                isCorrect = false;
-                errors.push('Default Gateway');
-                gatewayInput.classList.add('wrong');
-                gatewayInput.classList.remove('correct');
-            } else {
-                gatewayInput.classList.add('correct');
-                gatewayInput.classList.remove('wrong');
-            }
-            if (dnsServer !== correctIPConfig.dnsServer) {
-                isCorrect = false;
-                errors.push('DNS Server');
-                dnsInput.classList.add('wrong');
-                dnsInput.classList.remove('correct');
-            } else {
-                dnsInput.classList.add('correct');
-                dnsInput.classList.remove('wrong');
-            }
+            if (ipAddress !== correctIPConfig.ipAddress) { isCorrect = false; errors.push('IPv4 Address'); ipInput.classList.add('wrong'); ipInput.classList.remove('correct'); }
+            else { ipInput.classList.add('correct'); ipInput.classList.remove('wrong'); }
+            if (subnetMask !== correctIPConfig.subnetMask) { isCorrect = false; errors.push('Subnet Mask'); subnetInput.classList.add('wrong'); subnetInput.classList.remove('correct'); }
+            else { subnetInput.classList.add('correct'); subnetInput.classList.remove('wrong'); }
+            if (defaultGateway !== correctIPConfig.defaultGateway) { isCorrect = false; errors.push('Default Gateway'); gatewayInput.classList.add('wrong'); gatewayInput.classList.remove('correct'); }
+            else { gatewayInput.classList.add('correct'); gatewayInput.classList.remove('wrong'); }
+            if (dnsServer !== correctIPConfig.dnsServer) { isCorrect = false; errors.push('DNS Server'); dnsInput.classList.add('wrong'); dnsInput.classList.remove('correct'); }
+            else { dnsInput.classList.add('correct'); dnsInput.classList.remove('wrong'); }
             if (isCorrect) {
-                score += 100;
-                updateAllScores();
+                score += 100; updateAllScores();
                 document.getElementById('ip-status').innerHTML = "✅ SUCCESS! IP CONFIGURATION CORRECT! +100 POINTS";
                 document.getElementById('ip-status').style.color = '#2ecc71';
                 trackChallengeCompletion(currentChallenge, true);
-                setTimeout(function() {
-                    showSuccessScreen();
-                }, 800);
+                setTimeout(function() { showSuccessScreen(); }, 800);
             } else {
                 loseLife();
                 document.getElementById('ip-status').innerHTML = "❌ INCORRECT: " + errors.join(', ');
@@ -5370,14 +4700,10 @@
         function checkCmdIPAnswer() {
             if (isGameOver) return;
             var answer = document.getElementById('cmd-ip-answer');
-            if (answer.disabled) {
-                showModal('Type ipconfig and press Run first.', 'warning', 'CMD REQUIRED');
-                return;
-            }
+            if (answer.disabled) { showModal('Type ipconfig and press Run first.', 'warning', 'CMD REQUIRED'); return; }
             if (answer.value.trim() === '192.168.136.128') {
                 answer.classList.add('correct');
-                score += 100;
-                updateAllScores();
+                score += 100; updateAllScores();
                 document.getElementById('cmd-ip-status').innerHTML = 'SUCCESS! IPv4 ADDRESS CORRECT! +100 POINTS';
                 trackChallengeCompletion(currentChallenge, true);
                 setTimeout(function() { showSuccessScreen(); }, 800);
@@ -5395,42 +4721,22 @@
             var output = document.getElementById('cmd-ip-output');
             var answer = document.getElementById('cmd-ip-answer');
             if (commandInput) commandInput.value = '';
-            if (output) {
-                output.innerHTML = 'Type ipconfig and press Run.';
-                output.classList.remove('visible');
-            }
-            if (answer) {
-                answer.value = '';
-                answer.disabled = true;
-                answer.classList.remove('correct', 'wrong');
-            }
+            if (output) { output.innerHTML = 'Type ipconfig and press Run.'; output.classList.remove('visible'); }
+            if (answer) { answer.value = ''; answer.disabled = true; answer.classList.remove('correct', 'wrong'); }
             document.getElementById('cmd-ip-status').innerHTML = 'STATUS: TYPE IPCONFIG';
         }
 
         function resetIPConfig() {
             ['ip-address', 'subnet-mask', 'default-gateway', 'dns-server'].forEach(function(id) {
                 var input = document.getElementById(id);
-                if (input) {
-                    input.value = '';
-                    input.classList.remove('correct', 'wrong');
-                }
+                if (input) { input.value = ''; input.classList.remove('correct', 'wrong'); }
             });
             var status = document.getElementById('ip-status');
-            if (status) {
-                status.innerHTML = "STATUS: CONFIGURE IP ADDRESS SETTINGS";
-                status.style.color = '#f1c40f';
-            }
+            if (status) { status.innerHTML = "STATUS: CONFIGURE IP ADDRESS SETTINGS"; status.style.color = '#f1c40f'; }
         }
 
-        // ============================================
-        // WORKGROUP FUNCTIONS
-        // ============================================
-
         function checkWorkgroupConfig() {
-            if (isGameOver) {
-                showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER');
-                return;
-            }
+            if (isGameOver) { showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER'); return; }
             var computerName = document.getElementById('computer-name').value.trim();
             var workgroup = document.getElementById('workgroup-name').value.trim();
             var networkDiscovery = document.getElementById('network-discovery').checked;
@@ -5438,52 +4744,22 @@
             var passwordProtection = document.getElementById('password-protection').checked;
             var nameInput = document.getElementById('computer-name');
             var workgroupInput = document.getElementById('workgroup-name');
-            if (!computerName || !workgroup) {
-                showModal('❌ Please fill in Computer Name and Workgroup!', 'warning', '⚠️ INCOMPLETE');
-                return;
-            }
+            if (!computerName || !workgroup) { showModal('❌ Please fill in Computer Name and Workgroup!', 'warning', '⚠️ INCOMPLETE'); return; }
             var isCorrect = true;
             var errors = [];
-            if (computerName !== correctWorkgroupConfig.computerName) {
-                isCorrect = false;
-                errors.push('Computer Name');
-                nameInput.classList.add('wrong');
-                nameInput.classList.remove('correct');
-            } else {
-                nameInput.classList.add('correct');
-                nameInput.classList.remove('wrong');
-            }
-            if (workgroup !== correctWorkgroupConfig.workgroup) {
-                isCorrect = false;
-                errors.push('Workgroup');
-                workgroupInput.classList.add('wrong');
-                workgroupInput.classList.remove('correct');
-            } else {
-                workgroupInput.classList.add('correct');
-                workgroupInput.classList.remove('wrong');
-            }
-            if (networkDiscovery !== correctWorkgroupConfig.networkDiscovery) {
-                isCorrect = false;
-                errors.push('Network Discovery');
-            }
-            if (fileSharing !== correctWorkgroupConfig.fileSharing) {
-                isCorrect = false;
-                errors.push('File Sharing');
-            }
-            if (passwordProtection !== correctWorkgroupConfig.passwordProtection) {
-                isCorrect = false;
-                errors.push('Password Protection');
-            }
+            if (computerName !== correctWorkgroupConfig.computerName) { isCorrect = false; errors.push('Computer Name'); nameInput.classList.add('wrong'); nameInput.classList.remove('correct'); }
+            else { nameInput.classList.add('correct'); nameInput.classList.remove('wrong'); }
+            if (workgroup !== correctWorkgroupConfig.workgroup) { isCorrect = false; errors.push('Workgroup'); workgroupInput.classList.add('wrong'); workgroupInput.classList.remove('correct'); }
+            else { workgroupInput.classList.add('correct'); workgroupInput.classList.remove('wrong'); }
+            if (networkDiscovery !== correctWorkgroupConfig.networkDiscovery) { isCorrect = false; errors.push('Network Discovery'); }
+            if (fileSharing !== correctWorkgroupConfig.fileSharing) { isCorrect = false; errors.push('File Sharing'); }
+            if (passwordProtection !== correctWorkgroupConfig.passwordProtection) { isCorrect = false; errors.push('Password Protection'); }
             if (isCorrect) {
-                score += 100;
-                updateAllScores();
-                document.getElementById('workgroup-status').innerHTML =
-                    "✅ SUCCESS! WORKGROUP CONFIGURATION CORRECT! +100 POINTS";
+                score += 100; updateAllScores();
+                document.getElementById('workgroup-status').innerHTML = "✅ SUCCESS! WORKGROUP CONFIGURATION CORRECT! +100 POINTS";
                 document.getElementById('workgroup-status').style.color = '#2ecc71';
                 trackChallengeCompletion(currentChallenge, true);
-                setTimeout(function() {
-                    showFileSharingChallenge();
-                }, 800);
+                setTimeout(function() { showFileSharingChallenge(); }, 800);
             } else {
                 loseLife();
                 document.getElementById('workgroup-status').innerHTML = "❌ INCORRECT: " + errors.join(', ');
@@ -5496,20 +4772,14 @@
         function resetWorkgroupConfig() {
             ['computer-name', 'workgroup-name'].forEach(function(id) {
                 var input = document.getElementById(id);
-                if (input) {
-                    input.value = '';
-                    input.classList.remove('correct', 'wrong');
-                }
+                if (input) { input.value = ''; input.classList.remove('correct', 'wrong'); }
             });
             ['network-discovery', 'file-sharing', 'password-protection'].forEach(function(id) {
                 var checkbox = document.getElementById(id);
                 if (checkbox) checkbox.checked = false;
             });
             var status = document.getElementById('workgroup-status');
-            if (status) {
-                status.innerHTML = "STATUS: CONFIGURE WORKGROUP SETTINGS";
-                status.style.color = '#f1c40f';
-            }
+            if (status) { status.innerHTML = "STATUS: CONFIGURE WORKGROUP SETTINGS"; status.style.color = '#f1c40f'; }
         }
 
         function showFileSharingChallenge() {
@@ -5518,14 +4788,8 @@
             var destinationFile = document.getElementById('destination-sample-file');
             var copyButton = document.getElementById('copy-file-btn');
             if (sourceFile) sourceFile.classList.remove('copied');
-            if (destinationFile) {
-                destinationFile.hidden = true;
-                destinationFile.classList.remove('copied');
-            }
-            if (copyButton) {
-                copyButton.disabled = false;
-                copyButton.textContent = 'COPY FILE TO PC 1';
-            }
+            if (destinationFile) { destinationFile.hidden = true; destinationFile.classList.remove('copied'); }
+            if (copyButton) { copyButton.disabled = false; copyButton.textContent = 'COPY FILE TO PC 1'; }
             document.getElementById('file-sharing-status').textContent = 'STATUS: COPY THE SAMPLE FILE TO PC 1';
             document.getElementById('file-sharing-status').style.color = '#f1c40f';
             showScreen('file-sharing-challenge');
@@ -5534,8 +4798,7 @@
         function copySampleFileToPC1() {
             if (fileShareCompleted || isGameOver) return;
             fileShareCompleted = true;
-            score += 100;
-            updateAllScores();
+            score += 100; updateAllScores();
             document.getElementById('source-sample-file').classList.add('copied');
             document.getElementById('destination-sample-file').hidden = false;
             document.getElementById('destination-sample-file').classList.add('copied');
@@ -5543,14 +4806,8 @@
             document.getElementById('copy-file-btn').textContent = 'FILE COPIED';
             document.getElementById('file-sharing-status').textContent = 'SUCCESS! PC 1 RECEIVED THE SHARED FILE! +100 POINTS';
             document.getElementById('file-sharing-status').style.color = '#2ecc71';
-            setTimeout(function() {
-                showSuccessScreen();
-            }, 900);
+            setTimeout(function() { showSuccessScreen(); }, 900);
         }
-
-        // ============================================
-        // ROUTER FUNCTIONS
-        // ============================================
 
         var routerQuizQuestions = [
             { question: 'What does a router connect?', options: ['Different networks', 'Only monitors', 'Power cables'], correct: 0 },
@@ -5558,10 +4815,7 @@
             { question: 'What does ping test?', options: ['Network connectivity', 'Screen brightness', 'File size'], correct: 0 }
         ];
 
-        function initRouterQuiz() {
-            routerQuizIndex = 0;
-            renderRouterQuizQuestion();
-        }
+        function initRouterQuiz() { routerQuizIndex = 0; renderRouterQuizQuestion(); }
 
         function renderRouterQuizQuestion() {
             var question = routerQuizQuestions[routerQuizIndex];
@@ -5575,18 +4829,14 @@
                 answer.className = 'router-quiz-option';
                 answer.textContent = String.fromCharCode(65 + index) + '. ' + option;
                 answer.dataset.index = index;
-                answer.onclick = function() {
-                    checkRouterQuizAnswer(this, question.correct);
-                };
+                answer.onclick = function() { checkRouterQuizAnswer(this, question.correct); };
                 optionsContainer.appendChild(answer);
             });
         }
 
         function checkRouterQuizAnswer(element, correctIndex) {
             var options = document.querySelectorAll('.router-quiz-option');
-            options.forEach(function(option) {
-                option.style.pointerEvents = 'none';
-            });
+            options.forEach(function(option) { option.style.pointerEvents = 'none'; });
             if (parseInt(element.dataset.index, 10) === correctIndex) {
                 element.classList.add('correct');
                 routerQuizIndex++;
@@ -5594,74 +4844,39 @@
                     document.getElementById('router-quiz-progress').textContent = 'All 3 questions correct';
                     document.getElementById('router-quiz-question').textContent = 'Great work! Continue configuring the router.';
                     document.getElementById('router-quiz-options').innerHTML = '';
-                } else {
-                    setTimeout(renderRouterQuizQuestion, 450);
-                }
+                } else { setTimeout(renderRouterQuizQuestion, 450); }
             } else {
                 element.classList.add('wrong');
                 document.getElementById('router-quiz-question').textContent = 'Not quite. Try again.';
                 setTimeout(function() {
-                    options.forEach(function(option) {
-                        option.classList.remove('wrong');
-                        option.style.pointerEvents = 'auto';
-                    });
+                    options.forEach(function(option) { option.classList.remove('wrong'); option.style.pointerEvents = 'auto'; });
                 }, 700);
             }
         }
 
         function checkRouterConfig() {
-            if (isGameOver) {
-                showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER');
-                return;
-            }
+            if (isGameOver) { showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER'); return; }
             var ssid = document.getElementById('router-ssid').value.trim();
             var security = document.getElementById('router-security').value;
             var lanIp = document.getElementById('router-lan').value.trim();
             var ssidInput = document.getElementById('router-ssid');
             var securityInput = document.getElementById('router-security');
             var lanInput = document.getElementById('router-lan');
-            if (!ssid || !security || !lanIp) {
-                showModal('❌ Please fill in all router fields!', 'warning', '⚠️ INCOMPLETE');
-                return;
-            }
+            if (!ssid || !security || !lanIp) { showModal('❌ Please fill in all router fields!', 'warning', '⚠️ INCOMPLETE'); return; }
             var isCorrect = true;
             var errors = [];
-            if (ssid !== correctRouterConfig.ssid) {
-                isCorrect = false;
-                errors.push('SSID');
-                ssidInput.classList.add('wrong');
-                ssidInput.classList.remove('correct');
-            } else {
-                ssidInput.classList.add('correct');
-                ssidInput.classList.remove('wrong');
-            }
-            if (security !== correctRouterConfig.security) {
-                isCorrect = false;
-                errors.push('Security');
-                securityInput.classList.add('wrong');
-                securityInput.classList.remove('correct');
-            } else {
-                securityInput.classList.add('correct');
-                securityInput.classList.remove('wrong');
-            }
-            if (lanIp !== correctRouterConfig.lanIp) {
-                isCorrect = false;
-                errors.push('LAN IP');
-                lanInput.classList.add('wrong');
-                lanInput.classList.remove('correct');
-            } else {
-                lanInput.classList.add('correct');
-                lanInput.classList.remove('wrong');
-            }
+            if (ssid !== correctRouterConfig.ssid) { isCorrect = false; errors.push('SSID'); ssidInput.classList.add('wrong'); ssidInput.classList.remove('correct'); }
+            else { ssidInput.classList.add('correct'); ssidInput.classList.remove('wrong'); }
+            if (security !== correctRouterConfig.security) { isCorrect = false; errors.push('Security'); securityInput.classList.add('wrong'); securityInput.classList.remove('correct'); }
+            else { securityInput.classList.add('correct'); securityInput.classList.remove('wrong'); }
+            if (lanIp !== correctRouterConfig.lanIp) { isCorrect = false; errors.push('LAN IP'); lanInput.classList.add('wrong'); lanInput.classList.remove('correct'); }
+            else { lanInput.classList.add('correct'); lanInput.classList.remove('wrong'); }
             if (isCorrect) {
-                score += 100;
-                updateAllScores();
+                score += 100; updateAllScores();
                 document.getElementById('router-status').innerHTML = "✅ SUCCESS! ROUTER CONFIGURATION CORRECT! +100 POINTS";
                 document.getElementById('router-status').style.color = '#2ecc71';
                 trackChallengeCompletion(currentChallenge, true);
-                setTimeout(function() {
-                    showSuccessScreen();
-                }, 800);
+                setTimeout(function() { showSuccessScreen(); }, 800);
             } else {
                 loseLife();
                 document.getElementById('router-status').innerHTML = "❌ INCORRECT: " + errors.join(', ');
@@ -5674,10 +4889,7 @@
         function resetRouterConfig() {
             ['router-ssid', 'router-lan'].forEach(function(id) {
                 var input = document.getElementById(id);
-                if (input) {
-                    input.value = '';
-                    input.classList.remove('correct', 'wrong');
-                }
+                if (input) { input.value = ''; input.classList.remove('correct', 'wrong'); }
             });
             var security = document.getElementById('router-security');
             if (security) security.value = '';
@@ -5686,37 +4898,25 @@
             var result = document.getElementById('ping-result');
             if (result) result.innerHTML = '<span class="info">📡 Ready to ping...</span>';
             var status = document.getElementById('router-status');
-            if (status) {
-                status.innerHTML = "STATUS: CONFIGURE ROUTER SETTINGS";
-                status.style.color = '#f1c40f';
-            }
+            if (status) { status.innerHTML = "STATUS: CONFIGURE ROUTER SETTINGS"; status.style.color = '#f1c40f'; }
         }
 
         function runPingTest() {
             var pingIp = document.getElementById('ping-ip').value.trim();
             var result = document.getElementById('ping-result');
-            if (!pingIp) {
-                result.innerHTML = '<span class="fail">❌ Please enter an IP address to ping!</span>';
-                return;
-            }
+            if (!pingIp) { result.innerHTML = '<span class="fail">❌ Please enter an IP address to ping!</span>'; return; }
             result.innerHTML = '<span class="info">⏳ Pinging ' + pingIp + '...</span>';
             setTimeout(function() {
                 if (pingIp === correctRouterConfig.pingIp) {
-                    result.innerHTML =
-                        '<span class="success">✅ Reply from ' + pingIp +
-                        ': bytes=32 time=1ms TTL=64</span><br>' +
-                        '<span class="success">✅ Reply from ' + pingIp +
-                        ': bytes=32 time=1ms TTL=64</span><br>' +
-                        '<span class="success">✅ Reply from ' + pingIp +
-                        ': bytes=32 time=2ms TTL=64</span><br>' +
-                        '<span class="success">✅ Reply from ' + pingIp +
-                        ': bytes=32 time=1ms TTL=64</span><br>' +
+                    result.innerHTML = '<span class="success">✅ Reply from ' + pingIp + ': bytes=32 time=1ms TTL=64</span><br>' +
+                        '<span class="success">✅ Reply from ' + pingIp + ': bytes=32 time=1ms TTL=64</span><br>' +
+                        '<span class="success">✅ Reply from ' + pingIp + ': bytes=32 time=2ms TTL=64</span><br>' +
+                        '<span class="success">✅ Reply from ' + pingIp + ': bytes=32 time=1ms TTL=64</span><br>' +
                         '<span class="info">📊 Packets: Sent = 4, Received = 4, Lost = 0 (0% loss)</span>';
                     document.getElementById('router-status').innerHTML = "✅ PING SUCCESSFUL! Network is stable!";
                     document.getElementById('router-status').style.color = '#2ecc71';
                 } else {
-                    result.innerHTML =
-                        '<span class="fail">❌ Request timed out.</span><br>' +
+                    result.innerHTML = '<span class="fail">❌ Request timed out.</span><br>' +
                         '<span class="fail">❌ Request timed out.</span><br>' +
                         '<span class="fail">❌ Request timed out.</span><br>' +
                         '<span class="fail">❌ Request timed out.</span><br>' +
@@ -5727,98 +4927,60 @@
             }, 1500);
         }
 
-        // ============================================
-        // SECURITY FUNCTIONS
-        // ============================================
-
         function resetSecurityConfig() {
             ['security-firewall', 'security-wpa2', 'security-mac', 'security-updates'].forEach(function(id) {
                 var cb = document.getElementById(id);
-                if (cb) {
-                    cb.checked = false;
-                    updateSecurityLabel(id);
-                }
+                if (cb) { cb.checked = false; updateSecurityLabel(id); }
             });
             var password = document.getElementById('security-password');
-            if (password) {
-                password.value = '';
-                password.classList.remove('correct', 'wrong');
-            }
+            if (password) { password.value = ''; password.classList.remove('correct', 'wrong'); }
             var status = document.getElementById('security-status');
-            if (status) {
-                status.innerHTML = "STATUS: CONFIGURE SECURITY SETTINGS";
-                status.style.color = '#f1c40f';
-            }
+            if (status) { status.innerHTML = "STATUS: CONFIGURE SECURITY SETTINGS"; status.style.color = '#f1c40f'; }
         }
 
         function updateSecurityLabel(id) {
             var cb = document.getElementById(id);
             var label = document.getElementById(id + '-label');
             if (cb && label) {
-                if (cb.checked) {
-                    label.textContent = '✅ ENABLED';
-                    label.style.color = '#2ecc71';
-                } else {
-                    label.textContent = '❌ DISABLED';
-                    label.style.color = '#e74c3c';
-                }
+                if (cb.checked) { label.textContent = '✅ ENABLED'; label.style.color = '#2ecc71'; }
+                else { label.textContent = '❌ DISABLED'; label.style.color = '#e74c3c'; }
             }
         }
 
         document.addEventListener('DOMContentLoaded', function() {
             ['security-firewall', 'security-wpa2', 'security-mac', 'security-updates'].forEach(function(id) {
                 var cb = document.getElementById(id);
-                if (cb) {
-                    cb.addEventListener('change', function() {
-                        updateSecurityLabel(id);
-                    });
-                }
+                if (cb) cb.addEventListener('change', function() { updateSecurityLabel(id); });
             });
             var password = document.getElementById('security-password');
             if (password) {
                 password.addEventListener('input', function() {
-                    if (this.value.length >= 8) {
-                        this.classList.add('correct');
-                        this.classList.remove('wrong');
-                    } else if (this.value.length > 0) {
-                        this.classList.add('wrong');
-                        this.classList.remove('correct');
-                    } else {
-                        this.classList.remove('correct', 'wrong');
-                    }
+                    if (this.value.length >= 8) { this.classList.add('correct'); this.classList.remove('wrong'); }
+                    else if (this.value.length > 0) { this.classList.add('wrong'); this.classList.remove('correct'); }
+                    else { this.classList.remove('correct', 'wrong'); }
                 });
             }
         });
 
         function checkSecurityConfig() {
-            if (isGameOver) {
-                showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER');
-                return;
-            }
-
+            if (isGameOver) { showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER'); return; }
             var firewall = document.getElementById('security-firewall').checked;
             var wpa2 = document.getElementById('security-wpa2').checked;
             var mac = document.getElementById('security-mac').checked;
             var updates = document.getElementById('security-updates').checked;
             var password = document.getElementById('security-password').value.trim();
-
             var errors = [];
-
             if (!firewall) errors.push('Firewall');
             if (!wpa2) errors.push('WPA2 Encryption');
             if (!mac) errors.push('MAC Filtering');
             if (!updates) errors.push('Auto Updates');
             if (password.length < 8) errors.push('Admin Password (min 8 chars)');
-
             if (errors.length === 0) {
-                score += 100;
-                updateAllScores();
+                score += 100; updateAllScores();
                 document.getElementById('security-status').innerHTML = "✅ SUCCESS! SECURITY CONFIGURATION CORRECT! +100 POINTS";
                 document.getElementById('security-status').style.color = '#2ecc71';
                 trackChallengeCompletion(currentChallenge, true);
-                setTimeout(function() {
-                    showSuccessScreen();
-                }, 800);
+                setTimeout(function() { showSuccessScreen(); }, 800);
             } else {
                 loseLife();
                 document.getElementById('security-status').innerHTML = "❌ INCORRECT: " + errors.join(', ');
@@ -5827,10 +4989,6 @@
                 trackChallengeCompletion(currentChallenge, false);
             }
         }
-
-        // ============================================
-        // TOPOLOGY FUNCTIONS (NEW)
-        // ============================================
 
         function initTopology() {
             topologyConnections = {};
@@ -5843,73 +5001,47 @@
                 topologyConnections[id] = [];
                 updateConnCount(id);
             });
-            // Clear SVG
             var svg = document.getElementById('topology-svg');
             svg.innerHTML = '';
-            // Remove connected class from all devices
-            document.querySelectorAll('.device-node').forEach(function(el) {
-                el.classList.remove('connected', 'selected', 'wrong');
-            });
+            document.querySelectorAll('.device-node').forEach(function(el) { el.classList.remove('connected', 'selected', 'wrong'); });
             document.getElementById('topology-status').innerHTML = "STATUS: CLICK TWO DEVICES TO CONNECT";
             document.getElementById('topology-status').style.color = '#f1c40f';
         }
 
         function resetTopology(silent) {
-            if (isGameOver) {
-                showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER');
-                return;
-            }
+            if (isGameOver) { showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER'); return; }
             initTopology();
-            if (!silent) {
-                showModal('🔄 Topology reset! Start connecting devices.', 'info', '🔄 RESET COMPLETE');
-            }
-            console.log('🔄 Topology reset');
+            if (!silent) showModal('🔄 Topology reset! Start connecting devices.', 'info', '🔄 RESET COMPLETE');
         }
 
         function selectDevice(deviceId) {
-            if (isGameOver) {
-                showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER');
-                return;
-            }
-
+            if (isGameOver) { showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER'); return; }
             var el = document.querySelector('.device-node[data-id="' + deviceId + '"]');
             if (!el) return;
-
-            // If device already has max connections (router has 3, others have 2 or 1)
             var maxConn = 1;
             if (deviceId === 'server') maxConn = 3;
             else if (deviceId.startsWith('hub')) maxConn = 3;
-
             if (topologyConnections[deviceId] && topologyConnections[deviceId].length >= maxConn) {
                 showModal('⚠️ This device already has the maximum number of connections!', 'warning', '⚠️ MAX CONNECTIONS');
                 return;
             }
-
             if (topologySelected === null) {
-                // Select first device
                 topologySelected = deviceId;
                 el.classList.add('selected');
-                document.getElementById('topology-status').innerHTML = "STATUS: SELECTED " + deviceId.toUpperCase() +
-                    " - Click another device to connect";
+                document.getElementById('topology-status').innerHTML = "STATUS: SELECTED " + deviceId.toUpperCase() + " - Click another device to connect";
                 document.getElementById('topology-status').style.color = '#f1c40f';
                 return;
             }
-
             if (topologySelected === deviceId) {
-                // Deselect
                 el.classList.remove('selected');
                 topologySelected = null;
                 document.getElementById('topology-status').innerHTML = "STATUS: CLICK TWO DEVICES TO CONNECT";
                 document.getElementById('topology-status').style.color = '#f1c40f';
                 return;
             }
-
-            // Second device selected - try to connect
             var firstId = topologySelected;
             var firstEl = document.querySelector('.device-node[data-id="' + firstId + '"]');
             var secondEl = el;
-
-            // Check if already connected
             if (topologyConnections[firstId].indexOf(deviceId) !== -1) {
                 showModal('⚠️ These devices are already connected!', 'warning', '⚠️ ALREADY CONNECTED');
                 firstEl.classList.remove('selected');
@@ -5918,68 +5050,38 @@
                 document.getElementById('topology-status').style.color = '#f1c40f';
                 return;
             }
-
-            // Check if connection is correct (bidirectional)
             var isCorrect = false;
-            if (topologyCorrect[firstId] && topologyCorrect[firstId].indexOf(deviceId) !== -1) {
-                isCorrect = true;
-            } else if (topologyCorrect[deviceId] && topologyCorrect[deviceId].indexOf(firstId) !== -1) {
-                isCorrect = true;
-            }
-
+            if (topologyCorrect[firstId] && topologyCorrect[firstId].indexOf(deviceId) !== -1) { isCorrect = true; }
+            else if (topologyCorrect[deviceId] && topologyCorrect[deviceId].indexOf(firstId) !== -1) { isCorrect = true; }
             if (isCorrect) {
-                // Correct connection!
                 topologyConnections[firstId].push(deviceId);
                 topologyConnections[deviceId].push(firstId);
                 topologyCurrentConnections++;
-
-                // Draw line
                 drawTopologyLine(firstId, deviceId, '#2ecc71');
-
-                // Mark devices as connected
                 firstEl.classList.remove('selected');
                 firstEl.classList.add('connected');
                 secondEl.classList.add('connected');
-
                 updateConnCount(firstId);
                 updateConnCount(deviceId);
-
                 topologySelected = null;
-                document.getElementById('topology-status').innerHTML = "STATUS: ✅ CONNECTION CORRECT! (" + topologyCurrentConnections +
-                    "/6)";
+                document.getElementById('topology-status').innerHTML = "STATUS: ✅ CONNECTION CORRECT! (" + topologyCurrentConnections + "/6)";
                 document.getElementById('topology-status').style.color = '#2ecc71';
-
-                // Check if all connections are made
-                if (topologyCurrentConnections >= 6) {
-                    setTimeout(function() {
-                        verifyTopology();
-                    }, 500);
-                }
+                if (topologyCurrentConnections >= 6) { setTimeout(function() { verifyTopology(); }, 500); }
             } else {
-                // Wrong connection!
                 firstEl.classList.remove('selected');
                 firstEl.classList.add('wrong');
                 secondEl.classList.add('wrong');
                 topologySelected = null;
-
-                // Draw red line temporarily
                 drawTopologyLine(firstId, deviceId, '#e74c3c');
-
                 loseLife();
                 document.getElementById('topology-status').innerHTML = "STATUS: ❌ WRONG CONNECTION! -1 Life";
                 document.getElementById('topology-status').style.color = '#e74c3c';
-
                 setTimeout(function() {
                     firstEl.classList.remove('wrong');
                     secondEl.classList.remove('wrong');
-                    // Remove the red line
                     var svg = document.getElementById('topology-svg');
                     var lines = svg.querySelectorAll('line');
-                    lines.forEach(function(line) {
-                        if (line.getAttribute('data-wrong') === 'true') {
-                            line.remove();
-                        }
-                    });
+                    lines.forEach(function(line) { if (line.getAttribute('data-wrong') === 'true') line.remove(); });
                     document.getElementById('topology-status').innerHTML = "STATUS: CLICK TWO DEVICES TO CONNECT";
                     document.getElementById('topology-status').style.color = '#f1c40f';
                 }, 1200);
@@ -6002,9 +5104,7 @@
         function openPCConfig(deviceId) {
             activePCConfig = deviceId;
             document.getElementById('pc-config-title').textContent = deviceId.toUpperCase() + ' NETWORK CONFIGURATION';
-            var config = topologyPCConfigs[deviceId] || {
-                ip: '192.168.1.2', mask: '255.255.255.0', gateway: '192.168.1.1', dns: '8.8.8.8'
-            };
+            var config = topologyPCConfigs[deviceId] || { ip: '192.168.1.2', mask: '255.255.255.0', gateway: '192.168.1.1', dns: '8.8.8.8' };
             document.getElementById('pc-config-ip').value = config.ip;
             document.getElementById('pc-config-mask').value = config.mask;
             document.getElementById('pc-config-gateway').value = config.gateway;
@@ -6026,12 +5126,8 @@
                 gateway: document.getElementById('pc-config-gateway').value.trim(),
                 dns: document.getElementById('pc-config-dns').value.trim()
             };
-            var correct = config.ip === '192.168.1.2' && config.mask === '255.255.255.0' &&
-                config.gateway === '192.168.1.1' && config.dns === '8.8.8.8';
-            if (!correct) {
-                showModal('Use the required IPv4, subnet mask, gateway, and DNS values.', 'warning', 'INVALID PC CONFIG');
-                return;
-            }
+            var correct = config.ip === '192.168.1.2' && config.mask === '255.255.255.0' && config.gateway === '192.168.1.1' && config.dns === '8.8.8.8';
+            if (!correct) { showModal('Use the required IPv4, subnet mask, gateway, and DNS values.', 'warning', 'INVALID PC CONFIG'); return; }
             topologyPCConfigs[activePCConfig] = config;
             document.querySelector('.device-node[data-id="' + activePCConfig + '"]').classList.add('connected');
             closePCConfig();
@@ -6043,104 +5139,66 @@
             var el1 = document.querySelector('.device-node[data-id="' + device1 + '"]');
             var el2 = document.querySelector('.device-node[data-id="' + device2 + '"]');
             if (!el1 || !el2) return;
-
             var rect1 = el1.getBoundingClientRect();
             var rect2 = el2.getBoundingClientRect();
             var container = document.querySelector('.topology-canvas');
             var containerRect = container.getBoundingClientRect();
-
             var x1 = rect1.left + rect1.width / 2 - containerRect.left;
             var y1 = rect1.top + rect1.height / 2 - containerRect.top;
             var x2 = rect2.left + rect2.width / 2 - containerRect.left;
             var y2 = rect2.top + rect2.height / 2 - containerRect.top;
-
-            // Check if line already exists
             var existing = svg.querySelectorAll('line');
             var exists = false;
             existing.forEach(function(line) {
                 var d1 = line.getAttribute('data-device1');
                 var d2 = line.getAttribute('data-device2');
-                if ((d1 === device1 && d2 === device2) || (d1 === device2 && d2 === device1)) {
-                    exists = true;
-                }
+                if ((d1 === device1 && d2 === device2) || (d1 === device2 && d2 === device1)) { exists = true; }
             });
             if (exists && color !== '#e74c3c') return;
-
             var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-            line.setAttribute('x1', x1);
-            line.setAttribute('y1', y1);
-            line.setAttribute('x2', x2);
-            line.setAttribute('y2', y2);
+            line.setAttribute('x1', x1); line.setAttribute('y1', y1);
+            line.setAttribute('x2', x2); line.setAttribute('y2', y2);
             line.setAttribute('stroke', color);
             line.setAttribute('stroke-width', color === '#e74c3c' ? '4' : '3');
             line.setAttribute('data-device1', device1);
             line.setAttribute('data-device2', device2);
-            if (color === '#e74c3c') {
-                line.setAttribute('data-wrong', 'true');
-                line.setAttribute('stroke-dasharray', '8,4');
-            } else {
-                line.setAttribute('data-wrong', 'false');
-            }
+            if (color === '#e74c3c') { line.setAttribute('data-wrong', 'true'); line.setAttribute('stroke-dasharray', '8,4'); }
+            else { line.setAttribute('data-wrong', 'false'); }
             svg.appendChild(line);
         }
 
         function updateConnCount(deviceId) {
             var el = document.getElementById('conn-' + deviceId);
-            if (el) {
-                el.textContent = topologyConnections[deviceId] ? topologyConnections[deviceId].length : 0;
-            }
+            if (el) el.textContent = topologyConnections[deviceId] ? topologyConnections[deviceId].length : 0;
         }
 
         function verifyTopology() {
-            if (isGameOver) {
-                showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER');
-                return;
-            }
-
-            // Count total connections
+            if (isGameOver) { showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER'); return; }
             var total = 0;
-            for (var id in topologyConnections) {
-                total += topologyConnections[id].length;
-            }
-            total = total / 2; // Each connection counted twice
-
-            if (total < 9) {
-                showModal('❌ You need to make all 9 connections! (' + total + '/9)', 'warning', '⚠️ INCOMPLETE');
-                return;
-            }
-
+            for (var id in topologyConnections) { total += topologyConnections[id].length; }
+            total = total / 2;
+            if (total < 9) { showModal('❌ You need to make all 9 connections! (' + total + '/9)', 'warning', '⚠️ INCOMPLETE'); return; }
             if (['pc1', 'pc2', 'pc3', 'pc4', 'pc5', 'pc6'].some(function(id) { return !topologyPCConfigs[id]; })) {
                 showModal('Click each PC and save the required IP configuration first.', 'warning', '⚠️ CONFIGURE PCS');
                 return;
             }
-
-            // Verify all connections are correct
             var allCorrect = true;
             for (var id in topologyConnections) {
                 var conns = topologyConnections[id];
                 var correct = topologyCorrect[id];
                 if (!correct) continue;
                 for (var i = 0; i < conns.length; i++) {
-                    if (correct.indexOf(conns[i]) === -1) {
-                        allCorrect = false;
-                        break;
-                    }
+                    if (correct.indexOf(conns[i]) === -1) { allCorrect = false; break; }
                 }
                 if (!allCorrect) break;
             }
-
             if (allCorrect && total >= 9) {
-                // SUCCESS!
-                score += 100;
-                updateAllScores();
+                score += 100; updateAllScores();
                 document.getElementById('topology-status').innerHTML = "✅ SUCCESS! ALL DEVICES CONNECTED CORRECTLY! +100 POINTS";
                 document.getElementById('topology-status').style.color = '#2ecc71';
                 trackChallengeCompletion(currentChallenge, true);
-                setTimeout(function() {
-                    showSuccessScreen();
-                }, 800);
+                setTimeout(function() { showSuccessScreen(); }, 800);
             } else {
-                // Some connections are wrong
                 loseLife();
                 document.getElementById('topology-status').innerHTML = "❌ INCORRECT TOPOLOGY! Some connections are wrong.";
                 document.getElementById('topology-status').style.color = '#e74c3c';
@@ -6149,31 +5207,19 @@
             }
         }
 
-        // ============================================
-        // SUCCESS SCREEN
-        // ============================================
-
         function showSuccessScreen() {
             document.getElementById('final-score').textContent = score;
             document.getElementById('final-lives').textContent = lives;
             var successVideo = document.getElementById('success-video');
-            if (successVideo) {
-                successVideo.muted = false;
-                successVideo.currentTime = 0;
-            }
+            if (successVideo) { successVideo.muted = false; successVideo.currentTime = 0; }
             var nextIdx = challengeIndex + 1;
             if (nextIdx < challengeOrder.length) {
                 var nextChallengeId = challengeOrder[nextIdx];
                 var nextType = challenges[nextChallengeId].type;
                 var typeLabels = {
-                    'rj45': '🔌 RJ45',
-                    'crossover': '🔄 CROSSOVER CABLE',
-                    'ip': '💻 IP CONFIG',
-                    'cmd-ip': '💻 CMD IP CONFIG',
-                    'workgroup': '🏢 WORKGROUP',
-                    'router': '📶 ROUTER',
-                    'security': '🔒 SECURITY',
-                    'topology': '🌐 TOPOLOGY'
+                    'rj45': '🔌 RJ45', 'crossover': '🔄 CROSSOVER CABLE', 'ip': '💻 IP CONFIG',
+                    'cmd-ip': '💻 CMD IP CONFIG', 'workgroup': '🏢 WORKGROUP', 'router': '📶 ROUTER',
+                    'security': '🔒 SECURITY', 'topology': '🌐 TOPOLOGY'
                 };
                 document.getElementById('next-btn').textContent = '➜ ' + (typeLabels[nextType] || 'NEXT');
             } else {
@@ -6182,24 +5228,16 @@
             showScreen('success-screen');
             if (successVideo) {
                 successVideo.play().catch(function(error) {
-                    console.warn('RJ45 thank-you video audio autoplay blocked:', error);
+                    console.warn('Video audio blocked:', error);
                     successVideo.muted = true;
-                    successVideo.play().catch(function(playError) {
-                        console.warn('RJ45 thank-you video playback blocked:', playError);
-                    });
+                    successVideo.play().catch(function(playError) { console.warn('Video blocked:', playError); });
                 });
             }
         }
 
-        // ============================================
-        // PERFORMANCE TRACKING
-        // ============================================
-
         function trackChallengeCompletion(challengeId, success) {
             var key = challengeId.toString();
-            if (!performanceData.attempts[key]) {
-                performanceData.attempts[key] = 0;
-            }
+            if (!performanceData.attempts[key]) { performanceData.attempts[key] = 0; }
             performanceData.attempts[key]++;
             performanceData.totalAttempts++;
             if (success) {
@@ -6224,7 +5262,6 @@
                     totalAttempts: performanceData.totalAttempts,
                     successRate: performanceData.successRate
                 }));
-
                 saveCurrentUserPerformance();
             } catch (e) { console.log(e); }
         }
@@ -6244,39 +5281,24 @@
             } catch (e) { console.log(e); }
         }
 
-        function normalizeUsername(name) {
-            return (name || '').trim().toUpperCase();
-        }
-
-        function isValidTupmId(id) {
-            return /^TUPM-\d{2}-\d{4}$/.test((id || '').trim().toUpperCase());
-        }
+        function normalizeUsername(name) { return (name || '').trim().toUpperCase(); }
+        function isValidTupmId(id) { return /^TUPM-\d{2}-\d{4}$/.test((id || '').trim().toUpperCase()); }
 
         function hideConfirmPasswordRow() {
             var confirmRow = document.getElementById('confirm-password-row');
             var confirmPasswordField = document.getElementById('account-confirm-password');
-            if (confirmRow) {
-                confirmRow.style.display = 'none';
-            }
-            if (confirmPasswordField) {
-                confirmPasswordField.value = '';
-            }
+            if (confirmRow) confirmRow.style.display = 'none';
+            if (confirmPasswordField) confirmPasswordField.value = '';
         }
 
         function resetAccountForm(messageText) {
             var usernameField = document.getElementById('account-username');
             var passwordField = document.getElementById('account-password');
             var message = document.getElementById('account-message');
-            if (usernameField) {
-                usernameField.value = '';
-            }
-            if (passwordField) {
-                passwordField.value = '';
-            }
+            if (usernameField) usernameField.value = '';
+            if (passwordField) passwordField.value = '';
             hideConfirmPasswordRow();
-            if (message && messageText) {
-                message.textContent = messageText;
-            }
+            if (message && messageText) message.textContent = messageText;
         }
 
         function createAccount() {
@@ -6286,52 +5308,17 @@
             var confirmPasswordField = document.getElementById('account-confirm-password');
             var confirmPassword = (confirmPasswordField ? confirmPasswordField.value : '') || '';
             var message = document.getElementById('account-message');
-
             if (!confirmRow || confirmRow.style.display === 'none') {
-                if (confirmRow) {
-                    confirmRow.style.display = 'block';
-                    if (confirmPasswordField) {
-                        confirmPasswordField.value = '';
-                    }
-                    message.textContent = 'Confirm the password to continue.';
-                }
+                if (confirmRow) { confirmRow.style.display = 'block'; if (confirmPasswordField) confirmPasswordField.value = ''; message.textContent = 'Confirm the password to continue.'; }
                 return;
             }
-
-            if (!isValidTupmId(username)) {
-                message.textContent = 'Use ID format: TUPM-26-0001.';
-                return;
-            }
-
-            if (!username || password.length < 4 || confirmPassword.length < 4) {
-                message.textContent = 'Enter a TUPM ID and 4+ character password.';
-                return;
-            }
-
-            if (password !== confirmPassword) {
-                message.textContent = 'Passwords do not match.';
-                return;
-            }
-
+            if (!isValidTupmId(username)) { message.textContent = 'Use ID format: TUPM-26-0001.'; return; }
+            if (!username || password.length < 4 || confirmPassword.length < 4) { message.textContent = 'Enter a TUPM ID and 4+ character password.'; return; }
+            if (password !== confirmPassword) { message.textContent = 'Passwords do not match.'; return; }
             try {
                 var accounts = JSON.parse(localStorage.getItem('connected_accounts') || '{}');
-                if (accounts[username]) {
-                    message.textContent = 'TUPM ID already exists.';
-                    return;
-                }
-
-                accounts[username] = {
-                    username: username,
-                    password: password,
-                    createdAt: new Date().toISOString(),
-                    totalScore: 0,
-                    totalAttempts: 0,
-                    completed: [],
-                    scores: {},
-                    attempts: {},
-                    successRate: 0
-                };
-
+                if (accounts[username]) { message.textContent = 'TUPM ID already exists.'; return; }
+                accounts[username] = { username: username, password: password, createdAt: new Date().toISOString(), totalScore: 0, totalAttempts: 0, completed: [], scores: {}, attempts: {}, successRate: 0 };
                 localStorage.setItem('connected_accounts', JSON.stringify(accounts));
                 currentUser = username;
                 localStorage.setItem('connected_current_user', username);
@@ -6340,10 +5327,7 @@
                 showScreen('main-menu');
                 updateUserProfile();
                 loadPerformanceDataForUser(username);
-            } catch (e) {
-                console.log(e);
-                message.textContent = 'Account could not be created.';
-            }
+            } catch (e) { console.log(e); message.textContent = 'Account could not be created.'; }
         }
 
         function loginAccount() {
@@ -6351,66 +5335,39 @@
             var username = normalizeUsername(document.getElementById('account-username').value);
             var password = (document.getElementById('account-password').value || '').trim();
             var message = document.getElementById('account-message');
-
-            if (!isValidTupmId(username)) {
-                message.textContent = 'Use ID format: TUPM-26-0001.';
-                return;
-            }
-
-            if (!username || !password) {
-                message.textContent = 'Enter TUPM ID and password.';
-                return;
-            }
-
+            if (!isValidTupmId(username)) { message.textContent = 'Use ID format: TUPM-26-0001.'; return; }
+            if (!username || !password) { message.textContent = 'Enter TUPM ID and password.'; return; }
             try {
                 var accounts = JSON.parse(localStorage.getItem('connected_accounts') || '{}');
                 var account = accounts[username];
-                if (!account || account.password !== password) {
-                    message.textContent = 'Invalid TUPM ID or password.';
-                    return;
-                }
-
+                if (!account || account.password !== password) { message.textContent = 'Invalid TUPM ID or password.'; return; }
                 currentUser = username;
                 localStorage.setItem('connected_current_user', username);
                 message.textContent = 'Welcome back.';
                 showScreen('main-menu');
                 updateUserProfile();
                 loadPerformanceDataForUser(username);
-            } catch (e) {
-                console.log(e);
-                message.textContent = 'Login failed.';
-            }
+            } catch (e) { console.log(e); message.textContent = 'Login failed.'; }
         }
 
         function loadAccount() {
             try {
                 hideConfirmPasswordRow();
                 var savedUser = localStorage.getItem('connected_current_user');
-                if (!savedUser) {
-                    showScreen('account-screen');
-                    return;
-                }
-
+                if (!savedUser) { showScreen('account-screen'); return; }
                 currentUser = savedUser;
                 updateUserProfile();
                 loadPerformanceDataForUser(savedUser);
                 showScreen('main-menu');
-            } catch (e) {
-                console.log(e);
-                showScreen('account-screen');
-            }
+            } catch (e) { console.log(e); showScreen('account-screen'); }
         }
 
         function updateUserProfile() {
             var userName = document.getElementById('user-name');
             var menuUser = document.getElementById('menu-user');
             if (userName && menuUser) {
-                if (currentUser) {
-                    userName.textContent = currentUser;
-                    menuUser.classList.remove('hidden');
-                } else {
-                    menuUser.classList.add('hidden');
-                }
+                if (currentUser) { userName.textContent = currentUser; menuUser.classList.remove('hidden'); }
+                else { menuUser.classList.add('hidden'); }
             }
         }
 
@@ -6418,23 +5375,15 @@
             try {
                 var accounts = JSON.parse(localStorage.getItem('connected_accounts') || '{}');
                 var account = accounts[username];
-                if (!account) {
-                    loadPerformanceData();
-                    return;
-                }
-
+                if (!account) { loadPerformanceData(); return; }
                 performanceData.completed = new Set(account.completed || []);
                 performanceData.scores = account.scores || {};
                 performanceData.attempts = account.attempts || {};
                 performanceData.totalScore = account.totalScore || 0;
                 performanceData.totalAttempts = account.totalAttempts || 0;
                 performanceData.successRate = account.successRate || 0;
-
                 updateDashboard();
-            } catch (e) {
-                console.log(e);
-                loadPerformanceData();
-            }
+            } catch (e) { console.log(e); loadPerformanceData(); }
         }
 
         function saveCurrentUserPerformance() {
@@ -6443,7 +5392,6 @@
                 var accounts = JSON.parse(localStorage.getItem('connected_accounts') || '{}');
                 var account = accounts[currentUser];
                 if (!account) return;
-
                 account.completed = Array.from(performanceData.completed);
                 account.scores = performanceData.scores;
                 account.attempts = performanceData.attempts;
@@ -6451,9 +5399,7 @@
                 account.totalAttempts = performanceData.totalAttempts;
                 account.successRate = performanceData.successRate;
                 localStorage.setItem('connected_accounts', JSON.stringify(accounts));
-            } catch (e) {
-                console.log(e);
-            }
+            } catch (e) { console.log(e); }
         }
 
         function logoutAccount() {
@@ -6461,20 +5407,12 @@
                 currentUser = null;
                 localStorage.removeItem('connected_current_user');
                 resetAccountForm('Logged out.');
-                if (document.getElementById('user-name')) {
-                    document.getElementById('user-name').textContent = 'Player';
-                }
+                if (document.getElementById('user-name')) document.getElementById('user-name').textContent = 'Player';
                 var menuUser = document.getElementById('menu-user');
-                if (menuUser) {
-                    menuUser.classList.add('hidden');
-                }
+                if (menuUser) menuUser.classList.add('hidden');
                 toggleSettings(false);
                 showScreen('account-screen');
-            } catch (e) {
-                console.log(e);
-                resetAccountForm('Logged out.');
-                showScreen('account-screen');
-            }
+            } catch (e) { console.log(e); resetAccountForm('Logged out.'); showScreen('account-screen'); }
         }
 
         function updateDashboard() {
@@ -6489,26 +5427,16 @@
                 item.className = 'result-item';
                 var completed = performanceData.completed.has(i.toString());
                 var attempts = performanceData.attempts[i] || 0;
-                if (completed) {
-                    item.classList.add('completed');
-                } else if (attempts > 0) {
-                    item.classList.add('failed');
-                }
+                if (completed) { item.classList.add('completed'); }
+                else if (attempts > 0) { item.classList.add('failed'); }
                 var name = document.createElement('span');
                 name.className = 'name';
                 name.textContent = challenges[i].name;
                 var status = document.createElement('span');
                 status.className = 'status';
-                if (completed) {
-                    status.textContent = '✅ PASS';
-                    status.classList.add('pass');
-                } else if (attempts > 0) {
-                    status.textContent = '❌ FAIL';
-                    status.classList.add('fail');
-                } else {
-                    status.textContent = '⏳ PENDING';
-                    status.classList.add('pending');
-                }
+                if (completed) { status.textContent = '✅ PASS'; status.classList.add('pass'); }
+                else if (attempts > 0) { status.textContent = '❌ FAIL'; status.classList.add('fail'); }
+                else { status.textContent = '⏳ PENDING'; status.classList.add('pending'); }
                 item.appendChild(name);
                 item.appendChild(status);
                 container.appendChild(item);
@@ -6529,10 +5457,6 @@
             });
         }
 
-        // ============================================
-        // MODAL FUNCTIONS
-        // ============================================
-
         function showModal(message, type, title) {
             type = type || 'warning';
             modalCloseAction = null;
@@ -6549,9 +5473,7 @@
             modal.classList.add('modal-' + type);
             modal.classList.add('active');
             if (modalTimeout) clearTimeout(modalTimeout);
-            if (type === 'success' || type === 'info') {
-                modalTimeout = setTimeout(closeModal, 5000);
-            }
+            if (type === 'success' || type === 'info') modalTimeout = setTimeout(closeModal, 5000);
         }
 
         function closeModal() {
@@ -6566,19 +5488,10 @@
             if (e.target === this) closeModal();
         });
 
-        // ============================================
-        // CONFIRM GO TO MENU
-        // ============================================
-
         function confirmGoToMenu() {
-            showModal('Are you sure you want to go back to the main menu? Your progress will be lost.', 'warning',
-                '⚠️ CONFIRM');
+            showModal('Are you sure you want to go back to the main menu? Your progress will be lost.', 'warning', '⚠️ CONFIRM');
             modalCloseAction = goToMenu;
         }
-
-        // ============================================
-        // SCREEN FUNCTIONS
-        // ============================================
 
         function showScreen(screenId) {
             var menuVideo = document.getElementById('menu-bg-video');
@@ -6596,65 +5509,35 @@
                 screenId === 'story-router1' || screenId === 'story-router2' ||
                 screenId === 'story-workgroup1' || screenId === 'story-workgroup2' ||
                 screenId === 'success-screen';
-
-            if (successVideo && screenId !== 'success-screen') {
-                successVideo.pause();
-                successVideo.currentTime = 0;
-            }
-
+            if (successVideo && screenId !== 'success-screen') { successVideo.pause(); successVideo.currentTime = 0; }
             if (screenId === 'main-menu') {
-                if (menuVideo) {
-                    menuVideo.muted = true;
-                }
+                if (menuVideo) menuVideo.muted = true;
                 startMenuVoiceCycle();
                 bgMusic.volume = musicVolume * masterVolume;
-                if (isAudioPlaying) {
-                    bgMusic.play().catch(function(e) { console.log('Menu bgMusic play:', e); });
-                }
+                if (isAudioPlaying) bgMusic.play().catch(function(e) { console.log('Menu bgMusic play:', e); });
             } else {
-                if (menuVideo) {
-                    menuVideo.pause();
-                }
+                if (menuVideo) menuVideo.pause();
                 menuVoice.pause();
                 menuVoice.currentTime = 0;
                 if (isVideoScene) {
                     bgMusic.volume = 0.05;
-                    if (isAudioPlaying) {
-                        bgMusic.play().catch(function(e) { console.log('BGM continues:', e); });
-                    }
+                    if (isAudioPlaying) bgMusic.play().catch(function(e) { console.log('BGM continues:', e); });
                 } else {
                     bgMusic.volume = 0.08;
-                    if (isAudioPlaying) {
-                        bgMusic.play().catch(function(e) { console.log('BGM continues:', e); });
-                    }
+                    if (isAudioPlaying) bgMusic.play().catch(function(e) { console.log('BGM continues:', e); });
                 }
             }
-
-            if (screenId !== 'story-1' && story1) { story1.pause();
-                story1.currentTime = 0; }
-            if (screenId !== 'story-2' && story2) { story2.pause();
-                story2.currentTime = 0; }
-            if (screenId !== 'story-ip1' && ipStory1) { ipStory1.pause();
-                ipStory1.currentTime = 0; }
-            if (screenId !== 'story-ip2' && ipStory2) { ipStory2.pause();
-                ipStory2.currentTime = 0; }
-            if (screenId !== 'story-router1' && routerStory1) { routerStory1.pause();
-                routerStory1.currentTime = 0; }
-            if (screenId !== 'story-router2' && routerStory2) { routerStory2.pause();
-                routerStory2.currentTime = 0; }
-            if (screenId !== 'story-workgroup1' && workgroupStory1) { workgroupStory1.pause();
-                workgroupStory1.currentTime = 0; }
-            if (screenId !== 'story-workgroup2' && workgroupStory2) { workgroupStory2.pause();
-                workgroupStory2.currentTime = 0; }
-
-            document.querySelectorAll('.screen').forEach(function(s) {
-                s.classList.remove('active');
-            });
+            if (screenId !== 'story-1' && story1) { story1.pause(); story1.currentTime = 0; }
+            if (screenId !== 'story-2' && story2) { story2.pause(); story2.currentTime = 0; }
+            if (screenId !== 'story-ip1' && ipStory1) { ipStory1.pause(); ipStory1.currentTime = 0; }
+            if (screenId !== 'story-ip2' && ipStory2) { ipStory2.pause(); ipStory2.currentTime = 0; }
+            if (screenId !== 'story-router1' && routerStory1) { routerStory1.pause(); routerStory1.currentTime = 0; }
+            if (screenId !== 'story-router2' && routerStory2) { routerStory2.pause(); routerStory2.currentTime = 0; }
+            if (screenId !== 'story-workgroup1' && workgroupStory1) { workgroupStory1.pause(); workgroupStory1.currentTime = 0; }
+            if (screenId !== 'story-workgroup2' && workgroupStory2) { workgroupStory2.pause(); workgroupStory2.currentTime = 0; }
+            document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
             var targetScreen = document.getElementById(screenId);
-            if (targetScreen) {
-                targetScreen.classList.add('active');
-            }
-
+            if (targetScreen) targetScreen.classList.add('active');
             var menuUser = document.getElementById('menu-user');
             var userName = document.getElementById('user-name');
             if (screenId === 'main-menu' && currentUser) {
@@ -6664,15 +5547,11 @@
                 if (menuUser) menuUser.classList.add('hidden');
                 if (userName) userName.textContent = 'Player';
             }
-            console.log('📺 Showing screen:', screenId, '| BGM volume:', bgMusic.volume);
         }
 
         function goToMenu() {
             var successVideo = document.getElementById('success-video');
-            if (successVideo) {
-                successVideo.pause();
-                successVideo.currentTime = 0;
-            }
+            if (successVideo) { successVideo.pause(); successVideo.currentTime = 0; }
             var story1 = document.getElementById('story-img-1');
             var story2 = document.getElementById('story-img-2');
             var ipStory1 = document.getElementById('story-ip1-video');
@@ -6681,23 +5560,14 @@
             var routerStory2 = document.getElementById('story-router2-video');
             var workgroupStory1 = document.getElementById('story-workgroup1-video');
             var workgroupStory2 = document.getElementById('story-workgroup2-video');
-            if (story1) { story1.pause();
-                story1.currentTime = 0; }
-            if (story2) { story2.pause();
-                story2.currentTime = 0; }
-            if (ipStory1) { ipStory1.pause();
-                ipStory1.currentTime = 0; }
-            if (ipStory2) { ipStory2.pause();
-                ipStory2.currentTime = 0; }
-            if (routerStory1) { routerStory1.pause();
-                routerStory1.currentTime = 0; }
-            if (routerStory2) { routerStory2.pause();
-                routerStory2.currentTime = 0; }
-            if (workgroupStory1) { workgroupStory1.pause();
-                workgroupStory1.currentTime = 0; }
-            if (workgroupStory2) { workgroupStory2.pause();
-                workgroupStory2.currentTime = 0; }
-
+            if (story1) { story1.pause(); story1.currentTime = 0; }
+            if (story2) { story2.pause(); story2.currentTime = 0; }
+            if (ipStory1) { ipStory1.pause(); ipStory1.currentTime = 0; }
+            if (ipStory2) { ipStory2.pause(); ipStory2.currentTime = 0; }
+            if (routerStory1) { routerStory1.pause(); routerStory1.currentTime = 0; }
+            if (routerStory2) { routerStory2.pause(); routerStory2.currentTime = 0; }
+            if (workgroupStory1) { workgroupStory1.pause(); workgroupStory1.currentTime = 0; }
+            if (workgroupStory2) { workgroupStory2.pause(); workgroupStory2.currentTime = 0; }
             showScreen('main-menu');
             resetGameState();
             resetIPConfig();
@@ -6715,31 +5585,19 @@
             isGameOver = false;
             loadPerformanceData();
             bgMusic.volume = musicVolume * masterVolume;
-            console.log('🏠 Returned to menu');
         }
 
         function showChallengeSelect() {
             showScreen('challenge-select');
             updateChallengeBadges();
-            console.log('📋 Showing challenge select');
         }
 
         function showDashboard() {
             showScreen('dashboard');
             updateDashboard();
-            console.log('📊 Showing dashboard');
         }
 
-        // ============================================
-        // INIT
-        // ============================================
-
-        console.log('🎮 ConnectED Game Loaded!');
-        console.log('🔊 BGM plays continuously. Story videos have AUDIO!');
-        console.log('🌐 Network Topology is a NEW UNIQUE challenge!');
-        console.log('✅ On failure: stay in challenge, just lose a life.');
-        console.log('✅ On Game Over: RETRY → same challenge, PRACTICE → same challenge.');
-        console.log('✅ Challenge select shows ✓ badges only on completed challenges.');
+        // ===== INIT =====
         initWirePalette();
         initTopology();
         initRouterQuiz();
