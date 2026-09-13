@@ -2829,8 +2829,44 @@
         .security-instruction-item,
         .topology-instruction-item {
             font-weight: 700;
+                    /* ===== MOBILE: drag note + CLEAN font ===== */
+        .mobile-drag-note {
+            display: none;
+            background: rgba(241, 196, 15, 0.15);
+            border: 1px dashed #f1c40f;
+            border-radius: 6px;
+            padding: 6px 8px;
+            margin: 4px 0 6px;
+            color: #f1c40f;
+            font-size: 0.55rem;
+            line-height: 1.4;
+            text-align: center;
         }
+
+        @media (max-width: 820px) {
+            .mobile-drag-note {
+                display: block;
+                font-size: 0.7rem;
+                padding: 8px 10px;
+            }
+
+            body,
+            body.font-adjusted *,
+            button, input, select, textarea,
+            .game-title, .game-subtitle, .pixel-btn,
+            .modal-content h2, .modal-content p,
+            .challenge-item, .drag-wire,
+            .header-bar, .ip-header,
+            .workgroup-header, .router-header,
+            .security-header, .topology-header,
+            .ml-quiz-option, .router-quiz-option {
+                font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
+                letter-spacing: normal !important;
+            }
+        }
+ }
     </style>
+    
 </head>
 <body>
 
@@ -3118,13 +3154,14 @@
                             <p>Select a standard above to view target sequence.</p>
                         </div>
                         <div class="challenge-info">
-                            <p>💡 <span id="challenge-hint">Drag wires to correct pins in order</span></p>
+                            <H4>💡 <span id="challenge-hint">Drag wires to correct pins in order if mobile user </span></H4>
+                            <H4>💡 <span id="challenge-hint">📱 On mobile:  hold and drag the wire to a pin</span></H4>
+
                         </div>
                     </div>
                     <div class="wire-palette">
-                        <h4>WIRES</h4>
-                        <div class="wires-grid" id="wire-source-container"></div>
-                    </div>
+                <h4>WIRES</h4>
+                        <div class="wires-grid" id="wire-source-container"></div>   
                     <div class="rj45-preview">
                         <h4>RJ45 PLUG</h4>
                         <div class="rj45-connector-wrapper">
@@ -3625,6 +3662,10 @@
     </div>
 
     <script>
+        if (!localStorage.getItem('font-clean-v1')) {
+    localStorage.removeItem('connected-font-family');
+    localStorage.setItem('font-clean-v1', 'true');
+}
         // ============================================
         // ConnectED - COMPLETE GAME SCRIPT
         // NEW: Network Topology Challenge (Challenge 5)
@@ -4075,7 +4116,7 @@
         var masterVolume = savedMasterVolume === null ? 1 : Number(savedMasterVolume);
         var musicVolume = savedMusicVolume === null ? 0.15 : Number(savedMusicVolume);
         var fontSize = savedFontSize === null ? 100 : Number(savedFontSize);
-        var fontFamily = savedFontFamily === null ? "'Press Start 2P'" : savedFontFamily;
+        var fontFamily = savedFontFamily === null ? "'Segoe UI', Arial, sans-serif" : savedFontFamily;
         var soundMuted = localStorage.getItem('connected-sound-muted') === 'true';
 
         bgMusic.loop = true;
