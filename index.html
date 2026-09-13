@@ -2627,7 +2627,130 @@
                 min-height: 50px !important;
                 white-space: normal !important;
             }
-            .account-screen-wrap,
+                        /* ---- ACCOUNT / LOGIN SCREEN ---- */
+            #account-screen {
+                display: flex;
+                flex-direction: column; 
+                min-height: 100vh;
+                min-height: 100dvh;
+                box-sizing: border-box;
+                justify-content: center;
+                align-items: center;
+                padding: 60px 16px 40px;
+            }
+            #account-screen.active {
+                display: flex !important;
+            }
+            .account-screen-wrap {
+                width: 100%;
+                max-width: 480px;
+                padding: 0;
+                min-height: auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-sizing: border-box;
+            }
+
+            /* Rounded card look */
+            .account-panel {
+                grid-template-columns: 1fr;
+                width: 100%;
+                max-width: 440px;
+                padding: 26px 18px 20px;
+                gap: 18px;
+                border: 3px solid #2bf1c9;
+                border-radius: 20px;
+                box-shadow: 0 0 0 3px rgba(43, 241, 201, 0.12),
+                            0 0 30px rgba(43, 241, 201, 0.3),
+                            inset 0 0 18px rgba(43, 241, 201, 0.15);
+                background: rgba(20, 53, 82, 0.96);
+            }
+            .account-left { padding: 0; text-align: center; }
+            .account-left h1 {
+                font-size: 2.2rem;
+                margin-bottom: 10px;
+                text-shadow: 0 0 18px rgba(43, 241, 201, 0.7);
+            }
+            .account-left .game-subtitle {
+                font-size: 0.62rem;
+                letter-spacing: 3px;
+                margin-bottom: 4px;
+            }
+            .account-logo {
+                width: 74px;
+                height: 74px;
+                margin: 12px auto 14px;
+                border-width: 3px;
+                border-color: #2bf1c9;
+                font-size: 1.7rem;
+                box-shadow: 0 0 18px rgba(43, 241, 201, 0.5);
+            }
+            .account-copy {
+                font-size: 0.62rem;
+                line-height: 1.55;
+                padding: 0 6px;
+                margin-bottom: 4px;
+            }
+            .account-form-wrap {
+                padding: 18px 14px;
+                border: 2px solid #f1c40f;
+                border-radius: 14px;
+                background: #081d2e;
+            }
+            .account-form-wrap h2 {
+                font-size: 0.9rem;
+                letter-spacing: 2px;
+                margin-bottom: 16px;
+                color: #f1c40f;
+            }
+            .account-form-row { margin-bottom: 14px; }
+            .account-form-row label {
+                font-size: 0.62rem;
+                letter-spacing: 1px;
+                margin-bottom: 6px;
+                color: #ecf0f1;
+            }
+            .account-form-row input {
+                font-size: 0.82rem;
+                padding: 13px 14px;
+                min-height: 48px;
+                border: 2px solid #2980b9;
+                border-radius: 10px;
+                background: #143552;
+            }
+            .account-form-row input::placeholder {
+                color: #7a8fa3;
+            }
+            .account-button-row {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+                margin-top: 18px;
+            }
+            .account-button-row .pixel-btn {
+                width: 100%;
+                font-size: 0.85rem;
+                padding: 14px 16px;
+                min-height: 52px;
+                border-radius: 12px;
+            }
+            #account-login-button {
+                background: #2bf1c9;
+                color: #0b1c28;
+                box-shadow: inset 0 -4px 0 #18a98c, 0 4px 0 #000;
+            }
+            #account-create-button {
+                background: #f1c40f;
+                color: #0b1c28;
+                box-shadow: inset 0 -4px 0 #b7950b, 0 4px 0 #000;
+            }
+            .account-message {
+                font-size: 0.65rem;
+                margin-top: 12px;
+            }
+
+            /* ---- OTHER SCREENS still use the old padding ---- */
             .dashboard-container,
             .challenge-grid,
             .router-prep-container,
@@ -2636,6 +2759,7 @@
                 min-height: 100vh;
                 min-height: 100dvh;
                 box-sizing: border-box;
+            }box-sizing: border-box;
             }
             .success-content { min-height: 100vh; min-height: 100dvh; box-sizing: border-box; }
 
