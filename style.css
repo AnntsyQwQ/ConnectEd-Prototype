@@ -2516,7 +2516,7 @@
             text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.65);
         }
 
-        .status,
+                .status,
         .ip-status,
         .workgroup-status,
         .router-status,
@@ -2532,4 +2532,18 @@
         .security-instruction-item,
         .topology-instruction-item {
             font-weight: 700;
+        }
+
+        /* ===== FORCE CLEAN FONT ON MOBILE ===== */
+        @media (max-width: 820px) {
+            body,
+            body.font-adjusted *,
+            button, input, select, textarea,
+            .game-title, .game-subtitle, .pixel-btn,
+            .modal-content h2, .modal-content p,
+            .challenge-item, .pixel-btn,
+            .ml-quiz-option, .router-quiz-option {
+                font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
+                letter-spacing: normal !important;
+            }
         }

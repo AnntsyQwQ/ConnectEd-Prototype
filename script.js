@@ -447,7 +447,7 @@
         var masterVolume = savedMasterVolume === null ? 1 : Number(savedMasterVolume);
         var musicVolume = savedMusicVolume === null ? 0.15 : Number(savedMusicVolume);
         var fontSize = savedFontSize === null ? 100 : Number(savedFontSize);
-        var fontFamily = savedFontFamily === null ? "'Press Start 2P'" : savedFontFamily;
+        var fontFamily = savedFontFamily === null ? "'Segoe UI', Arial, sans-serif" : savedFontFamily;
         var soundMuted = localStorage.getItem('connected-sound-muted') === 'true';
 
         bgMusic.loop = true;
