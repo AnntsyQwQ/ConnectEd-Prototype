@@ -442,6 +442,14 @@
             background-color: #af7ac5;
         }
 
+        .btn-quiz {
+            background-color: #e74c3c;
+            box-shadow: inset 0 -4px 0 #c0392b, 0 4px 0 #000;
+        }
+        .btn-quiz:hover {
+            background-color: #ff6b6b;
+        }
+
         .btn-back {
             position: absolute;
             top: 12px;
@@ -2627,19 +2635,17 @@
                 min-height: 50px !important;
                 white-space: normal !important;
             }
-                        /* ---- ACCOUNT / LOGIN SCREEN ---- */
-            #account-screen {
-                display: flex;
-                flex-direction: column; 
+            /* ---- ACCOUNT / LOGIN SCREEN (FIXED) ---- */
+            #account-screen.active {
+                display: flex !important;
+                flex-direction: column;
                 min-height: 100vh;
                 min-height: 100dvh;
                 box-sizing: border-box;
                 justify-content: center;
                 align-items: center;
                 padding: 60px 16px 40px;
-            }
-            #account-screen.active {
-                display: flex !important;
+                width: 100%;
             }
             .account-screen-wrap {
                 width: 100%;
@@ -2759,8 +2765,8 @@
                 min-height: 100vh;
                 min-height: 100dvh;
                 box-sizing: border-box;
-            }box-sizing: border-box;
             }
+        }
             .success-content { min-height: 100vh; min-height: 100dvh; box-sizing: border-box; }
 
             /* CLEAN FONT on mobile */
@@ -2772,7 +2778,7 @@
                 font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
                 letter-spacing: normal !important;
             }
-        }
+        
     </style>
 </head>
 <body>
