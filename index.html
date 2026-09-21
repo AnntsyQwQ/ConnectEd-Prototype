@@ -75,7 +75,7 @@ body.font-adjusted * { font-family: var(--game-font, 'Segoe UI'), Arial, sans-se
 .screen > .btn-back { top:8px; }
 .lives-display { left:50%; right:auto; transform:translateX(-50%); }
 .challenge-grid, .dashboard-container, .router-prep-container, .micro-learning-container, .rj45-workspace, .ip-workspace, .workgroup-workspace, .router-workspace, .security-workspace, .topology-workspace, .quiz-mode-container, .quiz-result-container { padding-top:80px !important; }
-#challenge-select { background:rgba(13,40,64,0.95); }
+#challenge-select, #quiz-select-screen { background:rgba(13,40,64,0.95); }
 .challenge-grid { width:100%; height:100%; padding:20px; overflow-y:auto; display:flex; flex-direction:column; align-items:center; }
 .challenge-grid h2 { color:#fff; text-align:center; margin-top:50px; font-size:0.9rem; margin-bottom:15px; }
 .challenge-list { display:grid; grid-template-columns:1fr 1fr; gap:10px; max-width:700px; width:100%; }
@@ -160,9 +160,58 @@ body.font-adjusted * { font-family: var(--game-font, 'Segoe UI'), Arial, sans-se
 .rj45-connector-wrapper { position:relative; width:160px; height:170px; display:flex; justify-content:center; margin:2px auto; }
 .rj45-svg { position:absolute; top:0; left:0; width:100%; height:100%; z-index:1; pointer-events:none; }
 .connector-slots { position:absolute; top:48px; left:24px; width:112px; height:110px; display:flex; justify-content:space-between; z-index:2; }
-.drop-zone { width:12px; height:100%; background:rgba(0,0,0,0.4); border:1px dashed rgba(255,255,255,0.3); border-radius:2px; display:flex; flex-direction:column; align-items:center; position:relative; }
-.drop-zone .pin-num { position:absolute; bottom:-12px; font-size:0.3rem; color:#888; }
-.drop-zone .drag-wire { width:100%; height:100%; padding:0; font-size:0; border-radius:1px; }
+
+/* ===== FIXED DROP-ZONE ===== */
+.drop-zone {
+    width:12px;
+    height:100%;
+    background:rgba(0,0,0,0.4);
+    border:1px dashed rgba(255,255,255,0.3);
+    border-radius:2px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
+    cursor:pointer;
+}
+.drop-zone .pin-num {
+    position:absolute;
+    bottom:-12px;
+    font-size:0.3rem;
+    color:#888;
+    z-index:3;
+    pointer-events:none;
+}
+/* Placed wire inside RJ45 pin — fill 100% and hide text (HIGH SPECIFICITY) */
+#challenge-2 .drop-zone > .drag-wire,
+.drop-zone .drag-wire {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    max-height: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    font-size: 0 !important;
+    line-height: 0 !important;
+    color: transparent !important;
+    text-shadow: none !important;
+    text-indent: -9999px !important;
+    text-decoration: none !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    display: block !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+}
+
 .actions { display:flex; gap:6px; margin-top:8px; justify-content:center; }
 .tool-btn { padding:4px 12px; background:#27ae60; color:#fff; border:none; border-radius:4px; cursor:pointer; font-family:inherit; font-size:0.35rem; }
 .tool-btn:hover { opacity:0.8; }
@@ -289,30 +338,9 @@ body.font-adjusted * { font-family: var(--game-font, 'Segoe UI'), Arial, sans-se
 .router-instruction-item { font-size:0.32rem; color:#ecf0f1; padding:3px 0; border-bottom:1px solid rgba(255,255,255,0.05); }
 .router-instruction-item .correct-value { color:#2ecc71; }
 .router-instruction-item .highlight { color:#2bf1c9; }
-.router-key-points, .router-quiz { background:rgba(0,0,0,0.3); border-radius:6px; padding:9px; margin-top:10px; }
-.router-key-points { border-left:3px solid #2bf1c9; }
-.router-quiz { border-left:3px solid #f39c12; }
-.router-key-points-title, .router-quiz-title { display:block; color:#2bf1c9; font-size:0.45rem; margin-bottom:7px; }
-.router-quiz-title { color:#f39c12; }
+.router-key-points { background:rgba(0,0,0,0.3); border-radius:6px; padding:9px; margin-top:10px; border-left:3px solid #2bf1c9; }
+.router-key-points-title { display:block; color:#2bf1c9; font-size:0.45rem; margin-bottom:7px; }
 .router-key-point { color:#ecf0f1; font-size:0.35rem; line-height:1.6; margin:3px 0; }
-.router-quiz-progress { color:#f1c40f; font-size:0.35rem; margin-bottom:6px; }
-.router-quiz-question { color:#ecf0f1; font-size:0.38rem; line-height:1.5; margin-bottom:7px; }
-.router-quiz-option { background:#081d2e; border:2px solid transparent; border-radius:4px; color:#ecf0f1; cursor:pointer; font-size:0.34rem; line-height:1.45; margin:3px 0; padding:6px 8px; }
-.router-quiz-option:hover { border-color:#2bf1c9; }
-.router-quiz-option.correct { background:rgba(46,204,113,0.2); border-color:#2ecc71; }
-.router-quiz-option.wrong { background:rgba(231,76,60,0.2); border-color:#e74c3c; }
-#router-prep { background:rgba(13,40,64,0.96); }
-.router-prep-container { width:min(760px,100%); height:100%; margin:0 auto; padding:45px 20px 20px; overflow-y:auto; }
-.router-prep-container h2 { color:#2bf1c9; font-size:0.9rem; text-align:center; margin-bottom:16px; }
-.router-prep-card { background:#143552; border:2px solid #2bf1c9; border-radius:8px; padding:15px; margin-bottom:12px; }
-.router-prep-card h3 { color:#f1c40f; font-size:0.6rem; margin-bottom:9px; }
-.router-prep-card p { color:#ecf0f1; font-size:0.48rem; line-height:1.7; margin:5px 0; }
-.router-prep-quiz { border-color:#f39c12; }
-.router-prep-actions { display:flex; justify-content:center; margin-top:15px; }
-.router-prep-start:disabled { opacity:0.5; cursor:not-allowed; }
-.router-actions { display:flex; gap:8px; margin-top:10px; justify-content:center; }
-.router-tool-btn { padding:4px 14px; background:#27ae60; color:#fff; border:none; border-radius:4px; cursor:pointer; font-family:inherit; font-size:0.35rem; }
-.router-reset-btn { background:#e74c3c; }
 #security-challenge { background:#1a0d28; }
 .security-workspace { width:100%; height:100%; padding:10px; padding-top:35px; display:flex; flex-direction:column; }
 .security-header { display:flex; justify-content:space-between; align-items:center; background:#2a1a3a; padding:6px 12px; border-radius:6px; font-size:0.4rem; margin-bottom:6px; border:2px solid #e74c3c; }
@@ -339,6 +367,36 @@ body.font-adjusted * { font-family: var(--game-font, 'Segoe UI'), Arial, sans-se
 .security-instruction-item { font-size:0.32rem; color:#ecf0f1; padding:4px 0; border-bottom:1px solid rgba(255,255,255,0.05); }
 .security-instruction-item .correct-value { color:#2ecc71; }
 .security-instruction-item .highlight { color:#f1c40f; }
+
+/* CABLE TESTER CHALLENGE */
+#cable-test-challenge { background:#0a1a2a; }
+.cable-test-workspace { width:100%; height:100%; padding:10px; padding-top:35px; display:flex; flex-direction:column; }
+.cable-test-body { display:flex; flex:1; gap:10px; min-height:0; }
+.cable-test-left { flex:2; background:#143552; border-radius:8px; padding:12px; border:2px solid #2bf1c9; overflow-y:auto; display:flex; flex-direction:column; gap:10px; }
+.cable-test-right { flex:1; background:#143552; border-radius:8px; padding:12px; border:2px solid #f39c12; overflow-y:auto; display:flex; flex-direction:column; gap:8px; }
+.tester-device { display:flex; justify-content:space-around; gap:14px; background:#081d2e; border-radius:8px; padding:14px; border:2px solid #2980b9; }
+.tester-panel { display:flex; flex-direction:column; align-items:center; gap:6px; }
+.tester-panel-label { color:#2bf1c9; font-size:0.5rem; font-weight:bold; letter-spacing:1px; }
+.tester-pin-grid { display:flex; flex-direction:column; gap:5px; }
+.tester-pin { display:flex; align-items:center; gap:6px; padding:5px 8px; background:#051422; border-radius:4px; border:1px solid #2980b9; font-size:0.5rem; color:#ecf0f1; min-width:130px; font-family:'Courier New',monospace; }
+.tester-pin .pin-num { color:#f1c40f; font-weight:bold; min-width:22px; }
+.tester-pin .pin-arrow { color:#2bf1c9; }
+.tester-pin .pin-target { color:#ecf0f1; min-width:22px; }
+.tester-pin .pin-status { margin-left:auto; }
+.tester-pin.ok { border-color:#2ecc71; background:rgba(46,204,113,0.12); }
+.tester-pin.ok .pin-status { color:#2ecc71; }
+.tester-pin.open { border-color:#e74c3c; background:rgba(231,76,60,0.12); }
+.tester-pin.open .pin-status { color:#e74c3c; }
+.tester-pin.pending .pin-status { color:#888; }
+.cable-type-options { display:flex; flex-direction:column; gap:6px; margin-top:6px; }
+.cable-type-btn { padding:10px 12px; background:#081d2e; border:2px solid #2980b9; border-radius:6px; color:#ecf0f1; font-family:inherit; font-size:0.55rem; cursor:pointer; text-align:left; transition:all 0.15s; font-weight:bold; }
+.cable-type-btn:hover { border-color:#2bf1c9; background:#1a3a5c; }
+.cable-type-btn:disabled { opacity:0.5; cursor:not-allowed; }
+.cable-test-log { background:#051422; border:2px solid #2980b9; border-radius:6px; padding:8px; font-family:'Courier New',monospace; font-size:0.45rem; color:#ecf0f1; min-height:70px; white-space:pre-wrap; line-height:1.5; }
+.cable-test-log .line-ok { color:#2ecc71; }
+.cable-test-log .line-fail { color:#e74c3c; }
+.cable-test-log .line-info { color:#f1c40f; }
+
 #topology-challenge { background:#0a1a2a; }
 .topology-workspace { width:100%; height:100%; padding:10px; padding-top:35px; display:flex; flex-direction:column; }
 .topology-header { display:flex; justify-content:space-between; align-items:center; background:#051422; padding:6px 12px; border-radius:6px; font-size:0.4rem; margin-bottom:6px; border:2px solid #2bf1c9; }
@@ -409,7 +467,6 @@ body.font-adjusted * { font-family: var(--game-font, 'Segoe UI'), Arial, sans-se
 .game-over-content { border-color:#e74c3c !important; }
 .game-over-buttons { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; }
 
-/* COOLDOWN TIMER */
 .cooldown-timer { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, rgba(231,76,60,0.97), rgba(192,57,43,0.97)); border: 4px solid #f1c40f; border-radius: 12px; padding: 10px 22px; color: #fff; font-family: inherit; font-size: 0.6rem; font-weight: 900; z-index: 99999; display: none; align-items: center; gap: 12px; box-shadow: 0 0 30px rgba(231,76,60,0.8), 0 6px 0 #000; pointer-events: none; text-shadow: 2px 2px 0 rgba(0,0,0,0.7); animation: cooldownPulse 2s ease infinite; }
 .cooldown-timer.visible { display: flex; }
 .cooldown-timer .cooldown-label { color: #fff; }
@@ -417,7 +474,6 @@ body.font-adjusted * { font-family: var(--game-font, 'Segoe UI'), Arial, sans-se
 .cooldown-timer .cooldown-note { color: #ecf0f1; font-size: 0.45rem; font-weight: 700; }
 @keyframes cooldownPulse { 0%, 100% { box-shadow: 0 0 30px rgba(231,76,60,0.8), 0 6px 0 #000; } 50% { box-shadow: 0 0 50px rgba(241,196,15,0.9), 0 6px 0 #000; } }
 
-/* QUIZ MODE */
 .quiz-mode-container { width: 100%; height: 100%; padding: 70px 20px 20px; display: flex; flex-direction: column; align-items: center; background: rgba(13,40,64,0.97); overflow-y: auto; }
 .quiz-mode-header { width: min(720px, 100%); display: flex; justify-content: space-between; align-items: center; background: #051422; border: 2px solid #2bf1c9; border-radius: 8px; padding: 10px 16px; color: #2bf1c9; font-size: 0.6rem; margin-bottom: 16px; flex-wrap: wrap; gap: 8px; }
 .quiz-mode-header span { font-weight: bold; }
@@ -435,7 +491,6 @@ body.font-adjusted * { font-family: var(--game-font, 'Segoe UI'), Arial, sans-se
 #quiz-mode-next { padding: 12px 30px !important; font-size: 0.65rem !important; background: #27ae60 !important; box-shadow: inset 0 -4px 0 #1e8449, 0 4px 0 #000 !important; display: none; }
 #quiz-mode-next.visible { display: inline-block; }
 
-/* QUIZ RESULT */
 .quiz-result-container { width: min(700px, 94%); margin: 70px auto 20px; padding: 26px; background: rgba(20,53,82,0.97); border: 4px solid #2bf1c9; border-radius: 18px; box-shadow: 0 0 40px rgba(43,241,201,0.25); color: #ecf0f1; text-align: center; }
 .quiz-result-container h1 { color: #2bf1c9; font-size: 1.4rem; margin-bottom: 20px; text-shadow: 3px 3px 0 #0b1c28; }
 .quiz-result-stats { display: flex; justify-content: space-around; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
@@ -454,6 +509,7 @@ body.font-adjusted * { font-family: var(--game-font, 'Segoe UI'), Arial, sans-se
   .router-body { flex-direction:column; }
   .security-body { flex-direction:column; }
   .topology-body { flex-direction:column; }
+  .cable-test-body { flex-direction:column; }
   .micro-learning-body { flex-direction:column; }
   .game-title { font-size:1.2rem; }
   .challenge-list { grid-template-columns:1fr; }
@@ -478,6 +534,39 @@ body.font-adjusted * { font-family: var(--game-font, 'Segoe UI'), Arial, sans-se
   .quiz-mode-header { font-size: 0.5rem; }
   #quiz-mode-question { font-size: 0.65rem; }
   .quiz-mode-option { font-size: 0.55rem; padding: 10px; }
+
+  /* ===== MOBILE FIX: RJ45 placed wire ===== */
+  #challenge-2 .drop-zone > .drag-wire,
+  .drop-zone .drag-wire {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    max-height: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    font-size: 0 !important;
+    line-height: 0 !important;
+    color: transparent !important;
+    text-shadow: none !important;
+    text-indent: -9999px !important;
+    text-decoration: none !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    display: block !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+  }
+  /* Bigger tap target for the pin on mobile */
+  #challenge-2 .drop-zone { width: 16px !important; min-height: 100% !important; cursor: pointer; }
+  #challenge-2 .connector-slots { top: 50px !important; left: 22px !important; width: 118px !important; height: 108px !important; }
+  #challenge-2 .connector-slots .drop-zone { width: 16px !important; }
 }
 html { font-size:18px; }
 body, button, input, select, textarea { font-weight:700; }
@@ -488,9 +577,9 @@ body, button, input, select, textarea { font-weight:700; }
   .game-container { width:100vw !important; min-width:100vw !important; max-width:100vw !important; height:auto !important; min-height:100vh; min-height:100dvh; max-height:none !important; margin:0 !important; border-width:0 !important; border-radius:0 !important; overflow:visible !important; box-shadow:none !important; }
   .screen { position:relative !important; top:auto !important; left:auto !important; width:100% !important; height:auto !important; min-height:100vh; min-height:100dvh; overflow-y:auto; display:none; }
   .screen.active { display:flex !important; flex-direction:column; }
-  .rj45-workspace, .ip-workspace, .workgroup-workspace, .router-workspace, .security-workspace, .topology-workspace, .crossover-workspace { flex:1; min-height:100vh; min-height:100dvh; padding:60px 10px 14px !important; box-sizing:border-box; display:flex; flex-direction:column; gap:8px; }
-  .mini-game-body, .ip-body, .workgroup-body, .router-body, .security-body, .topology-body, .micro-learning-body, .crossover-body { display:flex; flex-direction:column !important; gap:10px !important; flex:1; min-height:0; }
-  .schematic-card, .wire-palette, .rj45-preview, .pc-config, .ip-instructions, .workgroup-config, .workgroup-instructions, .router-config, .router-instructions, .security-config, .security-instructions, .topology-canvas, .topology-instructions, .ml-content, .ml-sidebar, .crossover-end { flex:0 0 auto !important; width:100% !important; box-sizing:border-box; }
+  .rj45-workspace, .ip-workspace, .workgroup-workspace, .router-workspace, .security-workspace, .topology-workspace, .crossover-workspace, .cable-test-workspace { flex:1; min-height:100vh; min-height:100dvh; padding:60px 10px 14px !important; box-sizing:border-box; display:flex; flex-direction:column; gap:8px; }
+  .mini-game-body, .ip-body, .workgroup-body, .router-body, .security-body, .topology-body, .micro-learning-body, .crossover-body, .cable-test-body { display:flex; flex-direction:column !important; gap:10px !important; flex:1; min-height:0; }
+  .schematic-card, .wire-palette, .rj45-preview, .pc-config, .ip-instructions, .workgroup-config, .workgroup-instructions, .router-config, .router-instructions, .security-config, .security-instructions, .topology-canvas, .topology-instructions, .ml-content, .ml-sidebar, .crossover-end, .cable-test-left, .cable-test-right { flex:0 0 auto !important; width:100% !important; box-sizing:border-box; }
   .wire-palette { flex:1 1 auto !important; min-height:200px; display:flex; flex-direction:column; }
   .wires-grid { flex:1; gap:5px !important; }
   .drag-wire { height:34px !important; font-size:0.75rem !important; padding-left:12px !important; cursor:pointer; }
@@ -520,6 +609,36 @@ body, button, input, select, textarea { font-weight:700; }
   .account-button-row .pixel-btn { width:100%; font-size:0.85rem; padding:14px 16px; min-height:52px; border-radius:12px; }
   .account-message { font-size:0.65rem; margin-top:12px; }
   .dashboard-container, .challenge-grid, .router-prep-container, .micro-learning-container, .quiz-mode-container, .quiz-result-container { padding:60px 12px 20px !important; min-height:100vh; min-height:100dvh; box-sizing:border-box; }
+
+  /* ===== 820px MOBILE FIX: RJ45 placed wire ===== */
+  #challenge-2 .drop-zone > .drag-wire,
+  .drop-zone .drag-wire {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    max-height: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    font-size: 0 !important;
+    line-height: 0 !important;
+    color: transparent !important;
+    text-shadow: none !important;
+    text-indent: -9999px !important;
+    text-decoration: none !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    display: block !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+  }
+  #challenge-2 .drop-zone { width: 16px !important; cursor: pointer; }
 }
 .success-content { min-height:100vh; min-height:100dvh; box-sizing:border-box; }
 body, body.font-adjusted *, button, input, select, textarea, .game-title, .game-subtitle, .pixel-btn, .modal-content h2, .modal-content p, .challenge-item, .drag-wire, .header-bar, .ip-header, .workgroup-header, .router-header, .security-header, .topology-header { font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif !important; letter-spacing:normal !important; }
@@ -560,12 +679,12 @@ body, body.font-adjusted *, button, input, select, textarea, .game-title, .game-
     <p class="manual-subtitle">Read this before you start. It will help you play faster and avoid losing lives.</p>
     <div class="manual-grid">
       <div class="manual-card"><h2>🎯 Goal</h2><p>Complete network challenges, learn networking skills, earn points, and keep your lives.</p></div>
-      <div class="manual-card"><h2>🎮 How to Play</h2><ul><li><b>START CHALLENGE</b> — guided path through all modules.</li><li><b>PRACTICE MODE</b> — choose any module, no lives lost.</li><li><b>ALL MODULES</b> — choose any topic, hearts deduct.</li><li><b>QUIZ</b> — combined random quiz from all modules.</li><li><b>DASHBOARD</b> — see your progress and scores.</li></ul></div>
+      <div class="manual-card"><h2>🎮 How to Play</h2><ul><li><b>START CHALLENGE</b> — guided path through all modules.</li><li><b>PRACTICE MODE</b> — choose any module, no lives lost.</li><li><b>ALL MODULES</b> — choose any topic, hearts deduct.</li><li><b>QUIZ</b> — choose LO1–LO4, take that outcome's quiz.</li><li><b>DASHBOARD</b> — see your progress and scores.</li></ul></div>
       <div class="manual-card"><h2>🕹️ Controls</h2><p><b>Desktop:</b> Drag and drop wires, devices, or items.</p><p><b>Mobile:</b> Tap a wire, then tap a pin. Tap devices to connect them.</p></div>
       <div class="manual-card"><h2>❤️ Lives & Score</h2><p>You start with <b>5 lives</b>. Wrong answers lose <b>1 life</b>. Completing a challenge gives <b>+100 points</b>.</p></div>
       <div class="manual-card"><h2>⏳ Cooldown</h2><p>If you run out of lives, you must wait <b>3 minutes</b>. During that time, only <b>PRACTICE MODE</b> is available.</p></div>
       <div class="manual-card"><h2>💡 Tips</h2><ul><li>Read the micro-lesson before each challenge.</li><li>Use <b>RESET</b> if you get stuck.</li><li>Check the <b>DASHBOARD</b> for progress.</li><li>Adjust <b>FONT SIZE</b> in Settings if text is small.</li></ul></div>
-      <div class="manual-card"><h2>📚 Modules Included</h2><p>RJ45, Straight-Through, Crossover, IP Config, CMD IP, Topology, Workgroup, Router, Security.</p></div>
+      <div class="manual-card"><h2>📚 Modules Included</h2><p>RJ45, Straight-Through, Crossover, Cable Tester, IP Config, CMD IP, Topology, Workgroup, Router, Security.</p></div>
     </div>
     <button class="pixel-btn manual-start-btn" onclick="closeManual()">🚀 START GAME</button>
   </div>
@@ -637,6 +756,7 @@ body, body.font-adjusted *, button, input, select, textarea, .game-title, .game-
       <button class="challenge-item" data-id="1" onclick="startModuleFromSelect(1)">🔌 RJ45 Crimping - T568B</button>
       <button class="challenge-item" data-id="2" onclick="startModuleFromSelect(2)">🔗 Straight-Through Cable</button>
       <button class="challenge-item" data-id="3" onclick="startModuleFromSelect(3)">🔄 Crossover Cable</button>
+      <button class="challenge-item" data-id="10" onclick="startModuleFromSelect(10)">🔬 Cable Tester Verification</button>
       <button class="challenge-item" data-id="4" onclick="startModuleFromSelect(4)">📡 IP Configuration</button>
       <button class="challenge-item" data-id="9" onclick="startModuleFromSelect(9)">💻 Find IP Address Using CMD</button>
       <button class="challenge-item" data-id="5" onclick="startModuleFromSelect(5)">🌐 Network Topology</button>
@@ -647,12 +767,26 @@ body, body.font-adjusted *, button, input, select, textarea, .game-title, .game-
   </div>
 </div>
 
+<!-- QUIZ LO SELECT -->
+<div id="quiz-select-screen" class="screen">
+  <button class="pixel-btn btn-back" onclick="goToMenu()">BACK</button>
+  <div class="challenge-grid">
+    <h2>SELECT LEARNING OUTCOME QUIZ</h2>
+    <div class="challenge-list" id="quiz-lo-list">
+      <button class="challenge-item" onclick="startLOQuiz(1)">🔌 LO1: Install Network Cables</button>
+      <button class="challenge-item" onclick="startLOQuiz(2)">⚙️ LO2: Set Network Configuration</button>
+      <button class="challenge-item" onclick="startLOQuiz(3)">📡 LO3: Set Router / Wi-Fi / Access Point</button>
+      <button class="challenge-item" onclick="startLOQuiz(4)">🧪 LO4: Inspect and Test Networks</button>
+    </div>
+  </div>
+</div>
+
 <!-- QUIZ MODE -->
 <div id="quiz-mode-screen" class="screen">
   <button class="pixel-btn btn-back" onclick="exitQuizMode()">BACK</button>
   <div class="quiz-mode-container">
     <div class="quiz-mode-header">
-      <span>📝 QUIZ MODE</span>
+      <span id="quiz-mode-title">📝 QUIZ MODE</span>
       <span id="quiz-mode-progress">Question 1 of 20</span>
       <span id="quiz-mode-score">Correct: 0</span>
     </div>
@@ -677,7 +811,8 @@ body, body.font-adjusted *, button, input, select, textarea, .game-title, .game-
     </div>
     <div class="quiz-result-message" id="quiz-result-message"></div>
     <div class="quiz-result-actions">
-      <button class="pixel-btn" onclick="startQuizMode()">RETRY QUIZ</button>
+      <button class="pixel-btn" onclick="retryLastLOQuiz()">RETRY QUIZ</button>
+      <button class="pixel-btn" onclick="startQuizMode()">CHOOSE ANOTHER LO</button>
       <button class="pixel-btn btn-menu" onclick="goToMenu()">MENU</button>
     </div>
   </div>
@@ -708,17 +843,6 @@ body, body.font-adjusted *, button, input, select, textarea, .game-title, .game-
 <div id="story-workgroup1" class="screen"><button class="pixel-btn btn-back" onclick="goToMenu()">BACK</button><video id="story-workgroup1-video" class="story-bg" autoplay playsinline onclick="goToWorkgroupStory2()"><source src="image/W1.mp4" type="video/mp4"></video><div class="story-overlay"><button class="pixel-btn btn-next-story" onclick="goToWorkgroupStory2()">NEXT ➜</button></div></div>
 <div id="story-workgroup2" class="screen"><button class="pixel-btn btn-back" onclick="goToMenu()">BACK</button><video id="story-workgroup2-video" class="story-bg" autoplay playsinline onclick="proceedToWorkgroupChallenge()"><source src="image/W2.mp4" type="video/mp4"></video><div class="story-overlay"><button class="pixel-btn btn-next-story" onclick="proceedToWorkgroupChallenge()">NEXT ➜</button></div></div>
 
-<!-- ROUTER PREP -->
-<div id="router-prep" class="screen">
-  <button class="pixel-btn btn-back" onclick="goToMenu()">BACK</button>
-  <div class="router-prep-container">
-    <h2>ROUTER CHALLENGE PREP</h2>
-    <div class="router-prep-card"><h3>🔑 KEY POINTS</h3><p>• A router connects different networks.</p><p>• WPA2 protects wireless traffic.</p><p>• Ping checks whether a device responds.</p></div>
-    <div class="router-prep-card router-prep-quiz"><h3>🎯 QUICK CHECK</h3><div class="router-quiz-progress" id="router-quiz-progress">Question 1 of 3</div><p class="router-quiz-question" id="router-quiz-question"></p><div id="router-quiz-options"></div></div>
-    <div class="router-prep-actions"><button class="pixel-btn router-prep-start" id="router-prep-start" onclick="startRouterChallenge()" disabled>🔒 ANSWER ALL QUESTIONS</button></div>
-  </div>
-</div>
-
 <!-- MICRO LEARNING -->
 <div id="micro-learning" class="screen">
   <button class="pixel-btn btn-back" onclick="exitMicroLearning()">BACK</button>
@@ -732,7 +856,7 @@ body, body.font-adjusted *, button, input, select, textarea, .game-title, .game-
         <div class="ml-remember"><h3>🧠 Remember</h3><p id="ml-remember-text">Loading tip...</p></div>
       </div>
       <div class="ml-sidebar">
-        <div class="ml-progress"><span class="ml-progress-label">📈 Progress</span><div class="ml-progress-bar"><div class="ml-progress-fill" id="ml-progress-fill" style="width:0%"></div></div><span class="ml-progress-text" id="ml-progress-text">0 / 8</span></div>
+        <div class="ml-progress"><span class="ml-progress-label">📈 Progress</span><div class="ml-progress-bar"><div class="ml-progress-fill" id="ml-progress-fill" style="width:0%"></div></div><span class="ml-progress-text" id="ml-progress-text">0 / 10</span></div>
         <div class="ml-quiz" id="ml-quiz-box"><h4>🎯 Quick Check</h4><div class="ml-quiz-progress" id="ml-quiz-progress">Question 1 of 10</div><div class="ml-quiz-progress" id="ml-score">Score: 0 / 3</div><p class="ml-quiz-question" id="ml-quiz-question">Test your understanding</p><div id="ml-quiz-options"></div></div>
         <div class="ml-practice-mode-badge" id="ml-practice-badge">📚 PRACTICE MODE - No lives lost!</div>
         <button class="pixel-btn ml-start-btn" id="ml-start-btn" onclick="startChallengeFromLearning()">🔒 ANSWER ALL QUESTIONS</button>
@@ -781,6 +905,47 @@ body, body.font-adjusted *, button, input, select, textarea, .game-title, .game-
   </div>
 </div>
 
+<!-- CABLE TESTER CHALLENGE -->
+<div id="cable-test-challenge" class="screen">
+  <button class="pixel-btn btn-back" onclick="confirmGoToMenu()">BACK</button>
+  <div class="lives-display" id="cable-test-lives-display"><span class="lives-label">LIVES:</span><span class="lives-icons" id="cable-test-lives-icons">❤️❤️❤️❤️❤️</span><span class="score-display" id="cable-test-score-display">SCORE: 0</span></div>
+  <div class="cable-test-workspace">
+    <div class="ip-header"><span class="ip-title">🔬 CABLE TESTER VERIFICATION</span><span id="cable-test-status" class="ip-status">STATUS: RUN THE TEST</span></div>
+    <div class="cable-test-body">
+      <div class="cable-test-left">
+        <div class="pc-title">📡 NETWORK CABLE TESTER</div>
+        <div class="tester-device">
+          <div class="tester-panel">
+            <div class="tester-panel-label">MAIN UNIT</div>
+            <div class="tester-pin-grid" id="tester-main-pins"></div>
+          </div>
+          <div class="tester-panel">
+            <div class="tester-panel-label">REMOTE UNIT</div>
+            <div class="tester-pin-grid" id="tester-remote-pins"></div>
+          </div>
+        </div>
+        <div class="ip-actions">
+          <button class="ip-tool-btn" onclick="runCableTest()">🔍 RUN TEST</button>
+          <button class="ip-tool-btn ip-reset-btn" onclick="resetCableTest()">🔄 RESET</button>
+        </div>
+      </div>
+      <div class="cable-test-right">
+        <div class="instructions-title">📋 TASK</div>
+        <div class="instruction-item">1. Click <span class="highlight">RUN TEST</span>.</div>
+        <div class="instruction-item">2. Read the pin continuity results.</div>
+        <div class="instruction-item">3. Identify the cable type below.</div>
+        <div class="instruction-item" style="color:#e74c3c;">⚠️ Wrong answer = -1 Life!</div>
+        <div class="cable-type-options">
+          <button class="cable-type-btn" id="ct-btn-straight" onclick="answerCableTest('straight')" disabled>🔗 Straight-Through</button>
+          <button class="cable-type-btn" id="ct-btn-crossover" onclick="answerCableTest('crossover')" disabled>🔄 Crossover</button>
+          <button class="cable-type-btn" id="ct-btn-faulty" onclick="answerCableTest('faulty')" disabled>❌ Faulty</button>
+        </div>
+        <div class="cable-test-log" id="cable-test-log">Click RUN TEST to begin.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- IP CHALLENGE -->
 <div id="ip-challenge" class="screen">
   <button class="pixel-btn btn-back" onclick="confirmGoToMenu()">BACK</button>
@@ -814,7 +979,7 @@ body, body.font-adjusted *, button, input, select, textarea, .game-title, .game-
   </div>
 </div>
 
-<!-- CROSSOVER CHALLENGE -->
+<!-- CROSSOVER -->
 <div id="crossover-challenge" class="screen">
   <button class="pixel-btn btn-back" onclick="confirmGoToMenu()">BACK</button>
   <div class="lives-display"><span class="lives-label">LIVES:</span><span class="lives-icons" id="crossover-lives-icons">❤️❤️❤️❤️❤️</span><span class="score-display" id="crossover-score-display">SCORE: 0</span></div>
@@ -895,7 +1060,19 @@ body, body.font-adjusted *, button, input, select, textarea, .game-title, .game-
         <div class="router-section"><div class="router-section-title">🖥️ Connectivity Test (ping)</div><div class="router-row"><span class="router-label">IP Address to ping:</span><input type="text" class="router-input" id="ping-ip" placeholder="192.168.1.1" maxlength="15"></div><button class="router-tool-btn" onclick="runPingTest()">▶️ RUN PING</button><div class="ping-result" id="ping-result"><span class="info">📡 Ready to ping...</span></div></div>
         <div class="router-actions"><button class="router-tool-btn" onclick="checkRouterConfig()">✅ VERIFY ROUTER</button><button class="router-tool-btn router-reset-btn" onclick="resetRouterConfig()">🔄 RESET</button></div>
       </div>
-      <div class="router-instructions"><div class="router-instructions-title">📋 CONFIGURATION TASK</div><div class="router-instruction-item">🔹 SSID: <span class="correct-value">OfficeNet</span></div><div class="router-instruction-item">🔹 Security: <span class="correct-value">WPA2</span></div><div class="router-instruction-item">🔹 LAN IP: <span class="correct-value">192.168.1.1</span></div><div class="router-instruction-item">🔹 Ping IP: <span class="correct-value">192.168.1.1</span></div></div>
+      <div class="router-instructions">
+        <div class="router-instructions-title">📋 CONFIGURATION TASK</div>
+        <div class="router-instruction-item">🔹 SSID: <span class="correct-value">OfficeNet</span></div>
+        <div class="router-instruction-item">🔹 Security: <span class="correct-value">WPA2</span></div>
+        <div class="router-instruction-item">🔹 LAN IP: <span class="correct-value">192.168.1.1</span></div>
+        <div class="router-instruction-item">🔹 Ping IP: <span class="correct-value">192.168.1.1</span></div>
+        <div class="router-key-points">
+          <span class="router-key-points-title">🔑 KEY POINTS</span>
+          <div class="router-key-point">• A router connects different networks.</div>
+          <div class="router-key-point">• WPA2 protects wireless traffic.</div>
+          <div class="router-key-point">• Ping checks whether a device responds.</div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -921,7 +1098,7 @@ body, body.font-adjusted *, button, input, select, textarea, .game-title, .game-
   </div>
 </div>
 
-<!-- TOPOLOGY CHALLENGE -->
+<!-- TOPOLOGY -->
 <div id="topology-challenge" class="screen">
   <button class="pixel-btn btn-back" onclick="confirmGoToMenu()">BACK</button>
   <div class="lives-display" id="topology-lives-display"><span class="lives-label">LIVES:</span><span class="lives-icons" id="topology-lives-icons">❤️❤️❤️❤️❤️</span><span class="score-display" id="topology-score-display">SCORE: 0</span></div>
@@ -1060,27 +1237,31 @@ if (!localStorage.getItem('font-clean-v1')) { localStorage.removeItem('connected
 var currentTargetStandard = null;
 var isPracticeMode = false;
 var lives = 5, maxLives = 5, score = 0;
-var currentChallenge = 1, totalChallenges = 9;
+var currentChallenge = 1, totalChallenges = 10;
 var isGameOver = false, isAudioPlaying = false, modalTimeout = null;
-var challengeOrder = [1, 4, 9, 6, 7, 2, 5, 3, 8];
+var challengeOrder = [1, 4, 9, 6, 7, 2, 5, 3, 10, 8];
 var challengeIndex = 0, learningChallengeId = null, learningIsPractice = false;
 var isIPStoryFlow = false, fileShareCompleted = false;
 var modalCloseAction = null, currentUser = null;
 var manualFirstTimeKey = 'connected_manual_seen_v1';
 
-/* QUIZ MODE variables */
-var challengeSelectMode = 'all'; // 'all' or 'practice'
+var challengeSelectMode = 'all';
 var quizModeQuestions = [];
 var quizModeIndex = 0;
 var quizModeCorrect = 0;
 var quizModeTotal = 0;
 var quizModeAnswered = false;
 var QUIZ_MODE_LIMIT = 20;
+var lastLOQuizNumber = 1;
 
-/* COOLDOWN */
 var challengeCooldownEnd = 0;
 var cooldownTimerInterval = null;
 var COOLDOWN_MS = 3 * 60 * 1000;
+
+var cableTestCurrentScenario = null;
+var cableTestRan = false;
+
+var menuVoiceCycleRunning = false;
 
 var performanceData = { completed: new Set(), scores: {}, attempts: {}, totalScore: 0, totalAttempts: 0, successRate: 0 };
 
@@ -1088,6 +1269,7 @@ var challenges = {
   1: { name: 'RJ45 Crimping - T568B', hint: 'Drag wires to correct pins in T568B order', type: 'rj45' },
   2: { name: 'Straight-Through Cable', hint: 'Both ends use T568B standard', type: 'rj45' },
   3: { name: 'Crossover Cable', hint: 'Drag wires into T568A on one end and T568B on the other', type: 'crossover' },
+  10: { name: 'Cable Tester Verification', hint: 'Run the cable tester and identify the cable type', type: 'cable-test' },
   4: { name: 'IP Configuration', hint: 'Configure PC1 with correct IP settings', type: 'ip' },
   9: { name: 'Find IP Address Using CMD', hint: 'Type ipconfig and read the IPv4 address', type: 'cmd-ip' },
   5: { name: 'Network Topology', hint: 'Configure all 6 PCs and connect all cables', type: 'topology' },
@@ -1096,68 +1278,100 @@ var challenges = {
   8: { name: 'Network Security', hint: 'Enable firewall, WPA2, MAC filtering, updates and set admin password', type: 'security' }
 };
 
-/* Quiz question pool per module (used only by quiz mode now) */
-var challengeQuizQuestions = {
-  1:[{question:'Which TIA/EIA standard is used for this RJ45 module?',options:['T568A','T568B','WPA2','IPv6'],correct:1},{question:'Which color is pin 1 in T568B?',options:['Green/White','Orange/White','Blue','Brown'],correct:1},{question:'How many conductors are terminated in an RJ45 plug?',options:['4','6','8','10'],correct:2},{question:'What tool attaches an RJ45 plug to the cable?',options:['Punch-down tool','Crimping tool','Multimeter','Cable tester only'],correct:1},{question:'What should be checked before crimping?',options:['Wire sequence','Monitor brightness','IP gateway','Wi-Fi password'],correct:0},{question:'Which pair is on pins 3 and 6 in T568B?',options:['Blue pair','Green pair','Orange pair','Brown pair'],correct:1},{question:'What does a cable tester check?',options:['Continuity and pinout','Internet speed only','Password strength','Screen resolution'],correct:0},{question:'What protects each Ethernet pair from interference?',options:['Twisting','Painting','DHCP','Routing'],correct:0},{question:'What is the recommended jacket strip length?',options:['Only enough to expose pairs','One meter','The entire cable','No exposed wires'],correct:0},{question:'A wrong pinout can cause what result?',options:['Link failure','More bandwidth','Automatic encryption','A stronger signal'],correct:0}],
-  9:[{question:'Which command displays Windows IP configuration?',options:['ipconfig','ping','format','mkdir'],correct:0},{question:'Which value identifies the computer on the local network?',options:['IPv4 Address','Subnet Mask','Default Gateway','DNS Suffix'],correct:0},{question:'What IPv4 address is shown in this challenge?',options:['192.168.136.128','255.255.255.0','192.168.136.2','127.0.0.1'],correct:0}],
-  2:[{question:'What wiring standard is normally used on both ends of a straight-through cable?',options:['T568B','T568A on one end only','WPA2','RS-232'],correct:0},{question:'What is the defining feature of a straight-through cable?',options:['Same pinout on both ends','No pinout','Fiber on one end','Reversed power wires'],correct:0},{question:'Which connection commonly uses straight-through wiring?',options:['PC to switch','PC to PC only','Switch to switch only','Printer to printer'],correct:0},{question:'What does a switch primarily connect?',options:['Devices on a LAN','Different continents','Power outlets','Passwords'],correct:0},{question:'What does UTP mean?',options:['Unshielded Twisted Pair','Universal Transfer Port','Unused Test Pin','Ultra Thin Plug'],correct:0},{question:'What is the maximum common Cat5e channel length?',options:['10 m','50 m','100 m','500 m'],correct:2},{question:'Which connector is used with common UTP Ethernet cable?',options:['RJ11','RJ45','USB-C','BNC only'],correct:1},{question:'What should both ends have for a reliable cable?',options:['Matching correct pinouts','Different IP addresses','The same MAC address','A router password'],correct:0},{question:'Which device forwards frames using MAC addresses?',options:['Switch','Modem only','Keyboard','Monitor'],correct:0},{question:'What is a link light used to indicate?',options:['Physical link status','DNS status','User permission','File size'],correct:0}],
-  3:[{question:'How are the ends of a traditional crossover cable wired?',options:['T568A and T568B','T568B and T568B','Both with no standard','USB and RJ45'],correct:0},{question:'What pairs are crossed?',options:['Transmit and receive','Power and ground','Blue and brown only','DNS and DHCP'],correct:0},{question:'What devices were commonly connected directly with crossover cable?',options:['PC to PC','PC to keyboard','Monitor to printer','Router to internet'],correct:0},{question:'Which device type can also use a crossover connection?',options:['Switch to switch','Mouse to mouse','Speaker to speaker','Printer to paper'],correct:0},{question:'What feature reduces the need for crossover cables?',options:['Auto-MDI/MDIX','DHCP','DNS','WPA3'],correct:0},{question:'What is the purpose of crossing pairs?',options:['Match transmit to receive','Increase voltage','Assign an IP','Encrypt files'],correct:0},{question:'Which standard has the green pair first?',options:['T568A','T568B','802.11','802.3af'],correct:0},{question:'Which standard has the orange pair first?',options:['T568A','T568B','WPA2','IPv4'],correct:1},{question:'Should a crossover cable still be tested after termination?',options:['Yes','No, never','Only over Wi-Fi','Only with DNS'],correct:0},{question:'What happens with an incorrect crossover pinout?',options:['The link may fail','The cable becomes wireless','The IP changes automatically','The switch reboots'],correct:0}],
-  4:[{question:'What identifies a host on an IP network?',options:['IP address','Cable color','Monitor size','Computer wallpaper'],correct:0},{question:'How many octets are in an IPv4 address?',options:['2','4','6','8'],correct:1},{question:'Which is a valid IPv4 address?',options:['192.168.1.2','192.168.1','192.168.1.2.3','192-168-1-2'],correct:0},{question:'What does a subnet mask identify?',options:['Network and host portions','Wi-Fi password','Cable category','MAC vendor only'],correct:0},{question:'What is the purpose of a default gateway?',options:['Reach other networks','Test a cable','Name a computer','Encrypt a file'],correct:0},{question:'What service translates names to IP addresses?',options:['DNS','DHCP','FTP','ARP only'],correct:0},{question:'What service can assign IP settings automatically?',options:['DHCP','DNS','HTTP','SSH'],correct:0},{question:'Which address is in the private 192.168.1.0/24 network?',options:['192.168.1.25','8.8.8.8','172.40.1.1','1.1.1.1'],correct:0},{question:'What command displays Windows IP configuration?',options:['ipconfig','format','mkdir','netstat only'],correct:0},{question:'What can duplicate IP addresses cause?',options:['Communication problems','Faster browsing','More storage','Stronger encryption'],correct:0}],
-  5:[{question:'In a star topology, devices connect to a...',options:['Central switch','Single bus cable','Ring only','Printer'],correct:0},{question:'What does a router connect?',options:['Different networks','Only USB devices','Power cables','Files'],correct:0},{question:'What does a switch connect?',options:['Hosts within a LAN','Only WAN providers','Passwords','DNS names'],correct:0},{question:'Which topology uses one main backbone cable?',options:['Bus','Star','Mesh','Tree only'],correct:0},{question:'Which topology provides many redundant paths?',options:['Mesh','Bus','Single point','Line only'],correct:0},{question:'What is a LAN?',options:['Local Area Network','Long Access Node','Link Address Name','Local Audio Network'],correct:0},{question:'What device connects a LAN to the internet?',options:['Router','Patch panel','Keyboard','Cable tester'],correct:0},{question:'What is a network diagram used for?',options:['Planning and troubleshooting','Increasing RAM','Changing passwords only','Formatting disks'],correct:0},{question:'What physical medium carries Ethernet signals?',options:['Copper or fiber cable','Printer ink','Keyboard keys','DNS records'],correct:0},{question:'A single central switch failure in a star affects...',options:['Connected devices','Only the internet name','The keyboard battery','Nothing at all'],correct:0}],
-  6:[{question:'What must computers in one Windows workgroup share?',options:['Workgroup name','IP address','Computer name','MAC address'],correct:0},{question:'What lets a PC discover other PCs?',options:['Network Discovery','Airplane Mode','Screen sharing only','DNS cache'],correct:0},{question:'What enables shared files and printers?',options:['File and Printer Sharing','Changing wallpaper','Disabling TCP/IP','Changing DNS only'],correct:0},{question:'What should each computer have on a LAN?',options:['A unique computer name','The same IP address','No password ever','The same MAC address'],correct:0},{question:'Which Windows feature controls network visibility?',options:['Network profile','Recycle Bin','Task Manager only','Display settings'],correct:0},{question:'What is a shared folder used for?',options:['Network file access','Changing IP class','Testing voltage','Crimping cable'],correct:0},{question:'What is required to access a protected share?',options:['Permission or credentials','A crossover cable always','A new monitor','A public DNS only'],correct:0},{question:'Which protocol commonly supports Windows file sharing?',options:['SMB','FTP only','SMTP','ICMP'],correct:0},{question:'Why should passwords not be shared publicly?',options:['To prevent unauthorized access','To improve cable speed','To change topology','To increase screen size'],correct:0},{question:'What should be checked when a share is inaccessible?',options:['Permissions and connectivity','Monitor color','Cable brand only','Browser theme'],correct:0}],
-  7:[{question:'What is the main role of a router?',options:['Forward packets between networks','Crimp cables','Store passwords','Print documents'],correct:0},{question:'Which command tests reachability?',options:['ping','copy','format','mkdir'],correct:0},{question:'What protocol does ping use?',options:['ICMP','FTP','SMTP','SMB'],correct:0},{question:'What identifies a wireless network name?',options:['SSID','MAC mask','DNS','Subnet'],correct:0},{question:'Which security standard is preferred over WEP?',options:['WPA2','HTTP','FTP','Telnet'],correct:0},{question:'What is the router LAN IP used for?',options:['Local management and gateway','Cable testing only','Naming files','Encrypting email'],correct:0},{question:'What does a successful ping reply indicate?',options:['The target responded','The password is correct','The cable is fiber','DNS is disabled'],correct:0},{question:'What should be pinged first during troubleshooting?',options:['Local gateway','A random printer','A file name','The monitor'],correct:0},{question:'What does SSID stand for?',options:['Service Set Identifier','Secure Server Internet ID','Switch System Interface Data','Static Subnet IP Device'],correct:0},{question:'What can interference affect?',options:['Wireless connectivity','File names only','Monitor brightness','Keyboard layout'],correct:0}],
-  8:[{question:'What blocks unauthorized network traffic?',options:['Firewall','Patch cable','DNS name','Switch label'],correct:0},{question:'Which option secures Wi-Fi?',options:['WPA2 encryption','Open access','Disabling updates','Sharing the key'],correct:0},{question:'What limits access to approved device hardware addresses?',options:['MAC filtering','DHCP only','DNS','Ping'],correct:0},{question:'What makes an administrator password stronger?',options:['Length and complexity','Using a name','Using 123456','Leaving it blank'],correct:0},{question:'Why install security updates?',options:['To fix vulnerabilities','To change cable colors','To increase monitor size','To remove all users'],correct:0},{question:'What does encryption provide?',options:['Confidentiality','More cable length','Automatic wiring','A new IP class'],correct:0},{question:'What is social engineering?',options:['Manipulating people for information','Routing packets','Testing a cable','Assigning an IP'],correct:0},{question:'What should be done with unused network services?',options:['Disable them when possible','Publish passwords','Remove the firewall','Use default credentials'],correct:0},{question:'What is a backup useful for after an incident?',options:['Restoring data','Increasing Wi-Fi range','Changing a MAC address','Crimping RJ45'],correct:0},{question:'What is a secure practice for network administration?',options:['Change default credentials','Use the default password','Disable logging','Share admin accounts'],correct:0}]
+var loQuizQuestions = {
+  1: [
+    { question: 'What does UTP stand for in network cabling?', options: ['Unshielded Twisted Pair', 'Universal Test Port', 'Unused Terminal Pin', 'Ultra Thin Plug'], correct: 0 },
+    { question: 'What is the maximum recommended length of a Cat5e cable run?', options: ['50 meters', '100 meters', '150 meters', '200 meters'], correct: 1 },
+    { question: 'Which wiring standard places the orange pair at pins 1 and 2?', options: ['T568A', 'T568B', 'T568C', 'T568D'], correct: 1 },
+    { question: 'Which wiring standard places the green pair at pins 1 and 2?', options: ['T568A', 'T568B', 'T568C', 'T568D'], correct: 0 },
+    { question: 'What tool is used to attach RJ45 connectors to UTP cable?', options: ['Punch down tool', 'Crimping tool', 'Wire stripper', 'Screwdriver'], correct: 1 },
+    { question: 'What is the primary purpose of a network cable tester?', options: ['To test internet speed', 'To check pinout and continuity', 'To measure cable length only', 'To configure IP addresses'], correct: 1 },
+    { question: 'How many pins does a standard RJ45 connector have?', options: ['4', '6', '8', '12'], correct: 2 },
+    { question: 'Which cable is used to connect two similar devices directly?', options: ['Straight-through', 'Crossover', 'Rollover', 'Coaxial'], correct: 1 },
+    { question: 'Which cable is used to connect a PC to a switch?', options: ['Straight-through', 'Crossover', 'Rollover', 'Coaxial'], correct: 0 },
+    { question: 'What OHS hazard must be avoided when routing cables?', options: ['Tripping hazards', 'Bright lights', 'Loud music', 'Cold coffee'], correct: 0 },
+    { question: 'What color wire is on pin 1 of a T568B straight cable?', options: ['Orange/White', 'Green/White', 'Blue', 'Brown'], correct: 0 },
+    { question: 'What color wire is on pin 1 of a T568A straight cable?', options: ['Orange/White', 'Green/White', 'Blue', 'Brown'], correct: 1 },
+    { question: 'What device organizes and terminates UTP cables in a rack?', options: ['Patch panel', 'Router', 'Modem', 'Switch'], correct: 0 },
+    { question: 'What does the twisting in UTP cable help reduce?', options: ['Electromagnetic interference', 'Cable weight', 'Signal strength', 'Internet speed'], correct: 0 },
+    { question: 'What type of connector is commonly used for Ethernet?', options: ['RJ11', 'RJ45', 'BNC', 'USB-A'], correct: 1 },
+    { question: 'What is the purpose of the outer jacket on UTP cable?', options: ['Protect inner wires from damage', 'Boost signal strength', 'Carry power', 'Encode data'], correct: 0 },
+    { question: 'What OHS practice should be followed before starting cable installation?', options: ['Wear proper PPE', 'Eat snacks', 'Turn off the lights', 'Listen to loud music'], correct: 0 },
+    { question: 'Which cable category supports up to 1 Gbps up to 100 m?', options: ['Cat3', 'Cat5e', 'Cat1', 'Cat7 only'], correct: 1 }
+  ],
+  2: [
+    { question: 'What does IP stand for?', options: ['Internet Protocol', 'Internal Process', 'Integrated Port', 'Input Program'], correct: 0 },
+    { question: 'What does a subnet mask identify?', options: ['Network and host portions', 'Wi-Fi password', 'Cable type', 'User name'], correct: 0 },
+    { question: 'What is the purpose of a default gateway?', options: ['Reach other networks', 'Test a cable', 'Name a computer', 'Encrypt files'], correct: 0 },
+    { question: 'What service automatically assigns IP addresses to hosts?', options: ['DNS', 'DHCP', 'HTTP', 'SSH'], correct: 1 },
+    { question: 'What is a static IP address?', options: ['An IP that is manually assigned', 'An IP that changes often', 'An IP used only for DNS', 'A Wi-Fi SSID'], correct: 0 },
+    { question: 'What is a workgroup?', options: ['A peer-to-peer network without central server', 'A group of routers', 'A type of cable', 'A backup server'], correct: 0 },
+    { question: 'What is a Windows Server Domain?', options: ['A centralized directory-managed network', 'A type of workgroup', 'A cable type', 'A DNS record'], correct: 0 },
+    { question: 'What is Network Discovery used for?', options: ['Seeing other computers on the network', 'Scanning hardware', 'Testing cable pinout', 'Encrypting traffic'], correct: 0 },
+    { question: 'What does File and Printer Sharing enable?', options: ['Sharing files and printers over the network', 'Formatting drives', 'Running antivirus', 'Changing wallpaper'], correct: 0 },
+    { question: 'What is a public folder?', options: ['A folder accessible to other users on the network', 'A folder only you can access', 'A hidden system folder', 'A folder that is deleted often'], correct: 0 },
+    { question: 'Which is a valid IPv4 address?', options: ['192.168.1.2', '192.168.1', '192.168.1.2.3', '192-168-1-2'], correct: 0 },
+    { question: 'What is the loopback address?', options: ['127.0.0.1', '192.168.1.1', '10.0.0.1', '255.255.255.0'], correct: 0 },
+    { question: 'Which service translates domain names to IP addresses?', options: ['DNS', 'DHCP', 'HTTP', 'FTP'], correct: 0 },
+    { question: 'Which setting controls whether your PC can see other PCs?', options: ['Network Discovery', 'Firewall rule', 'Wi-Fi channel', 'Subnet mask'], correct: 0 },
+    { question: 'Which of these is a private IP address range?', options: ['10.0.0.0 – 10.255.255.255', '8.8.8.0 – 8.8.8.255', '1.1.1.0 – 1.1.1.255', '203.177.0.0 – 203.177.0.255'], correct: 0 },
+    { question: 'What does DNS stand for?', options: ['Domain Name System', 'Data Network Service', 'Dynamic Node Setup', 'Direct Network Signal'], correct: 0 },
+    { question: 'What is the default subnet mask of a Class C network?', options: ['255.0.0.0', '255.255.0.0', '255.255.255.0', '255.255.255.255'], correct: 2 },
+    { question: 'What is a DNS Server commonly used for?', options: ['Name resolution', 'Assigning IPs', 'Cable testing', 'Running antivirus'], correct: 0 }
+  ],
+  3: [
+    { question: 'What does SSID stand for?', options: ['Service Set Identifier', 'Secure System Internet ID', 'Switch Signal Interface Data', 'Static Subnet IP Device'], correct: 0 },
+    { question: 'How do you access a router\'s admin page?', options: ['Type its gateway IP in a browser', 'Press the reset button', 'Plug in an HDMI cable', 'Call the ISP'], correct: 0 },
+    { question: 'What is the default gateway of most home routers?', options: ['192.168.1.1 or 192.168.0.1', '8.8.8.8', '1.1.1.1', '127.0.0.1'], correct: 0 },
+    { question: 'What does WAN stand for?', options: ['Wide Area Network', 'Wireless Access Node', 'Wired Area Network', 'Web Access Network'], correct: 0 },
+    { question: 'Which is a common WAN connection type?', options: ['PPPoE', 'USB', 'Bluetooth', 'HDMI'], correct: 0 },
+    { question: 'What is PPPoE?', options: ['A WAN connection type requiring a username/password', 'A Wi-Fi security protocol', 'A cable standard', 'A type of router'], correct: 0 },
+    { question: 'Which Wi-Fi security is the most secure?', options: ['WEP', 'WPA', 'WPA2', 'Open'], correct: 2 },
+    { question: 'Why hide the SSID broadcast?', options: ['Reduce visibility to casual users', 'Speed up internet', 'Fix cable pinout', 'Assign IPs'], correct: 0 },
+    { question: 'What is the DHCP pool on a router?', options: ['The range of IP addresses the router can assign', 'A type of cable', 'A firewall rule', 'A DNS server'], correct: 0 },
+    { question: 'Which side of the router connects to the ISP?', options: ['WAN', 'LAN', 'DMZ only', 'Patch panel'], correct: 0 },
+    { question: 'Which side of the router connects to local devices?', options: ['LAN', 'WAN', 'PPPoE', 'DNS'], correct: 0 },
+    { question: 'What is WPA3?', options: ['The newest Wi-Fi security standard', 'An old cable type', 'A router brand', 'A DNS record'], correct: 0 },
+    { question: 'What is the typical default admin IP for a home router?', options: ['192.168.1.1', '8.8.4.4', '1.1.1.1', '127.0.0.1'], correct: 0 },
+    { question: 'What does broadcast hiding mean for a router?', options: ['SSID is not visible to scanners', 'Turn off all LEDs', 'Block all traffic', 'Disable DHCP'], correct: 0 },
+    { question: 'What does AP stand for?', options: ['Access Point', 'Analog Port', 'Advanced Protocol', 'Automatic Ping'], correct: 0 },
+    { question: 'What is the purpose of a WPA2 pre-shared key?', options: ['To secure Wi-Fi with a shared password', 'To assign IPs', 'To trace routes', 'To test cables'], correct: 0 },
+    { question: 'Which device extends Wi-Fi coverage?', options: ['Access Point', 'Cable tester', 'Punch down tool', 'Patch panel'], correct: 0 },
+    { question: 'What is the LAN side of a router usually configured with?', options: ['A local IP range for devices', 'A public IP', 'A DNS name only', 'A MAC address only'], correct: 0 }
+  ],
+  4: [
+    { question: 'Which command shows your PC\'s IP configuration?', options: ['ipconfig', 'ping', 'format', 'mkdir'], correct: 0 },
+    { question: 'Which command tests reachability to another host?', options: ['ipconfig', 'ping', 'netstat', 'format'], correct: 1 },
+    { question: 'Which command traces the route to a destination?', options: ['tracert / traceroute', 'ipconfig', 'format', 'mkdir'], correct: 0 },
+    { question: 'Which command troubleshoots DNS resolution?', options: ['nslookup', 'ping', 'ipconfig', 'format'], correct: 0 },
+    { question: 'What does ipconfig show?', options: ['Local network configuration', 'DNS records only', 'Cable pinout', 'Antivirus logs'], correct: 0 },
+    { question: 'What does ping measure?', options: ['Round-trip time and reachability', 'File size', 'Disk space', 'Screen resolution'], correct: 0 },
+    { question: 'What does tracert do?', options: ['Shows each hop to a destination', 'Assigns IP addresses', 'Crimps cables', 'Hides SSID'], correct: 0 },
+    { question: 'What does nslookup do?', options: ['Resolves domain names to IP addresses', 'Pings a host', 'Shows cables', 'Formats disks'], correct: 0 },
+    { question: 'What does resource sharing verification test?', options: ['Access to shared printers and drives', 'Monitor brightness', 'Keyboard layout', 'Wi-Fi channel'], correct: 0 },
+    { question: 'What is a topology chart?', options: ['A diagram of the network layout', 'A type of cable', 'A firewall rule', 'A password'], correct: 0 },
+    { question: 'What is a device assignment log?', options: ['A record of which device has which IP', 'A shopping list', 'A Wi-Fi password', 'A cable color scheme'], correct: 0 },
+    { question: 'What is a technical inspection report?', options: ['A document summarizing network tests and results', 'A type of cable', 'A router model', 'A DHCP setting'], correct: 0 },
+    { question: 'What does pinging 127.0.0.1 test?', options: ['The local TCP/IP stack', 'The router', 'The internet', 'DNS only'], correct: 0 },
+    { question: 'What does "Request timed out" mean in ping?', options: ['No response received from the target', 'The IP is wrong', 'Cable is good', 'DNS is fine'], correct: 0 },
+    { question: 'Which command shows MAC address info on Windows?', options: ['ipconfig /all', 'ping', 'tracert', 'nslookup'], correct: 0 },
+    { question: 'Why is documentation important in network setup?', options: ['For maintenance and troubleshooting reference', 'For decoration', 'For gaming', 'For printing'], correct: 0 },
+    { question: 'What tool maps the exact path packets take?', options: ['tracert / traceroute', 'ping', 'nslookup', 'ipconfig'], correct: 0 },
+    { question: 'What does "Reply from x.x.x.x" in ping indicate?', options: ['The target responded successfully', 'The cable is broken', 'DNS failed', 'SSID hidden'], correct: 0 }
+  ]
 };
 
-/* TESDA NC2 CO2 based questions (Set up Computer Networks) */
-var tesdaNC2Questions = [
-  { question: 'Which cable is most commonly used for Ethernet LAN connections in TESDA NC2 setup?', options: ['UTP Cat5e', 'Coaxial cable', 'Fiber optic', 'Telephone wire'], correct: 0 },
-  { question: 'What is the maximum recommended cable length for Cat5e UTP?', options: ['50 meters', '100 meters', '200 meters', '500 meters'], correct: 1 },
-  { question: 'Which tool is used to attach an RJ45 connector to a UTP cable?', options: ['Crimping tool', 'Punch down tool', 'Screwdriver', 'Pliers'], correct: 0 },
-  { question: 'Which wiring standard is commonly used in the Philippines for straight-through cables?', options: ['T568A', 'T568B', 'T568C', 'T568D'], correct: 1 },
-  { question: 'How many pins does an RJ45 connector have?', options: ['4', '6', '8', '10'], correct: 2 },
-  { question: 'What is the correct wire color order for T568B pin 1?', options: ['Orange/White', 'Green/White', 'Blue', 'Brown'], correct: 0 },
-  { question: 'Which device connects multiple computers in a LAN and forwards frames based on MAC addresses?', options: ['Hub', 'Switch', 'Router', 'Repeater'], correct: 1 },
-  { question: 'Which device connects different networks together?', options: ['Hub', 'Switch', 'Router', 'Bridge'], correct: 2 },
-  { question: 'What does IP stand for?', options: ['Internet Protocol', 'Internal Process', 'Integrated Port', 'Input Program'], correct: 0 },
-  { question: 'How many bits are in an IPv4 address?', options: ['16 bits', '32 bits', '64 bits', '128 bits'], correct: 1 },
-  { question: 'Which IP address class is used for large networks?', options: ['Class A', 'Class B', 'Class C', 'Class D'], correct: 0 },
-  { question: 'What is the default subnet mask of a Class C network?', options: ['255.0.0.0', '255.255.0.0', '255.255.255.0', '255.255.255.255'], correct: 2 },
-  { question: 'What does DHCP stand for?', options: ['Dynamic Host Configuration Protocol', 'Digital Host Connection Protocol', 'Direct Host Control Program', 'Dynamic Host Computer Process'], correct: 0 },
-  { question: 'What is the role of a DNS server?', options: ['Assign IP addresses', 'Translate domain names to IP addresses', 'Route packets', 'Encrypt data'], correct: 1 },
-  { question: 'Which topology connects all devices to a central device?', options: ['Bus', 'Star', 'Ring', 'Mesh'], correct: 1 },
-  { question: 'Which command tests connectivity between two devices?', options: ['ipconfig', 'ping', 'netstat', 'tracert'], correct: 1 },
-  { question: 'Which command displays the IP configuration on Windows?', options: ['ipconfig', 'ping', 'netstat', 'tracert'], correct: 0 },
-  { question: 'What does a crossover cable connect?', options: ['PC to switch', 'PC to PC', 'Router to switch', 'Modem to router'], correct: 1 },
-  { question: 'What does a straight-through cable connect?', options: ['PC to PC', 'Switch to switch', 'PC to switch', 'Router to router'], correct: 2 },
-  { question: 'What is the purpose of a firewall?', options: ['Speed up internet', 'Block unauthorized network traffic', 'Assign IP addresses', 'Amplify signal'], correct: 1 },
-  { question: 'Which encryption standard is the most secure for Wi-Fi?', options: ['WEP', 'WPA', 'WPA2', 'Open'], correct: 2 },
-  { question: 'What is a workgroup in Windows?', options: ['A group of computers sharing resources without a central server', 'A group of routers', 'A type of cable', 'A network protocol'], correct: 0 },
-  { question: 'What does LAN stand for?', options: ['Long Area Network', 'Local Area Network', 'Linked Access Node', 'Local Audio Network'], correct: 1 },
-  { question: 'What does WAN stand for?', options: ['Wide Area Network', 'Wireless Access Node', 'Wired Area Network', 'Web Access Network'], correct: 0 },
-  { question: 'Which of these is a valid IPv4 address?', options: ['192.168.1.1', '256.1.1.1', '192.168.1', '192-168-1-1'], correct: 0 },
-  { question: 'What is the loopback IP address?', options: ['127.0.0.1', '192.168.0.1', '10.0.0.1', '255.255.255.0'], correct: 0 },
-  { question: 'What is the purpose of a patch panel in a network rack?', options: ['Organize and manage cable connections', 'Route packets', 'Assign IP addresses', 'Provide internet'], correct: 0 },
-  { question: 'Which type of cable is immune to electromagnetic interference?', options: ['UTP', 'STP', 'Coaxial', 'Fiber optic'], correct: 3 },
-  { question: 'Which port number does HTTP use by default?', options: ['21', '25', '80', '443'], correct: 2 },
-  { question: 'Which port number does HTTPS use by default?', options: ['21', '25', '80', '443'], correct: 3 },
-  { question: 'What is the purpose of a UPS in a network setup?', options: ['Provide backup power', 'Route packets', 'Assign IP addresses', 'Encrypt traffic'], correct: 0 },
-  { question: 'Which of these is an example of a private IP address?', options: ['10.0.0.5', '8.8.8.8', '1.1.1.1', '203.177.5.10'], correct: 0 },
-  { question: 'What does RJ stand for in RJ45?', options: ['Registered Jack', 'Random Jack', 'Rapid Junction', 'Remote Junction'], correct: 0 },
-  { question: 'Which command displays all active network connections?', options: ['netstat', 'ping', 'ipconfig', 'tracert'], correct: 0 },
-  { question: 'Which of these is used to connect a computer to a wired network?', options: ['Ethernet cable', 'HDMI cable', 'USB printer cable', 'Power cord'], correct: 0 }
-];
-
 var microLessons = {
-  1:{topic:"RJ45 Crimping - T568B Standard",description:"The T568B is a standard wiring scheme for RJ45 connectors used in Ethernet networks. It defines the color order of the eight wires inside a twisted pair cable.",points:["T568B is the most widely used wiring standard for Ethernet cables.","The wire order: Orange/White, Orange, Green/White, Blue, Blue/White, Green, Brown/White, Brown.","Used for both straight-through and crossover cables.","Both ends of a straight-through cable use the same standard.","The T568B standard ensures compatibility with most network devices."],example:"Pin 1 = Orange/White, Pin 2 = Orange, Pin 3 = Green/White, Pin 4 = Blue, Pin 5 = Blue/White, Pin 6 = Green, Pin 7 = Brown/White, Pin 8 = Brown.",remember:"T568B is the default standard for most networks. Always double-check your wire order before crimping!"},
-  9:{topic:"Find IP Address Using CMD",description:"Use the Windows ipconfig command to display the computer's network information, then identify its IPv4 address.",points:["Open Command Prompt inside the challenge.","Type ipconfig and press Run.","Find the active Ethernet adapter.","Read the IPv4 Address value.","Enter the IPv4 address in the answer field."],example:"The IPv4 Address in this challenge is 192.168.136.128.",remember:"Use the IPv4 Address, not the Subnet Mask or Default Gateway."},
-  2:{topic:"Straight-Through Cable",description:"A straight-through cable is a type of Ethernet cable where both ends use the same wiring standard (usually T568B).",points:["Both ends use the same wiring standard.","Most commonly used for connecting computers to network switches.","The wire order is identical on both ends.","It is the most common type of network cable."],example:"When connecting your PC to a switch, use a straight-through cable with T568B on both ends.",remember:"Straight-through = same standard on both ends."},
-  3:{topic:"Crossover Cable",description:"A crossover cable is a type of Ethernet cable where one end uses T568A and the other uses T568B.",points:["One end uses T568A, the other uses T568B.","Used to connect similar devices directly (PC to PC, Switch to Switch).","The transmit and receive pairs are crossed over.","Less common today because modern devices auto-detect cable types."],example:"If you want to connect two laptops directly, use a crossover cable.",remember:"Crossover = different standards on each end."},
-  4:{topic:"IP Configuration",description:"IP Configuration is the process of assigning a unique IP address to a device on a network.",points:["Every device on a network needs a unique IP address.","The subnet mask determines which part is the network and which is the host.","The default gateway is the router that connects to other networks.","DNS servers translate domain names to IP addresses."],example:"IP: 192.168.1.2, Subnet: 255.255.255.0, Gateway: 192.168.1.1, DNS: 8.8.8.8",remember:"IP address = your device's unique ID. Subnet mask = which network you're on. Gateway = the door to the internet."},
-  5:{topic:"Network Topology - Configuring PCs",description:"A network topology is the arrangement of devices in a network. In this module, you will configure all 6 PCs with the same correct IP settings and then connect the network with cables.",points:["Every device on the network needs a unique IP address in real life, but for this exercise all 6 PCs use the SAME values.","In a star topology, all devices connect to a central hub or switch.","The subnet mask determines network vs host portion.","The default gateway connects the LAN to other networks.","DNS translates names to IP addresses.","After configuring PCs, connect SERVER to HUBS and HUBS to PCs."],example:"Required values for every PC: IP 192.168.1.2, Mask 255.255.255.0, Gateway 192.168.1.1, DNS 8.8.8.8.",remember:"Router → Switch → PC is the basic building block of a network."},
-  6:{topic:"Workgroup & Sharing Setup",description:"A workgroup is a peer-to-peer network setup where computers communicate directly with each other without a central server.",points:["All computers should have the same workgroup name.","Turn on Network Discovery to see other computers.","Turn on File and Printer Sharing to share resources.","Turn off password-protected sharing for easier access in a lab."],example:"All PCs set to workgroup 'WORKGROUP' with Network Discovery and File Sharing ON.",remember:"Same workgroup name = computers can see each other."},
-  7:{topic:"Router & Connectivity Testing",description:"Routers connect different networks together. Connectivity testing using ping verifies that devices can communicate.",points:["Routers connect networks and direct internet traffic.","The ping command tests network connectivity.","Ping sends ICMP echo requests to a target IP.","A successful ping means the connection is working."],example:"Ping 192.168.1.1 — if you get replies, your connection to the router is working.",remember:"Ping = the network test tool. Start with your gateway, then the internet."},
-  8:{topic:"Network Security",description:"Network security involves protecting the network from unauthorized access and threats.",points:["Firewalls block unauthorized access.","WPA2/WPA3 encryption secures wireless networks.","MAC filtering allows only approved devices to connect.","Strong passwords prevent unauthorized access."],example:"Firewall ON, WPA2 ON, MAC filtering ON, strong admin password, auto updates ON.",remember:"Security = protection. Keep passwords strong and software updated!"}
+  1:{topic:"RJ45 Crimping - T568B Standard",description:"The T568B is a standard wiring scheme for RJ45 connectors used in Ethernet networks.",points:["T568B is the most widely used wiring standard for Ethernet cables.","The wire order: Orange/White, Orange, Green/White, Blue, Blue/White, Green, Brown/White, Brown.","Used for both straight-through and crossover cables.","Both ends of a straight-through cable use the same standard.","The T568B standard ensures compatibility with most network devices."],example:"Pin 1 = Orange/White, Pin 2 = Orange, Pin 3 = Green/White, Pin 4 = Blue, Pin 5 = Blue/White, Pin 6 = Green, Pin 7 = Brown/White, Pin 8 = Brown.",remember:"T568B is the default standard for most networks."},
+  9:{topic:"Find IP Address Using CMD",description:"Use the Windows ipconfig command to display the computer's network information.",points:["Open Command Prompt inside the challenge.","Type ipconfig and press Run.","Find the active Ethernet adapter.","Read the IPv4 Address value.","Enter the IPv4 address in the answer field."],example:"The IPv4 Address in this challenge is 192.168.136.128.",remember:"Use the IPv4 Address, not the Subnet Mask."},
+  2:{topic:"Straight-Through Cable",description:"A straight-through cable is a type of Ethernet cable where both ends use the same wiring standard.",points:["Both ends use the same wiring standard.","Most commonly used for connecting computers to network switches.","The wire order is identical on both ends.","It is the most common type of network cable."],example:"When connecting your PC to a switch, use a straight-through cable with T568B on both ends.",remember:"Straight-through = same standard on both ends."},
+  3:{topic:"Crossover Cable",description:"A crossover cable is a type of Ethernet cable where one end uses T568A and the other uses T568B.",points:["One end uses T568A, the other uses T568B.","Used to connect similar devices directly.","The transmit and receive pairs are crossed over.","Less common today because modern devices auto-detect cable types."],example:"If you want to connect two laptops directly, use a crossover cable.",remember:"Crossover = different standards on each end."},
+  10:{topic:"Cable Tester Verification",description:"A network cable tester verifies the continuity and pinout of an Ethernet cable. It checks each pin on one end reaches the correct pin on the other end.",points:["A cable tester verifies continuity and pinout.","For a straight-through cable: pins 1→1, 2→2, 3→3, 4→4, 5→5, 6→6, 7→7, 8→8.","For a crossover cable: pins 1→3, 2→6, 3→1, 6→2, others straight.","A faulty cable shows one or more pins as OPEN (no continuity).","Always test cables before deploying them in a live network."],example:"If pin 3 shows OPEN on the tester, the cable is faulty and must be re-terminated.",remember:"Straight = all pins match. Crossover = 1↔3 and 2↔6 swapped. Faulty = any open pin."},
+  4:{topic:"IP Configuration",description:"IP Configuration is the process of assigning a unique IP address to a device on a network.",points:["Every device on a network needs a unique IP address.","The subnet mask determines network and host portions.","The default gateway is the router that connects to other networks.","DNS servers translate domain names to IP addresses."],example:"IP: 192.168.1.2, Subnet: 255.255.255.0, Gateway: 192.168.1.1, DNS: 8.8.8.8",remember:"IP address = your device's unique ID."},
+  5:{topic:"Network Topology - Configuring PCs",description:"Configure all 6 PCs with the same correct IP settings and connect the network with cables.",points:["All 6 PCs use the SAME values.","In a star topology, all devices connect to a central hub or switch.","Subnet mask determines network vs host portion.","Default gateway connects the LAN to other networks.","After configuring PCs, connect SERVER to HUBS and HUBS to PCs."],example:"Required values: IP 192.168.1.2, Mask 255.255.255.0, Gateway 192.168.1.1, DNS 8.8.8.8.",remember:"Router → Switch → PC is the basic building block."},
+  6:{topic:"Workgroup & Sharing Setup",description:"A workgroup is a peer-to-peer network setup where computers communicate directly.",points:["All computers should have the same workgroup name.","Turn on Network Discovery to see other computers.","Turn on File and Printer Sharing to share resources.","Turn off password-protected sharing for easier lab access."],example:"All PCs set to workgroup 'WORKGROUP'.",remember:"Same workgroup name = computers can see each other."},
+  7:{topic:"Router & Connectivity Testing",description:"Routers connect different networks together. Ping verifies communication.",points:["Routers connect networks and direct internet traffic.","The ping command tests network connectivity.","Ping sends ICMP echo requests to a target IP.","A successful ping means the connection is working."],example:"Ping 192.168.1.1 — if you get replies, your connection is working.",remember:"Ping = the network test tool."},
+  8:{topic:"Network Security",description:"Network security involves protecting the network from unauthorized access.",points:["Firewalls block unauthorized access.","WPA2/WPA3 encryption secures wireless networks.","MAC filtering allows only approved devices to connect.","Strong passwords prevent unauthorized access."],example:"Firewall ON, WPA2 ON, MAC filtering ON.",remember:"Security = protection."}
 };
 
 var standards = { T568A: ['Green+White','Green','Orange+White','Blue','Blue+White','Orange','Brown+White','Brown'], T568B: ['Orange+White','Orange','Green+White','Blue','Blue+White','Green','Brown+White','Brown'] };
@@ -1171,6 +1385,15 @@ var wireDefinitions = [
   { name: 'Blue+White', bg: 'repeating-linear-gradient(45deg, #2980b9, #2980b9 4px, #ffffff 4px, #ffffff 8px)' },
   { name: 'Brown+White', bg: 'repeating-linear-gradient(45deg, #6d4c41, #6d4c41 4px, #ffffff 4px, #ffffff 8px)' },
   { name: 'Brown', bg: '#6d4c41' }
+];
+
+var cableTestScenarios = [
+  { type: 'straight', connections: {1:1, 2:2, 3:3, 4:4, 5:5, 6:6, 7:7, 8:8}, desc: 'All pins 1-8 match on both ends.' },
+  { type: 'crossover', connections: {1:3, 2:6, 3:1, 4:4, 5:5, 6:2, 7:7, 8:8}, desc: 'Pins 1↔3 and 2↔6 are crossed.' },
+  { type: 'faulty', connections: {1:1, 2:2, 3:null, 4:4, 5:5, 6:6, 7:7, 8:8}, desc: 'Pin 3 shows OPEN (no continuity).' },
+  { type: 'faulty', connections: {1:1, 2:2, 3:3, 4:4, 5:5, 6:6, 7:null, 8:8}, desc: 'Pin 7 shows OPEN (no continuity).' },
+  { type: 'faulty', connections: {1:1, 2:2, 3:3, 4:4, 5:5, 6:null, 7:7, 8:8}, desc: 'Pin 6 shows OPEN (no continuity).' },
+  { type: 'faulty', connections: {1:null, 2:2, 3:3, 4:4, 5:5, 6:6, 7:7, 8:8}, desc: 'Pin 1 shows OPEN (no continuity).' }
 ];
 
 var correctIPConfig = { ipAddress: '192.168.1.2', subnetMask: '255.255.255.0', defaultGateway: '192.168.1.1', dnsServer: '8.8.8.8' };
@@ -1236,12 +1459,27 @@ function applyAudioSettings() {
 }
 function playMenuVoiceOnce() {
   var mainMenu = document.getElementById('main-menu'); var menuVideo = document.getElementById('menu-bg-video');
-  if (!mainMenu || !mainMenu.classList.contains('active') || soundMuted) { menuVoice.pause(); if (menuVideo) menuVideo.pause(); return; }
+  if (!mainMenu || !mainMenu.classList.contains('active') || soundMuted) { return; }
   if (menuVideo) { menuVideo.currentTime = 0; menuVideo.play().catch(function(e){console.log(e);}); }
-  menuVoice.currentTime = 0; menuVoice.play().catch(function(e){console.log(e);});
-  setTimeout(function(){ menuVoice.pause(); menuVoice.currentTime = 0; if (menuVideo) { menuVideo.pause(); menuVideo.currentTime = 0; } }, 9900);
+  try { menuVoice.pause(); menuVoice.currentTime = 0; } catch(e){}
+  menuVoice.play().catch(function(e){ console.log('Menu voice play prevented:', e); });
+  setTimeout(function(){ try { menuVoice.pause(); menuVoice.currentTime = 0; } catch(e){} if (menuVideo) { menuVideo.pause(); menuVideo.currentTime = 0; } }, 9900);
 }
-function startMenuVoiceCycle() { if (menuVoiceInterval === null) menuVoiceInterval = setInterval(playMenuVoiceOnce, 10000); playMenuVoiceOnce(); }
+function startMenuVoiceCycle() {
+  if (!menuVoiceCycleRunning) {
+    menuVoiceCycleRunning = true;
+    if (menuVoiceInterval !== null) clearInterval(menuVoiceInterval);
+    menuVoiceInterval = setInterval(playMenuVoiceOnce, 10000);
+    setTimeout(playMenuVoiceOnce, 100);
+  }
+}
+function stopMenuVoiceCycle() {
+  menuVoiceCycleRunning = false;
+  if (menuVoiceInterval !== null) { clearInterval(menuVoiceInterval); menuVoiceInterval = null; }
+  try { menuVoice.pause(); menuVoice.currentTime = 0; } catch(e){}
+  var menuVideo = document.getElementById('menu-bg-video');
+  if (menuVideo) { menuVideo.pause(); menuVideo.currentTime = 0; }
+}
 function applyFontSettings() { document.documentElement.style.fontSize = (16 * fontSize / 100) + 'px'; document.body.style.setProperty('--game-font', fontFamily); document.body.classList.add('font-adjusted'); }
 function updateSoundSetting(setting, value) {
   if (setting === 'master') masterVolume = Number(value) / 100;
@@ -1275,8 +1513,6 @@ document.getElementById('settings-overlay').addEventListener('click', function(e
 updateSettingsLabels(); applyAudioSettings(); applyFontSettings();
 
 function playMusic() {
-  var menuVideo = document.getElementById('menu-bg-video'); var mainMenu = document.getElementById('main-menu');
-  if (menuVideo && mainMenu && mainMenu.classList.contains('active')) { menuVideo.volume = masterVolume; menuVideo.muted = true; startMenuVoiceCycle(); }
   if (!isAudioPlaying) { bgMusic.play().then(function(){isAudioPlaying=true;}).catch(function(e){console.log(e);}); }
 }
 document.addEventListener('click', playMusic);
@@ -1288,14 +1524,12 @@ bgMusic.addEventListener('ended', function(){ bgMusic.currentTime = 0; bgMusic.p
 
 function playStoryVideo(videoElement) { if (!videoElement) return; videoElement.muted = soundMuted; videoElement.volume = masterVolume; videoElement.play().catch(function(error){ setTimeout(function(){ videoElement.play().catch(function(e2){console.log(e2);}); }, 300); }); }
 
-/* ===== SHUFFLE HELPER ===== */
 function shuffleArray(arr) {
   var a = arr.slice();
   for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; }
   return a;
 }
 
-/* ===== MODULE SELECT (used by ALL MODULES and PRACTICE MODE) ===== */
 function showChallengeSelect(mode) {
   challengeSelectMode = mode || 'all';
   var titleEl = document.getElementById('challenge-select-title');
@@ -1328,7 +1562,6 @@ function startModuleFromSelect(moduleId) {
   else { showMicroLearning(moduleId, isPracticeMode); }
 }
 
-/* ===== START CHALLENGE (guided flow) ===== */
 function startChallenge() {
   if (isCooldownActive()) {
     showModal('⏳ You are on cooldown for ' + getCooldownText() + '.\n\nOnly PRACTICE MODE is available until the timer runs out.', 'warning', '⏳ COOLDOWN ACTIVE');
@@ -1344,14 +1577,12 @@ function goToIPStory2() { var v1=document.getElementById('story-ip1-video'); if(
 function proceedToIPChallenge() { var v=document.getElementById('story-ip2-video'); if(v){v.pause();v.currentTime=0;} isIPStoryFlow=false; currentChallenge=4; showMicroLearning(4,isPracticeMode); }
 function startRouterStorySequence() { showScreen('story-router1'); var v=document.getElementById('story-router1-video'); if(v){v.currentTime=0;playStoryVideo(v);} }
 function goToRouterStory2() { var v1=document.getElementById('story-router1-video'); if(v1){v1.pause();v1.currentTime=0;} showScreen('story-router2'); var v=document.getElementById('story-router2-video'); if(v){v.currentTime=0;playStoryVideo(v);} }
-function proceedToRouterChallenge() { var v=document.getElementById('story-router2-video'); if(v){v.pause();v.currentTime=0;} showScreen('router-challenge'); document.getElementById('router-status').innerHTML="STATUS: " + challenges[7].name; resetRouterConfig(); initRouterQuiz(); }
+function proceedToRouterChallenge() { var v=document.getElementById('story-router2-video'); if(v){v.pause();v.currentTime=0;} showScreen('router-challenge'); document.getElementById('router-status').innerHTML="STATUS: " + challenges[7].name; resetRouterConfig(); }
 function startWorkgroupStorySequence() { showScreen('story-workgroup1'); var v=document.getElementById('story-workgroup1-video'); if(v){v.currentTime=0;playStoryVideo(v);} }
 function goToWorkgroupStory2() { var v1=document.getElementById('story-workgroup1-video'); if(v1){v1.pause();v1.currentTime=0;} showScreen('story-workgroup2'); var v=document.getElementById('story-workgroup2-video'); if(v){v.currentTime=0;playStoryVideo(v);} }
 function proceedToWorkgroupChallenge() { var v=document.getElementById('story-workgroup2-video'); if(v){v.pause();v.currentTime=0;} showScreen('workgroup-challenge'); document.getElementById('workgroup-status').innerHTML="STATUS: " + challenges[6].name; resetWorkgroupConfig(); }
 
-/* ===== PRACTICE MODE BUTTON ===== */
 function startPractice() {
-  // Show module select for practice mode (no hearts lost)
   challengeSelectMode = 'practice';
   var titleEl = document.getElementById('challenge-select-title');
   if (titleEl) titleEl.textContent = 'SELECT MODULE TO PRACTICE (NO LIVES LOST)';
@@ -1359,26 +1590,25 @@ function startPractice() {
   updateChallengeBadges();
 }
 
-/* ===== QUIZ MODE ===== */
-function startQuizMode() {
-  // Build combined random pool
-  quizModeQuestions = [];
-  for (var id in challengeQuizQuestions) {
-    challengeQuizQuestions[id].forEach(function(q) {
-      quizModeQuestions.push({ question: q.question, options: q.options.slice(), correct: q.correct });
-    });
-  }
-  tesdaNC2Questions.forEach(function(q) {
-    quizModeQuestions.push({ question: q.question, options: q.options.slice(), correct: q.correct });
+function startQuizMode() { showScreen('quiz-select-screen'); }
+
+function startLOQuiz(loNumber) {
+  lastLOQuizNumber = loNumber;
+  var pool = loQuizQuestions[loNumber] || [];
+  quizModeQuestions = shuffleArray(pool).map(function(q) {
+    return { question: q.question, options: q.options.slice(), correct: q.correct };
   });
-  quizModeQuestions = shuffleArray(quizModeQuestions).slice(0, QUIZ_MODE_LIMIT);
   quizModeIndex = 0;
   quizModeCorrect = 0;
   quizModeTotal = quizModeQuestions.length;
   quizModeAnswered = false;
+  var titleMap = { 1: '🔌 LO1: Install Network Cables', 2: '⚙️ LO2: Set Network Configuration', 3: '📡 LO3: Set Router / Wi-Fi / Access Point', 4: '🧪 LO4: Inspect and Test Networks' };
+  document.getElementById('quiz-mode-title').textContent = '📝 ' + (titleMap[loNumber] || ('LO' + loNumber));
   showScreen('quiz-mode-screen');
   renderQuizModeQuestion();
 }
+
+function retryLastLOQuiz() { startLOQuiz(lastLOQuizNumber); }
 
 function renderQuizModeQuestion() {
   if (quizModeIndex >= quizModeTotal) { finishQuizMode(); return; }
@@ -1423,14 +1653,10 @@ function answerQuizMode(element) {
     feedbackEl.className = 'quiz-mode-feedback wrong';
   }
   document.getElementById('quiz-mode-score').textContent = 'Correct: ' + quizModeCorrect;
-  // Auto-advance to next question
   setTimeout(function() { quizModeNext(); }, 1500);
 }
 
-function quizModeNext() {
-  quizModeIndex++;
-  renderQuizModeQuestion();
-}
+function quizModeNext() { quizModeIndex++; renderQuizModeQuestion(); }
 
 function finishQuizMode() {
   var pct = quizModeTotal > 0 ? Math.round((quizModeCorrect / quizModeTotal) * 100) : 0;
@@ -1439,18 +1665,15 @@ function finishQuizMode() {
   document.getElementById('quiz-result-percent').textContent = pct + '%';
   var titleEl = document.getElementById('quiz-result-title');
   var msgEl = document.getElementById('quiz-result-message');
-  if (pct >= 80) { titleEl.textContent = '🏆 EXCELLENT!'; msgEl.textContent = 'Outstanding! You have mastered the network concepts. Keep it up!'; }
+  if (pct >= 80) { titleEl.textContent = '🏆 EXCELLENT!'; msgEl.textContent = 'Outstanding! You have mastered this LO. Keep it up!'; }
   else if (pct >= 60) { titleEl.textContent = '👍 GOOD JOB!'; msgEl.textContent = 'Nice work! Review the topics you missed and try again to reach 80%.'; }
-  else if (pct >= 40) { titleEl.textContent = '📚 KEEP PRACTICING'; msgEl.textContent = 'You are getting there. Review the modules and try the quiz again.'; }
-  else { titleEl.textContent = '📖 STUDY MORE'; msgEl.textContent = 'Take time to review the lessons in each module, then try the quiz again.'; }
+  else if (pct >= 40) { titleEl.textContent = '📚 KEEP PRACTICING'; msgEl.textContent = 'You are getting there. Review the LO content and try the quiz again.'; }
+  else { titleEl.textContent = '📖 STUDY MORE'; msgEl.textContent = 'Take time to review the LO content, then try the quiz again.'; }
   showScreen('quiz-result-screen');
 }
 
-function exitQuizMode() {
-  goToMenu();
-}
+function exitQuizMode() { goToMenu(); }
 
-/* ===== MICRO LEARNING (no quiz sidebar during challenge/all modules) ===== */
 function showMicroLearning(challengeId, isPractice) {
   learningChallengeId = challengeId; learningIsPractice = isPractice;
   var lesson = microLessons[challengeId];
@@ -1467,10 +1690,8 @@ function showMicroLearning(challengeId, isPractice) {
   document.getElementById('ml-progress-text').textContent = challengeIndex + ' / ' + challengeOrder.length;
   var badge = document.getElementById('ml-practice-badge');
   if (isPractice) badge.classList.add('active'); else badge.classList.remove('active');
-  // Hide quiz sidebar (Quick Check) — quiz lives only in Quiz Mode
   var quizBox = document.getElementById('ml-quiz-box');
   if (quizBox) quizBox.style.display = 'none';
-  // Enable start button directly
   var startBtn = document.getElementById('ml-start-btn');
   startBtn.disabled = false;
   startBtn.textContent = '🚀 START CHALLENGE';
@@ -1492,6 +1713,7 @@ function loadChallenge(challengeId) {
   var challenge = challenges[challengeId];
   if (challenge.type === 'crossover') { showScreen('crossover-challenge'); resetCrossoverCable(); }
   else if (challenge.type === 'cmd-ip') { showScreen('cmd-ip-challenge'); resetCmdIPChallenge(); }
+  else if (challenge.type === 'cable-test') { showScreen('cable-test-challenge'); resetCableTest(); }
   else if (challenge.type === 'ip') { showScreen('ip-challenge'); document.getElementById('ip-status').innerHTML="STATUS: " + challenge.name; document.getElementById('ip-title').textContent="💻 " + challenge.name; resetIPConfig(); }
   else if (challenge.type === 'workgroup') { showScreen('workgroup-challenge'); document.getElementById('workgroup-status').innerHTML="STATUS: " + challenge.name; resetWorkgroupConfig(); }
   else if (challenge.type === 'router') { startRouterStorySequence(); }
@@ -1518,21 +1740,21 @@ function goToNextChallenge() {
 }
 
 function updateAllLives() {
-  var elements = ['lives-icons','ip-lives-icons','workgroup-lives-icons','router-lives-icons','security-lives-icons','topology-lives-icons','cmd-ip-lives-icons','crossover-lives-icons'];
+  var elements = ['lives-icons','ip-lives-icons','workgroup-lives-icons','router-lives-icons','security-lives-icons','topology-lives-icons','cmd-ip-lives-icons','crossover-lives-icons','cable-test-lives-icons'];
   elements.forEach(function(id){ var el=document.getElementById(id); if(el){ var hearts=''; for(var i=0;i<lives;i++)hearts+='❤️'; for(var i=lives;i<maxLives;i++)hearts+='🖤'; el.textContent=hearts; } });
 }
 function updateAllScores() {
-  var elements = ['score-display','ip-score-display','workgroup-score-display','router-score-display','security-score-display','topology-score-display','cmd-ip-score-display','crossover-score-display'];
+  var elements = ['score-display','ip-score-display','workgroup-score-display','router-score-display','security-score-display','topology-score-display','cmd-ip-score-display','crossover-score-display','cable-test-score-display'];
   elements.forEach(function(id){ var el=document.getElementById(id); if(el) el.textContent = 'SCORE: ' + score; });
 }
 function loseLife() {
   if (isPracticeMode) {
-    var status = document.getElementById('ip-status') || document.getElementById('cmd-ip-status') || document.getElementById('workgroup-status') || document.getElementById('router-status') || document.getElementById('security-status') || document.getElementById('topology-status') || document.getElementById('game-status');
+    var status = document.getElementById('ip-status') || document.getElementById('cmd-ip-status') || document.getElementById('workgroup-status') || document.getElementById('router-status') || document.getElementById('security-status') || document.getElementById('topology-status') || document.getElementById('game-status') || document.getElementById('cable-test-status');
     if (status) { status.innerHTML = "⚠️ PRACTICE MODE: No lives lost!"; status.style.color = '#f39c12'; setTimeout(function(){ status.style.color = '#f1c40f'; }, 1500); }
     return;
   }
   lives--; updateAllLives();
-  var status = document.getElementById('game-status') || document.getElementById('cmd-ip-status') || document.getElementById('ip-status') || document.getElementById('workgroup-status') || document.getElementById('router-status') || document.getElementById('security-status') || document.getElementById('topology-status');
+  var status = document.getElementById('game-status') || document.getElementById('cmd-ip-status') || document.getElementById('ip-status') || document.getElementById('workgroup-status') || document.getElementById('router-status') || document.getElementById('security-status') || document.getElementById('topology-status') || document.getElementById('cable-test-status');
   if (status) { status.innerHTML = "💔 LIFE LOST! " + lives + " lives remaining. Try again!"; status.style.color = '#e74c3c'; setTimeout(function(){ status.style.color = '#f1c40f'; }, 2000); }
   if (lives <= 0) { lives = 0; updateAllLives(); setTimeout(function(){ showGameOver(); }, 600); }
 }
@@ -1544,13 +1766,14 @@ function showGameOver() {
 function practiceCurrentChallenge() {
   document.getElementById('game-over-modal').classList.remove('active');
   isGameOver=false; isPracticeMode=true; lives=maxLives; updateAllLives(); resetCurrentChallenge();
-  var status = document.getElementById('game-status') || document.getElementById('ip-status') || document.getElementById('workgroup-status') || document.getElementById('router-status') || document.getElementById('security-status') || document.getElementById('topology-status');
+  var status = document.getElementById('game-status') || document.getElementById('ip-status') || document.getElementById('workgroup-status') || document.getElementById('router-status') || document.getElementById('security-status') || document.getElementById('topology-status') || document.getElementById('cable-test-status');
   if (status) { status.innerHTML = "📚 PRACTICE MODE - No lives lost!"; status.style.color = '#f39c12'; }
 }
 function resetCurrentChallenge() {
   var challenge = challenges[currentChallenge]; if (!challenge) return;
   switch (challenge.type) {
     case 'rj45': resetGameState(); initWirePalette(); document.getElementById('game-status').innerHTML="STATUS: WIRES RESET - SELECT SCHEMATIC"; document.getElementById('pinout-list').classList.add('hidden'); currentTargetStandard=null; document.querySelectorAll('.standard-btn').forEach(function(b){b.classList.remove('selected');}); break;
+    case 'cable-test': resetCableTest(); break;
     case 'ip': resetIPConfig(); document.getElementById('ip-status').innerHTML="STATUS: CONFIGURE IP ADDRESS SETTINGS"; break;
     case 'cmd-ip': resetCmdIPChallenge(); break;
     case 'workgroup': resetWorkgroupConfig(); document.getElementById('workgroup-status').innerHTML="STATUS: CONFIGURE WORKGROUP SETTINGS"; break;
@@ -1560,6 +1783,82 @@ function resetCurrentChallenge() {
     default: break;
   }
   document.querySelectorAll('.config-input, .workgroup-input, .router-input, .security-input').forEach(function(el){ el.classList.remove('correct','wrong'); });
+}
+
+/* ===== CABLE TESTER FUNCTIONS ===== */
+function resetCableTest() {
+  cableTestRan = false;
+  cableTestCurrentScenario = cableTestScenarios[Math.floor(Math.random() * cableTestScenarios.length)];
+  var mainPins = document.getElementById('tester-main-pins');
+  var remotePins = document.getElementById('tester-remote-pins');
+  mainPins.innerHTML = '';
+  remotePins.innerHTML = '';
+  for (var i = 1; i <= 8; i++) {
+    var mainPin = document.createElement('div');
+    mainPin.className = 'tester-pin pending';
+    mainPin.id = 'tester-pin-' + i;
+    mainPin.innerHTML = '<span class="pin-num">' + i + '</span><span class="pin-arrow">→</span><span class="pin-target">?</span><span class="pin-status">—</span>';
+    mainPins.appendChild(mainPin);
+  }
+  for (var j = 1; j <= 8; j++) {
+    var remotePin = document.createElement('div');
+    remotePin.className = 'tester-pin pending';
+    remotePin.id = 'tester-remote-pin-' + j;
+    remotePin.innerHTML = '<span class="pin-num">' + j + '</span><span class="pin-status">—</span>';
+    remotePins.appendChild(remotePin);
+  }
+  document.getElementById('cable-test-status').innerHTML = 'STATUS: CLICK RUN TEST';
+  document.getElementById('cable-test-status').style.color = '#f1c40f';
+  document.getElementById('cable-test-log').innerHTML = 'Click RUN TEST to begin.';
+  ['ct-btn-straight','ct-btn-crossover','ct-btn-faulty'].forEach(function(id){ var b = document.getElementById(id); if (b) b.disabled = true; });
+}
+
+function runCableTest() {
+  if (isGameOver) { showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER'); return; }
+  if (cableTestRan) return;
+  cableTestRan = true;
+  var connections = cableTestCurrentScenario.connections;
+  var logHtml = '';
+  for (var i = 1; i <= 8; i++) {
+    var target = connections[i];
+    var pinEl = document.getElementById('tester-pin-' + i);
+    if (target === null || target === undefined) {
+      pinEl.className = 'tester-pin open';
+      pinEl.innerHTML = '<span class="pin-num">' + i + '</span><span class="pin-arrow">→</span><span class="pin-target">—</span><span class="pin-status">OPEN</span>';
+      logHtml += '<div class="line-fail">Pin ' + i + ' → OPEN (no continuity)</div>';
+    } else {
+      pinEl.className = 'tester-pin ok';
+      pinEl.innerHTML = '<span class="pin-num">' + i + '</span><span class="pin-arrow">→</span><span class="pin-target">' + target + '</span><span class="pin-status">✅</span>';
+      logHtml += '<div class="line-ok">Pin ' + i + ' → Pin ' + target + ' (OK)</div>';
+    }
+  }
+  document.getElementById('cable-test-log').innerHTML = logHtml;
+  document.getElementById('cable-test-status').innerHTML = 'STATUS: TEST COMPLETE - IDENTIFY THE CABLE';
+  document.getElementById('cable-test-status').style.color = '#2bf1c9';
+  ['ct-btn-straight','ct-btn-crossover','ct-btn-faulty'].forEach(function(id){ var b = document.getElementById(id); if (b) b.disabled = false; });
+}
+
+function answerCableTest(type) {
+  if (isGameOver) return;
+  if (!cableTestRan) { showModal('Run the cable test first before answering!', 'warning', '⚠️ TEST NOT RUN'); return; }
+  var correctType = cableTestCurrentScenario.type;
+  ['ct-btn-straight','ct-btn-crossover','ct-btn-faulty'].forEach(function(id){ var b = document.getElementById(id); if (b) b.disabled = true; });
+  if (type === correctType) {
+    score += 100; updateAllScores();
+    document.getElementById('cable-test-status').innerHTML = '✅ SUCCESS! CABLE IDENTIFIED CORRECTLY! +100 POINTS';
+    document.getElementById('cable-test-status').style.color = '#2ecc71';
+    document.getElementById('cable-test-log').innerHTML += '<div class="line-info">✅ Correct: ' + correctType.toUpperCase() + ' cable.</div>';
+    trackChallengeCompletion(currentChallenge, true);
+    setTimeout(function(){ showSuccessScreen(); }, 1200);
+  } else {
+    loseLife();
+    document.getElementById('cable-test-status').innerHTML = '❌ INCORRECT: You chose ' + type.toUpperCase() + ' but it was ' + correctType.toUpperCase();
+    document.getElementById('cable-test-status').style.color = '#e74c3c';
+    document.getElementById('cable-test-log').innerHTML += '<div class="line-fail">❌ Wrong. This is a ' + correctType.toUpperCase() + ' cable.</div>';
+    trackChallengeCompletion(currentChallenge, false);
+    showModal('❌ Wrong cable type!\nCorrect answer: ' + correctType.toUpperCase() + '\n💔 -1 Life!', 'error', '❌ TEST FAILED');
+    setTimeout(function(){ resetCableTest(); }, 2500);
+  }
 }
 
 /* CROSSOVER */
@@ -1665,7 +1964,6 @@ function checkCrossoverCable() {
   else { loseLife(); document.getElementById('crossover-status').innerHTML = 'INCORRECT: T568A AND T568B MUST BE OPPOSITE ENDS'; document.getElementById('crossover-status').style.color = '#e74c3c'; showModal('Check both connector ends and try again.\n-1 Life!', 'error', 'CABLE FAILED'); trackChallengeCompletion(currentChallenge, false); }
 }
 
-/* RJ45 */
 function resetGameState() {
   currentTargetStandard = null;
   document.querySelectorAll('.standard-btn').forEach(function(b){ b.classList.remove('selected'); });
@@ -1775,7 +2073,6 @@ function resetWires() {
   showModal('🔄 All wires have been reset!', 'info', '🔄 RESET COMPLETE');
 }
 
-/* IP */
 function checkIPConfig() {
   if (isGameOver) { showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER'); return; }
   var ipAddress = document.getElementById('ip-address').value.trim(); var subnetMask = document.getElementById('subnet-mask').value.trim();
@@ -1814,7 +2111,6 @@ function resetIPConfig() {
   var status = document.getElementById('ip-status'); if (status) { status.innerHTML = "STATUS: CONFIGURE IP ADDRESS SETTINGS"; status.style.color = '#f1c40f'; }
 }
 
-/* WORKGROUP */
 function checkWorkgroupConfig() {
   if (isGameOver) { showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER'); return; }
   var computerName = document.getElementById('computer-name').value.trim(); var workgroup = document.getElementById('workgroup-name').value.trim();
@@ -1853,31 +2149,6 @@ function copySampleFileToPC1() {
   setTimeout(function(){ showSuccessScreen(); }, 900);
 }
 
-/* ROUTER */
-var routerQuizQuestions = [
-  { question: 'What does a router connect?', options: ['Different networks', 'Only monitors', 'Power cables'], correct: 0 },
-  { question: 'Which security option protects the Wi-Fi network?', options: ['WPA2', 'DHCP range', 'Ping'], correct: 0 },
-  { question: 'What does ping test?', options: ['Network connectivity', 'Screen brightness', 'File size'], correct: 0 }
-];
-function initRouterQuiz() { routerQuizIndex = 0; renderRouterQuizQuestion(); }
-function renderRouterQuizQuestion() {
-  var question = routerQuizQuestions[routerQuizIndex]; var optionsContainer = document.getElementById('router-quiz-options'); if (!question || !optionsContainer) return;
-  document.getElementById('router-quiz-progress').textContent = 'Question ' + (routerQuizIndex + 1) + ' of ' + routerQuizQuestions.length;
-  document.getElementById('router-quiz-question').textContent = question.question; optionsContainer.innerHTML = '';
-  question.options.forEach(function(option, index) {
-    var answer = document.createElement('div'); answer.className = 'router-quiz-option'; answer.textContent = String.fromCharCode(65 + index) + '. ' + option; answer.dataset.index = index;
-    answer.onclick = function(){ checkRouterQuizAnswer(this, question.correct); };
-    optionsContainer.appendChild(answer);
-  });
-}
-function checkRouterQuizAnswer(element, correctIndex) {
-  var options = document.querySelectorAll('.router-quiz-option'); options.forEach(function(option){ option.style.pointerEvents = 'none'; });
-  if (parseInt(element.dataset.index, 10) === correctIndex) {
-    element.classList.add('correct'); routerQuizIndex++;
-    if (routerQuizIndex >= routerQuizQuestions.length) { document.getElementById('router-quiz-progress').textContent = 'All 3 questions correct'; document.getElementById('router-quiz-question').textContent = 'Great work! Continue configuring the router.'; document.getElementById('router-quiz-options').innerHTML = ''; }
-    else { setTimeout(renderRouterQuizQuestion, 450); }
-  } else { element.classList.add('wrong'); document.getElementById('router-quiz-question').textContent = 'Not quite. Try again.'; setTimeout(function(){ options.forEach(function(option){ option.classList.remove('wrong'); option.style.pointerEvents='auto'; }); }, 700); }
-}
 function checkRouterConfig() {
   if (isGameOver) { showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER'); return; }
   var ssid = document.getElementById('router-ssid').value.trim(); var security = document.getElementById('router-security').value; var lanIp = document.getElementById('router-lan').value.trim();
@@ -1911,7 +2182,6 @@ function runPingTest() {
   }, 1500);
 }
 
-/* SECURITY */
 function resetSecurityConfig() {
   ['security-firewall','security-wpa2','security-mac','security-updates'].forEach(function(id){ var cb=document.getElementById(id); if(cb){ cb.checked=false; updateSecurityLabel(id); } });
   var password = document.getElementById('security-password'); if (password) { password.value=''; password.classList.remove('correct','wrong'); }
@@ -1935,7 +2205,6 @@ function checkSecurityConfig() {
   else { loseLife(); document.getElementById('security-status').innerHTML="❌ INCORRECT: " + errors.join(', '); document.getElementById('security-status').style.color='#e74c3c'; showModal('❌ Wrong settings: ' + errors.join(', ') + '\n💔 -1 Life!', 'error', '❌ SECURITY CONFIG FAILED'); trackChallengeCompletion(currentChallenge, false); }
 }
 
-/* TOPOLOGY */
 function initTopology() {
   topologyConnections = {}; topologyPCConfigs = {}; closePCConfig(); topologySelected = null; topologyCurrentConnections = 0;
   var deviceIds = ['server','hub1','hub2','hub3','pc1','pc2','pc3','pc4','pc5','pc6'];
@@ -2048,7 +2317,6 @@ function verifyTopology() {
   else { loseLife(); document.getElementById('topology-status').innerHTML = "❌ INCORRECT TOPOLOGY! Some connections are wrong."; document.getElementById('topology-status').style.color = '#e74c3c'; showModal('❌ Incorrect topology! Check your connections.\n💔 -1 Life!', 'error', '❌ TOPOLOGY FAILED'); trackChallengeCompletion(currentChallenge, false); }
 }
 
-/* SUCCESS */
 function showSuccessScreen() {
   document.getElementById('final-score').textContent = score;
   document.getElementById('final-lives').textContent = lives;
@@ -2056,14 +2324,13 @@ function showSuccessScreen() {
   var nextIdx = challengeIndex + 1;
   if (nextIdx < challengeOrder.length) {
     var nextChallengeId = challengeOrder[nextIdx]; var nextType = challenges[nextChallengeId].type;
-    var typeLabels = { 'rj45':'🔌 RJ45','crossover':'🔄 CROSSOVER CABLE','ip':'💻 IP CONFIG','cmd-ip':'💻 CMD IP CONFIG','workgroup':'🏢 WORKGROUP','router':'📶 ROUTER','security':'🔒 SECURITY','topology':'🌐 TOPOLOGY' };
+    var typeLabels = { 'rj45':'🔌 RJ45','crossover':'🔄 CROSSOVER CABLE','cable-test':'🔬 CABLE TESTER','ip':'💻 IP CONFIG','cmd-ip':'💻 CMD IP CONFIG','workgroup':'🏢 WORKGROUP','router':'📶 ROUTER','security':'🔒 SECURITY','topology':'🌐 TOPOLOGY' };
     document.getElementById('next-btn').textContent = '➜ ' + (typeLabels[nextType] || 'NEXT');
   } else { document.getElementById('next-btn').textContent = '🏆 FINISH ➜'; }
   showScreen('success-screen');
   if (successVideo) successVideo.play().catch(function(error){ successVideo.muted = true; successVideo.play().catch(function(e){console.log(e);}); });
 }
 
-/* PERFORMANCE */
 function trackChallengeCompletion(challengeId, success) {
   var key = challengeId.toString();
   if (!performanceData.attempts[key]) performanceData.attempts[key] = 0;
@@ -2113,7 +2380,8 @@ function updateDashboard() {
   document.getElementById('stat-attempts').textContent = performanceData.totalAttempts;
   document.getElementById('stat-success-rate').textContent = performanceData.successRate + '%';
   var container = document.getElementById('challenge-results'); container.innerHTML = '';
-  for (var i = 1; i <= 9; i++) {
+  var order = [1,2,3,10,4,9,5,6,7,8];
+  order.forEach(function(i){
     var item = document.createElement('div'); item.className = 'result-item';
     var completed = performanceData.completed.has(i.toString()); var attempts = performanceData.attempts[i] || 0;
     if (completed) item.classList.add('completed'); else if (attempts > 0) item.classList.add('failed');
@@ -2123,7 +2391,7 @@ function updateDashboard() {
     else if (attempts > 0) { status.textContent = '❌ FAIL'; status.classList.add('fail'); }
     else { status.textContent = '⏳ PENDING'; status.classList.add('pending'); }
     item.appendChild(name); item.appendChild(status); container.appendChild(item);
-  }
+  });
 }
 function updateChallengeBadges() {
   document.querySelectorAll('.challenge-item').forEach(function(item) {
@@ -2152,11 +2420,25 @@ function showScreen(screenId) {
   var videos = [document.getElementById('story-img-1'),document.getElementById('story-img-2'),document.getElementById('story-ip1-video'),document.getElementById('story-ip2-video'),document.getElementById('story-router1-video'),document.getElementById('story-router2-video'),document.getElementById('story-workgroup1-video'),document.getElementById('story-workgroup2-video'),document.getElementById('success-video')];
   var videoScenes = ['story-1','story-2','story-ip1','story-ip2','story-router1','story-router2','story-workgroup1','story-workgroup2','success-screen'];
   var isVideoScene = videoScenes.indexOf(screenId) !== -1;
-  if (screenId === 'main-menu') { if (menuVideo) menuVideo.muted = true; startMenuVoiceCycle(); bgMusic.volume = musicVolume * masterVolume; if (isAudioPlaying) bgMusic.play().catch(function(e){console.log(e);}); }
-  else { if (menuVideo) menuVideo.pause(); menuVoice.pause(); menuVoice.currentTime = 0; bgMusic.volume = isVideoScene ? 0.05 : 0.08; if (isAudioPlaying) bgMusic.play().catch(function(e){console.log(e);}); }
-  videos.forEach(function(v){ if (v && screenId !== v.closest('.screen').id) { v.pause(); v.currentTime = 0; } });
+
   document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
-  var targetScreen = document.getElementById(screenId); if (targetScreen) targetScreen.classList.add('active');
+  var targetScreen = document.getElementById(screenId);
+  if (targetScreen) targetScreen.classList.add('active');
+
+  if (screenId === 'main-menu') {
+    if (menuVideo) menuVideo.muted = true;
+    startMenuVoiceCycle();
+    bgMusic.volume = musicVolume * masterVolume;
+    if (isAudioPlaying) bgMusic.play().catch(function(e){console.log(e);});
+  } else {
+    if (menuVideo) menuVideo.pause();
+    stopMenuVoiceCycle();
+    bgMusic.volume = isVideoScene ? 0.05 : 0.08;
+    if (isAudioPlaying) bgMusic.play().catch(function(e){console.log(e);});
+  }
+
+  videos.forEach(function(v){ if (v && screenId !== v.closest('.screen').id) { v.pause(); v.currentTime = 0; } });
+
   var menuUser = document.getElementById('menu-user'); var userName = document.getElementById('user-name');
   if (screenId === 'main-menu' && currentUser) { if (menuUser) menuUser.classList.remove('hidden'); if (userName) userName.textContent = currentUser; }
   else { if (menuUser) menuUser.classList.add('hidden'); if (userName) userName.textContent = 'Player'; }
@@ -2165,7 +2447,7 @@ function showScreen(screenId) {
 function goToMenu() {
   ['story-img-1','story-img-2','story-ip1-video','story-ip2-video','story-router1-video','story-router2-video','story-workgroup1-video','story-workgroup2-video','success-video'].forEach(function(id){ var v=document.getElementById(id); if(v){v.pause();v.currentTime=0;} });
   showScreen('main-menu');
-  resetGameState(); resetIPConfig(); resetWorkgroupConfig(); resetRouterConfig(); resetSecurityConfig(); resetTopology(true);
+  resetGameState(); resetIPConfig(); resetWorkgroupConfig(); resetRouterConfig(); resetSecurityConfig(); resetTopology(true); resetCableTest();
   document.getElementById('game-status').innerHTML = "STATUS: SELECT SCHEMATIC &amp; DRAG WIRES";
   document.getElementById('pinout-list').classList.add('hidden');
   lives = maxLives; challengeIndex = 0; isPracticeMode = false;
@@ -2174,7 +2456,6 @@ function goToMenu() {
 }
 function showDashboard() { showScreen('dashboard'); updateDashboard(); }
 
-/* MANUAL */
 function showManual() { showScreen('manual-screen'); }
 function closeManual() { localStorage.setItem(manualFirstTimeKey, 'true'); showScreen('main-menu'); }
 function showManualIfFirstTime() { if (!localStorage.getItem(manualFirstTimeKey)) showManual(); else showScreen('main-menu'); }
@@ -2189,10 +2470,9 @@ function playFeedbackTone(type) {
   } catch (e) { console.log(e); }
 }
 
-/* INIT */
-initWirePalette(); initTopology(); initRouterQuiz(); updateAllLives(); updateAllScores(); loadPerformanceData();
+initWirePalette(); initTopology(); updateAllLives(); updateAllScores(); loadPerformanceData();
 document.getElementById('menu-bg-video').pause();
-document.addEventListener('DOMContentLoaded', function(){ loadAccount(); initCooldown(); updateCooldownDisplay(); });
+document.addEventListener('DOMContentLoaded', function(){ loadAccount(); initCooldown(); updateCooldownDisplay(); resetCableTest(); });
 setInterval(updateCooldownDisplay, 1000);
 </script>
 </body>
