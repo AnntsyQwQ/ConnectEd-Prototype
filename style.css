@@ -75,9 +75,10 @@
 
         .menu-header {
             position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 230px;
+            left: 50%;
+            bottom: 145px;
+            transform: translateX(-50%);
+            width: 100%;
             text-align: center;
             padding: 0 20px;
         }
