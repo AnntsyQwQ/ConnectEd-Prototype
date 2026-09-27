@@ -141,13 +141,21 @@ body.font-adjusted * { font-family: var(--game-font, 'Segoe UI'), Arial, sans-se
 .account-form-row label { display:block; color:#ecf0f1; font-size:0.45rem; margin-bottom:5px; }
 .account-form-row input { width:100%; background:#143552; border:2px solid #2980b9; border-radius:8px; color:#fff; padding:9px 10px; font-family:inherit; font-size:0.55rem; }
 .account-form-row input:focus { outline:none; border-color:#2bf1c9; }
-.account-button-row { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:14px; }
+.account-button-row { display:flex; flex-direction:column; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:14px; }
 .account-button-row .pixel-btn { font-size:0.5rem; padding:9px 12px; }
+.account-button-row .pixel-btn[hidden] { display:none; }
+.account-switch { margin-top:16px; text-align:center; color:#ecf0f1; font-size:0.45rem; }
+.account-switch[hidden] { display:none; }
+.account-switch-link { border:0; padding:0; background:none; color:#2bf1c9; font:inherit; cursor:pointer; }
+.account-switch-link:hover, .account-switch-link:focus-visible { color:#f1c40f; text-decoration:underline; text-underline-offset:3px; }
 .account-message { color:#f1c40f; font-size:0.45rem; min-height:22px; margin-top:12px; text-align:center; }
 #account-create-button { background:#f1c40f; box-shadow: inset 0 -4px 0 #b7950b, 0 4px 0 #000; }
 
 .menu-user { position:absolute; top:12px; left:16px; z-index:60; display:flex; align-items:center; gap:8px; color:#ecf0f1; font-size:0.48rem; background:rgba(0,0,0,0.6); border:2px solid #2bf1c9; padding:6px 12px; border-radius:8px; max-width:260px; box-shadow:0 0 18px rgba(43,241,201,0.2); }
-.menu-user .user-name { color:#f1c40f; }
+.menu-user .user-id-action { border:0; padding:0; color:#f1c40f; background:transparent; font:inherit; cursor:pointer; }
+.menu-user .logout-label { display:none; color:#ff8a80; }
+.menu-user:hover .user-id-label, .menu-user.logout-armed .user-id-label { display:none; }
+.menu-user:hover .logout-label, .menu-user.logout-armed .logout-label { display:inline; }
 .menu-user.hidden { display:none; }
 
 .btn-practice { background-color:#f39c12; box-shadow: inset 0 -4px 0 #d68910, 0 4px 0 #000; }
@@ -186,7 +194,11 @@ body.font-adjusted * { font-family: var(--game-font, 'Segoe UI'), Arial, sans-se
 .challenge-list { display:grid; grid-template-columns:1fr 1fr; gap:12px; max-width:900px; width:100%; }
 .challenge-item { padding:18px 14px; background:#143552; border:2px solid #2bf1c9; border-radius:10px; color:#ecf0f1; cursor:pointer; font-family:inherit; font-size:0.55rem; transition:all 0.2s; text-align:center; position:relative; font-weight:700; }
 .challenge-item:hover { background:#2bf1c9; color:#0b1c28; transform:scale(1.04); }
+.challenge-item:disabled { border-color:#526575; color:#8998a5; background:#102a3e; cursor:not-allowed; opacity:0.7; }
+.challenge-item:disabled:hover { background:#102a3e; color:#8998a5; transform:none; }
 .challenge-item .completed-badge { position:absolute; top:-8px; right:-8px; background:#2ecc71; color:#fff; border-radius:50%; width:22px; height:22px; font-size:0.5rem; display:flex; align-items:center; justify-content:center; }
+.practice-mode .lives-display { display:none !important; }
+.practice-mode .life-warning { display:none; }
 
 .story-bg { width:100%; height:100%; object-fit:cover; cursor:pointer; }
 .story-overlay { position:absolute; bottom:40px; right:40px; z-index:10; }
@@ -260,12 +272,13 @@ body.font-adjusted * { font-family: var(--game-font, 'Segoe UI'), Arial, sans-se
 .wires-grid { display:flex; flex-direction:column; gap:3px; overflow-y:auto; flex:1; }
 .drag-wire { height:20px; border-radius:3px; cursor:grab; display:flex; align-items:center; padding-left:6px; font-family:inherit; font-size:0.35rem; font-weight:bold; color:#000; border:1px solid #333; user-select:none; text-shadow:0 0 2px #fff; }
 .drag-wire:active { cursor:grabbing; }
-.rj45-connector-wrapper { position:relative; width:170px; height:180px; display:flex; justify-content:center; margin:2px auto; }
+.rj45-connector-wrapper { position:relative; width:300px; height:260px; display:flex; justify-content:center; margin:8px auto; }
 .rj45-svg { position:absolute; top:0; left:0; width:100%; height:100%; z-index:1; pointer-events:none; }
-.connector-slots { position:absolute; top:48px; left:24px; width:120px; height:116px; display:flex; justify-content:space-between; z-index:2; }
+.rj45-svg { width:204px; height:230px; top:15px; left:48px; transform:rotate(90deg); }
+.connector-slots { position:absolute; top:48px; left:63px; width:190px; height:156px; display:flex; flex-direction:column; justify-content:space-between; z-index:2; }
 
 .drop-zone {
-  width:12px; height:100%;
+  width:100%; height:auto; flex:1; min-height:0;
   background:rgba(0,0,0,0.4);
   border:1px dashed rgba(255,255,255,0.3);
   border-radius:2px;
@@ -580,6 +593,13 @@ body.font-adjusted * { font-family: var(--game-font, 'Segoe UI'), Arial, sans-se
 .modal-content p { font-family:inherit; font-size:0.55rem; color:#ecf0f1; line-height:1.7; margin-bottom:15px; white-space:pre-line; }
 .modal-btn { position:relative !important; display:inline-block !important; padding:10px 26px !important; font-size:0.55rem !important; background:#2bf1c9 !important; color:#0b1c28 !important; border:4px solid #0b1c28 !important; border-radius:12px !important; box-shadow: inset 0 -4px 0 #18a98c, 0 4px 0 #000 !important; cursor:pointer !important; font-family:inherit !important; }
 .modal-btn:hover { background:#55ffdb !important; }
+.modal-actions { display:flex; justify-content:center; gap:10px; }
+.modal-cancel-btn { background:#3498db !important; color:#fff !important; box-shadow:inset 0 -4px 0 #21618c, 0 4px 0 #000 !important; }
+.modal-cancel-btn:hover { background:#5dade2 !important; }
+.modal-danger-btn { background:#e74c3c !important; color:#fff !important; box-shadow:inset 0 -4px 0 #922b21, 0 4px 0 #000 !important; }
+.modal-danger-btn:hover { background:#ff6b6b !important; }
+.practice-complete-content h2 { color:#2bf1c9; }
+.practice-complete-next { background:#27ae60 !important; color:#fff !important; box-shadow:inset 0 -4px 0 #1e8449, 0 4px 0 #000 !important; }
 .game-over-content { border-color:#e74c3c !important; }
 .game-over-buttons { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; }
 
@@ -641,7 +661,7 @@ body.font-adjusted * { font-family: var(--game-font, 'Segoe UI'), Arial, sans-se
 .manual-container { width: min(1000px, 94%); max-height: calc(100vh - 130px); margin: 80px auto 20px; padding: 26px; background: rgba(20,53,82,0.97); border: 4px solid #2bf1c9; border-radius: 18px; box-shadow: 0 0 40px rgba(43,241,201,0.25); overflow-y: auto; color: #ecf0f1; }
 .manual-container h1 { color: #2bf1c9; text-align: center; font-size: 1.4rem; margin-bottom: 8px; text-shadow: 3px 3px 0 #0b1c28; }
 .manual-subtitle { text-align: center; color: #f1c40f; font-size: 0.75rem; margin-bottom: 20px; line-height: 1.5; }
-.manual-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px; }
+.manual-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-bottom: 20px; }
 .manual-card { background: #081d2e; border: 2px solid #2980b9; border-radius: 10px; padding: 16px; line-height: 1.6; }
 .manual-card h2 { color: #f1c40f; font-size: 0.85rem; margin-bottom: 8px; }
 .manual-card p, .manual-card li { color: #ecf0f1; font-size: 0.78rem; line-height: 1.6; margin-bottom: 6px; }
@@ -733,9 +753,17 @@ body.font-adjusted * { font-family: var(--game-font, 'Segoe UI'), Arial, sans-se
     text-indent: -9999px !important; white-space: nowrap !important; overflow: hidden !important;
     display: block !important; pointer-events: none !important; z-index: 1 !important;
   }
-  #challenge-2 .rj45-connector-wrapper { width: 170px !important; height: 180px !important; }
-  #challenge-2 .connector-slots { top: 48px !important; left: 20px !important; width: 128px !important; height: 116px !important; }
-  #challenge-2 .drop-zone { width: 14px !important; min-height: 100% !important; cursor: pointer; touch-action: manipulation; }
+  #challenge-2 .rj45-connector-wrapper { width: 300px !important; height: 260px !important; max-width:100%; }
+  #challenge-2 .rj45-svg { width:204px !important; height:230px !important; top:15px !important; left:48px !important; }
+  #challenge-2 .connector-slots { top:48px !important; left:63px !important; width:190px !important; height:156px !important; flex-direction:column !important; }
+  #challenge-2 .drop-zone { width:100% !important; height:auto !important; min-height:0 !important; flex:1 !important; cursor:pointer; touch-action:manipulation; }
+}
+
+@media (hover:none), (pointer:coarse) {
+  .menu-user:hover .user-id-label { display:inline; }
+  .menu-user:hover .logout-label { display:none; }
+  .menu-user.logout-armed .user-id-label { display:none !important; }
+  .menu-user.logout-armed .logout-label { display:inline !important; }
 }
 
 html { font-size:18px; }
@@ -800,21 +828,23 @@ body, body.font-adjusted *, button, input, select, textarea, .game-title, .game-
         <h1>ConnectEd</h1>
         <p class="game-subtitle">NETWORK CONFIGURATION TRAINER</p>
         <div class="account-logo">🖧</div>
-        <p class="account-copy">Create a learner account to begin your network challenge path and track your module progress.</p>
+        <p class="account-copy">Sign in or create a learner account to begin your network challenge path and track your module progress.</p>
       </div>
       <div class="account-form-wrap">
-        <h2>PLAYER LOGIN</h2>
-        <div class="account-form-row"><label for="account-username">TUPM ID NUMBER</label><input id="account-username" type="text" autocomplete="username" placeholder="TUPM-26-0001"></div>
+        <h2 id="account-form-title">PLAYER LOGIN</h2>
+        <div class="account-form-row"><label for="account-username">TUPM ID NUMBER</label><input id="account-username" type="text" autocomplete="username" placeholder="TUPM-XX-XXXX"></div>
         <div class="account-form-row"><label for="account-password">ENTER PASSWORD</label><input id="account-password" type="password" autocomplete="current-password" placeholder="Enter password"></div>
-        <div class="account-form-row" id="confirm-password-row" style="display: none;"><label for="account-confirm-password">CONFIRM PASSWORD</label><input id="account-confirm-password" type="password" autocomplete="current-password" placeholder="Confirm password"></div>
-        <div class="account-button-row"><button class="pixel-btn" id="account-login-button" onclick="loginAccount()">LOGIN</button><button class="pixel-btn" id="account-create-button" onclick="createAccount()">CREATE ACCOUNT</button></div>
+        <div class="account-form-row" id="confirm-password-row" hidden><label for="account-confirm-password">CONFIRM PASSWORD</label><input id="account-confirm-password" type="password" autocomplete="new-password" placeholder="Confirm password"></div>
+        <div class="account-button-row"><button class="pixel-btn" id="account-login-button" onclick="loginAccount()">LOGIN</button><button class="pixel-btn" id="account-create-submit" onclick="createAccount()" hidden>CREATE ACCOUNT</button></div>
+        <p class="account-switch" id="account-switch-create">Don't have an account? <button type="button" class="account-switch-link" onclick="showAccountForm('create')">Create here!</button></p>
+        <p class="account-switch" id="account-switch-login" hidden>Already have an account? <button type="button" class="account-switch-link" onclick="showAccountForm('login')">Login</button></p>
         <div class="account-message" id="account-message"></div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="menu-user hidden" id="menu-user"><span>👤</span><span class="user-name" id="user-name">Player</span></div>
+<div class="menu-user hidden" id="menu-user"><span aria-hidden="true">👤</span><button type="button" class="user-id-action" id="user-id-action" onclick="handleUserIdAction()"><span class="user-id-label" id="user-name">Player</span><span class="logout-label">LOG OUT</span></button></div>
 
 <!-- MAIN MENU -->
 <div id="main-menu" class="screen">
@@ -845,7 +875,7 @@ body, body.font-adjusted *, button, input, select, textarea, .game-title, .game-
     <div class="sound-control font-control"><label for="font-size"><span>FONT SIZE</span><span id="font-size-value">100%</span></label><input id="font-size" type="range" min="80" max="200" value="100" step="5"></div>
     <div class="sound-control font-control"><label for="font-family">FONT STYLE</label><select id="font-family"><option value="'Segoe UI', Arial, sans-serif">CLEAN</option><option value="'Press Start 2P', cursive">PIXEL</option><option value="Georgia, serif">SERIF</option><option value="'Courier New', monospace">MONO</option></select></div>
     <label class="mute-control" for="sound-muted"><input id="sound-muted" type="checkbox"><span>MUTE ALL SOUND</span></label>
-    <div class="settings-actions"><button class="pixel-btn" onclick="logoutAccount()">LOGOUT</button><button class="pixel-btn" onclick="toggleSettings(false)">DONE</button></div>
+    <div class="settings-actions"><button class="pixel-btn" onclick="toggleSettings(false)">DONE</button></div>
   </div>
 </div>
 
@@ -875,10 +905,10 @@ body, body.font-adjusted *, button, input, select, textarea, .game-title, .game-
   <div class="challenge-grid">
     <h2>SELECT LEARNING OUTCOME QUIZ</h2>
     <div class="challenge-list" id="quiz-lo-list">
-      <button class="challenge-item" onclick="startLOQuiz(1)">🔌 LO1: Install Network Cables</button>
-      <button class="challenge-item" onclick="startLOQuiz(2)">⚙️ LO2: Set Network Configuration</button>
-      <button class="challenge-item" onclick="startLOQuiz(3)">📡 LO3: Set Router / Wi-Fi / Access Point</button>
-      <button class="challenge-item" onclick="startLOQuiz(4)">🧪 LO4: Inspect and Test Networks</button>
+      <button class="challenge-item" data-lo="1" onclick="startLOQuiz(1)">🔌 LO1: Install Network Cables</button>
+      <button class="challenge-item" data-lo="2" onclick="startLOQuiz(2)">⚙️ LO2: Set Network Configuration</button>
+      <button class="challenge-item" data-lo="3" onclick="startLOQuiz(3)">📡 LO3: Set Router / Wi-Fi / Access Point</button>
+      <button class="challenge-item" data-lo="4" onclick="startLOQuiz(4)">🧪 LO4: Inspect and Test Networks</button>
     </div>
   </div>
 </div>
@@ -1036,7 +1066,7 @@ body, body.font-adjusted *, button, input, select, textarea, .game-title, .game-
         <div class="instruction-item">1. Click <span class="highlight">RUN TEST</span>.</div>
         <div class="instruction-item">2. Read the pin continuity results.</div>
         <div class="instruction-item">3. Identify the cable type below.</div>
-        <div class="instruction-item" style="color:#e74c3c;">⚠️ Wrong answer = -1 Life!</div>
+        <div class="instruction-item life-warning" style="color:#e74c3c;">⚠️ Wrong answer = -1 Life!</div>
         <div class="cable-type-options">
           <button class="cable-type-btn" id="ct-btn-straight" onclick="answerCableTest('straight')" disabled>🔗 Straight-Through</button>
           <button class="cable-type-btn" id="ct-btn-crossover" onclick="answerCableTest('crossover')" disabled>🔄 Crossover</button>
@@ -1075,7 +1105,7 @@ body, body.font-adjusted *, button, input, select, textarea, .game-title, .game-
         <div class="instruction-item">🔹 Subnet Mask: <span class="correct-value">255.255.255.0</span></div>
         <div class="instruction-item">🔹 Default Gateway: <span class="correct-value">192.168.1.1</span></div>
         <div class="instruction-item">🔹 DNS Server: <span class="correct-value">8.8.8.8</span></div>
-        <div class="instruction-item" style="color:#e74c3c;">⚠️ Wrong config = -1 Life!</div>
+        <div class="instruction-item life-warning" style="color:#e74c3c;">⚠️ Wrong config = -1 Life!</div>
       </div>
     </div>
   </div>
@@ -1195,7 +1225,7 @@ body, body.font-adjusted *, button, input, select, textarea, .game-title, .game-
         <div class="security-row"><span class="security-label">🔄 Auto Updates:</span><input type="checkbox" class="security-checkbox" id="security-updates"><label for="security-updates" class="security-checkbox-label" id="security-updates-label">DISABLED</label></div>
         <div class="security-actions"><button class="security-tool-btn" onclick="checkSecurityConfig()">✅ VERIFY SETTINGS</button><button class="security-tool-btn security-reset-btn" onclick="resetSecurityConfig()">🔄 RESET</button></div>
       </div>
-      <div class="security-instructions"><div class="security-instructions-title">📋 CONFIGURATION TASK</div><div class="security-instruction-item">🔹 Firewall: <span class="correct-value">ENABLED</span></div><div class="security-instruction-item">🔹 WPA2 Encryption: <span class="correct-value">ENABLED</span></div><div class="security-instruction-item">🔹 MAC Filtering: <span class="correct-value">ENABLED</span></div><div class="security-instruction-item">🔹 Admin Password: <span class="correct-value">Min 8 characters</span></div><div class="security-instruction-item">🔹 Auto Updates: <span class="correct-value">ENABLED</span></div><div class="security-instruction-item" style="color:#e74c3c;">⚠️ Wrong config = -1 Life!</div></div>
+      <div class="security-instructions"><div class="security-instructions-title">📋 CONFIGURATION TASK</div><div class="security-instruction-item">🔹 Firewall: <span class="correct-value">ENABLED</span></div><div class="security-instruction-item">🔹 WPA2 Encryption: <span class="correct-value">ENABLED</span></div><div class="security-instruction-item">🔹 MAC Filtering: <span class="correct-value">ENABLED</span></div><div class="security-instruction-item">🔹 Admin Password: <span class="correct-value">Min 8 characters</span></div><div class="security-instruction-item">🔹 Auto Updates: <span class="correct-value">ENABLED</span></div><div class="security-instruction-item life-warning" style="color:#e74c3c;">⚠️ Wrong config = -1 Life!</div></div>
     </div>
   </div>
 </div>
@@ -1327,7 +1357,16 @@ body, body.font-adjusted *, button, input, select, textarea, .game-title, .game-
     <div class="modal-icon" id="modal-icon">⚠️</div>
     <h2 id="modal-title">Notification</h2>
     <p id="modal-message">Your message here</p>
-    <button class="pixel-btn modal-btn" onclick="closeModal()">OK</button>
+    <div class="modal-actions"><button class="pixel-btn modal-btn modal-cancel-btn" id="modal-cancel-btn" onclick="cancelModalAction()" hidden>CANCEL</button><button class="pixel-btn modal-btn" id="modal-confirm-btn" onclick="closeModal()">OK</button></div>
+  </div>
+</div>
+
+<div id="practice-complete-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="practice-complete-title">
+  <div class="modal-content practice-complete-content">
+    <div class="modal-icon">✅</div>
+    <h2 id="practice-complete-title">CHALLENGE COMPLETED</h2>
+    <p id="practice-complete-message"></p>
+    <button class="pixel-btn modal-btn practice-complete-next" id="practice-complete-next" onclick="continuePracticeChallenge()">NEXT CHALLENGE</button>
   </div>
 </div>
 
@@ -1345,6 +1384,8 @@ var challengeOrder = [1, 4, 9, 6, 7, 2, 5, 3, 10, 8];
 var challengeIndex = 0, learningChallengeId = null, learningIsPractice = false;
 var isIPStoryFlow = false, fileShareCompleted = false;
 var modalCloseAction = null, currentUser = null;
+var accountFormMode = 'login';
+var logoutPromptTimer = null, practiceNextChallengeId = null;
 var manualFirstTimeKey = 'connected_manual_seen_v1';
 
 var challengeSelectMode = 'all';
@@ -1366,6 +1407,9 @@ var cableTestRan = false;
 var menuVoiceCycleRunning = false;
 
 var performanceData = { completed: new Set(), scores: {}, attempts: {}, totalScore: 0, totalAttempts: 0, successRate: 0 };
+var startChallengeCompleted = new Set();
+var isStartChallengeMode = false;
+var loChallengeRequirements = { 1:[1,2,3], 2:[4,6,9], 3:[7,8], 4:[5,10] };
 
 var challenges = {
   1: { name: 'RJ45 Crimping - T568B', hint: 'Drag wires to correct pins in T568B order', type: 'rj45' },
@@ -1785,21 +1829,66 @@ function showChallengeSelect(mode) {
   updateChallengeBadges();
 }
 
+function isChallengeUnlocked(moduleId) {
+  var orderIndex = challengeOrder.indexOf(Number(moduleId));
+  return orderIndex === 0 || (orderIndex > 0 && startChallengeCompleted.has(String(challengeOrder[orderIndex - 1])));
+}
+
+function updateChallengeBadges() {
+  document.querySelectorAll('#challenge-list .challenge-item').forEach(function(item) {
+    var moduleId = Number(item.dataset.id);
+    var locked = challengeSelectMode === 'all' && !isChallengeUnlocked(moduleId);
+    item.disabled = locked;
+    item.setAttribute('aria-disabled', locked ? 'true' : 'false');
+    item.title = locked ? 'Complete the previous Start Challenge level to unlock this module.' : '';
+    if (startChallengeCompleted.has(String(moduleId))) {
+      if (!item.querySelector('.completed-badge')) {
+        var badge = document.createElement('span');
+        badge.className = 'completed-badge'; badge.textContent = '✓';
+        item.appendChild(badge);
+      }
+    }
+  });
+}
+
+function isLOQuizUnlocked(loNumber) {
+  var required = loChallengeRequirements[loNumber] || [];
+  return required.length > 0 && required.every(function(moduleId) {
+    return startChallengeCompleted.has(String(moduleId));
+  });
+}
+
+function updateQuizBadges() {
+  document.querySelectorAll('#quiz-lo-list [data-lo]').forEach(function(item) {
+    var locked = !isLOQuizUnlocked(Number(item.dataset.lo));
+    item.disabled = locked;
+    item.setAttribute('aria-disabled', locked ? 'true' : 'false');
+    item.title = locked ? 'Complete this LO\'s Start Challenge levels to unlock the quiz.' : '';
+  });
+}
+
 function startModuleFromSelect(moduleId) {
   if (challengeSelectMode === 'practice') {
     isPracticeMode = true;
+    isStartChallengeMode = false;
   } else {
     if (isCooldownActive()) {
       showModal('⏳ You are on cooldown for ' + getCooldownText() + '.\n\nOnly PRACTICE MODE is available until the timer runs out.', 'warning', '⏳ COOLDOWN ACTIVE');
       return;
     }
     isPracticeMode = false;
+    isStartChallengeMode = false;
+    if (!isChallengeUnlocked(moduleId)) {
+      showModal('Complete the previous Start Challenge level to unlock this module.', 'warning', 'MODULE LOCKED');
+      return;
+    }
   }
-  lives = maxLives; score = 0; isGameOver = false;
+  document.body.classList.toggle('practice-mode', isPracticeMode);
+  if (!isPracticeMode) { lives = maxLives; score = 0; updateAllLives(); updateAllScores(); }
+  isGameOver = false;
   currentChallenge = moduleId;
   challengeIndex = challengeOrder.indexOf(moduleId);
   if (challengeIndex < 0) challengeIndex = 0;
-  updateAllLives(); updateAllScores();
   if (moduleId === 4) { startIPStorySequence(); }
   else if (moduleId === 6) { startWorkgroupStorySequence(); }
   else if (moduleId === 7) { startRouterStorySequence(); }
@@ -1811,7 +1900,10 @@ function startChallenge() {
     showModal('⏳ You are on cooldown for ' + getCooldownText() + '.\n\nOnly PRACTICE MODE is available until the timer runs out.', 'warning', '⏳ COOLDOWN ACTIVE');
     return;
   }
-  isPracticeMode=false; lives=maxLives; score=0; isGameOver=false; challengeIndex=0;
+  isPracticeMode=false; isStartChallengeMode=true; document.body.classList.remove('practice-mode');
+  lives=maxLives; score=0; isGameOver=false;
+  challengeIndex = challengeOrder.findIndex(function(moduleId) { return !startChallengeCompleted.has(String(moduleId)); });
+  if (challengeIndex < 0) challengeIndex = 0;
   updateAllLives(); updateAllScores();
   showScreen('story-1'); var v=document.getElementById('story-img-1'); if(v){v.currentTime=0;playStoryVideo(v);}
 }
@@ -1828,17 +1920,24 @@ function goToWorkgroupStory2() { var v1=document.getElementById('story-workgroup
 function proceedToWorkgroupChallenge() { var v=document.getElementById('story-workgroup2-video'); if(v){v.pause();v.currentTime=0;} showScreen('workgroup-challenge'); document.getElementById('workgroup-status').innerHTML="STATUS: " + challenges[6].name; resetWorkgroupConfig(); }
 
 function startPractice() {
+  isStartChallengeMode = false;
   challengeSelectMode = 'practice';
   var titleEl = document.getElementById('challenge-select-title');
   if (titleEl) titleEl.textContent = 'SELECT MODULE TO PRACTICE (NO LIVES LOST)';
+  isPracticeMode = true;
+  document.body.classList.add('practice-mode');
   showScreen('challenge-select');
   updateChallengeBadges();
 }
 
 /* ===================== QUIZ MODE ===================== */
-function startQuizMode() { showScreen('quiz-select-screen'); }
+function startQuizMode() { updateQuizBadges(); showScreen('quiz-select-screen'); }
 
 function startLOQuiz(loNumber) {
+  if (!isLOQuizUnlocked(loNumber)) {
+    showModal('Complete this LO\'s Start Challenge levels to unlock the quiz.', 'warning', 'QUIZ LOCKED');
+    return;
+  }
   lastLOQuizNumber = loNumber;
   var pool = loQuizQuestions[loNumber] || [];
   quizModeQuestions = shuffleArray(pool).map(function(q) {
@@ -1977,6 +2076,7 @@ function loadChallenge(challengeId) {
 }
 
 function goToNextChallenge() {
+  if (isPracticeMode) { showPracticeCompletionDialog(); return; }
   challengeIndex++;
   if (challengeIndex < challengeOrder.length) {
     currentChallenge = challengeOrder[challengeIndex];
@@ -2007,15 +2107,7 @@ function updateAllScores() {
   elements.forEach(function(id){ var el=document.getElementById(id); if(el) el.textContent = 'SCORE: ' + score; });
 }
 function loseLife() {
-  if (isPracticeMode) {
-    var status = document.getElementById('ip-status') || document.getElementById('cmd-ip-status') || document.getElementById('workgroup-status') || document.getElementById('router-status') || document.getElementById('security-status') || document.getElementById('topology-status') || document.getElementById('game-status') || document.getElementById('cable-test-status');
-    if (status) {
-      status.innerHTML = "⚠️ PRACTICE MODE: No lives lost!";
-      status.style.color = '#f39c12';
-      setTimeout(function(){ status.style.color = '#f1c40f'; }, 1500);
-    }
-    return;
-  }
+  if (isPracticeMode) return;
   lives--; updateAllLives();
   var status = document.getElementById('game-status') || document.getElementById('cmd-ip-status') || document.getElementById('ip-status') || document.getElementById('workgroup-status') || document.getElementById('router-status') || document.getElementById('security-status') || document.getElementById('topology-status') || document.getElementById('cable-test-status');
   if (status) {
@@ -2032,7 +2124,7 @@ function showGameOver() {
 }
 function practiceCurrentChallenge() {
   document.getElementById('game-over-modal').classList.remove('active');
-  isGameOver=false; isPracticeMode=true; lives=maxLives; updateAllLives(); resetCurrentChallenge();
+  isGameOver=false; isPracticeMode=true; isStartChallengeMode=false; document.body.classList.add('practice-mode'); resetCurrentChallenge();
   var status = document.getElementById('game-status') || document.getElementById('ip-status') || document.getElementById('workgroup-status') || document.getElementById('router-status') || document.getElementById('security-status') || document.getElementById('topology-status') || document.getElementById('cable-test-status');
   if (status) { status.innerHTML = "📚 PRACTICE MODE - No lives lost!"; status.style.color = '#f39c12'; }
 }
@@ -2056,6 +2148,46 @@ function resetCurrentChallenge() {
     default: break;
   }
   document.querySelectorAll('.config-input, .workgroup-input, .router-input, .security-input').forEach(function(el){ el.classList.remove('correct','wrong'); });
+}
+
+function awardChallengeScore() {
+  if (isPracticeMode) return;
+  score += 100;
+  updateAllScores();
+}
+
+function getChallengeSuccessMessage(message) {
+  return isPracticeMode ? message.replace(/\s*\+100 POINTS/g, '') : message;
+}
+
+function finishChallengeSuccess() {
+  if (isPracticeMode) showPracticeCompletionDialog();
+  else showSuccessScreen();
+}
+
+function showPracticeCompletionDialog() {
+  var nextIndex = challengeIndex + 1;
+  practiceNextChallengeId = nextIndex < challengeOrder.length ? challengeOrder[nextIndex] : null;
+  document.getElementById('practice-complete-message').textContent = 'You completed ' + challenges[currentChallenge].name + '. ' + (practiceNextChallengeId ? 'Continue to the next challenge when you are ready.' : 'You have completed every challenge in this path.');
+  document.getElementById('practice-complete-next').textContent = practiceNextChallengeId ? 'NEXT: ' + challenges[practiceNextChallengeId].name : 'RETURN TO MODULES';
+  document.getElementById('practice-complete-modal').classList.add('active');
+}
+
+function continuePracticeChallenge() {
+  document.getElementById('practice-complete-modal').classList.remove('active');
+  if (practiceNextChallengeId === null) {
+    startPractice();
+    return;
+  }
+  currentChallenge = practiceNextChallengeId;
+  challengeIndex = challengeOrder.indexOf(currentChallenge);
+  isPracticeMode = true;
+  isStartChallengeMode = false;
+  document.body.classList.add('practice-mode');
+  if (currentChallenge === 4) startIPStorySequence();
+  else if (currentChallenge === 6) startWorkgroupStorySequence();
+  else if (currentChallenge === 7) startRouterStorySequence();
+  else showMicroLearning(currentChallenge, true);
 }
 
 /* ===================== CABLE TESTER ===================== */
@@ -2117,12 +2249,12 @@ function answerCableTest(type) {
   var correctType = cableTestCurrentScenario.type;
   ['ct-btn-straight','ct-btn-crossover','ct-btn-faulty'].forEach(function(id){ var b = document.getElementById(id); if (b) b.disabled = true; });
   if (type === correctType) {
-    score += 100; updateAllScores();
-    document.getElementById('cable-test-status').innerHTML = '✅ SUCCESS! CABLE IDENTIFIED CORRECTLY! +100 POINTS';
+    awardChallengeScore();
+    document.getElementById('cable-test-status').innerHTML = getChallengeSuccessMessage('✅ SUCCESS! CABLE IDENTIFIED CORRECTLY! +100 POINTS');
     document.getElementById('cable-test-status').style.color = '#2ecc71';
     document.getElementById('cable-test-log').innerHTML += '<div class="line-info">✅ Correct: ' + correctType.toUpperCase() + ' cable.</div>';
     trackChallengeCompletion(currentChallenge, true);
-    setTimeout(function(){ showSuccessScreen(); }, 1200);
+    setTimeout(finishChallengeSuccess, 1200);
   } else {
     loseLife();
     document.getElementById('cable-test-status').innerHTML = '❌ INCORRECT: You chose ' + type.toUpperCase() + ' but it was ' + correctType.toUpperCase();
@@ -2262,11 +2394,11 @@ function checkCrossoverCable() {
     });
   });
   if (correct) {
-    score += 100; updateAllScores();
-    document.getElementById('crossover-status').innerHTML = 'SUCCESS! CROSSOVER CABLE CORRECT! +100 POINTS';
+    awardChallengeScore();
+    document.getElementById('crossover-status').innerHTML = getChallengeSuccessMessage('SUCCESS! CROSSOVER CABLE CORRECT! +100 POINTS');
     document.getElementById('crossover-status').style.color = '#2ecc71';
     trackChallengeCompletion(currentChallenge, true);
-    setTimeout(function(){ showSuccessScreen(); }, 800);
+    setTimeout(finishChallengeSuccess, 800);
   } else {
     loseLife();
     document.getElementById('crossover-status').innerHTML = 'INCORRECT: T568A AND T568B MUST BE OPPOSITE ENDS';
@@ -2290,25 +2422,28 @@ function initWirePalette() {
   var container = document.getElementById('wire-source-container'); container.innerHTML = '';
   var shuffled = wireDefinitions.slice().sort(function(){ return Math.random() - 0.5; });
   shuffled.forEach(function(wire) {
-    var el = document.createElement('div');
-    el.classList.add('drag-wire'); el.draggable = true; el.dataset.name = wire.name;
-    el.style.background = wire.bg; el.innerText = wire.name;
-    el.addEventListener('dragstart', function(e){ e.dataTransfer.setData('text/plain', JSON.stringify(wire)); this.style.opacity='0.5'; });
-    el.addEventListener('dragend', function(e){ this.style.opacity='1'; });
-    el.addEventListener('click', function(e) {
-      e.preventDefault();
-      if (this.parentElement && this.parentElement.id === 'wire-source-container') {
-        document.querySelectorAll('.drag-wire.selected-for-touch').forEach(function(w){ w.classList.remove('selected-for-touch'); w.style.outline=''; w.style.boxShadow=''; });
-        selectedWireForTouch = wire;
-        this.classList.add('selected-for-touch');
-        this.style.outline = '3px solid #f1c40f';
-        this.style.boxShadow = '0 0 12px #f1c40f';
-        document.getElementById('game-status').innerHTML = 'STATUS: SELECTED ' + wire.name + ' - Tap a pin';
-        document.getElementById('game-status').style.color = '#f1c40f';
-      }
-    });
-    container.appendChild(el);
+    container.appendChild(createWirePaletteElement(wire));
   });
+}
+function createWirePaletteElement(wire) {
+  var el = document.createElement('div');
+  el.classList.add('drag-wire'); el.draggable = true; el.dataset.name = wire.name;
+  el.style.background = wire.bg; el.innerText = wire.name;
+  el.addEventListener('dragstart', function(e){ e.dataTransfer.setData('text/plain', JSON.stringify(wire)); this.style.opacity='0.5'; });
+  el.addEventListener('dragend', function(){ this.style.opacity='1'; });
+  el.addEventListener('click', function(e) {
+    e.preventDefault();
+    if (this.parentElement && this.parentElement.id === 'wire-source-container') {
+      document.querySelectorAll('.drag-wire.selected-for-touch').forEach(function(w){ w.classList.remove('selected-for-touch'); w.style.outline=''; w.style.boxShadow=''; });
+      selectedWireForTouch = wire;
+      this.classList.add('selected-for-touch');
+      this.style.outline = '3px solid #f1c40f';
+      this.style.boxShadow = '0 0 12px #f1c40f';
+      document.getElementById('game-status').innerHTML = 'STATUS: SELECTED ' + wire.name + ' - Tap a pin';
+      document.getElementById('game-status').style.color = '#f1c40f';
+    }
+  });
+  return el;
 }
 function dropWire(e) {
   e.preventDefault();
@@ -2333,6 +2468,7 @@ function dropWire(e) {
     document.getElementById('game-status').style.color = '#f1c40f';
     return;
   }
+  if (!e.dataTransfer) return;
   var existing = zone.querySelector('.drag-wire'); if (existing) returnWireToPalette(existing);
   try {
     var wireData = JSON.parse(e.dataTransfer.getData('text/plain'));
@@ -2350,12 +2486,7 @@ function returnWireToPalette(wireElement) {
   var wireName = wireElement.dataset.name;
   var wireDef = wireDefinitions.find(function(w){ return w.name === wireName; });
   if (wireDef) {
-    var newWire = document.createElement('div');
-    newWire.classList.add('drag-wire'); newWire.draggable = true; newWire.dataset.name = wireDef.name;
-    newWire.style.background = wireDef.bg; newWire.innerText = wireDef.name;
-    newWire.addEventListener('dragstart', function(e){ e.dataTransfer.setData('text/plain', JSON.stringify(wireDef)); this.style.opacity='0.5'; });
-    newWire.addEventListener('dragend', function(e){ this.style.opacity='1'; });
-    container.appendChild(newWire);
+    container.appendChild(createWirePaletteElement(wireDef));
     wireElement.remove();
   }
 }
@@ -2426,11 +2557,11 @@ function crimpConnector() {
     highlightCorrectWires(false);
     return;
   }
-  score += 100; updateAllScores();
-  document.getElementById('game-status').innerHTML = "STATUS: ✅ SUCCESS! WIRED CORRECTLY! +100 POINTS";
+  awardChallengeScore();
+  document.getElementById('game-status').innerHTML = getChallengeSuccessMessage("STATUS: ✅ SUCCESS! WIRED CORRECTLY! +100 POINTS");
   highlightCorrectWires(true);
   trackChallengeCompletion(currentChallenge, true);
-  setTimeout(function(){ showSuccessScreen(); }, 900);
+  setTimeout(finishChallengeSuccess, 900);
 }
 function resetWires() {
   if (isGameOver) { showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER'); return; }
@@ -2457,11 +2588,11 @@ function checkIPConfig() {
   if (defaultGateway !== correctIPConfig.defaultGateway) { isCorrect=false; errors.push('Default Gateway'); }
   if (dnsServer !== correctIPConfig.dnsServer) { isCorrect=false; errors.push('DNS Server'); }
   if (isCorrect) {
-    score += 100; updateAllScores();
-    document.getElementById('ip-status').innerHTML="✅ SUCCESS! IP CONFIGURATION CORRECT! +100 POINTS";
+    awardChallengeScore();
+    document.getElementById('ip-status').innerHTML=getChallengeSuccessMessage("✅ SUCCESS! IP CONFIGURATION CORRECT! +100 POINTS");
     document.getElementById('ip-status').style.color='#2ecc71';
     trackChallengeCompletion(currentChallenge, true);
-    setTimeout(function(){ showSuccessScreen(); }, 800);
+    setTimeout(finishChallengeSuccess, 800);
   } else {
     loseLife();
     document.getElementById('ip-status').innerHTML="❌ INCORRECT: " + errors.join(', ');
@@ -2490,10 +2621,10 @@ function checkCmdIPAnswer() {
   if (answer.disabled) { showModal('Type ipconfig and press Run first.', 'warning', 'CMD REQUIRED'); return; }
   if (answer.value.trim() === '192.168.136.128') {
     answer.classList.add('correct');
-    score += 100; updateAllScores();
-    document.getElementById('cmd-ip-status').innerHTML='SUCCESS! IPv4 ADDRESS CORRECT! +100 POINTS';
+    awardChallengeScore();
+    document.getElementById('cmd-ip-status').innerHTML=getChallengeSuccessMessage('SUCCESS! IPv4 ADDRESS CORRECT! +100 POINTS');
     trackChallengeCompletion(currentChallenge, true);
-    setTimeout(function(){ showSuccessScreen(); }, 800);
+    setTimeout(finishChallengeSuccess, 800);
   } else {
     answer.classList.add('wrong');
     loseLife();
@@ -2536,10 +2667,9 @@ function checkWorkgroupConfig() {
   if (fileSharing !== correctWorkgroupConfig.fileSharing) { isCorrect=false; errors.push('File Sharing'); }
   if (passwordProtection !== correctWorkgroupConfig.passwordProtection) { isCorrect=false; errors.push('Password Protection'); }
   if (isCorrect) {
-    score += 100; updateAllScores();
-    document.getElementById('workgroup-status').innerHTML="✅ SUCCESS! WORKGROUP CONFIGURATION CORRECT! +100 POINTS";
+    awardChallengeScore();
+    document.getElementById('workgroup-status').innerHTML=getChallengeSuccessMessage("✅ SUCCESS! WORKGROUP CONFIGURATION CORRECT! +100 POINTS");
     document.getElementById('workgroup-status').style.color='#2ecc71';
-    trackChallengeCompletion(currentChallenge, true);
     setTimeout(function(){ showFileSharingChallenge(); }, 800);
   } else {
     loseLife();
@@ -2572,15 +2702,16 @@ function showFileSharingChallenge() {
 }
 function copySampleFileToPC1() {
   if (fileShareCompleted || isGameOver) return;
-  fileShareCompleted = true; score += 100; updateAllScores();
+  fileShareCompleted = true; awardChallengeScore();
   document.getElementById('source-sample-file').classList.add('copied');
   document.getElementById('destination-sample-file').hidden = false;
   document.getElementById('destination-sample-file').classList.add('copied');
   document.getElementById('copy-file-btn').disabled = true;
   document.getElementById('copy-file-btn').textContent = 'FILE COPIED';
-  document.getElementById('file-sharing-status').textContent = 'SUCCESS! PC 1 RECEIVED THE SHARED FILE! +100 POINTS';
+  document.getElementById('file-sharing-status').textContent = getChallengeSuccessMessage('SUCCESS! PC 1 RECEIVED THE SHARED FILE! +100 POINTS');
   document.getElementById('file-sharing-status').style.color = '#2ecc71';
-  setTimeout(function(){ showSuccessScreen(); }, 900);
+  trackChallengeCompletion(currentChallenge, true);
+  setTimeout(finishChallengeSuccess, 900);
 }
 
 /* ===================== ROUTER ===================== */
@@ -2595,11 +2726,11 @@ function checkRouterConfig() {
   if (security !== correctRouterConfig.security) { isCorrect=false; errors.push('Security'); }
   if (lanIp !== correctRouterConfig.lanIp) { isCorrect=false; errors.push('LAN IP'); }
   if (isCorrect) {
-    score += 100; updateAllScores();
-    document.getElementById('router-status').innerHTML="✅ SUCCESS! ROUTER CONFIGURATION CORRECT! +100 POINTS";
+    awardChallengeScore();
+    document.getElementById('router-status').innerHTML=getChallengeSuccessMessage("✅ SUCCESS! ROUTER CONFIGURATION CORRECT! +100 POINTS");
     document.getElementById('router-status').style.color='#2ecc71';
     trackChallengeCompletion(currentChallenge, true);
-    setTimeout(function(){ showSuccessScreen(); }, 800);
+    setTimeout(finishChallengeSuccess, 800);
   } else {
     loseLife();
     document.getElementById('router-status').innerHTML="❌ INCORRECT: " + errors.join(', ');
@@ -2682,11 +2813,11 @@ function checkSecurityConfig() {
   if (!updates) errors.push('Auto Updates');
   if (password.length < 8) errors.push('Admin Password (min 8 chars)');
   if (errors.length === 0) {
-    score += 100; updateAllScores();
-    document.getElementById('security-status').innerHTML="✅ SUCCESS! SECURITY CONFIGURATION CORRECT! +100 POINTS";
+    awardChallengeScore();
+    document.getElementById('security-status').innerHTML=getChallengeSuccessMessage("✅ SUCCESS! SECURITY CONFIGURATION CORRECT! +100 POINTS");
     document.getElementById('security-status').style.color='#2ecc71';
     trackChallengeCompletion(currentChallenge, true);
-    setTimeout(function(){ showSuccessScreen(); }, 800);
+    setTimeout(finishChallengeSuccess, 800);
   } else {
     loseLife();
     document.getElementById('security-status').innerHTML="❌ INCORRECT: " + errors.join(', ');
@@ -2713,7 +2844,8 @@ function resetTopology(silent) {
   if (!silent) showModal('🔄 Topology reset! Configure PCs and connect cables.', 'info', '🔄 RESET COMPLETE');
 }
 function showTopologyInstructions() {
-  showModal('In this challenge, you will:\n\n1. Configure ALL 6 PCs with the SAME IP settings\n   • IPv4: 192.168.1.2\n   • Subnet: 255.255.255.0\n   • Gateway: 192.168.1.1\n   • DNS: 8.8.8.8\n\n   Click the ⚙ gear icon on each PC to configure it.\n\n2. Connect all 9 cables:\n   • SERVER → HUB 1 → PC 1 + PC 2\n   • SERVER → HUB 2 → PC 3 + PC 4\n   • SERVER → HUB 3 → PC 5 + PC 6\n\n   Click or drag devices to connect them.\n\nWrong values or wrong cable = -1 Life.', 'info', '📋 NETWORK TOPOLOGY INSTRUCTIONS');
+  var lifeNote = isPracticeMode ? '' : '\n\nWrong values or wrong cable = -1 Life.';
+  showModal('In this challenge, you will:\n\n1. Configure ALL 6 PCs with the SAME IP settings\n   • IPv4: 192.168.1.2\n   • Subnet: 255.255.255.0\n   • Gateway: 192.168.1.1\n   • DNS: 8.8.8.8\n\n   Click the ⚙ gear icon on each PC to configure it.\n\n2. Connect all 9 cables:\n   • SERVER → HUB 1 → PC 1 + PC 2\n   • SERVER → HUB 2 → PC 3 + PC 4\n   • SERVER → HUB 3 → PC 5 + PC 6\n\n   Click or drag devices to connect them.' + lifeNote, 'info', '📋 NETWORK TOPOLOGY INSTRUCTIONS');
 }
 function handleTopologyClick(deviceId) {
   if (topologySelected !== null) { selectDevice(deviceId); return; }
@@ -2773,7 +2905,7 @@ function selectDevice(deviceId) {
     topologySelected = null;
     drawTopologyLine(firstId, deviceId, '#e74c3c');
     loseLife();
-    document.getElementById('topology-status').innerHTML = "STATUS: ❌ WRONG CONNECTION! -1 Life";
+    document.getElementById('topology-status').innerHTML = isPracticeMode ? "STATUS: ❌ WRONG CONNECTION!" : "STATUS: ❌ WRONG CONNECTION! -1 Life";
     document.getElementById('topology-status').style.color = '#e74c3c';
     setTimeout(function() {
       firstEl.classList.remove('wrong'); secondEl.classList.remove('wrong');
@@ -2886,11 +3018,11 @@ function verifyTopology() {
     if (!allCorrect) break;
   }
   if (allCorrect && total >= 9) {
-    score += 100; updateAllScores();
-    document.getElementById('topology-status').innerHTML = "✅ SUCCESS! ALL DEVICES CONNECTED CORRECTLY! +100 POINTS";
+    awardChallengeScore();
+    document.getElementById('topology-status').innerHTML = getChallengeSuccessMessage("✅ SUCCESS! ALL DEVICES CONNECTED CORRECTLY! +100 POINTS");
     document.getElementById('topology-status').style.color = '#2ecc71';
     trackChallengeCompletion(currentChallenge, true);
-    setTimeout(function(){ showSuccessScreen(); }, 800);
+    setTimeout(finishChallengeSuccess, 800);
   } else {
     loseLife();
     document.getElementById('topology-status').innerHTML = "❌ INCORRECT TOPOLOGY! Some connections are wrong.";
@@ -2920,6 +3052,7 @@ function showSuccessScreen() {
 }
 
 function trackChallengeCompletion(challengeId, success) {
+  if (isPracticeMode) return;
   var key = challengeId.toString();
   if (!performanceData.attempts[key]) performanceData.attempts[key] = 0;
   performanceData.attempts[key]++; performanceData.totalAttempts++;
@@ -2927,6 +3060,12 @@ function trackChallengeCompletion(challengeId, success) {
     performanceData.completed.add(key);
     performanceData.scores[key] = (performanceData.scores[key] || 0) + 100;
     performanceData.totalScore += 100;
+    if (isStartChallengeMode) {
+      startChallengeCompleted.add(key);
+      saveStartChallengeProgress();
+      updateChallengeBadges();
+      updateQuizBadges();
+    }
   }
   var completed = performanceData.completed.size;
   var attempted = Object.keys(performanceData.attempts).length;
@@ -2939,7 +3078,8 @@ function savePerformanceData() {
       completed: Array.from(performanceData.completed),
       scores: performanceData.scores, attempts: performanceData.attempts,
       totalScore: performanceData.totalScore, totalAttempts: performanceData.totalAttempts,
-      successRate: performanceData.successRate
+      successRate: performanceData.successRate,
+      startChallengeCompleted: Array.from(startChallengeCompleted)
     }));
     saveCurrentUserPerformance();
   } catch (e) { console.log(e); }
@@ -2955,17 +3095,53 @@ function loadPerformanceData() {
       performanceData.totalScore = parsed.totalScore || 0;
       performanceData.totalAttempts = parsed.totalAttempts || 0;
       performanceData.successRate = parsed.successRate || 0;
+      startChallengeCompleted = new Set(parsed.startChallengeCompleted || []);
     }
   } catch (e) { console.log(e); }
+}
+
+function saveStartChallengeProgress() {
+  if (!currentUser) {
+    try { localStorage.setItem('connected_start_challenge_completed', JSON.stringify(Array.from(startChallengeCompleted))); } catch (e) { console.log(e); }
+    return;
+  }
+  try {
+    var accounts = JSON.parse(localStorage.getItem('connected_accounts') || '{}');
+    var account = accounts[currentUser];
+    if (!account) return;
+    account.startChallengeCompleted = Array.from(startChallengeCompleted);
+    localStorage.setItem('connected_accounts', JSON.stringify(accounts));
+  } catch (e) { console.log(e); }
+}
+
+function loadStartChallengeProgress(account) {
+  if (account) {
+    startChallengeCompleted = new Set(account.startChallengeCompleted || []);
+    return;
+  }
+  try { startChallengeCompleted = new Set(JSON.parse(localStorage.getItem('connected_start_challenge_completed') || '[]')); } catch (e) { startChallengeCompleted = new Set(); }
 }
 
 /* ===================== ACCOUNT ===================== */
 function normalizeUsername(name) { return (name || '').trim().toUpperCase(); }
 function isValidTupmId(id) { return /^TUPM-\d{2}-\d{4}$/.test((id || '').trim().toUpperCase()); }
+function showAccountForm(mode) {
+  accountFormMode = mode === 'create' ? 'create' : 'login';
+  var isCreating = accountFormMode === 'create';
+  document.getElementById('account-form-title').textContent = isCreating ? 'CREATE ACCOUNT' : 'PLAYER LOGIN';
+  document.getElementById('confirm-password-row').hidden = !isCreating;
+  document.getElementById('account-confirm-password').value = '';
+  document.getElementById('account-password').autocomplete = isCreating ? 'new-password' : 'current-password';
+  document.getElementById('account-login-button').hidden = isCreating;
+  document.getElementById('account-create-submit').hidden = !isCreating;
+  document.getElementById('account-switch-create').hidden = isCreating;
+  document.getElementById('account-switch-login').hidden = !isCreating;
+  document.getElementById('account-message').textContent = '';
+}
 function hideConfirmPasswordRow() {
   var confirmRow = document.getElementById('confirm-password-row');
   var confirmPasswordField = document.getElementById('account-confirm-password');
-  if (confirmRow) confirmRow.style.display = 'none';
+  if (confirmRow) confirmRow.hidden = true;
   if (confirmPasswordField) confirmPasswordField.value = '';
 }
 function resetAccountForm(messageText) {
@@ -2973,31 +3149,25 @@ function resetAccountForm(messageText) {
   var p=document.getElementById('account-password');
   var m=document.getElementById('account-message');
   if(u)u.value=''; if(p)p.value='';
-  hideConfirmPasswordRow();
+  showAccountForm('login');
   if(m&&messageText)m.textContent=messageText;
 }
 function createAccount() {
+  if (accountFormMode !== 'create') { showAccountForm('create'); return; }
   var username = normalizeUsername(document.getElementById('account-username').value);
   var password = (document.getElementById('account-password').value || '').trim();
   var confirmRow = document.getElementById('confirm-password-row');
   var confirmPasswordField = document.getElementById('account-confirm-password');
   var confirmPassword = (confirmPasswordField ? confirmPasswordField.value : '') || '';
   var message = document.getElementById('account-message');
-  if (!confirmRow || confirmRow.style.display === 'none') {
-    if (confirmRow) {
-      confirmRow.style.display='block';
-      if(confirmPasswordField)confirmPasswordField.value='';
-      message.textContent='Confirm the password to continue.';
-    }
-    return;
-  }
-  if (!isValidTupmId(username)) { message.textContent = 'Use ID format: TUPM-26-0001.'; return; }
+  if (!confirmRow || confirmRow.hidden) { showAccountForm('create'); return; }
+  if (!isValidTupmId(username)) { message.textContent = 'Use ID format: TUPM-XX-XXXX.'; return; }
   if (!username || password.length < 4 || confirmPassword.length < 4) { message.textContent = 'Enter a TUPM ID and 4+ character password.'; return; }
   if (password !== confirmPassword) { message.textContent = 'Passwords do not match.'; return; }
   try {
     var accounts = JSON.parse(localStorage.getItem('connected_accounts') || '{}');
     if (accounts[username]) { message.textContent = 'TUPM ID already exists.'; return; }
-    accounts[username] = { username: username, password: password, createdAt: new Date().toISOString(), totalScore: 0, totalAttempts: 0, completed: [], scores: {}, attempts: {}, successRate: 0 };
+    accounts[username] = { username: username, password: password, createdAt: new Date().toISOString(), totalScore: 0, totalAttempts: 0, completed: [], scores: {}, attempts: {}, successRate: 0, startChallengeCompleted: [] };
     localStorage.setItem('connected_accounts', JSON.stringify(accounts));
     currentUser = username; localStorage.setItem('connected_current_user', username);
     hideConfirmPasswordRow(); message.textContent = 'Account created.';
@@ -3005,6 +3175,7 @@ function createAccount() {
   } catch (e) { console.log(e); message.textContent = 'Account could not be created.'; }
 }
 function loginAccount() {
+  if (accountFormMode !== 'login') return;
   hideConfirmPasswordRow();
   var username = normalizeUsername(document.getElementById('account-username').value);
   var password = (document.getElementById('account-password').value || '').trim();
@@ -3048,6 +3219,7 @@ function loadPerformanceDataForUser(username) {
     performanceData.totalScore = account.totalScore || 0;
     performanceData.totalAttempts = account.totalAttempts || 0;
     performanceData.successRate = account.successRate || 0;
+    loadStartChallengeProgress(account);
     updateDashboard();
   } catch (e) { console.log(e); loadPerformanceData(); }
 }
@@ -3063,10 +3235,32 @@ function saveCurrentUserPerformance() {
     account.totalScore = performanceData.totalScore;
     account.totalAttempts = performanceData.totalAttempts;
     account.successRate = performanceData.successRate;
+    account.startChallengeCompleted = Array.from(startChallengeCompleted);
     localStorage.setItem('connected_accounts', JSON.stringify(accounts));
   } catch (e) { console.log(e); }
 }
+function handleUserIdAction() {
+  var menuUser = document.getElementById('menu-user');
+  var isTouchInput = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+  if (isTouchInput && !menuUser.classList.contains('logout-armed')) {
+    menuUser.classList.add('logout-armed');
+    if (logoutPromptTimer) clearTimeout(logoutPromptTimer);
+    logoutPromptTimer = setTimeout(function() {
+      menuUser.classList.remove('logout-armed');
+      logoutPromptTimer = null;
+    }, 3500);
+    return;
+  }
+  if (logoutPromptTimer) clearTimeout(logoutPromptTimer);
+  logoutPromptTimer = null;
+  menuUser.classList.remove('logout-armed');
+  showModal('Are you sure you want to log out?', 'warning', 'CONFIRM LOG OUT');
+  configureModalConfirmation('LOG OUT', logoutAccount, true);
+}
+
 function logoutAccount() {
+  if (logoutPromptTimer) clearTimeout(logoutPromptTimer);
+  logoutPromptTimer = null;
   try {
     currentUser = null;
     localStorage.removeItem('connected_current_user');
@@ -3101,26 +3295,18 @@ function updateDashboard() {
     item.appendChild(name); item.appendChild(status); container.appendChild(item);
   });
 }
-function updateChallengeBadges() {
-  document.querySelectorAll('.challenge-item').forEach(function(item) {
-    var id = item.dataset.id;
-    if (performanceData.completed.has(id)) {
-      if (!item.querySelector('.completed-badge')) {
-        var badge=document.createElement('span');
-        badge.className='completed-badge'; badge.textContent='✓';
-        item.appendChild(badge);
-      }
-    }
-  });
-}
-
 /* ===================== MODALS / SCREENS ===================== */
 function showModal(message, type, title) {
+  if (isPracticeMode) message = message.replace(/-1 Life!?/gi, '').replace(String.fromCodePoint(0x1F494), '').trim();
   if (type === 'success') playFeedbackTone('success');
   if (type === 'error') playFeedbackTone('error');
   if (type === 'warning' && message && message.indexOf('-1 Life') !== -1) playFeedbackTone('life');
   type = type || 'warning';
   modalCloseAction = null;
+  var cancelButton = document.getElementById('modal-cancel-btn');
+  var confirmButton = document.getElementById('modal-confirm-btn');
+  if (cancelButton) cancelButton.hidden = true;
+  if (confirmButton) { confirmButton.textContent = 'OK'; confirmButton.classList.remove('modal-danger-btn'); }
   var modal = document.getElementById('custom-modal');
   var icon = document.getElementById('modal-icon');
   var titleEl = document.getElementById('modal-title');
@@ -3140,12 +3326,31 @@ function closeModal() {
   document.getElementById('custom-modal').classList.remove('active');
   if (modalTimeout) clearTimeout(modalTimeout);
   var action = modalCloseAction; modalCloseAction = null;
+  document.getElementById('modal-cancel-btn').hidden = true;
+  var confirmButton = document.getElementById('modal-confirm-btn');
+  confirmButton.textContent = 'OK'; confirmButton.classList.remove('modal-danger-btn');
   if (action) action();
 }
-document.getElementById('custom-modal').addEventListener('click', function(e){ if (e.target === this) closeModal(); });
+function configureModalConfirmation(label, action, isDanger) {
+  var cancelButton = document.getElementById('modal-cancel-btn');
+  var confirmButton = document.getElementById('modal-confirm-btn');
+  cancelButton.hidden = false;
+  confirmButton.textContent = label;
+  if (isDanger) confirmButton.classList.add('modal-danger-btn');
+  modalCloseAction = action;
+}
+function cancelModalAction() {
+  modalCloseAction = null;
+  closeModal();
+}
+document.getElementById('custom-modal').addEventListener('click', function(e){
+  if (e.target !== this) return;
+  if (!document.getElementById('modal-cancel-btn').hidden) cancelModalAction();
+  else closeModal();
+});
 function confirmGoToMenu() {
   showModal('Are you sure you want to go back to the main menu? Your progress will be lost.', 'warning', '⚠️ CONFIRM');
-  modalCloseAction = goToMenu;
+  configureModalConfirmation('BACK', goToMenu, true);
 }
 function showScreen(screenId) {
   var menuVideo = document.getElementById('menu-bg-video');
