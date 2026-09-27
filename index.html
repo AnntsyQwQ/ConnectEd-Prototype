@@ -262,44 +262,63 @@ body.font-adjusted * { font-family: var(--game-font, 'Segoe UI'), Arial, sans-se
 .wire-palette { flex:1; display:flex; flex-direction:column; }
 .rj45-preview { flex:1.6; display:flex; flex-direction:column; align-items:center; }
 .schematic-card h3, .wire-palette h4, .rj45-preview h4 { font-size:0.4rem; margin-bottom:4px; font-family:inherit; text-align:center; color:#2bf1c9; }
-.standard-options { display:flex; gap:4px; margin-bottom:4px; }
-.standard-btn { flex:1; padding:5px 2px; background:#2980b9; color:#fff; border:2px solid transparent; border-radius:4px; cursor:pointer; font-weight:bold; font-size:0.4rem; }
-.standard-btn.selected { background:#27ae60; border-color:#ffffff; }
 .pinout-display { background:#081d2e; padding:6px; border-radius:4px; font-size:0.35rem; line-height:1.3; max-height:80px; overflow-y:auto; }
-.pinout-display.hidden { display:none; }
+.pinout-display.hidden { display:none !important; }
+.pinout-display.practice-pinouts { display:grid; grid-template-columns:1fr 1fr; gap:8px; max-height:none; font-size:0.3rem; line-height:1.35; }
+.pinout-standard b { display:block; color:#f1c40f; margin-bottom:3px; }
+.pinout-standard ol { margin-left:16px; }
 .challenge-info { margin-top:6px; padding:6px; background:rgba(43,241,201,0.1); border-radius:4px; font-size:0.35rem; color:#ecf0f1; text-align:center; border:1px dashed rgba(43,241,201,0.3); }
 .challenge-info h4 { font-weight:400; font-size:0.35rem; }
 .wires-grid { display:flex; flex-direction:column; gap:3px; overflow-y:auto; flex:1; }
 .drag-wire { height:20px; border-radius:3px; cursor:grab; display:flex; align-items:center; padding-left:6px; font-family:inherit; font-size:0.35rem; font-weight:bold; color:#000; border:1px solid #333; user-select:none; text-shadow:0 0 2px #fff; }
 .drag-wire:active { cursor:grabbing; }
-.rj45-connector-wrapper { position:relative; width:300px; height:260px; display:flex; justify-content:center; margin:8px auto; }
-.rj45-svg { position:absolute; top:0; left:0; width:100%; height:100%; z-index:1; pointer-events:none; }
-.rj45-svg { width:204px; height:230px; top:15px; left:48px; transform:rotate(90deg); }
-.connector-slots { position:absolute; top:48px; left:63px; width:190px; height:156px; display:flex; flex-direction:column; justify-content:space-between; z-index:2; }
 
-.drop-zone {
-  width:100%; height:auto; flex:1; min-height:0;
-  background:rgba(0,0,0,0.4);
-  border:1px dashed rgba(255,255,255,0.3);
-  border-radius:2px;
-  display:flex; flex-direction:column; align-items:center;
-  position:relative; overflow:hidden; cursor:pointer;
-  transition: all 0.2s ease;
+/* ===================== UPDATED RJ45 CONNECTOR STYLES ===================== */
+.rj45-connector-wrapper { position:relative; width:320px; height:120px; margin:20px auto; }
+.rj45-svg { position:absolute; top:0; left:0; width:100%; height:100%; z-index:1; pointer-events:none; }
+
+/* FIX: Drop zones positioned over the wire guide lines (left side) and not covering the yellow pins */
+.connector-slots { 
+  position:absolute; 
+  top: 16px; /* Center the larger targets on the wire guide lines */
+  left: 20px; /* Start at the beginning of the wire guide lines */
+  width: 160px; /* Cover the wire guide lines, stopping before the yellow pins */
+  height: 96px; /* Eight evenly spaced 12px pin targets */
+  display:flex; 
+  flex-direction:column; 
+  justify-content:space-between; 
+  z-index:2; 
 }
-.drop-zone .pin-num { position:absolute; bottom:-12px; font-size:0.3rem; color:#888; z-index:3; pointer-events:none; }
+
+.drop-zone { 
+  width: 160px; /* Match the wire guide width */
+  height: 12px; /* Larger drag and touch target centered on each pin */
+  flex: 0 0 12px;
+  background: rgba(241, 196, 15, 0.15); /* Slightly visible background */
+  border: 1px dashed rgba(241, 196, 15, 0.8);
+  border-radius: 2px; 
+  display:flex; 
+  align-items:center; 
+  justify-content:center; 
+  position:relative; 
+  cursor:pointer; 
+  touch-action:manipulation;
+  transition: all 0.2s ease; 
+}
+.drop-zone:hover { background: rgba(241, 196, 15, 0.4); }
 
 /* ===================== FIX: GLOWING FEEDBACK ===================== */
 .drop-zone.correct {
-  background: rgba(46, 204, 113, 0.4) !important;
+  background: rgba(46, 204, 113, 0.6) !important;
   border-color: #2ecc71 !important;
-  box-shadow: 0 0 15px #2ecc71, inset 0 0 10px #2ecc71 !important;
+  box-shadow: 0 0 15px #2ecc71 !important;
   animation: pulse-green 1.2s infinite;
   z-index: 5 !important;
 }
 .drop-zone.wrong {
-  background: rgba(231, 76, 60, 0.4) !important;
+  background: rgba(231, 76, 60, 0.6) !important;
   border-color: #e74c3c !important;
-  box-shadow: 0 0 15px #e74c3c, inset 0 0 10px #e74c3c !important;
+  box-shadow: 0 0 15px #e74c3c !important;
   animation: pulse-red 1.2s infinite;
   z-index: 5 !important;
 }
@@ -368,6 +387,8 @@ body.font-adjusted * { font-family: var(--game-font, 'Segoe UI'), Arial, sans-se
 .crossover-end h3 { color:#2bf1c9; font-size:0.5rem; text-align:center; margin-bottom:10px; }
 .crossover-pins { display:flex; flex-direction:column; gap:5px; }
 .crossover-pin { display:flex; align-items:center; gap:6px; min-height:31px; background:#081d2e; border:2px dashed #2bf1c9; border-radius:4px; padding:3px; }
+.crossover-pin.correct { border:2px solid #2ecc71; background:rgba(46,204,113,0.18); box-shadow:0 0 12px rgba(46,204,113,0.75); }
+.crossover-pin.wrong { border:2px solid #e74c3c; background:rgba(231,76,60,0.18); box-shadow:0 0 12px rgba(231,76,60,0.65); }
 .crossover-pin-label { width:18px; color:#f1c40f; font-size:0.35rem; text-align:center; }
 .crossover-pin .drag-wire { flex:1; min-height:22px; margin:0; padding:4px; font-size:0.3rem; }
 .crossover-source { display:flex; flex-wrap:wrap; gap:5px; margin-top:10px; }
@@ -630,6 +651,7 @@ body.font-adjusted * { font-family: var(--game-font, 'Segoe UI'), Arial, sans-se
 .cooldown-timer .cooldown-time { color: #f1c40f; font-size: 0.9rem; min-width: 58px; text-align: center; background: rgba(0,0,0,0.4); padding: 4px 8px; border-radius: 8px; border: 2px solid #f1c40f; }
 .cooldown-timer .cooldown-note { color: #ecf0f1; font-size: 0.42rem; font-weight: 700; }
 @keyframes cooldownPulse { 0%, 100% { box-shadow: 0 0 30px rgba(231,76,60,0.8), 0 6px 0 #000; } 50% { box-shadow: 0 0 50px rgba(241,196,15,0.9), 0 6px 0 #000; } }
+.cooldown-active #crossover-challenge .crossover-workspace { padding-top:108px !important; }
 
 .quiz-mode-container { width: 100%; height: 100%; padding: 70px 20px 20px; display: flex; flex-direction: column; align-items: center; background: rgba(13,40,64,0.90); overflow-y: auto; }
 .quiz-mode-header { width: min(820px, 100%); display: flex; justify-content: space-between; align-items: center; background: #051422; border: 2px solid #2bf1c9; border-radius: 8px; padding: 10px 16px; color: #2bf1c9; font-size: 0.6rem; margin-bottom: 16px; flex-wrap: wrap; gap: 8px; }
@@ -753,10 +775,7 @@ body.font-adjusted * { font-family: var(--game-font, 'Segoe UI'), Arial, sans-se
     text-indent: -9999px !important; white-space: nowrap !important; overflow: hidden !important;
     display: block !important; pointer-events: none !important; z-index: 1 !important;
   }
-  #challenge-2 .rj45-connector-wrapper { width: 300px !important; height: 260px !important; max-width:100%; }
-  #challenge-2 .rj45-svg { width:204px !important; height:230px !important; top:15px !important; left:48px !important; }
-  #challenge-2 .connector-slots { top:48px !important; left:63px !important; width:190px !important; height:156px !important; flex-direction:column !important; }
-  #challenge-2 .drop-zone { width:100% !important; height:auto !important; min-height:0 !important; flex:1 !important; cursor:pointer; touch-action:manipulation; }
+  #challenge-2 .rj45-connector-wrapper { width:320px !important; height:120px !important; max-width:100%; transform:scale(0.9); transform-origin:top center; }
 }
 
 @media (hover:none), (pointer:coarse) {
@@ -814,7 +833,7 @@ body, body.font-adjusted *, button, input, select, textarea, .game-title, .game-
       <div class="manual-card"><h2>❤️ Lives &amp; Score</h2><p>You start with <b>5 lives</b>. Wrong answers lose <b>1 life</b>. Completing a challenge gives <b>+100 points</b>.</p></div>
       <div class="manual-card"><h2>⏳ Cooldown</h2><p>If you run out of lives, you must wait <b>3 minutes</b>. During that time, only <b>PRACTICE MODE</b> is available.</p></div>
       <div class="manual-card"><h2>💡 Tips</h2><ul><li>Read the micro-lesson before each challenge.</li><li>Use <b>RESET</b> if you get stuck.</li><li>Check the <b>DASHBOARD</b> for progress.</li><li>Adjust <b>FONT SIZE</b> in Settings if text is small.</li><li>Press <b>FULLSCREEN</b> for the best experience.</li></ul></div>
-      <div class="manual-card"><h2>📚 Modules Included</h2><p>RJ45, Straight-Through, Crossover, Cable Tester, IP Config, CMD IP, Topology, Workgroup, Router, Security.</p></div>
+      <div class="manual-card"><h2>📚 Modules Included</h2><p>RJ45 T568B, RJ45 T568A, Crossover Cable, Cable Tester, IP Config, CMD IP, Workgroup &amp; Sharing, Router &amp; Connectivity, Network Security, Network Topology.</p></div>
     </div>
     <button class="pixel-btn manual-start-btn" onclick="closeManual()">🚀 START GAME</button>
   </div>
@@ -885,16 +904,16 @@ body, body.font-adjusted *, button, input, select, textarea, .game-title, .game-
   <div class="challenge-grid">
     <h2 id="challenge-select-title">SELECT MODULE</h2>
     <div class="challenge-list" id="challenge-list">
-      <button class="challenge-item" data-id="1" onclick="startModuleFromSelect(1)">🔌 RJ45 Crimping - T568B</button>
-      <button class="challenge-item" data-id="2" onclick="startModuleFromSelect(2)">🔗 Straight-Through Cable</button>
+      <button class="challenge-item" data-id="1" onclick="startModuleFromSelect(1)">🔌 RJ45 Crimping - T568B Standard</button>
+      <button class="challenge-item" data-id="2" onclick="startModuleFromSelect(2)">🔌 RJ45 Crimping - T568A</button>
       <button class="challenge-item" data-id="3" onclick="startModuleFromSelect(3)">🔄 Crossover Cable</button>
       <button class="challenge-item" data-id="10" onclick="startModuleFromSelect(10)">🔬 Cable Tester Verification</button>
       <button class="challenge-item" data-id="4" onclick="startModuleFromSelect(4)">📡 IP Configuration</button>
       <button class="challenge-item" data-id="9" onclick="startModuleFromSelect(9)">💻 Find IP Address Using CMD</button>
-      <button class="challenge-item" data-id="5" onclick="startModuleFromSelect(5)">🌐 Network Topology</button>
       <button class="challenge-item" data-id="6" onclick="startModuleFromSelect(6)">🏢 Workgroup &amp; Sharing Setup</button>
       <button class="challenge-item" data-id="7" onclick="startModuleFromSelect(7)">📶 Router &amp; Connectivity Testing</button>
       <button class="challenge-item" data-id="8" onclick="startModuleFromSelect(8)">🔒 Network Security</button>
+      <button class="challenge-item" data-id="5" onclick="startModuleFromSelect(5)">🌐 Network Topology</button>
     </div>
   </div>
 </div>
@@ -1006,31 +1025,67 @@ body, body.font-adjusted *, button, input, select, textarea, .game-title, .game-
     <div class="mini-game-body">
       <div class="schematic-card">
         <h3>SCHEMATIC</h3>
-        <div class="standard-options"><button class="standard-btn" onclick="setTargetStandard('T568A')">T568A</button><button class="standard-btn" onclick="setTargetStandard('T568B')">T568B</button></div>
+        <!-- REMOVED: Standard options selection -->
         <div id="pinout-list" class="pinout-display hidden"><p>Select a standard above to view target sequence.</p></div>
         <div class="challenge-info"><h4>💡 <span id="challenge-hint">Drag wires to correct pins in order</span></h4><h4>📱 On mobile: tap a wire, then tap a pin</h4></div>
       </div>
       <div class="wire-palette"><h4>WIRES</h4><div class="wires-grid" id="wire-source-container"></div></div>
       <div class="rj45-preview">
         <h4>RJ45 PLUG</h4>
+        <!-- ===================== UPDATED RJ45 CONNECTOR HTML ===================== -->
         <div class="rj45-connector-wrapper">
-          <svg class="rj45-svg" viewBox="0 0 160 180" xmlns="http://www.w3.org/2000/svg">
-            <rect x="15" y="15" width="130" height="120" rx="6" fill="rgba(255,255,255,0.15)" stroke="#ffffff" stroke-width="2.5"/>
-            <rect x="25" y="135" width="110" height="35" fill="rgba(240,240,240,0.1)" stroke="#ffffff" stroke-width="2"/>
-            <rect x="60" y="3" width="40" height="12" rx="2" fill="rgba(255,255,255,0.2)" stroke="#ffffff" stroke-width="1.5"/>
-            <g fill="#f1c40f" stroke="#d4ac0d" stroke-width="0.8"><rect x="22" y="22" width="10" height="25" rx="1.5"/><rect x="38" y="22" width="10" height="25" rx="1.5"/><rect x="54" y="22" width="10" height="25" rx="1.5"/><rect x="70" y="22" width="10" height="25" rx="1.5"/><rect x="86" y="22" width="10" height="25" rx="1.5"/><rect x="102" y="22" width="10" height="25" rx="1.5"/><rect x="118" y="22" width="10" height="25" rx="1.5"/><rect x="134" y="22" width="10" height="25" rx="1.5"/></g>
+          <svg class="rj45-svg" viewBox="0 0 320 120" xmlns="http://www.w3.org/2000/svg">
+            <!-- Connector Body -->
+            <rect x="10" y="10" width="280" height="100" rx="8" fill="#143552" stroke="#2bf1c9" stroke-width="3"/>
+            <!-- Wire Guide Lines -->
+            <g stroke="#2980b9" stroke-width="2" opacity="0.5">
+              <line x1="20" y1="22" x2="180" y2="22"/>
+              <line x1="20" y1="34" x2="180" y2="34"/>
+              <line x1="20" y1="46" x2="180" y2="46"/>
+              <line x1="20" y1="58" x2="180" y2="58"/>
+              <line x1="20" y1="70" x2="180" y2="70"/>
+              <line x1="20" y1="82" x2="180" y2="82"/>
+              <line x1="20" y1="94" x2="180" y2="94"/>
+              <line x1="20" y1="106" x2="180" y2="106"/>
+            </g>
+            <!-- Yellow Contacts -->
+            <g fill="#f1c40f" stroke="#d4ac0d" stroke-width="1.5">
+              <rect x="180" y="18" width="80" height="8" rx="2"/>
+              <rect x="180" y="30" width="80" height="8" rx="2"/>
+              <rect x="180" y="42" width="80" height="8" rx="2"/>
+              <rect x="180" y="54" width="80" height="8" rx="2"/>
+              <rect x="180" y="66" width="80" height="8" rx="2"/>
+              <rect x="180" y="78" width="80" height="8" rx="2"/>
+              <rect x="180" y="90" width="80" height="8" rx="2"/>
+              <rect x="180" y="102" width="80" height="8" rx="2"/>
+            </g>
+            <!-- Pin Numbers -->
+            <g fill="#f1c40f" font-size="10" font-family="Arial" font-weight="bold" text-anchor="end">
+              <text x="170" y="26">1</text>
+              <text x="170" y="38">2</text>
+              <text x="170" y="50">3</text>
+              <text x="170" y="62">4</text>
+              <text x="170" y="74">5</text>
+              <text x="170" y="86">6</text>
+              <text x="170" y="98">7</text>
+              <text x="170" y="110">8</text>
+            </g>
+            <!-- Clip -->
+            <rect x="290" y="45" width="15" height="30" rx="3" fill="#7f8c8d" stroke="#bdc3c7" stroke-width="1.5"/>
           </svg>
+          <!-- FIX: Drop zones positioned over the wire guide lines (left side) -->
           <div class="connector-slots">
-            <div class="drop-zone" data-pin="1" ondragover="event.preventDefault()" ondrop="dropWire(event)" onclick="dropWire(event)"><span class="pin-num">1</span></div>
-            <div class="drop-zone" data-pin="2" ondragover="event.preventDefault()" ondrop="dropWire(event)" onclick="dropWire(event)"><span class="pin-num">2</span></div>
-            <div class="drop-zone" data-pin="3" ondragover="event.preventDefault()" ondrop="dropWire(event)" onclick="dropWire(event)"><span class="pin-num">3</span></div>
-            <div class="drop-zone" data-pin="4" ondragover="event.preventDefault()" ondrop="dropWire(event)" onclick="dropWire(event)"><span class="pin-num">4</span></div>
-            <div class="drop-zone" data-pin="5" ondragover="event.preventDefault()" ondrop="dropWire(event)" onclick="dropWire(event)"><span class="pin-num">5</span></div>
-            <div class="drop-zone" data-pin="6" ondragover="event.preventDefault()" ondrop="dropWire(event)" onclick="dropWire(event)"><span class="pin-num">6</span></div>
-            <div class="drop-zone" data-pin="7" ondragover="event.preventDefault()" ondrop="dropWire(event)" onclick="dropWire(event)"><span class="pin-num">7</span></div>
-            <div class="drop-zone" data-pin="8" ondragover="event.preventDefault()" ondrop="dropWire(event)" onclick="dropWire(event)"><span class="pin-num">8</span></div>
+            <div class="drop-zone" data-pin="1" ondragover="event.preventDefault()" ondrop="dropWire(event)" onclick="dropWire(event)"></div>
+            <div class="drop-zone" data-pin="2" ondragover="event.preventDefault()" ondrop="dropWire(event)" onclick="dropWire(event)"></div>
+            <div class="drop-zone" data-pin="3" ondragover="event.preventDefault()" ondrop="dropWire(event)" onclick="dropWire(event)"></div>
+            <div class="drop-zone" data-pin="4" ondragover="event.preventDefault()" ondrop="dropWire(event)" onclick="dropWire(event)"></div>
+            <div class="drop-zone" data-pin="5" ondragover="event.preventDefault()" ondrop="dropWire(event)" onclick="dropWire(event)"></div>
+            <div class="drop-zone" data-pin="6" ondragover="event.preventDefault()" ondrop="dropWire(event)" onclick="dropWire(event)"></div>
+            <div class="drop-zone" data-pin="7" ondragover="event.preventDefault()" ondrop="dropWire(event)" onclick="dropWire(event)"></div>
+            <div class="drop-zone" data-pin="8" ondragover="event.preventDefault()" ondrop="dropWire(event)" onclick="dropWire(event)"></div>
           </div>
         </div>
+        <!-- ======================================================================= -->
         <div class="actions"><button class="tool-btn" onclick="crimpConnector()">CRIMP</button><button class="tool-btn reset-btn" onclick="resetWires()">RESET</button></div>
       </div>
     </div>
@@ -1378,9 +1433,11 @@ if (!localStorage.getItem('font-clean-v1')) { localStorage.removeItem('connected
 var currentTargetStandard = null;
 var isPracticeMode = false;
 var lives = 5, maxLives = 5, score = 0;
+var resumeStartChallengeLives = false;
+var resumeStartChallengeIndex = null;
 var currentChallenge = 1, totalChallenges = 10;
 var isGameOver = false, isAudioPlaying = false, modalTimeout = null;
-var challengeOrder = [1, 4, 9, 6, 7, 2, 5, 3, 10, 8];
+var challengeOrder = [1, 2, 3, 10, 4, 9, 6, 7, 8, 5];
 var challengeIndex = 0, learningChallengeId = null, learningIsPractice = false;
 var isIPStoryFlow = false, fileShareCompleted = false;
 var modalCloseAction = null, currentUser = null;
@@ -1409,19 +1466,19 @@ var menuVoiceCycleRunning = false;
 var performanceData = { completed: new Set(), scores: {}, attempts: {}, totalScore: 0, totalAttempts: 0, successRate: 0 };
 var startChallengeCompleted = new Set();
 var isStartChallengeMode = false;
-var loChallengeRequirements = { 1:[1,2,3], 2:[4,6,9], 3:[7,8], 4:[5,10] };
+var loChallengeRequirements = { 1:[1,2,3], 2:[4,9,6], 3:[7,8], 4:[10,5] };
 
 var challenges = {
-  1: { name: 'RJ45 Crimping - T568B', hint: 'Drag wires to correct pins in T568B order', type: 'rj45' },
-  2: { name: 'Straight-Through Cable', hint: 'Both ends use T568B standard', type: 'rj45' },
+  1: { name: 'RJ45 Crimping - T568B Standard', hint: 'Drag wires to correct pins in T568B order', type: 'rj45', defaultStandard: 'T568B' },
+  2: { name: 'RJ45 Crimping - T568A', hint: 'Drag wires to correct pins in T568A order', type: 'rj45', defaultStandard: 'T568A' },
   3: { name: 'Crossover Cable', hint: 'Drag wires into T568A on one end and T568B on the other', type: 'crossover' },
   10: { name: 'Cable Tester Verification', hint: 'Run the cable tester and identify the cable type', type: 'cable-test' },
   4: { name: 'IP Configuration', hint: 'Configure PC1 with correct IP settings', type: 'ip' },
   9: { name: 'Find IP Address Using CMD', hint: 'Type ipconfig and read the IPv4 address', type: 'cmd-ip' },
-  5: { name: 'Network Topology', hint: 'Configure all 6 PCs and connect all cables', type: 'topology' },
   6: { name: 'Workgroup & Sharing Setup', hint: 'Configure computer name, workgroup and sharing', type: 'workgroup' },
   7: { name: 'Router & Connectivity Testing', hint: 'Configure SSID, security and test ping', type: 'router' },
-  8: { name: 'Network Security', hint: 'Enable firewall, WPA2, MAC filtering, updates and set admin password', type: 'security' }
+  8: { name: 'Network Security', hint: 'Enable firewall, WPA2, MAC filtering, updates and set admin password', type: 'security' },
+  5: { name: 'Network Topology', hint: 'Configure all 6 PCs and connect all cables', type: 'topology' }
 };
 
 var loQuizQuestions = {
@@ -1509,8 +1566,8 @@ var loQuizQuestions = {
 
 var microLessons = {
   1:{topic:"RJ45 Crimping - T568B Standard",description:"The T568B is a standard wiring scheme for RJ45 connectors used in Ethernet networks.",points:["T568B is the most widely used wiring standard for Ethernet cables.","The wire order: Orange/White, Orange, Green/White, Blue, Blue/White, Green, Brown/White, Brown.","Used for both straight-through and crossover cables.","Both ends of a straight-through cable use the same standard.","The T568B standard ensures compatibility with most network devices."],example:"Pin 1 = Orange/White, Pin 2 = Orange, Pin 3 = Green/White, Pin 4 = Blue, Pin 5 = Blue/White, Pin 6 = Green, Pin 7 = Brown/White, Pin 8 = Brown.",remember:"T568B is the default standard for most networks."},
+  2:{topic:"RJ45 Crimping - T568A Standard",description:"The T568A is the alternate standard wiring scheme for RJ45 connectors, using the same pin count as T568B but with a different wire order.",points:["T568A is the alternative to T568B for RJ45 crimping.","The wire order: Green/White, Green, Orange/White, Blue, Blue/White, Orange, Brown/White, Brown.","T568A is required on one end of a crossover cable.","Government and some residential installs prefer T568A.","Both ends of a straight-through cable must use the SAME standard."],example:"Pin 1 = Green/White, Pin 2 = Green, Pin 3 = Orange/White, Pin 4 = Blue, Pin 5 = Blue/White, Pin 6 = Orange, Pin 7 = Brown/White, Pin 8 = Brown.",remember:"T568A swaps the green and orange pairs compared to T568B."},
   9:{topic:"Find IP Address Using CMD",description:"Use the Windows ipconfig command to display the computer's network information.",points:["Open Command Prompt inside the challenge.","Type ipconfig and press Run.","Find the active Ethernet adapter.","Read the IPv4 Address value.","Enter the IPv4 address in the answer field."],example:"The IPv4 Address in this challenge is 192.168.136.128.",remember:"Use the IPv4 Address, not the Subnet Mask."},
-  2:{topic:"Straight-Through Cable",description:"A straight-through cable is a type of Ethernet cable where both ends use the same wiring standard.",points:["Both ends use the same wiring standard.","Most commonly used for connecting computers to network switches.","The wire order is identical on both ends.","It is the most common type of network cable."],example:"When connecting your PC to a switch, use a straight-through cable with T568B on both ends.",remember:"Straight-through = same standard on both ends."},
   3:{topic:"Crossover Cable",description:"A crossover cable is a type of Ethernet cable where one end uses T568A and the other uses T568B.",points:["One end uses T568A, the other uses T568B.","Used to connect similar devices directly.","The transmit and receive pairs are crossed over.","Less common today because modern devices auto-detect cable types."],example:"If you want to connect two laptops directly, use a crossover cable.",remember:"Crossover = different standards on each end."},
   10:{topic:"Cable Tester Verification",description:"A network cable tester verifies the continuity and pinout of an Ethernet cable. It checks each pin on one end reaches the correct pin on the other end.",points:["A cable tester verifies continuity and pinout.","For a straight-through cable: pins 1→1, 2→2, 3→3, 4→4, 5→5, 6→6, 7→7, 8→8.","For a crossover cable: pins 1→3, 2→6, 3→1, 6→2, others straight.","A faulty cable shows one or more pins as OPEN (no continuity).","Always test cables before deploying them in a live network."],example:"If pin 3 shows OPEN on the tester, the cable is faulty and must be re-terminated.",remember:"Straight = all pins match. Crossover = 1↔3 and 2↔6 swapped. Faulty = any open pin."},
   4:{topic:"IP Configuration",description:"IP Configuration is the process of assigning a unique IP address to a device on a network.",points:["Every device on a network needs a unique IP address.","The subnet mask determines network and host portions.","The default gateway is the router that connects to other networks.","DNS servers translate domain names to IP addresses."],example:"IP: 192.168.1.2, Subnet: 255.255.255.0, Gateway: 192.168.1.1, DNS: 8.8.8.8",remember:"IP address = your device's unique ID."},
@@ -1674,6 +1731,7 @@ function getCooldownText() {
 function updateCooldownDisplay() {
   var el = document.getElementById('cooldown-timer'); var timeEl = document.getElementById('cooldown-time');
   if (!el || !timeEl) return;
+  document.body.classList.toggle('cooldown-active', isCooldownActive());
   if (!isCooldownActive()) {
     el.classList.remove('visible');
     if (cooldownTimerInterval) { clearInterval(cooldownTimerInterval); cooldownTimerInterval = null; }
@@ -1847,6 +1905,9 @@ function updateChallengeBadges() {
         badge.className = 'completed-badge'; badge.textContent = '✓';
         item.appendChild(badge);
       }
+    } else {
+      var staleBadge = item.querySelector('.completed-badge');
+      if (staleBadge) staleBadge.remove();
     }
   });
 }
@@ -1900,11 +1961,23 @@ function startChallenge() {
     showModal('⏳ You are on cooldown for ' + getCooldownText() + '.\n\nOnly PRACTICE MODE is available until the timer runs out.', 'warning', '⏳ COOLDOWN ACTIVE');
     return;
   }
+  var shouldResumeLives = resumeStartChallengeLives && lives > 0;
+  var savedChallengeIndex = resumeStartChallengeIndex;
+  resumeStartChallengeLives = false;
+  resumeStartChallengeIndex = null;
   isPracticeMode=false; isStartChallengeMode=true; document.body.classList.remove('practice-mode');
-  lives=maxLives; score=0; isGameOver=false;
-  challengeIndex = challengeOrder.findIndex(function(moduleId) { return !startChallengeCompleted.has(String(moduleId)); });
+  if (!shouldResumeLives) score=0;
+  isGameOver=false;
+  var savedChallengeId = challengeOrder[savedChallengeIndex];
+  if (shouldResumeLives && savedChallengeId && !startChallengeCompleted.has(String(savedChallengeId))) challengeIndex = savedChallengeIndex;
+  else challengeIndex = challengeOrder.findIndex(function(moduleId) { return !startChallengeCompleted.has(String(moduleId)); });
   if (challengeIndex < 0) challengeIndex = 0;
   updateAllLives(); updateAllScores();
+  currentChallenge = challengeOrder[challengeIndex];
+  if (currentChallenge === 4) { startIPStorySequence(); return; }
+  if (currentChallenge === 6) { startWorkgroupStorySequence(); return; }
+  if (currentChallenge === 7) { startRouterStorySequence(); return; }
+  if (challengeIndex > 0) { showMicroLearning(currentChallenge, false); return; }
   showScreen('story-1'); var v=document.getElementById('story-img-1'); if(v){v.currentTime=0;playStoryVideo(v);}
 }
 function goToStory2() { var v1=document.getElementById('story-img-1'); if(v1){v1.pause();v1.currentTime=0;} showScreen('story-2'); var v=document.getElementById('story-img-2'); if(v){v.currentTime=0;playStoryVideo(v);} }
@@ -2072,6 +2145,7 @@ function loadChallenge(challengeId) {
     document.getElementById('challenge-title').textContent = challenge.name;
     document.getElementById('challenge-hint').textContent = challenge.hint;
     resetGameState(); initWirePalette();
+    if (challenge.defaultStandard) setTargetStandard(challenge.defaultStandard);
   }
 }
 
@@ -2084,7 +2158,9 @@ function goToNextChallenge() {
     else if (currentChallenge === 7) startRouterStorySequence();
     else showMicroLearning(currentChallenge, isPracticeMode);
   } else {
-    showModal('🎉 You completed all challenges! Great job!', 'success', '🏆 CHAMPION!');
+    showModal('🎉 You completed all 10 challenges!\n\n🏆 YOU ARE THE NETWORK CHAMPION! 🏆\n\nFinal Score: ' + score + '\nLives Remaining: ' + lives, 'success', '🏆 CHAMPION COMPLETE!');
+    lives = maxLives;
+    updateAllLives();
     goToMenu();
   }
 }
@@ -2137,7 +2213,9 @@ function resetCurrentChallenge() {
       document.getElementById('pinout-list').classList.add('hidden');
       currentTargetStandard=null;
       document.querySelectorAll('.standard-btn').forEach(function(b){b.classList.remove('selected');});
+      if (isPracticeMode && challenge.defaultStandard) setTargetStandard(challenge.defaultStandard);
       break;
+    case 'crossover': resetCrossoverCable(); break;
     case 'cable-test': resetCableTest(); break;
     case 'ip': resetIPConfig(); document.getElementById('ip-status').innerHTML="STATUS: CONFIGURE IP ADDRESS SETTINGS"; break;
     case 'cmd-ip': resetCmdIPChallenge(); break;
@@ -2284,12 +2362,7 @@ function resetCrossoverCable() {
     var source = document.createElement('div');
     source.className = 'crossover-source'; source.id = 'crossover-' + end + '-source';
     wireDefinitions.forEach(function(wire) {
-      var item = document.createElement('div');
-      item.className = 'drag-wire'; item.draggable = true; item.dataset.name = wire.name;
-      item.style.background = wire.bg; item.textContent = wire.name;
-      item.ondragstart = function(event){ crossoverDragWire = { wire: wire, end: end }; event.dataTransfer.setData('text/plain', JSON.stringify(wire)); };
-      item.ondragend = function(){ crossoverDragWire = null; drawCrossoverWires(); };
-      source.appendChild(item);
+      source.appendChild(createCrossoverPaletteWire(wire, end));
     });
     pins.parentElement.appendChild(source);
   });
@@ -2317,13 +2390,25 @@ function resetCrossoverCable() {
       '<div class="crossover-guide-note">Only pins 1, 2, 3, and 6 cross. Pins 4, 5, 7, and 8 stay straight.</div>';
     guide.classList.remove('visible'); guide.setAttribute('aria-hidden', 'true');
     var guideToggle = document.getElementById('crossover-guide-toggle');
-    if (guideToggle) { guideToggle.style.display = 'block'; guideToggle.setAttribute('aria-hidden', 'false'); guideToggle.textContent = '📖 SHOW KEY POINTS'; }
+    if (guideToggle) {
+      guideToggle.style.display = isPracticeMode ? 'block' : 'none';
+      guideToggle.setAttribute('aria-hidden', isPracticeMode ? 'false' : 'true');
+      guideToggle.textContent = '📖 SHOW KEY POINTS';
+    }
   }
   var status = document.getElementById('crossover-status'); if (status) status.innerHTML = 'STATUS: DRAG WIRES TO BOTH ENDS';
 }
+function createCrossoverPaletteWire(wire, end) {
+  var item = document.createElement('div');
+  item.className = 'drag-wire'; item.draggable = true; item.dataset.name = wire.name; item.dataset.end = end;
+  item.style.background = wire.bg; item.textContent = wire.name;
+  item.ondragstart = function(event){ crossoverDragWire = { definition: wire, source: item, end: end }; event.dataTransfer.setData('text/plain', JSON.stringify(wire)); };
+  item.ondragend = function(){ crossoverDragWire = null; drawCrossoverWires(); };
+  return item;
+}
 function toggleCrossoverGuide() {
   var guide = document.getElementById('crossover-guide'); var guideToggle = document.getElementById('crossover-guide-toggle');
-  if (!guide || !guideToggle) return;
+  if (!guide || !guideToggle || !isPracticeMode) return;
   var isVisible = guide.classList.toggle('visible');
   guide.setAttribute('aria-hidden', isVisible ? 'false' : 'true');
   guideToggle.textContent = isVisible ? '📖 HIDE KEY POINTS' : '📖 SHOW KEY POINTS';
@@ -2331,30 +2416,47 @@ function toggleCrossoverGuide() {
 function dropCrossoverWire(event) {
   event.preventDefault();
   var pin = event.currentTarget;
-  var wireData = JSON.parse(event.dataTransfer.getData('text/plain'));
-  var oldWire = pin.querySelector('.drag-wire'); if (oldWire) oldWire.remove();
+  var wireData = crossoverDragWire && crossoverDragWire.definition;
+  var sourceItem = crossoverDragWire && crossoverDragWire.source;
+  try { wireData = JSON.parse(event.dataTransfer.getData('text/plain')) || wireData; } catch (error) {}
+  if (!wireData || !sourceItem) return;
+  var oldWire = pin.querySelector('.drag-wire'); if (oldWire) returnCrossoverWire(oldWire);
   var wire = document.createElement('div');
-  wire.className = 'drag-wire'; wire.dataset.name = wireData.name;
+  wire.className = 'drag-wire'; wire.dataset.name = wireData.name; wire.dataset.end = crossoverDragWire.end;
   wire.style.background = wireData.bg; wire.textContent = wireData.name;
-  pin.appendChild(wire); crossoverDragWire = null; drawCrossoverWires();
+  wire.onclick = function(clickEvent){ clickEvent.preventDefault(); clickEvent.stopPropagation(); returnCrossoverWire(wire); };
+  pin.classList.remove('correct', 'wrong');
+  pin.appendChild(wire);
+  sourceItem.remove(); crossoverDragWire = null; drawCrossoverWires();
+}
+function returnCrossoverWire(wire) {
+  var sourceEnd = wire.dataset.end;
+  var palette = document.getElementById('crossover-' + sourceEnd + '-source');
+  var definition = wireDefinitions.find(function(item){ return item.name === wire.dataset.name; });
+  if (palette && definition) palette.appendChild(createCrossoverPaletteWire(definition, sourceEnd));
+  var pin = wire.closest('.crossover-pin');
+  if (pin) pin.classList.remove('correct', 'wrong');
+  wire.remove();
+  drawCrossoverWires();
 }
 function drawCrossoverPreview(event, end, pinNumber) {
   var svg = document.getElementById('crossover-wire-svg'); if (!svg || !crossoverDragWire) return;
   drawCrossoverWires();
   var body = document.querySelector('.crossover-body').getBoundingClientRect();
-  var source = crossoverDragWire.wire;
+  var source = crossoverDragWire.source;
   var sourceRect = source.getBoundingClientRect();
   var x1 = sourceRect.left + sourceRect.width / 2 - body.left;
   var y1 = sourceRect.top + sourceRect.height / 2 - body.top;
   var x2 = event.clientX - body.left;
   var y2 = event.clientY - body.top;
-  drawCrossoverPath(svg, x1, y1, x2, y2, source.bg, true);
+  drawCrossoverPath(svg, x1, y1, x2, y2, crossoverDragWire.definition.bg, true);
 }
 function drawCrossoverWires() {
   var svg = document.getElementById('crossover-wire-svg'); var body = document.querySelector('.crossover-body');
   if (!svg || !body) return;
   svg.innerHTML = '';
   var bodyRect = body.getBoundingClientRect();
+  svg.setAttribute('viewBox', '0 0 ' + body.clientWidth + ' ' + body.clientHeight);
   var mapping = [3,6,1,4,5,2,7,8];
   var leftPins = document.querySelectorAll('#crossover-a-pins .crossover-pin');
   var rightPins = document.querySelectorAll('#crossover-b-pins .crossover-pin');
@@ -2390,7 +2492,10 @@ function checkCrossoverCable() {
     var sequence = end === 'a' ? standards.T568A : standards.T568B;
     document.querySelectorAll('#crossover-' + end + '-pins .crossover-pin').forEach(function(pin, index) {
       var wire = pin.querySelector('.drag-wire');
-      if (!wire || wire.dataset.name !== sequence[index]) correct = false;
+      var pinIsCorrect = wire && wire.dataset.name === sequence[index];
+      pin.classList.toggle('correct', Boolean(pinIsCorrect));
+      pin.classList.toggle('wrong', !pinIsCorrect);
+      if (!pinIsCorrect) correct = false;
     });
   });
   if (correct) {
@@ -2453,8 +2558,17 @@ function dropWire(e) {
   // Clear any previous feedback classes on this zone
   zone.classList.remove('correct', 'wrong');
 
+  // Check if there is already a wire in this slot
+  var existingWire = zone.querySelector('.drag-wire');
+  if (existingWire) {
+    // Return the existing wire to the palette
+    returnWireToPalette(existingWire);
+    document.getElementById('game-status').innerHTML = 'STATUS: WIRE RETURNED TO PALETTE';
+    document.getElementById('game-status').style.color = '#f1c40f';
+    return;
+  }
+
   if (selectedWireForTouch) {
-    var existingT = zone.querySelector('.drag-wire'); if (existingT) returnWireToPalette(existingT);
     var sourceT = document.querySelector('#wire-source-container .drag-wire[data-name="' + selectedWireForTouch.name + '"]');
     if (sourceT) sourceT.remove();
     var newWireT = document.createElement('div');
@@ -2469,7 +2583,6 @@ function dropWire(e) {
     return;
   }
   if (!e.dataTransfer) return;
-  var existing = zone.querySelector('.drag-wire'); if (existing) returnWireToPalette(existing);
   try {
     var wireData = JSON.parse(e.dataTransfer.getData('text/plain'));
     var sourceEl = document.querySelector('#wire-source-container .drag-wire[data-name="' + wireData.name + '"]');
@@ -2493,13 +2606,23 @@ function returnWireToPalette(wireElement) {
 function setTargetStandard(std) {
   if (isGameOver) { showModal('Game is over! Please restart.', 'warning', '⚠️ GAME OVER'); return; }
   currentTargetStandard = std;
-  document.querySelectorAll('.standard-btn').forEach(function(b){ b.classList.remove('selected'); });
-  if (std === 'T568A') document.querySelectorAll('.standard-btn')[0].classList.add('selected');
-  else document.querySelectorAll('.standard-btn')[1].classList.add('selected');
+  var stdBtns = document.querySelectorAll('.standard-btn');
+  stdBtns.forEach(function(b){ b.classList.remove('selected'); });
+  if (stdBtns.length > 0) {
+    if (std === 'T568A') stdBtns[0].classList.add('selected');
+    else stdBtns[1].classList.add('selected');
+  }
   if (isPracticeMode) {
     var list = document.getElementById('pinout-list');
-    list.innerHTML = '<b>' + std + ' Sequence:</b><ol type="1" style="margin-left: 15px;">' + standards[std].map(function(w){ return '<li>' + w + '</li>'; }).join('') + '</ol>';
+    list.innerHTML = ['T568A', 'T568B'].map(function(standard) {
+      return '<div class="pinout-standard"><b>' + standard + '</b><ol>' + standards[standard].map(function(wire){ return '<li>' + wire + '</li>'; }).join('') + '</ol></div>';
+    }).join('');
+    list.classList.add('practice-pinouts');
     list.classList.remove('hidden');
+  } else {
+    var list = document.getElementById('pinout-list');
+    list.classList.remove('practice-pinouts');
+    list.classList.add('hidden');
   }
   document.getElementById('game-status').innerHTML = 'STATUS: TARGET SET TO ' + std;
 }
@@ -3209,10 +3332,11 @@ function updateUserProfile() {
   }
 }
 function loadPerformanceDataForUser(username) {
+  resetAccountSession();
   try {
     var accounts = JSON.parse(localStorage.getItem('connected_accounts') || '{}');
     var account = accounts[username];
-    if (!account) { loadPerformanceData(); return; }
+    if (!account) return;
     performanceData.completed = new Set(account.completed || []);
     performanceData.scores = account.scores || {};
     performanceData.attempts = account.attempts || {};
@@ -3220,8 +3344,18 @@ function loadPerformanceDataForUser(username) {
     performanceData.totalAttempts = account.totalAttempts || 0;
     performanceData.successRate = account.successRate || 0;
     loadStartChallengeProgress(account);
-    updateDashboard();
-  } catch (e) { console.log(e); loadPerformanceData(); }
+  } catch (e) { console.log(e); resetAccountSession(); }
+  updateDashboard(); updateChallengeBadges(); updateQuizBadges(); updateAllLives(); updateAllScores();
+}
+function resetAccountSession() {
+  performanceData = { completed: new Set(), scores: {}, attempts: {}, totalScore: 0, totalAttempts: 0, successRate: 0 };
+  startChallengeCompleted = new Set();
+  resumeStartChallengeLives = false;
+  resumeStartChallengeIndex = null;
+  lives = maxLives; score = 0; challengeIndex = 0; currentChallenge = challengeOrder[0];
+  isPracticeMode = false; isStartChallengeMode = false; isGameOver = false;
+  document.body.classList.remove('practice-mode');
+  updateAllLives(); updateAllScores(); updateDashboard(); updateChallengeBadges(); updateQuizBadges();
 }
 function saveCurrentUserPerformance() {
   if (!currentUser) return;
@@ -3280,7 +3414,7 @@ function updateDashboard() {
   document.getElementById('stat-success-rate').textContent = performanceData.successRate + '%';
   var container = document.getElementById('challenge-results');
   container.innerHTML = '';
-  var order = [1,2,3,10,4,9,5,6,7,8];
+  var order = [1,2,3,10,4,9,6,7,8,5];
   order.forEach(function(i){
     var item = document.createElement('div');
     item.className = 'result-item';
@@ -3394,6 +3528,8 @@ function showScreen(screenId) {
   updateCooldownDisplay();
 }
 function goToMenu() {
+  resumeStartChallengeLives = isStartChallengeMode && !isPracticeMode && lives > 0 && challengeIndex < challengeOrder.length;
+  resumeStartChallengeIndex = resumeStartChallengeLives ? challengeIndex : null;
   ['story-img-1','story-img-2','story-ip1-video','story-ip2-video','story-router1-video','story-router2-video','story-workgroup1-video','story-workgroup2-video','success-video'].forEach(function(id){
     var v=document.getElementById(id); if(v){v.pause();v.currentTime=0;}
   });
@@ -3401,8 +3537,8 @@ function goToMenu() {
   resetGameState(); resetIPConfig(); resetWorkgroupConfig(); resetRouterConfig(); resetSecurityConfig(); resetTopology(true); resetCableTest();
   document.getElementById('game-status').innerHTML = "STATUS: SELECT SCHEMATIC &amp; DRAG WIRES";
   document.getElementById('pinout-list').classList.add('hidden');
-  lives = maxLives; challengeIndex = 0; isPracticeMode = false;
-  updateAllLives(); isGameOver = false; loadPerformanceData();
+  challengeIndex = 0; isPracticeMode = false; isStartChallengeMode = false;
+  updateAllLives(); isGameOver = false; updateDashboard(); updateChallengeBadges(); updateQuizBadges();
   bgMusic.volume = musicVolume * masterVolume;
 }
 function showDashboard() { showScreen('dashboard'); updateDashboard(); }
